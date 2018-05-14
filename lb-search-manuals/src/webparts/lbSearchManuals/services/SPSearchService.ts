@@ -40,7 +40,7 @@ export default class SPSearchService{
     }
 
 
-
+//
     
         public async search(queryText:string,refinementFilters:string[],manualType:string):Promise<ISearchResults>{
             
