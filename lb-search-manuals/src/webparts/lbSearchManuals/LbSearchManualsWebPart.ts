@@ -4,24 +4,29 @@ import { Version } from '@microsoft/sp-core-library';
 import {
   BaseClientSideWebPart,
   IPropertyPaneConfiguration,
-  PropertyPaneTextField
+  PropertyPaneTextField,
+  PropertyPaneChoiceGroup
 } from '@microsoft/sp-webpart-base';
 
 import * as strings from 'LbSearchManualsWebPartStrings';
-import LbSearchManuals from './components/LbSearchManuals';
-import { ILbSearchManualsProps } from './components/ILbSearchManualsProps';
+import { IMainAppProps } from './components/MainApp/MainAppProps';
+import MainApp from './components/MainApp/MainApp';
 
 export interface ILbSearchManualsWebPartProps {
   description: string;
+  manualType: string;
+  searchUrl:string;
 }
 
 export default class LbSearchManualsWebPart extends BaseClientSideWebPart<ILbSearchManualsWebPartProps> {
 
   public render(): void {
-    const element: React.ReactElement<ILbSearchManualsProps > = React.createElement(
-      LbSearchManuals,
+    const element: React.ReactElement<IMainAppProps > = React.createElement(
+      MainApp,
       {
-        description: this.properties.description
+        manualType: this.properties.manualType,
+        webPartContext:this.context,
+        searchUrl:this.properties.searchUrl
       }
     );
 
@@ -36,15 +41,25 @@ export default class LbSearchManualsWebPart extends BaseClientSideWebPart<ILbSea
     return {
       pages: [
         {
+        
           header: {
-            description: strings.PropertyPaneDescription
+            
+            description: "Vælg typen af håndbøger der skal vises" 
           },
           groups: [
             {
-              groupName: strings.BasicGroupName,
+              groupName: 'Håndbog',
               groupFields: [
-                PropertyPaneTextField('description', {
-                  label: strings.DescriptionFieldLabel
+                PropertyPaneChoiceGroup('manualType',{
+                  label:'Vælg type',
+                  options:[{ key: 'Baad', text: 'Båd'}, 
+                       { key: 'Bil', text: 'Bil' }, 
+                       { key: 'Indbo', text: 'Indbo' },
+                       { key: 'Hund', text: 'Hund' } 
+                  ]
+                }),
+                PropertyPaneTextField('searchUrl',{
+                  label:'Indtast site scope'
                 })
               ]
             }
