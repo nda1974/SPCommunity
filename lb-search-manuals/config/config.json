@@ -1,0 +1,18 @@
+{
+  "$schema": "https://dev.office.com/json-schemas/spfx-build/config.2.0.schema.json",
+  "version": "2.0",
+  "bundles": {
+    "lb-search-manuals-web-part": {
+      "components": [
+        {
+          "entrypoint": "./lib/webparts/lbSearchManuals/LbSearchManualsWebPart.js",
+          "manifest": "./src/webparts/lbSearchManuals/LbSearchManualsWebPart.manifest.json"
+        }
+      ]
+    }
+  },
+  "externals": {},
+  "localizedResources": {
+    "LbSearchManualsWebPartStrings": "lib/webparts/lbSearchManuals/loc/{locale}.js"
+  }
+}
