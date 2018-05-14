@@ -41,7 +41,7 @@ export default class SPSearchService{
 
 
 
-    // public static async search(queryText:string,refinementFilters:string[]):Promise<ISearchResults>{
+    
         public async search(queryText:string,refinementFilters:string[],manualType:string):Promise<ISearchResults>{
             
             if (manualType== 'undefined') {
