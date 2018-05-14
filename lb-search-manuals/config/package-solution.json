@@ -1,0 +1,12 @@
+{
+  "$schema": "https://dev.office.com/json-schemas/spfx-build/package-solution.schema.json",
+  "solution": {
+    "name": "lb-search-manuals-client-side-solution",
+    "id": "030055d2-0f73-4192-ad7d-09df5dff0919",
+    "version": "1.0.0.0",
+    "includeClientSideAssets": true
+  },
+  "paths": {
+    "zippedPackage": "solution/lb-search-manuals.sppkg"
+  }
+}
