@@ -8,8 +8,8 @@ import {
 } from '@microsoft/sp-webpart-base';
 
 import * as strings from 'LbOperationsTickerWebPartStrings';
-import LbOperationsTicker from './components/LbOperationsTicker';
-import { ILbOperationsTickerProps } from './components/ILbOperationsTickerProps';
+import TickerItem, { ITickerItemProps } from './components/TickerItem/TickerItem';
+import App, { IAppProps } from './components/App/App';
 
 export interface ILbOperationsTickerWebPartProps {
   description: string;
@@ -18,8 +18,8 @@ export interface ILbOperationsTickerWebPartProps {
 export default class LbOperationsTickerWebPart extends BaseClientSideWebPart<ILbOperationsTickerWebPartProps> {
 
   public render(): void {
-    const element: React.ReactElement<ILbOperationsTickerProps > = React.createElement(
-      LbOperationsTicker,
+    const element: React.ReactElement<IAppProps > = React.createElement(
+      App,
       {
         description: this.properties.description
       }
