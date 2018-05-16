@@ -1,0 +1,8 @@
+{
+  "@microsoft/generator-sharepoint": {
+    "version": "1.4.1",
+    "libraryName": "lb-myfavourites-extension",
+    "libraryId": "70c83a61-a9be-49da-a8ae-136dcb215612",
+    "environment": "spo"
+  }
+}

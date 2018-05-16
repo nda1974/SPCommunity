@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Elements xmlns="http://schemas.microsoft.com/sharepoint/">
+    <CustomAction
+        Title="LbMyfavouritesExtension"
+        Location="ClientSideExtension.ApplicationCustomizer"
+        ClientSideComponentId="bed8bed5-b73f-4586-9cad-104557e47ac5"
+        ClientSideComponentProperties="{&quot;testMessage&quot;:&quot;Test message&quot;}">
+    </CustomAction>
+</Elements>
