@@ -1,12 +1,12 @@
 {
   "$schema": "https://dev.office.com/json-schemas/spfx-build/package-solution.schema.json",
   "solution": {
-    "name": "lb-operations-ticker-client-side-solution",
+    "name": "LB Forsikring - Driftinfo",
     "id": "3433c27d-998f-4c13-bf24-21db94a8b705",
     "version": "1.0.0.0",
     "includeClientSideAssets": true
   },
   "paths": {
-    "zippedPackage": "solution/lb-operations-ticker.sppkg"
+    "zippedPackage": "solution/DriftInfo.sppkg"
   }
 }

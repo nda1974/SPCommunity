@@ -3,21 +3,43 @@ import pnp ,{setup}from "sp-pnp-js";
 import * as React from 'react';
 import { escape } from '@microsoft/sp-lodash-subset';
 import { MessageBar, MessageBarType } from 'office-ui-fabric-react/lib/MessageBar';
+import TickerItem from '../TickerItem/TickerItem'
+import { LayerHost } from "office-ui-fabric-react/lib/Layer";
 export interface IAppProps{
-  // listItems:any[];
+  
   description:string;
+  
 }
 export interface IAppState{
   listItems:any[];
+  time:Date;
   
 }
 
 export default class App extends React.Component<IAppProps, IAppState> {
-  public constructor(props:IAppProps,state:IAppState){  
-        super(props);
+  // private _getTime (inputDate:Date):any {      
     
+  //   var localTime = inputDate.getTime();       
+  //   var localOffset=inputDate.getTimezoneOffset() * 60000;       
+  //   var utc = localTime + localOffset;      
+  //   var retval = new Date(utc);       
+  //   return retval;
+  
+  // };
+  
+  public constructor(props:IAppProps,state:IAppState){  
+        let interval:any=null;
+        let today: Date = new Date();
+        //today.setHours(0, 0, 0, 0);
+        var offset = new Date().getTimezoneOffset();
+        today.setMinutes(today.getMinutes() + offset);
+
+        console.log('public constructor' + today.toISOString());
+        super(props);
+      
         this.state= {
-                      listItems:[]
+                      listItems:[],
+                      time:null
                     }
 
                     setup({
@@ -28,29 +50,40 @@ export default class App extends React.Component<IAppProps, IAppState> {
                           baseUrl:"https://lbforsikring.sharepoint.com/sites/intra"
                       }
                   });
-    
-                  pnp.sp.web.lists.getByTitle("LBNewsTicker").items.select("Title,Active,Severity").filter('Active eq 1').top(5).get().then(
-                    (data:any[])=>{this.setState({listItems:data})}
-                  );
+                  
+                  //.filter(`Start lt datetime'${today.toISOString()}' and Slut gt datetime'${today.toISOString()}'`)
+                  this.fetchSharePointData();
+                  // pnp.sp.web.lists.getByTitle("Driftmeddelelser")
+                  // .items.select("Title,Active,Severity,Description,Start,Slut").get().then(
+                  //   (data:any[])=>{this.setState({listItems:data})}
+                  // );
         
 }
+
+private fetchSharePointData(){
+  pnp.sp.web.lists.getByTitle("Driftmeddelelser")
+                  .items.select("Title,Active,Severity,Description,Start,Slut").get().then(
+                    (data:any[])=>{this.setState({listItems:data})}
+                  );
+}
+
+// public componentDidMount(): void {
+//   setInterval(() =>  this.fetchSharePointData(),
+//   10000);
+// }
+
   public render(): React.ReactElement<IAppProps> {
     try {
-          // pnp.sp.web.lists.getByTitle("LBNewsTicker").items.select("Title,Active,Severity").filter('Active eq 1').top(5).get().then(
-          //   (data:any[])=>{this.setState({listItems:data})}
-          // );
-        
           return (
-            <div >
+            <div>
                     {
                           this.state.listItems.map((item)=>{
-                          
-                          return  <MessageBar 
-                                  messageBarType={MessageBarType.severeWarning}>
-                                      {item.Title}
-                                  </MessageBar>
+                          {
+                            if(new Date(item.Start)< new Date() && new Date(item.Slut)> new Date()){
+                                return <TickerItem title={item.Title}  description={item.Description} severity={item.Severity} showInfoPanel={false}   />
+                            }
+                          }  
                       })}
-                  
             </div>
           );
 
