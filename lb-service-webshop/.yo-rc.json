@@ -1,0 +1,8 @@
+{
+  "@microsoft/generator-sharepoint": {
+    "version": "1.4.1",
+    "libraryName": "lb-service-webshop",
+    "libraryId": "4ffb8814-d04d-4ed8-b89c-1cb079e4a9e4",
+    "environment": "spo"
+  }
+}

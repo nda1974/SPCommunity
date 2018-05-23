@@ -44,7 +44,7 @@ export default class TickerItem extends React.Component<ITickerItemProps, ITicke
     let nmbMessageBarType = this.props.severity=='Høj' ? 1 : this.props.severity=='Middel' ? 5 : 0;
     const g = this._newGuid();
     const content = (
-      <div className={styles.MyMessageBar}>
+      <div >
         {this.props.title}
         <i className="ms-Icon ms-Icon--Info" aria-hidden="true"></i>
       </div>

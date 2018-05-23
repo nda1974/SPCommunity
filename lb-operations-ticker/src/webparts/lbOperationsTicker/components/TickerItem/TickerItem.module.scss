@@ -12,7 +12,7 @@ $white: "[theme:white, default:#fff]";
 
 .MyMessageBar{
   // width: 100%;
-  background-color: $themePrimary;
+  background-color: #C00000;
   color: $white;
   padding: 5px;
 }
@@ -24,4 +24,5 @@ $white: "[theme:white, default:#fff]";
 }
 .MyMessageBar:hover{
   cursor: pointer;
+  background-color:rgba(192, 0, 0, 0.7)
 }

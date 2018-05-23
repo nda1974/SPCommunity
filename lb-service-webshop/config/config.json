@@ -1,0 +1,18 @@
+{
+  "$schema": "https://dev.office.com/json-schemas/spfx-build/config.2.0.schema.json",
+  "version": "2.0",
+  "bundles": {
+    "lb-service-webshop-web-part": {
+      "components": [
+        {
+          "entrypoint": "./lib/webparts/lbServiceWebshop/LbServiceWebshopWebPart.js",
+          "manifest": "./src/webparts/lbServiceWebshop/LbServiceWebshopWebPart.manifest.json"
+        }
+      ]
+    }
+  },
+  "externals": {},
+  "localizedResources": {
+    "LbServiceWebshopWebPartStrings": "lib/webparts/lbServiceWebshop/loc/{locale}.js"
+  }
+}
