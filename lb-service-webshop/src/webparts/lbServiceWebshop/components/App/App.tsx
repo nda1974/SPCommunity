@@ -2,9 +2,9 @@ import pnp ,{setup}from "sp-pnp-js";
 
 import * as React from 'react';
 import { escape } from '@microsoft/sp-lodash-subset';
-import { MessageBar, MessageBarType } from 'office-ui-fabric-react/lib/MessageBar';
+import ProductsContainer from '../ProductsContainer/ProductsContainer'
+import Basket from '../Basket/Basket'
 
-import { LayerHost } from "office-ui-fabric-react/lib/Layer";
 export interface IAppProps{
   
   description:string;
@@ -12,34 +12,15 @@ export interface IAppProps{
 }
 export interface IAppState{
   listItems:any[];
-  time:Date;
-  
 }
 
 export default class App extends React.Component<IAppProps, IAppState> {
-  // private _getTime (inputDate:Date):any {      
-    
-  //   var localTime = inputDate.getTime();       
-  //   var localOffset=inputDate.getTimezoneOffset() * 60000;       
-  //   var utc = localTime + localOffset;      
-  //   var retval = new Date(utc);       
-  //   return retval;
-  
-  // };
   
   public constructor(props:IAppProps,state:IAppState){  
-        let interval:any=null;
-        let today: Date = new Date();
-        //today.setHours(0, 0, 0, 0);
-        var offset = new Date().getTimezoneOffset();
-        today.setMinutes(today.getMinutes() + offset);
-
-        console.log('public constructor' + today.toISOString());
         super(props);
       
         this.state= {
-                      listItems:[],
-                      time:null
+                      listItems:[]
                     }
 
                     setup({
@@ -62,7 +43,7 @@ export default class App extends React.Component<IAppProps, IAppState> {
 
 private fetchSharePointData(){
   pnp.sp.web.lists.getByTitle("Produkter")
-                  .items.select("Title").get().then(
+                  .items.select("Title,Varegruppe,Varenummer,Produktbillede,Beskrivelse").get().then(
                     (data:any[])=>{this.setState({listItems:data})}
                   );
 }
@@ -71,14 +52,14 @@ private fetchSharePointData(){
   public render(): React.ReactElement<IAppProps> {
     try {
           return (
-            <div>
-                    {
-                          this.state.listItems.map((item)=>{
-                          {
-                                return <div>{item.Title}</div>
-                          }  
-                      })}
+            <div className="ms-Grid">
+              <div className="ms-Grid-row">
+                <div className="ms-Grid-col ms-sm6 ms-md8 ms-lg12">
+                  <ProductsContainer products={this.state.listItems} />
+                </div>
+              </div>
             </div>
+            
           );
 
           

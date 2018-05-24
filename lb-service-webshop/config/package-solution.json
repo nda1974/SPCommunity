@@ -1,12 +1,12 @@
 {
   "$schema": "https://dev.office.com/json-schemas/spfx-build/package-solution.schema.json",
   "solution": {
-    "name": "lb-service-webshop-client-side-solution",
+    "name": "LB Forsikring - Service Webshop",
     "id": "4ffb8814-d04d-4ed8-b89c-1cb079e4a9e4",
     "version": "1.0.0.0",
     "includeClientSideAssets": true
   },
   "paths": {
-    "zippedPackage": "solution/lb-service-webshop.sppkg"
+    "zippedPackage": "solution/ServiceWebshop.sppkg"
   }
 }
