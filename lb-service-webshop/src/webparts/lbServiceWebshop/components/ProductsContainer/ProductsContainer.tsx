@@ -12,7 +12,7 @@ export interface IProductsContainerProps{
   products:any[];
 }
 export interface IProductsContainerState{
-  listItems:any[];
+  // listItems:any[];
   basketItems:IOrderLine[];
 
 }
@@ -20,6 +20,7 @@ export interface IOrderLine{
   title:string;
   quantity:string;
   id:string;
+  productImageUrl:string;
 }
 
 export default class ProductsContainer extends React.Component<IProductsContainerProps, IProductsContainerState> {
@@ -28,13 +29,19 @@ export default class ProductsContainer extends React.Component<IProductsContaine
   public constructor(props:IProductsContainerProps,state:IProductsContainerState){  
         super(props);
         this.state = {  
-          listItems:[],
+          // listItems:[],
           basketItems:[]
     };  
     this._addToBasket=this._addToBasket.bind(this);
+    this._removeFromBasket=this._removeFromBasket.bind(this);
 }
 
-
+public componentWillReceiveProps(nextProps) {
+  // this.setState({
+  //   listStateItems:nextProps.listItems
+  // })
+  let c:string="";
+}
 
 
   public render(): React.ReactElement<IProductsContainerProps> {
@@ -42,25 +49,23 @@ export default class ProductsContainer extends React.Component<IProductsContaine
           return (
             
             <div className="ms-Grid-row">
-              <div className="ms-Grid-col ms-sm6 ms-md8 ms-lg8"> 
+              <div className="ms-Grid-col ms-sm8 ms-md8 ms-lg8"> 
                   <div className="ms-Grid">
-                    <div className="ms-Grid-row">
+                    
                         {
                               this.props.products.map((item)=>{
                               {
                                 let pic:string='';
                                 pic=item.Produktbillede==null?'':item.Produktbillede.Url;
-                                    return  <div className="ms-Grid-col ms-sm6 ms-md8 ms-lg12"> 
-                                              <ProductItem  addToBasket={this._addToBasket} productNo={item.Varenummer} title={item.Title} productImageUrl={pic} beskrivelse={item.Beskrivelse} ></ProductItem>
-                                            </div>
+                                    return  <ProductItem   addToBasket={this._addToBasket} productNo={item.Varenummer} title={item.Title} productImageUrl={pic} beskrivelse={item.Beskrivelse} ></ProductItem>
                               }  
                           })}
-                    </div>  
+                    
                   </div>
               </div>
 
-              <div className="ms-Grid-col ms-sm6 ms-md8 ms-lg4"> 
-                <Basket title='Kurven' listItems={this.state.basketItems}  />      
+              <div className="ms-Grid-col ms-sm4 ms-md4 ms-lg4"> 
+                <Basket title='Kurven' listItems={this.state.basketItems} removeFromBasket={this._removeFromBasket}   />      
               </div>
             </div>
           );
@@ -71,16 +76,24 @@ export default class ProductsContainer extends React.Component<IProductsContaine
       console.log(error)
     }
   }
-  public _addToBasket(title,id,amount){
+  public _addToBasket(title,id,amount,productImageUrl){
     let arr:string[]=[];
     let a = this.state.basketItems.slice(); //creates the clone of the state
     
-    let orderLine: IOrderLine={title:'',id:'',quantity:''};
+    let orderLine: IOrderLine={title:'',id:'',quantity:'',productImageUrl:''};
     orderLine.title =title;
     orderLine.quantity =amount.value;
     orderLine.id=id;
+    orderLine.productImageUrl=productImageUrl;
     // a.push({itemName:title,quantity:amount,id:id});
     a.push(orderLine);
+    this.setState({basketItems: a});
+  }
+  public _removeFromBasket(title,id,amount,productImageUrl){
+    let arr:string[]=[];
+    let a = this.state.basketItems.slice(); //creates the clone of the state
+    
+    a.length=0;
     this.setState({basketItems: a});
   }
 }

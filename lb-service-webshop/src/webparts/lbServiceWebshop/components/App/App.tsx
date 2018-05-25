@@ -8,10 +8,11 @@ import Basket from '../Basket/Basket'
 export interface IAppProps{
   
   description:string;
-  
+
 }
 export interface IAppState{
   listItems:any[];
+  
 }
 
 export default class App extends React.Component<IAppProps, IAppState> {
@@ -34,6 +35,7 @@ export default class App extends React.Component<IAppProps, IAppState> {
                   
                   //.filter(`Start lt datetime'${today.toISOString()}' and Slut gt datetime'${today.toISOString()}'`)
                   this.fetchSharePointData();
+                  
                   // pnp.sp.web.lists.getByTitle("Driftmeddelelser")
                   // .items.select("Title,Active,Severity,Description,Start,Slut").get().then(
                   //   (data:any[])=>{this.setState({listItems:data})}
@@ -54,7 +56,7 @@ private fetchSharePointData(){
           return (
             <div className="ms-Grid">
               <div className="ms-Grid-row">
-                <div className="ms-Grid-col ms-sm6 ms-md8 ms-lg12">
+                <div className="ms-Grid-col ms-sm12 ms-md12 ms-lg12">
                   <ProductsContainer products={this.state.listItems} />
                 </div>
               </div>

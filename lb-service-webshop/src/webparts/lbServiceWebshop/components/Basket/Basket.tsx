@@ -10,6 +10,16 @@ import {
   IColumn,
   SelectionMode
 } from 'office-ui-fabric-react/lib/DetailsList';
+import { Image, ImageFit } from 'office-ui-fabric-react/lib/Image'
+import {
+  DocumentCard,
+  DocumentCardActivity,
+  DocumentCardPreview,
+  DocumentCardTitle,
+  IDocumentCardPreviewProps,
+  DocumentCardType
+} from 'office-ui-fabric-react/lib/DocumentCard';
+
 import { Spinner, SpinnerSize } from "office-ui-fabric-react/lib/Spinner";
 import { LayerHost, Layer } from "office-ui-fabric-react/lib/Layer";
 import { Dialog, DialogType, DialogFooter } from 'office-ui-fabric-react/lib/Dialog';
@@ -17,10 +27,12 @@ export interface IBasketProps{
   
   title:string;
   listItems:IOrderLine[];
+  removeFromBasket:any;
+  
   
 }
 export interface IBasketState{
-  listItems:IOrderLine[];
+  listStateItems:IOrderLine[];
   status: JSX.Element;
   hideDialog:boolean;
 }
@@ -31,7 +43,7 @@ export default class Basket extends React.Component<IBasketProps, IBasketState> 
         super(props);
       
         this.state= {
-                      listItems:[],
+                      listStateItems:[],
                       status:<span></span>,
                       hideDialog:true
         }
@@ -46,11 +58,20 @@ export default class Basket extends React.Component<IBasketProps, IBasketState> 
         });
         
         this._checkOut=this._checkOut.bind(this);
+        // this._removeFromBasket=this._removeFromBasket.bind(this);
+    
+      
         
 }
+// public componentWillReceiveProps(nextProps) {
+//   this.setState({
+//     listStateItems:nextProps.listItems
+//   })
 
+// }
   public render(): React.ReactElement<IBasketProps> {
     try {
+      
       const content = (
         <div>
           This is example layer content.
@@ -76,42 +97,59 @@ export default class Basket extends React.Component<IBasketProps, IBasketState> 
         
       ];
           return (
-            
             <div className={` ${styles.BasketBody}`}  >
-                    <Dialog hidden={ this.state.hideDialog }
-                            onDismiss={ this.redirectMe }
-                            dialogContentProps={ {
-                              type: DialogType.largeHeader,
-                              title: 'Tak for din bestilling',
-                              subText: 'Du vil modtage dine artikler hurtigts muligt.'
-                            } }
-                            modalProps={ {
-                              isBlocking: true,
-                              containerClassName: 'ms-dialogMainOverride'
-                            } }>
+            {this.props.listItems.length>0?
+              <div className="ms-Grid">
+                      <div className="ms-Grid-row">
+                        <div className="ms-Grid-col ms-sm6 ms-md8 ms-lg12">
+                              <Dialog hidden={ this.state.hideDialog }
+                                    onDismiss={ this.redirectMe }
+                                    dialogContentProps={ {
+                                      type: DialogType.largeHeader,
+                                      title: 'Tak for din bestilling',
+                                      subText: 'Du vil modtage dine artikler hurtigts muligt.'
+                                    } }
+                                    modalProps={ {
+                                      isBlocking: true,
+                                      containerClassName: 'ms-dialogMainOverride'
+                                    } }>
 
-                            <DialogFooter>
-                              <DefaultButton onClick={ this.redirectMe } text='Luk' />
-                            </DialogFooter>
-                    </Dialog>
-            
-                    <DetailsList
-                      items={ this.props.listItems as IOrderLine[] }
-                      setKey='set'
-                      columns={_columns }      
-                      selectionMode={SelectionMode.none}
-                      isHeaderVisible={false}
-                    />
-                    <br/>
-                    <hr/>
-                    <br/>
-                    <DefaultButton
-                      data-automation-id='test'
-                      text="Bestil"
-                      onClick={this._checkOut}
-                    >
-                    {this.state.status}
-                    </DefaultButton>
+                                    <DialogFooter>
+                                      <DefaultButton onClick={ this.redirectMe } text='Luk' />
+                                    </DialogFooter>
+                              </Dialog>
+                      
+                              <DetailsList
+                                items={ this.props.listItems as IOrderLine[] }
+                                setKey='set'
+                                columns={_columns }      
+                                selectionMode={SelectionMode.none}
+                                isHeaderVisible={false}
+                              />
+                        </div>
+                      </div>
+                      
+                      <div className="ms-Grid-row">
+                      <div className="ms-Grid-col ms-sm6 ms-md6 ms-lg6">
+                          <DefaultButton
+                              text="Bestil"
+                              onClick={this._checkOut}
+                            >
+                            {this.state.status}
+                            </DefaultButton>
+                            
+                        </div>
+                        <div className="ms-Grid-col ms-sm6 ms-md6 ms-lg6">
+                        <DefaultButton
+                            text="Slet kurv"
+                            onClick={this.props.removeFromBasket}
+                          />
+                        </div>
+                      </div>
+              </div>
+            :null}
+                    
+                    
                     
             </div>
           );
@@ -157,4 +195,5 @@ export default class Basket extends React.Component<IBasketProps, IBasketState> 
   private redirectMe(){
     window.location.href = "https://lbforsikring.sharepoint.com/sites/Service";
   }
+  
 }

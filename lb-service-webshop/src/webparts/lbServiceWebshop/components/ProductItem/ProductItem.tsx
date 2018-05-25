@@ -22,6 +22,7 @@ export interface IProductItemProps{
   beskrivelse:string;
   addToBasket:any;
   
+  
 }
 export interface IProductItemState{
   quantity:string;
@@ -38,6 +39,7 @@ export default class ProductItem extends React.Component<IProductItemProps, IPro
 
         this._addToBasket=this._addToBasket.bind(this);
         
+        
 }
 
   public render(): React.ReactElement<IProductItemProps> {
@@ -52,16 +54,16 @@ export default class ProductItem extends React.Component<IProductItemProps, IPro
             name: this.props.title,
             previewImageSrc: this.props.productImageUrl,
             imageFit: ImageFit.cover,
-            width: 318,
-            height: 196
+            width: 160,
+            height: 140
           }
         ],
       };
           return (
 
         <div className="ms-Grid-row">
-        <div className="ms-Grid-col ms-sm6 ms-md8 ms-lg6">
-          <DocumentCard type={ DocumentCardType.normal } >
+        <div className="ms-Grid-col ms-sm6 ms-md6 ms-lg6">
+          <DocumentCard type={ DocumentCardType.compact } >
             <DocumentCardPreview  {...previewProps } />
             <div className='ms-DocumentCard-details'>
               <DocumentCardTitle
@@ -70,9 +72,10 @@ export default class ProductItem extends React.Component<IProductItemProps, IPro
               />
             </div>
           </DocumentCard>
+          {/* {this.props.title} */}
           </div>
         
-          <div className="ms-Grid-col ms-sm6 ms-md8 ms-lg3">
+          <div className="ms-Grid-col ms-sm6 ms-md3 ms-lg3">
               <TextField
                   onChanged={(value)=> this._setQuantity({value})}
                   placeholder='Antal.'
@@ -80,7 +83,7 @@ export default class ProductItem extends React.Component<IProductItemProps, IPro
                   defaultValue='0'
                 />
           </div>
-          <div className="ms-Grid-col ms-sm6 ms-md8 ms-lg3">
+          <div className="ms-Grid-col ms-sm6 ms-md3 ms-lg3">
               <DefaultButton
                   data-automation-id='test'
                   text="Tilføj"
@@ -104,11 +107,12 @@ export default class ProductItem extends React.Component<IProductItemProps, IPro
   public _addToBasket()
   {
     if(this.state.quantity != undefined){
-      this.props.addToBasket(this.props.title,this.props.productNo, this.state.quantity);
+      this.props.addToBasket(this.props.title,this.props.productNo, this.state.quantity, this.props.productImageUrl);
     }
     else{
-      this.props.addToBasket(this.props.title,this.props.productNo, 0);
+      this.props.addToBasket(this.props.title,this.props.productNo, 0, this.props.productImageUrl);
     }
     
   }
+  
 }
