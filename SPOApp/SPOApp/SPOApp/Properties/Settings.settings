@@ -1,0 +1,12 @@
+﻿<?xml version='1.0' encoding='utf-8'?>
+<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="SPOApp.Properties" GeneratedClassName="Settings">
+  <Profiles />
+  <Settings>
+    <Setting Name="SPOApp_copyService_Copy" Type="(Web Service URL)" Scope="Application">
+      <Value Profile="(Default)">http://intranet.lb.dk/_vti_bin/copy.asmx</Value>
+    </Setting>
+    <Setting Name="SPOApp_ListReference_Lists" Type="(Web Service URL)" Scope="Application">
+      <Value Profile="(Default)">http://intranet.lb.dk/_vti_bin/lists.asmx</Value>
+    </Setting>
+  </Settings>
+</SettingsFile>

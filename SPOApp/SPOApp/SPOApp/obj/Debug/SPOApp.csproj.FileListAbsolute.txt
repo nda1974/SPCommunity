@@ -1,0 +1,180 @@
+C:\SPO Components\SPOApp\SPOApp\SPOApp\bin\Debug\SPOApp.exe.config
+C:\SPO Components\SPOApp\SPOApp\SPOApp\bin\Debug\SPOApp.exe
+C:\SPO Components\SPOApp\SPOApp\SPOApp\bin\Debug\SPOApp.pdb
+C:\SPO Components\SPOApp\SPOApp\SPOApp\bin\Debug\AngleSharp.dll
+C:\SPO Components\SPOApp\SPOApp\SPOApp\bin\Debug\Microsoft.Azure.ActiveDirectory.GraphClient.dll
+C:\SPO Components\SPOApp\SPOApp\SPOApp\bin\Debug\Microsoft.Azure.KeyVault.Core.dll
+C:\SPO Components\SPOApp\SPOApp\SPOApp\bin\Debug\Microsoft.Data.Edm.dll
+C:\SPO Components\SPOApp\SPOApp\SPOApp\bin\Debug\Microsoft.Data.OData.dll
+C:\SPO Components\SPOApp\SPOApp\SPOApp\bin\Debug\Microsoft.Data.Services.Client.dll
+C:\SPO Components\SPOApp\SPOApp\SPOApp\bin\Debug\Microsoft.Graph.Core.dll
+C:\SPO Components\SPOApp\SPOApp\SPOApp\bin\Debug\Microsoft.Graph.dll
+C:\SPO Components\SPOApp\SPOApp\SPOApp\bin\Debug\Microsoft.IdentityModel.Clients.ActiveDirectory.dll
+C:\SPO Components\SPOApp\SPOApp\SPOApp\bin\Debug\Microsoft.IdentityModel.Clients.ActiveDirectory.WindowsForms.dll
+C:\SPO Components\SPOApp\SPOApp\SPOApp\bin\Debug\Microsoft.IdentityModel.dll
+C:\SPO Components\SPOApp\SPOApp\SPOApp\bin\Debug\Microsoft.Office.Client.Policy.dll
+C:\SPO Components\SPOApp\SPOApp\SPOApp\bin\Debug\Microsoft.Office.Client.TranslationServices.dll
+C:\SPO Components\SPOApp\SPOApp\SPOApp\bin\Debug\Microsoft.Office.SharePoint.Tools.dll
+C:\SPO Components\SPOApp\SPOApp\SPOApp\bin\Debug\Microsoft.Online.SharePoint.Client.Tenant.dll
+C:\SPO Components\SPOApp\SPOApp\SPOApp\bin\Debug\Microsoft.ProjectServer.Client.dll
+C:\SPO Components\SPOApp\SPOApp\SPOApp\bin\Debug\Microsoft.SharePoint.Client.dll
+C:\SPO Components\SPOApp\SPOApp\SPOApp\bin\Debug\Microsoft.SharePoint.Client.DocumentManagement.dll
+C:\SPO Components\SPOApp\SPOApp\SPOApp\bin\Debug\Microsoft.SharePoint.Client.Publishing.dll
+C:\SPO Components\SPOApp\SPOApp\SPOApp\bin\Debug\Microsoft.SharePoint.Client.Runtime.dll
+C:\SPO Components\SPOApp\SPOApp\SPOApp\bin\Debug\Microsoft.SharePoint.Client.Runtime.Windows.dll
+C:\SPO Components\SPOApp\SPOApp\SPOApp\bin\Debug\Microsoft.SharePoint.Client.Search.Applications.dll
+C:\SPO Components\SPOApp\SPOApp\SPOApp\bin\Debug\Microsoft.SharePoint.Client.Search.dll
+C:\SPO Components\SPOApp\SPOApp\SPOApp\bin\Debug\Microsoft.SharePoint.Client.Taxonomy.dll
+C:\SPO Components\SPOApp\SPOApp\SPOApp\bin\Debug\Microsoft.SharePoint.Client.UserProfiles.dll
+C:\SPO Components\SPOApp\SPOApp\SPOApp\bin\Debug\Microsoft.SharePoint.Client.WorkflowServices.dll
+C:\SPO Components\SPOApp\SPOApp\SPOApp\bin\Debug\Microsoft.WindowsAzure.Storage.dll
+C:\SPO Components\SPOApp\SPOApp\SPOApp\bin\Debug\Newtonsoft.Json.dll
+C:\SPO Components\SPOApp\SPOApp\SPOApp\bin\Debug\OfficeDevPnP.Core.dll
+C:\SPO Components\SPOApp\SPOApp\SPOApp\bin\Debug\SharePointPnP.IdentityModel.Extensions.dll
+C:\SPO Components\SPOApp\SPOApp\SPOApp\bin\Debug\System.IdentityModel.Tokens.Jwt.dll
+C:\SPO Components\SPOApp\SPOApp\SPOApp\bin\Debug\System.Net.Http.Formatting.dll
+C:\SPO Components\SPOApp\SPOApp\SPOApp\bin\Debug\System.Spatial.dll
+C:\SPO Components\SPOApp\SPOApp\SPOApp\bin\Debug\System.Web.Http.dll
+C:\SPO Components\SPOApp\SPOApp\SPOApp\bin\Debug\AngleSharp.xml
+C:\SPO Components\SPOApp\SPOApp\SPOApp\bin\Debug\Microsoft.Azure.KeyVault.Core.xml
+C:\SPO Components\SPOApp\SPOApp\SPOApp\bin\Debug\Microsoft.Data.Edm.xml
+C:\SPO Components\SPOApp\SPOApp\SPOApp\bin\Debug\Microsoft.Data.OData.xml
+C:\SPO Components\SPOApp\SPOApp\SPOApp\bin\Debug\Microsoft.Data.Services.Client.xml
+C:\SPO Components\SPOApp\SPOApp\SPOApp\bin\Debug\Microsoft.IdentityModel.Clients.ActiveDirectory.xml
+C:\SPO Components\SPOApp\SPOApp\SPOApp\bin\Debug\Microsoft.WindowsAzure.Storage.pdb
+C:\SPO Components\SPOApp\SPOApp\SPOApp\bin\Debug\Microsoft.WindowsAzure.Storage.xml
+C:\SPO Components\SPOApp\SPOApp\SPOApp\bin\Debug\Newtonsoft.Json.xml
+C:\SPO Components\SPOApp\SPOApp\SPOApp\bin\Debug\OfficeDevPnP.Core.xml
+C:\SPO Components\SPOApp\SPOApp\SPOApp\bin\Debug\System.IdentityModel.Tokens.Jwt.xml
+C:\SPO Components\SPOApp\SPOApp\SPOApp\bin\Debug\System.Net.Http.Formatting.xml
+C:\SPO Components\SPOApp\SPOApp\SPOApp\bin\Debug\System.Spatial.xml
+C:\SPO Components\SPOApp\SPOApp\SPOApp\bin\Debug\System.Web.Http.xml
+C:\SPO Components\SPOApp\SPOApp\SPOApp\bin\Debug\de\Microsoft.Data.Edm.resources.dll
+C:\SPO Components\SPOApp\SPOApp\SPOApp\bin\Debug\es\Microsoft.Data.Edm.resources.dll
+C:\SPO Components\SPOApp\SPOApp\SPOApp\bin\Debug\fr\Microsoft.Data.Edm.resources.dll
+C:\SPO Components\SPOApp\SPOApp\SPOApp\bin\Debug\it\Microsoft.Data.Edm.resources.dll
+C:\SPO Components\SPOApp\SPOApp\SPOApp\bin\Debug\ja\Microsoft.Data.Edm.resources.dll
+C:\SPO Components\SPOApp\SPOApp\SPOApp\bin\Debug\ko\Microsoft.Data.Edm.resources.dll
+C:\SPO Components\SPOApp\SPOApp\SPOApp\bin\Debug\ru\Microsoft.Data.Edm.resources.dll
+C:\SPO Components\SPOApp\SPOApp\SPOApp\bin\Debug\zh-Hans\Microsoft.Data.Edm.resources.dll
+C:\SPO Components\SPOApp\SPOApp\SPOApp\bin\Debug\zh-Hant\Microsoft.Data.Edm.resources.dll
+C:\SPO Components\SPOApp\SPOApp\SPOApp\bin\Debug\de\Microsoft.Data.OData.resources.dll
+C:\SPO Components\SPOApp\SPOApp\SPOApp\bin\Debug\es\Microsoft.Data.OData.resources.dll
+C:\SPO Components\SPOApp\SPOApp\SPOApp\bin\Debug\fr\Microsoft.Data.OData.resources.dll
+C:\SPO Components\SPOApp\SPOApp\SPOApp\bin\Debug\it\Microsoft.Data.OData.resources.dll
+C:\SPO Components\SPOApp\SPOApp\SPOApp\bin\Debug\ja\Microsoft.Data.OData.resources.dll
+C:\SPO Components\SPOApp\SPOApp\SPOApp\bin\Debug\ko\Microsoft.Data.OData.resources.dll
+C:\SPO Components\SPOApp\SPOApp\SPOApp\bin\Debug\ru\Microsoft.Data.OData.resources.dll
+C:\SPO Components\SPOApp\SPOApp\SPOApp\bin\Debug\zh-Hans\Microsoft.Data.OData.resources.dll
+C:\SPO Components\SPOApp\SPOApp\SPOApp\bin\Debug\zh-Hant\Microsoft.Data.OData.resources.dll
+C:\SPO Components\SPOApp\SPOApp\SPOApp\bin\Debug\de\Microsoft.Data.Services.Client.resources.dll
+C:\SPO Components\SPOApp\SPOApp\SPOApp\bin\Debug\es\Microsoft.Data.Services.Client.resources.dll
+C:\SPO Components\SPOApp\SPOApp\SPOApp\bin\Debug\fr\Microsoft.Data.Services.Client.resources.dll
+C:\SPO Components\SPOApp\SPOApp\SPOApp\bin\Debug\it\Microsoft.Data.Services.Client.resources.dll
+C:\SPO Components\SPOApp\SPOApp\SPOApp\bin\Debug\ja\Microsoft.Data.Services.Client.resources.dll
+C:\SPO Components\SPOApp\SPOApp\SPOApp\bin\Debug\ko\Microsoft.Data.Services.Client.resources.dll
+C:\SPO Components\SPOApp\SPOApp\SPOApp\bin\Debug\ru\Microsoft.Data.Services.Client.resources.dll
+C:\SPO Components\SPOApp\SPOApp\SPOApp\bin\Debug\zh-Hans\Microsoft.Data.Services.Client.resources.dll
+C:\SPO Components\SPOApp\SPOApp\SPOApp\bin\Debug\zh-Hant\Microsoft.Data.Services.Client.resources.dll
+C:\SPO Components\SPOApp\SPOApp\SPOApp\bin\Debug\de\System.Spatial.resources.dll
+C:\SPO Components\SPOApp\SPOApp\SPOApp\bin\Debug\es\System.Spatial.resources.dll
+C:\SPO Components\SPOApp\SPOApp\SPOApp\bin\Debug\fr\System.Spatial.resources.dll
+C:\SPO Components\SPOApp\SPOApp\SPOApp\bin\Debug\it\System.Spatial.resources.dll
+C:\SPO Components\SPOApp\SPOApp\SPOApp\bin\Debug\ja\System.Spatial.resources.dll
+C:\SPO Components\SPOApp\SPOApp\SPOApp\bin\Debug\ko\System.Spatial.resources.dll
+C:\SPO Components\SPOApp\SPOApp\SPOApp\bin\Debug\ru\System.Spatial.resources.dll
+C:\SPO Components\SPOApp\SPOApp\SPOApp\bin\Debug\zh-Hans\System.Spatial.resources.dll
+C:\SPO Components\SPOApp\SPOApp\SPOApp\bin\Debug\zh-Hant\System.Spatial.resources.dll
+C:\SPO Components\SPOApp\SPOApp\SPOApp\obj\Debug\SPOApp.csprojResolveAssemblyReference.cache
+C:\SPO Components\SPOApp\SPOApp\SPOApp\obj\Debug\SPOApp.exe
+C:\SPO Components\SPOApp\SPOApp\SPOApp\obj\Debug\SPOApp.pdb
+C:\Git\LBIntranet\SPOApp\SPOApp\SPOApp\bin\Debug\SPOApp.exe.config
+C:\Git\LBIntranet\SPOApp\SPOApp\SPOApp\bin\Debug\SPOApp.exe
+C:\Git\LBIntranet\SPOApp\SPOApp\SPOApp\bin\Debug\SPOApp.pdb
+C:\Git\LBIntranet\SPOApp\SPOApp\SPOApp\bin\Debug\AngleSharp.dll
+C:\Git\LBIntranet\SPOApp\SPOApp\SPOApp\bin\Debug\Microsoft.Azure.ActiveDirectory.GraphClient.dll
+C:\Git\LBIntranet\SPOApp\SPOApp\SPOApp\bin\Debug\Microsoft.Azure.KeyVault.Core.dll
+C:\Git\LBIntranet\SPOApp\SPOApp\SPOApp\bin\Debug\Microsoft.Data.Edm.dll
+C:\Git\LBIntranet\SPOApp\SPOApp\SPOApp\bin\Debug\Microsoft.Data.OData.dll
+C:\Git\LBIntranet\SPOApp\SPOApp\SPOApp\bin\Debug\Microsoft.Data.Services.Client.dll
+C:\Git\LBIntranet\SPOApp\SPOApp\SPOApp\bin\Debug\Microsoft.Graph.Core.dll
+C:\Git\LBIntranet\SPOApp\SPOApp\SPOApp\bin\Debug\Microsoft.Graph.dll
+C:\Git\LBIntranet\SPOApp\SPOApp\SPOApp\bin\Debug\Microsoft.IdentityModel.Clients.ActiveDirectory.dll
+C:\Git\LBIntranet\SPOApp\SPOApp\SPOApp\bin\Debug\Microsoft.IdentityModel.Clients.ActiveDirectory.WindowsForms.dll
+C:\Git\LBIntranet\SPOApp\SPOApp\SPOApp\bin\Debug\Microsoft.IdentityModel.dll
+C:\Git\LBIntranet\SPOApp\SPOApp\SPOApp\bin\Debug\Microsoft.Office.Client.Policy.dll
+C:\Git\LBIntranet\SPOApp\SPOApp\SPOApp\bin\Debug\Microsoft.Office.Client.TranslationServices.dll
+C:\Git\LBIntranet\SPOApp\SPOApp\SPOApp\bin\Debug\Microsoft.Office.SharePoint.Tools.dll
+C:\Git\LBIntranet\SPOApp\SPOApp\SPOApp\bin\Debug\Microsoft.Online.SharePoint.Client.Tenant.dll
+C:\Git\LBIntranet\SPOApp\SPOApp\SPOApp\bin\Debug\Microsoft.ProjectServer.Client.dll
+C:\Git\LBIntranet\SPOApp\SPOApp\SPOApp\bin\Debug\Microsoft.SharePoint.Client.dll
+C:\Git\LBIntranet\SPOApp\SPOApp\SPOApp\bin\Debug\Microsoft.SharePoint.Client.DocumentManagement.dll
+C:\Git\LBIntranet\SPOApp\SPOApp\SPOApp\bin\Debug\Microsoft.SharePoint.Client.Publishing.dll
+C:\Git\LBIntranet\SPOApp\SPOApp\SPOApp\bin\Debug\Microsoft.SharePoint.Client.Runtime.dll
+C:\Git\LBIntranet\SPOApp\SPOApp\SPOApp\bin\Debug\Microsoft.SharePoint.Client.Runtime.Windows.dll
+C:\Git\LBIntranet\SPOApp\SPOApp\SPOApp\bin\Debug\Microsoft.SharePoint.Client.Search.Applications.dll
+C:\Git\LBIntranet\SPOApp\SPOApp\SPOApp\bin\Debug\Microsoft.SharePoint.Client.Search.dll
+C:\Git\LBIntranet\SPOApp\SPOApp\SPOApp\bin\Debug\Microsoft.SharePoint.Client.Taxonomy.dll
+C:\Git\LBIntranet\SPOApp\SPOApp\SPOApp\bin\Debug\Microsoft.SharePoint.Client.UserProfiles.dll
+C:\Git\LBIntranet\SPOApp\SPOApp\SPOApp\bin\Debug\Microsoft.SharePoint.Client.WorkflowServices.dll
+C:\Git\LBIntranet\SPOApp\SPOApp\SPOApp\bin\Debug\Microsoft.WindowsAzure.Storage.dll
+C:\Git\LBIntranet\SPOApp\SPOApp\SPOApp\bin\Debug\Newtonsoft.Json.dll
+C:\Git\LBIntranet\SPOApp\SPOApp\SPOApp\bin\Debug\OfficeDevPnP.Core.dll
+C:\Git\LBIntranet\SPOApp\SPOApp\SPOApp\bin\Debug\SharePointPnP.IdentityModel.Extensions.dll
+C:\Git\LBIntranet\SPOApp\SPOApp\SPOApp\bin\Debug\System.IdentityModel.Tokens.Jwt.dll
+C:\Git\LBIntranet\SPOApp\SPOApp\SPOApp\bin\Debug\System.Net.Http.Formatting.dll
+C:\Git\LBIntranet\SPOApp\SPOApp\SPOApp\bin\Debug\System.Spatial.dll
+C:\Git\LBIntranet\SPOApp\SPOApp\SPOApp\bin\Debug\System.Web.Http.dll
+C:\Git\LBIntranet\SPOApp\SPOApp\SPOApp\bin\Debug\AngleSharp.xml
+C:\Git\LBIntranet\SPOApp\SPOApp\SPOApp\bin\Debug\Microsoft.Azure.KeyVault.Core.xml
+C:\Git\LBIntranet\SPOApp\SPOApp\SPOApp\bin\Debug\Microsoft.Data.Edm.xml
+C:\Git\LBIntranet\SPOApp\SPOApp\SPOApp\bin\Debug\Microsoft.Data.OData.xml
+C:\Git\LBIntranet\SPOApp\SPOApp\SPOApp\bin\Debug\Microsoft.Data.Services.Client.xml
+C:\Git\LBIntranet\SPOApp\SPOApp\SPOApp\bin\Debug\Microsoft.IdentityModel.Clients.ActiveDirectory.xml
+C:\Git\LBIntranet\SPOApp\SPOApp\SPOApp\bin\Debug\Microsoft.WindowsAzure.Storage.pdb
+C:\Git\LBIntranet\SPOApp\SPOApp\SPOApp\bin\Debug\Microsoft.WindowsAzure.Storage.xml
+C:\Git\LBIntranet\SPOApp\SPOApp\SPOApp\bin\Debug\Newtonsoft.Json.xml
+C:\Git\LBIntranet\SPOApp\SPOApp\SPOApp\bin\Debug\OfficeDevPnP.Core.xml
+C:\Git\LBIntranet\SPOApp\SPOApp\SPOApp\bin\Debug\System.IdentityModel.Tokens.Jwt.xml
+C:\Git\LBIntranet\SPOApp\SPOApp\SPOApp\bin\Debug\System.Net.Http.Formatting.xml
+C:\Git\LBIntranet\SPOApp\SPOApp\SPOApp\bin\Debug\System.Spatial.xml
+C:\Git\LBIntranet\SPOApp\SPOApp\SPOApp\bin\Debug\System.Web.Http.xml
+C:\Git\LBIntranet\SPOApp\SPOApp\SPOApp\bin\Debug\de\Microsoft.Data.Edm.resources.dll
+C:\Git\LBIntranet\SPOApp\SPOApp\SPOApp\bin\Debug\es\Microsoft.Data.Edm.resources.dll
+C:\Git\LBIntranet\SPOApp\SPOApp\SPOApp\bin\Debug\fr\Microsoft.Data.Edm.resources.dll
+C:\Git\LBIntranet\SPOApp\SPOApp\SPOApp\bin\Debug\it\Microsoft.Data.Edm.resources.dll
+C:\Git\LBIntranet\SPOApp\SPOApp\SPOApp\bin\Debug\ja\Microsoft.Data.Edm.resources.dll
+C:\Git\LBIntranet\SPOApp\SPOApp\SPOApp\bin\Debug\ko\Microsoft.Data.Edm.resources.dll
+C:\Git\LBIntranet\SPOApp\SPOApp\SPOApp\bin\Debug\ru\Microsoft.Data.Edm.resources.dll
+C:\Git\LBIntranet\SPOApp\SPOApp\SPOApp\bin\Debug\zh-Hans\Microsoft.Data.Edm.resources.dll
+C:\Git\LBIntranet\SPOApp\SPOApp\SPOApp\bin\Debug\zh-Hant\Microsoft.Data.Edm.resources.dll
+C:\Git\LBIntranet\SPOApp\SPOApp\SPOApp\bin\Debug\de\Microsoft.Data.OData.resources.dll
+C:\Git\LBIntranet\SPOApp\SPOApp\SPOApp\bin\Debug\es\Microsoft.Data.OData.resources.dll
+C:\Git\LBIntranet\SPOApp\SPOApp\SPOApp\bin\Debug\fr\Microsoft.Data.OData.resources.dll
+C:\Git\LBIntranet\SPOApp\SPOApp\SPOApp\bin\Debug\it\Microsoft.Data.OData.resources.dll
+C:\Git\LBIntranet\SPOApp\SPOApp\SPOApp\bin\Debug\ja\Microsoft.Data.OData.resources.dll
+C:\Git\LBIntranet\SPOApp\SPOApp\SPOApp\bin\Debug\ko\Microsoft.Data.OData.resources.dll
+C:\Git\LBIntranet\SPOApp\SPOApp\SPOApp\bin\Debug\ru\Microsoft.Data.OData.resources.dll
+C:\Git\LBIntranet\SPOApp\SPOApp\SPOApp\bin\Debug\zh-Hans\Microsoft.Data.OData.resources.dll
+C:\Git\LBIntranet\SPOApp\SPOApp\SPOApp\bin\Debug\zh-Hant\Microsoft.Data.OData.resources.dll
+C:\Git\LBIntranet\SPOApp\SPOApp\SPOApp\bin\Debug\de\Microsoft.Data.Services.Client.resources.dll
+C:\Git\LBIntranet\SPOApp\SPOApp\SPOApp\bin\Debug\es\Microsoft.Data.Services.Client.resources.dll
+C:\Git\LBIntranet\SPOApp\SPOApp\SPOApp\bin\Debug\fr\Microsoft.Data.Services.Client.resources.dll
+C:\Git\LBIntranet\SPOApp\SPOApp\SPOApp\bin\Debug\it\Microsoft.Data.Services.Client.resources.dll
+C:\Git\LBIntranet\SPOApp\SPOApp\SPOApp\bin\Debug\ja\Microsoft.Data.Services.Client.resources.dll
+C:\Git\LBIntranet\SPOApp\SPOApp\SPOApp\bin\Debug\ko\Microsoft.Data.Services.Client.resources.dll
+C:\Git\LBIntranet\SPOApp\SPOApp\SPOApp\bin\Debug\ru\Microsoft.Data.Services.Client.resources.dll
+C:\Git\LBIntranet\SPOApp\SPOApp\SPOApp\bin\Debug\zh-Hans\Microsoft.Data.Services.Client.resources.dll
+C:\Git\LBIntranet\SPOApp\SPOApp\SPOApp\bin\Debug\zh-Hant\Microsoft.Data.Services.Client.resources.dll
+C:\Git\LBIntranet\SPOApp\SPOApp\SPOApp\bin\Debug\de\System.Spatial.resources.dll
+C:\Git\LBIntranet\SPOApp\SPOApp\SPOApp\bin\Debug\es\System.Spatial.resources.dll
+C:\Git\LBIntranet\SPOApp\SPOApp\SPOApp\bin\Debug\fr\System.Spatial.resources.dll
+C:\Git\LBIntranet\SPOApp\SPOApp\SPOApp\bin\Debug\it\System.Spatial.resources.dll
+C:\Git\LBIntranet\SPOApp\SPOApp\SPOApp\bin\Debug\ja\System.Spatial.resources.dll
+C:\Git\LBIntranet\SPOApp\SPOApp\SPOApp\bin\Debug\ko\System.Spatial.resources.dll
+C:\Git\LBIntranet\SPOApp\SPOApp\SPOApp\bin\Debug\ru\System.Spatial.resources.dll
+C:\Git\LBIntranet\SPOApp\SPOApp\SPOApp\bin\Debug\zh-Hans\System.Spatial.resources.dll
+C:\Git\LBIntranet\SPOApp\SPOApp\SPOApp\bin\Debug\zh-Hant\System.Spatial.resources.dll
+C:\Git\LBIntranet\SPOApp\SPOApp\SPOApp\obj\Debug\SPOApp.csprojResolveAssemblyReference.cache
+C:\Git\LBIntranet\SPOApp\SPOApp\SPOApp\obj\Debug\SPOApp.exe
+C:\Git\LBIntranet\SPOApp\SPOApp\SPOApp\obj\Debug\SPOApp.pdb

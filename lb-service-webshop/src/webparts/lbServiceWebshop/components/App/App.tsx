@@ -4,6 +4,7 @@ import * as React from 'react';
 import { escape } from '@microsoft/sp-lodash-subset';
 import ProductsContainer from '../ProductsContainer/ProductsContainer'
 import Basket from '../Basket/Basket'
+import FilterContainer from '../FilterContainer/FilterContainer'
 
 export interface IAppProps{
   
@@ -57,6 +58,7 @@ private fetchSharePointData(){
             <div className="ms-Grid">
               <div className="ms-Grid-row">
                 <div className="ms-Grid-col ms-sm12 ms-md12 ms-lg12">
+                  <FilterContainer listItems={this.state.listItems}/>
                   <ProductsContainer products={this.state.listItems} />
                 </div>
               </div>
