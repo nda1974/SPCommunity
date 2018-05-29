@@ -21,79 +21,79 @@ namespace SPOApp
         {
 
 
-            StreamReader sr = new StreamReader(@"C:\Git\LBIntranet\SPOApp\IndbohåndbøgerCSV.csv");
-            // for set encoding
-            // StreamReader sr = new StreamReader(@"file.csv", Encoding.GetEncoding(1250));
-            List<IndboManualProperies> pages = new List<IndboManualProperies>();
-            string strline = "";
-            string[] _values = null;
-            int x = 0;
-            while (!sr.EndOfStream)
-            {
-                x++;
-                strline = sr.ReadLine();
-                _values = strline.Split(';');
-                if (x > 1)
-                {
-                    IndboManualProperies spp;
-                    //spp.WikiContent = listItem["FileLeafRef"].ToString() == "Advokatomkostninger.aspx"? spp.WikiContent=Program.ReadFromWordDocument(""):"Hest";
-
-                    //spp.WikiContent = (listItem["WikiField"] == null) ? "" : listItem["WikiField"].ToString();
-                    spp.WikiContent = "[TODO]";
-                    spp.IndboCategory = _values[3];
-                    spp.IndboArea = _values[2];
-                    spp.Title = _values[0].ToString().Split('.')[0];
-                    spp.FileName = _values[0];
-                    spp.LBInfo = _values[4];
-                    spp.LBTeaser = _values[5];
-                    spp.LBKendelser = "";
-
-                    pages.Add(spp);
-                    Console.WriteLine(_values);
-                }
-            }
-            sr.Close();
-            
-
-
-            //sourceLibraryName = "IndboNew";
-            //List sourceSitePagesLibrary = context.Web.Lists.GetByTitle(sourceLibraryName);
-
-            //CamlQuery query = CamlQuery.CreateAllItemsQuery();
-            //ListItemCollection items = sourceSitePagesLibrary.GetItems(query);
-            //context.Load(items);
-            //context.ExecuteQuery();
+            //StreamReader sr = new StreamReader(@"C:\Git\LBIntranet\SPOApp\IndbohåndbøgerCSV.csv");
+            //// for set encoding
+            //// StreamReader sr = new StreamReader(@"file.csv", Encoding.GetEncoding(1250));
             //List<IndboManualProperies> pages = new List<IndboManualProperies>();
-            //foreach (ListItem listItem in items)
+            //string strline = "";
+            //string[] _values = null;
+            //int x = 0;
+            //while (!sr.EndOfStream)
             //{
-
-            //    if (listItem.FileSystemObjectType == FileSystemObjectType.File)
+            //    x++;
+            //    strline = sr.ReadLine();
+            //    _values = strline.Split(';');
+            //    if (x > 1)
             //    {
-            //        //if (listItem["FileLeafRef"].ToString() == "Bofælle.aspx")
-            //        //{
-
-            //        //    //Program.CreateWordDocument(listItem["WikiField"].ToString());
-            //        //}
-            //        //else
-            //        //{
-            //        //}
-
             //        IndboManualProperies spp;
             //        //spp.WikiContent = listItem["FileLeafRef"].ToString() == "Advokatomkostninger.aspx"? spp.WikiContent=Program.ReadFromWordDocument(""):"Hest";
 
             //        //spp.WikiContent = (listItem["WikiField"] == null) ? "" : listItem["WikiField"].ToString();
             //        spp.WikiContent = "[TODO]";
-            //        spp.IndboCategory= (listItem["Kategori"] == null) ? "" : listItem["Kategori"].ToString();
-            //        spp.IndboArea= (listItem["Omr_x00e5_de"] == null) ? "" : listItem["Omr_x00e5_de"].ToString();
-            //        spp.Title = listItem["FileLeafRef"].ToString().Split('.')[0];
-            //        spp.FileName = listItem["FileLeafRef"].ToString();
-            //        spp.LBInfo= (listItem["HandbogInfo"] == null) ? "" : listItem["HandbogInfo"].ToString();
-            //        spp.LBKendelser= (listItem["HandbogKendelser"] == null) ? "" : listItem["HandbogKendelser"].ToString();
-            //        spp.LBTeaser= (listItem["HandbogTeaser"] == null) ? "" : listItem["HandbogTeaser"].ToString();
+            //        spp.IndboCategory = _values[2];
+            //        spp.IndboArea = _values[1];
+            //        spp.Title = _values[0].ToString().Split('.')[0];
+            //        spp.FileName = _values[0];
+            //        spp.LBInfo = _values[3];
+            //        spp.LBTeaser = _values[4];
+            //        spp.LBKendelser = "";
 
             //        pages.Add(spp);
+            //        Console.WriteLine(_values);
             //    }
             //}
+            //sr.Close();
+
+
+
+            
+            List sourceSitePagesLibrary = context.Web.Lists.GetByTitle(sourceLibraryName);
+
+            CamlQuery query = CamlQuery.CreateAllItemsQuery();
+            ListItemCollection items = sourceSitePagesLibrary.GetItems(query);
+            context.Load(items);
+            context.ExecuteQuery();
+            List<IndboManualProperies> pages = new List<IndboManualProperies>();
+            foreach (ListItem listItem in items)
+            {
+
+                if (listItem.FileSystemObjectType == FileSystemObjectType.File)
+                {
+                    //if (listItem["FileLeafRef"].ToString() == "Bofælle.aspx")
+                    //{
+
+                    //    //Program.CreateWordDocument(listItem["WikiField"].ToString());
+                    //}
+                    //else
+                    //{
+                    //}
+
+                    IndboManualProperies spp;
+                    //spp.WikiContent = listItem["FileLeafRef"].ToString() == "Advokatomkostninger.aspx"? spp.WikiContent=Program.ReadFromWordDocument(""):"Hest";
+
+                    //spp.WikiContent = (listItem["WikiField"] == null) ? "" : listItem["WikiField"].ToString();
+                    spp.WikiContent = "[TODO]";
+                    spp.IndboCategory = (listItem["Kategori"] == null) ? "" : listItem["Kategori"].ToString();
+                    spp.IndboArea = (listItem["Omr_x00e5_de"] == null) ? "" : listItem["Omr_x00e5_de"].ToString();
+                    spp.Title = listItem["FileLeafRef"].ToString().Split('.')[0];
+                    spp.FileName = listItem["FileLeafRef"].ToString();
+                    spp.LBInfo = (listItem["HandbogInfo"] == null) ? "" : listItem["HandbogInfo"].ToString();
+                    spp.LBKendelser = (listItem["HandbogKendelser"] == null) ? "" : listItem["HandbogKendelser"].ToString();
+                    spp.LBTeaser = (listItem["HandbogTeaser"] == null) ? "" : listItem["HandbogTeaser"].ToString();
+
+                    pages.Add(spp);
+                }
+            }
             return pages;
         }
 
@@ -118,79 +118,208 @@ namespace SPOApp
 
         private static void CreatePages(ClientContext context, IndboManualProperies p, string targetContentTypeName)
         {
-            var page = context.Web.AddClientSidePage(p.FileName, true);
-            //string s = Regex.Replace(p.WikiContent, "<.*?>", String.Empty);
-            //string s = Program.ReadFromWordDocument("");
+            try
+            {
+                ClientSidePage.Load(context, p.FileName);
+                Console.ForegroundColor = ConsoleColor.Yellow;
+                Console.WriteLine("The file " + p.FileName + " already exists");
+                Console.ForegroundColor = ConsoleColor.White;
+            }
+            catch (Exception)
+            {
+
+                var page = context.Web.AddClientSidePage(p.FileName, true);
+                //string s = Regex.Replace(p.WikiContent, "<.*?>", String.Empty);
+                //string s = Program.ReadFromWordDocument("");
+
+                ClientSideText txt1 = new ClientSideText() { Text = p.WikiContent };
+
+                page.AddControl(txt1, -1);
+
+                Microsoft.SharePoint.Client.ContentType newContentType = context.Web.GetContentTypeByName(targetContentTypeName);
+                context.Load(newContentType);
+                context.ExecuteQuery();
+
+                ListItem item = page.PageListItem;
+                //item.Update();
+
+                context.Load(item);
+                context.ExecuteQuery();
+
+                //item["ContentType"] = newContentType.Name;
+                item.Properties["ContentTypeId"] = newContentType.Id.StringValue;
+                item["ContentTypeId"] = newContentType.Id;
+
+                item.Update();
+                //page.Save();
+
+                //context.ExecuteQuery();
+
+
+
+                //context.ExecuteQuery();
+
+                if (!string.IsNullOrEmpty(p.IndboCategory))
+                {
+                    SPOUtility.SetMetadataField(context, item, p.IndboCategory, "IndboCategory");
+                    item.Update();
+                }
+                if (!string.IsNullOrEmpty(p.IndboArea))
+                {
+                    SPOUtility.SetMetadataField(context, item, p.IndboArea, "IndboArea");
+                    item.Update();
+                }
+
+
+                if (!string.IsNullOrEmpty(p.LBKendelser))
+                {
+                    item["LBVerdicts"] = p.LBKendelser;
+                }
+
+                if (!string.IsNullOrEmpty(p.LBTeaser))
+                {
+                    item["LBTeaser"] = p.LBTeaser;
+                }
+
+                if (!string.IsNullOrEmpty(p.LBInfo))
+                {
+                    item["LBInfo"] = p.LBInfo;
+                }
+
+                item.Update();
+
+
+
+
+
+
+                page.Save();
+
+
+                context.ExecuteQuery();
+            }
             
-            ClientSideText txt1 = new ClientSideText() { Text = p.WikiContent };
+            //var page = context.Web.AddClientSidePage(p.FileName, true);
+            ////string s = Regex.Replace(p.WikiContent, "<.*?>", String.Empty);
+            ////string s = Program.ReadFromWordDocument("");
+            
+            //ClientSideText txt1 = new ClientSideText() { Text = p.WikiContent };
 
-            page.AddControl(txt1, -1);
+            //page.AddControl(txt1, -1);
 
-            Microsoft.SharePoint.Client.ContentType newContentType = context.Web.GetContentTypeByName(targetContentTypeName);
-            context.Load(newContentType);
-            context.ExecuteQuery();
+            //Microsoft.SharePoint.Client.ContentType newContentType = context.Web.GetContentTypeByName(targetContentTypeName);
+            //context.Load(newContentType);
+            //context.ExecuteQuery();
 
-            ListItem item = page.PageListItem;
+            //ListItem item = page.PageListItem;
+            ////item.Update();
+
+            //context.Load(item);
+            //context.ExecuteQuery();
+
+            ////item["ContentType"] = newContentType.Name;
+            //item.Properties["ContentTypeId"] = newContentType.Id.StringValue;
+            //item["ContentTypeId"] = newContentType.Id;
+
+            //item.Update();
+            ////page.Save();
+
+            ////context.ExecuteQuery();
+
+
+
+            ////context.ExecuteQuery();
+
+            //if (!string.IsNullOrEmpty(p.IndboCategory))
+            //{
+            //    SPOUtility.SetMetadataField(context, item, p.IndboCategory, "IndboCategory");
+            //    item.Update();
+            //}
+            //if (!string.IsNullOrEmpty(p.IndboArea))
+            //{
+            //    SPOUtility.SetMetadataField(context, item, p.IndboArea, "IndboArea");
+            //    item.Update();
+            //}
+
+
+            //if (!string.IsNullOrEmpty(p.LBKendelser))
+            //{
+            //    item["LBVerdicts"] = p.LBKendelser;
+            //}
+
+            //if (!string.IsNullOrEmpty(p.LBTeaser))
+            //{
+            //    item["LBTeaser"] = p.LBTeaser;
+            //}
+
+            //if (!string.IsNullOrEmpty(p.LBInfo))
+            //{
+            //    item["LBInfo"] = p.LBInfo;
+            //}
+
             //item.Update();
 
-            context.Load(item);
-            context.ExecuteQuery();
-
-            //item["ContentType"] = newContentType.Name;
-            item.Properties["ContentTypeId"] = newContentType.Id.StringValue;
-            item["ContentTypeId"] = newContentType.Id;
-
-            item.Update();
-            //page.Save();
-
-            //context.ExecuteQuery();
-
-
-
-            //context.ExecuteQuery();
-
-            if (!string.IsNullOrEmpty(p.IndboCategory))
-            {
-                SPOUtility.SetMetadataField(context, item, p.IndboCategory, "IndboCategory");
-                item.Update();
-            }
-            if (!string.IsNullOrEmpty(p.IndboArea))
-            {
-                SPOUtility.SetMetadataField(context, item, p.IndboArea, "IndboArea");
-                item.Update();
-            }
-
-
-            if (!string.IsNullOrEmpty(p.LBKendelser))
-            {
-                item["LBVerdicts"] = p.LBKendelser;
-            }
-
-            if (!string.IsNullOrEmpty(p.LBTeaser))
-            {
-                item["LBTeaser"] = p.LBTeaser;
-            }
-
-            if (!string.IsNullOrEmpty(p.LBInfo))
-            {
-                item["LBInfo"] = p.LBInfo;
-            }
-
-            item.Update();
-
 
 
 
 
             
-            page.Save();
+            //page.Save();
 
 
-            context.ExecuteQuery();
+            //context.ExecuteQuery();
 
 
         }
-        public static void CheckForLinks(ClientContext context) {
+        public static void CheckForLinks(ClientContext context)
+        {
+            CamlQuery camlQuery = new CamlQuery();
+
+            List<string> strLogMessageNoFilesWithLinks = new List<string>();
+            List<string> strLogMessageNoFilesWithNoCanvas = new List<string>();
+
+
+
+
+            var oList = context.Web.Lists.GetByTitle("IndboFromLBIntranet");
+            ListItemCollection collListItem = oList.GetItems(camlQuery);
+            context.Load(collListItem);
+
+            context.Load(collListItem,
+                 items => items.Include(
+                    item => item.Id,
+                    item => item.DisplayName,
+                    item => item.ContentType,
+                    item => item["FileRef"],
+                    item => item["WikiField"]));
+
+            context.ExecuteQuery();
+
+            foreach (ListItem oListItem in collListItem)
+            {
+                
+
+                    if (oListItem["WikiField"].ToString().Contains("href"))
+                    {
+                        Console.ForegroundColor = ConsoleColor.Red;
+                        Console.WriteLine("ID: " + oListItem.Id);
+                        Console.WriteLine("Title: " + oListItem.DisplayName);
+                        Console.WriteLine("Url: " + oListItem["FileRef"]);
+
+                        FindHrefs(oListItem["WikiField"].ToString());
+                        Console.WriteLine("------------------------------------------------");
+                        //Console.WriteLine("ID: {0} \nDisplay name: {1} \n Url {2} ",
+                        //oListItem.Id, oListItem.DisplayName, oListItem["FileRef"]);
+                        //FindHrefs(oListItem["CanvasContent1"].ToString());
+                        Console.ForegroundColor = ConsoleColor.White;
+                    }
+                
+
+            }
+
+        }
+
+        public static void CheckForLinksORG(ClientContext context) {
             CamlQuery camlQuery = new CamlQuery();
 
             List<string> strLogMessageNoFilesWithLinks = new List<string>();

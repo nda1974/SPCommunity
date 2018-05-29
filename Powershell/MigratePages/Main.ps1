@@ -202,7 +202,7 @@ function Run($startIndex)
     try{
     
         
-        $files = Import-Csv -Path C:\Git\LBIntranet\Powershell\MigratePages\ImportFiles\IndbohåndbøgerCSV.csv
+        $files = Import-Csv -Path C:\Git\LBIntranet\Powershell\MigratePages\ImportFiles\IndbohåndbøgerCSVPrerun.csv
         $sw = [Diagnostics.Stopwatch]::StartNew()
     
         $files |foreach-object {

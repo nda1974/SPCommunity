@@ -125,8 +125,9 @@ namespace SPOApp
 
     class Program
     {
-        
-        private static void CheckForTextField(ClientContext context, string fileName)
+   
+
+    private static void CheckForTextField(ClientContext context, string fileName)
         {
             ClientSidePage p = ClientSidePage.Load(context, fileName);
             if (p.Controls.Count == 0)
@@ -313,7 +314,7 @@ namespace SPOApp
             else if (input.ToLower().Equals("w"))
             {
                 string targetSiteUrl = "https://lbforsikring.sharepoint.com/sites/skade";
-                ClientContext ctx = SPOUtility.Authenticate(targetSiteUrl, "admnicd@lb.dk", "MandM777");
+                ClientContext ctx = SPOUtility.Authenticate(targetSiteUrl, "admnicd@lb.dk", "MandM2222");
                 
                 Indbo.CheckForLinks(ctx);
                 Console.WriteLine("Done searching for links");
@@ -366,7 +367,7 @@ namespace SPOApp
 
 
 
-            ClientContext ctx = SPOUtility.Authenticate(targetSiteUrl, "admnicd@lb.dk", "MandM777");
+            ClientContext ctx = SPOUtility.Authenticate(targetSiteUrl, "admnicd@lb.dk", "MandM2222");
 
 
 
@@ -473,6 +474,8 @@ namespace SPOApp
             {
                 sourceLibraryName = "Indbo";
                 sourceLibraryName = "Websider";
+                sourceLibraryName = "IndboFromLBIntranet";
+                
 
                 List<IndboManualProperies> IndboManuals = Indbo.GetSourceFiles(ctx, sourceLibraryName);
                 Indbo.CreateModernSitePages(ctx, IndboManuals);
