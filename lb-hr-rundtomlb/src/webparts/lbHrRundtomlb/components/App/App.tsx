@@ -35,7 +35,9 @@ private fetchSharePointData(){
   
 pnp.sp.web.lists.getByTitle("RundtOmLB")
               .items.select("Kategori,Stilling,Afdeling,Begivenhed,EventDate,FileLeafRef,Startdato,Slutdato")
-              .filter(`Kategori eq '${this.props.eventType}' and Startdato le datetime'${d.toISOString()}' and Slutdato gt datetime'${d.toISOString()}'`).get().then(
+              .filter(`Kategori eq '${this.props.eventType}' and Startdato le datetime'${d.toISOString()}' and Slutdato gt datetime'${d.toISOString()}'`)
+              .orderBy("EventDate",this.props.sortOrder)
+              .get().then(
                 (data:any[])=>{this.setState({listItems:data})}
               );
 }

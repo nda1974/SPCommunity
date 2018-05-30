@@ -6,7 +6,8 @@ import {
   BaseClientSideWebPart,
   IPropertyPaneConfiguration,
   PropertyPaneTextField,
-  PropertyPaneChoiceGroup
+  PropertyPaneChoiceGroup,
+  PropertyPaneToggle
 } from '@microsoft/sp-webpart-base';
 
 import * as strings from 'LbHrRundtomlbWebPartStrings';
@@ -16,6 +17,7 @@ import App from './components/App/App'
 export interface ILbHrRundtomlbWebPartProps {
   description: string;
   eventType: string;
+  sortOrder:boolean;
 }
 export interface ILbHrRundtomlbWebPartState {
   description: string;
@@ -31,7 +33,8 @@ export default class LbHrRundtomlbWebPart extends BaseClientSideWebPart<ILbHrRun
       App,
       {
         eventType:this.properties.eventType,
-        webPartHeader:this.properties.description
+        webPartHeader:this.properties.description,
+        sortOrder:this.properties.sortOrder
       }
     );
 
@@ -67,6 +70,13 @@ export default class LbHrRundtomlbWebPart extends BaseClientSideWebPart<ILbHrRun
                        { key: 'Udnævnelse', text: 'Udnævnelse' }  
                   ]
                 }),
+                PropertyPaneToggle('sortOrder', {
+                  label: 'Sorter begivenheder efter dato',
+                  onText:'Førstkomne begivenheder øverst',
+                  offText:'Førstkomne begivenheder nederst',
+                  checked:true
+
+                })
               ]
             }
           ]
