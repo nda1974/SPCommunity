@@ -256,5 +256,8 @@
   <ItemGroup>
     <None Include="Web References\ListReference\lists.disco" />
   </ItemGroup>
+  <ItemGroup>
+    <Content Include="logfiles\linksInManuals.txt" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

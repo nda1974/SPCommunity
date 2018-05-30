@@ -295,27 +295,52 @@ namespace SPOApp
 
             context.ExecuteQuery();
 
+
+            List<string> strLog = new List<string>();
+            int counter = 0;
             foreach (ListItem oListItem in collListItem)
             {
                 
 
                     if (oListItem["WikiField"].ToString().Contains("href"))
                     {
-                        Console.ForegroundColor = ConsoleColor.Red;
+                        Console.ForegroundColor = ConsoleColor.White;
                         Console.WriteLine("ID: " + oListItem.Id);
                         Console.WriteLine("Title: " + oListItem.DisplayName);
                         Console.WriteLine("Url: " + oListItem["FileRef"]);
+                        Console.ForegroundColor = ConsoleColor.Yellow;
+                        List<string> urls = FindHrefs(oListItem["WikiField"].ToString());
 
-                        FindHrefs(oListItem["WikiField"].ToString());
+                        if (urls.Count>0)
+                        {
+                            counter = counter+1;
+                            strLog.Add("ID: " + oListItem.Id);
+                            strLog.Add("Title: " + oListItem.DisplayName);
+                            strLog.Add("Url: " + oListItem["FileRef"]);
+                            strLog.Add("-----------------------------");
+                            foreach (string s in urls)
+                            {
+                                strLog.Add("link: " + s);
+                            }
+                            strLog.Add("-----------------------------");
+                            System.IO.File.AppendAllLines(@"C:\Git\LBIntranet\SPOApp\SPOApp\SPOApp\logfiles\linksInManuals.txt", strLog.ToArray());
+                        }   
+
+                        
+                        //FindHrefs(oListItem["WikiField"].ToString());
+                        Console.WriteLine("");
                         Console.WriteLine("------------------------------------------------");
                         //Console.WriteLine("ID: {0} \nDisplay name: {1} \n Url {2} ",
                         //oListItem.Id, oListItem.DisplayName, oListItem["FileRef"]);
                         //FindHrefs(oListItem["CanvasContent1"].ToString());
                         Console.ForegroundColor = ConsoleColor.White;
-                    }
+                        
+                }
+                
                 
 
             }
+            Console.WriteLine("Links counter: " + counter);
 
         }
 
@@ -341,7 +366,7 @@ namespace SPOApp
                     item => item["CanvasContent1"]));
 
             context.ExecuteQuery();
-
+            //List<string> strLog = new List<string>();
             foreach (ListItem oListItem in collListItem)
             {
                 if (oListItem.ContentType.Name == "IndboManual")
@@ -365,10 +390,17 @@ namespace SPOApp
                 
             }
 
+
+            //System.IO.File.AppendAllLines(@"C:\Git\LBIntranet\SPOApp\SPOApp\SPOApp\logfiles\linksInManuals.txt", strLog.ToArray());
+            //System.IO.File.WriteAllLines(@"C:\Git\LBIntranet\SPOApp\SPOApp\SPOApp\logfiles\linksInManuals.txt", strLog.ToArray());
+            
+
         }
 
-        private static void FindHrefs(string input)
+        private static List<string> FindHrefs(string input)
         {
+            List<string> strLog = new List<string>();
+
             Regex regex = new Regex("href\\s*=\\s*(?:\"(?<1>[^\"]*)\"|(?<1>\\S+))", RegexOptions.IgnoreCase);
             Match match;
             for (match = regex.Match(input); match.Success; match = match.NextMatch())
@@ -376,9 +408,21 @@ namespace SPOApp
                 Console.WriteLine("Found a href. ");
                 foreach (System.Text.RegularExpressions.Group group in match.Groups)
                 {
-                    Console.WriteLine("Href value: {0}", group);
+                    
+                    if (group.ToString().ToLower().Contains("skade/hb/indbo/") || group.ToString().Contains("sites/Skade/IndboFromLBIntranet") || group.ToString().ToLower().Contains("ankeforsikring.dk") )
+                    {
+                        Console.WriteLine("Href value: {0}", group);
+                    }
+                    else
+                    {
+                        strLog.Add(group.ToString());
+                        Console.ForegroundColor = ConsoleColor.Red;
+                        Console.WriteLine("Href value: {0}", group);
+                        Console.ForegroundColor = ConsoleColor.Yellow;
+                    }
                 }
             }
+            return strLog;
 
         }
 
