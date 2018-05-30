@@ -1,0 +1,8 @@
+{
+  "@microsoft/generator-sharepoint": {
+    "version": "1.4.1",
+    "libraryName": "lb-hr-rundtomlb",
+    "libraryId": "12470f89-bcc4-46b7-af75-b71ceec31fe8",
+    "environment": "spo"
+  }
+}
