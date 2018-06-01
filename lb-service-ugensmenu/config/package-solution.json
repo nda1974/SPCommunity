@@ -1,13 +1,13 @@
 {
   "$schema": "https://dev.office.com/json-schemas/spfx-build/package-solution.schema.json",
   "solution": {
-    "name": "LB Forsikring - Service Webshop",
-    "id": "4ffb8814-d04d-4ed8-b89c-1cb079e4a9e4",
+    "name": "LB Forsikring - Ugens menu",
+    "id": "a59142e5-e277-49ac-92f6-e68d5f41cd98",
     "version": "1.0.0.0",
     "includeClientSideAssets": true,
     "iconPath": "Images/LB-app.png"
   },
   "paths": {
-    "zippedPackage": "solution/ServiceWebshop.sppkg"
+    "zippedPackage": "solution/lb-service-ugensmenu.sppkg"
   }
 }

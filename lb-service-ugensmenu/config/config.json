@@ -1,0 +1,18 @@
+{
+  "$schema": "https://dev.office.com/json-schemas/spfx-build/config.2.0.schema.json",
+  "version": "2.0",
+  "bundles": {
+    "lb-service-ugensmenu-web-part": {
+      "components": [
+        {
+          "entrypoint": "./lib/webparts/lbServiceUgensmenu/LbServiceUgensmenuWebPart.js",
+          "manifest": "./src/webparts/lbServiceUgensmenu/LbServiceUgensmenuWebPart.manifest.json"
+        }
+      ]
+    }
+  },
+  "externals": {},
+  "localizedResources": {
+    "LbServiceUgensmenuWebPartStrings": "lib/webparts/lbServiceUgensmenu/loc/{locale}.js"
+  }
+}

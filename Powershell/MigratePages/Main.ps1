@@ -208,7 +208,7 @@ function Run($startIndex)
         $files |foreach-object {
         $i=$i+1;
         #$currentFileName=$_.Navn;
-        $currentFileName=$_.DestinationPath;
+        $currentFileName=$_.SourcePath;
         
 
         Write-Host "Processing " $i " of " $files.count "- elapsed time: " $sw.Elapsed -ForegroundColor Yellow

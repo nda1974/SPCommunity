@@ -58,7 +58,7 @@ private fetchSharePointData(){
             <div className="ms-Grid">
               <div className="ms-Grid-row">
                 <div className="ms-Grid-col ms-sm12 ms-md12 ms-lg12">
-                  <FilterContainer listItems={this.state.listItems}/>
+                  {/* <FilterContainer listItems={this.state.listItems}/> */}
                   <ProductsContainer products={this.state.listItems} />
                 </div>
               </div>

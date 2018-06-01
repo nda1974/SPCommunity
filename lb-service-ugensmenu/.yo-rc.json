@@ -1,0 +1,8 @@
+{
+  "@microsoft/generator-sharepoint": {
+    "version": "1.4.1",
+    "libraryName": "lb-service-ugensmenu",
+    "libraryId": "a59142e5-e277-49ac-92f6-e68d5f41cd98",
+    "environment": "spo"
+  }
+}

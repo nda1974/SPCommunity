@@ -53,9 +53,9 @@ export default class ProductItem extends React.Component<IProductItemProps, IPro
           {
             name: this.props.title,
             previewImageSrc: this.props.productImageUrl,
-            imageFit: ImageFit.cover,
-            width: 160,
-            height: 140
+            imageFit: ImageFit.contain,
+            width: 130,
+            height: 105
           }
         ],
       };
