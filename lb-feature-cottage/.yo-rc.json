@@ -1,0 +1,8 @@
+{
+  "@microsoft/generator-sharepoint": {
+    "version": "1.4.1",
+    "libraryName": "lb-feature-cottage",
+    "libraryId": "d00f34ee-c315-4b13-8cb3-ce3bae95e2e7",
+    "environment": "spo"
+  }
+}

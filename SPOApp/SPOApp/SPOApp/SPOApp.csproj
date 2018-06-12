@@ -183,6 +183,7 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
       <DependentUpon>Settings.settings</DependentUpon>
     </Compile>
+    <Compile Include="LinksUtility.cs" />
     <Compile Include="SitePages.cs" />
     <Compile Include="SPOUtility.cs" />
     <Compile Include="Web References\copyService\Reference.cs">

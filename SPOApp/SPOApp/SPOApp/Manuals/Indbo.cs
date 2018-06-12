@@ -188,11 +188,6 @@ namespace SPOApp
 
                 item.Update();
 
-
-
-
-
-
                 page.Save();
 
 

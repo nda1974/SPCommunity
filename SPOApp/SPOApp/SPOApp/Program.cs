@@ -315,8 +315,11 @@ namespace SPOApp
             {
                 string targetSiteUrl = "https://lbforsikring.sharepoint.com/sites/skade";
                 ClientContext ctx = SPOUtility.Authenticate(targetSiteUrl, "admnicd@lb.dk", "MandM2222");
+                string sitePagesLibrary= "IndboFromLBIntranet";
+                sitePagesLibrary = "Webstedssider";
+
+                LinksUtility.CheckForLinks(ctx, sitePagesLibrary);
                 
-                Indbo.CheckForLinks(ctx);
                 Console.WriteLine("Done searching for links");
                 Console.ReadLine();
             }
