@@ -8,8 +8,8 @@ import {
 } from '@microsoft/sp-webpart-base';
 
 import * as strings from 'LbCorporateNewsWebPartStrings';
-import LbCorporateNews from './components/LbCorporateNews';
-import { ILbCorporateNewsProps } from './components/ILbCorporateNewsProps';
+import App from './components/App/App';
+import { IAppProps } from './components/App/IAppProps';
 
 export interface ILbCorporateNewsWebPartProps {
   description: string;
@@ -18,10 +18,12 @@ export interface ILbCorporateNewsWebPartProps {
 export default class LbCorporateNewsWebPart extends BaseClientSideWebPart<ILbCorporateNewsWebPartProps> {
 
   public render(): void {
-    const element: React.ReactElement<ILbCorporateNewsProps > = React.createElement(
-      LbCorporateNews,
+    const element: React.ReactElement<IAppProps > = React.createElement(
+      App,
       {
-        description: this.properties.description
+        description: this.properties.description,
+        webPartContext:this.context
+
       }
     );
 

@@ -1,0 +1,55 @@
+@import '~@microsoft/sp-office-ui-fabric-core/dist/sass/SPFabricCore.scss';
+$themePrimary: '[theme:themePrimary, default:red]';
+$themeSecondary: '[theme:themeSecondary, default:#5692b5]';
+$themeTertiary: "[theme:themeTertiary, default:#69afe5]";
+$themeLight: "[theme:themeLight, default:#b3d6f2]";
+$themeAccent: "[theme:themeAccent, default:inherit]";
+$themeDark: "[theme:themeDark, default:#005a9e]";
+$themeDarkAlt: "[theme:themeDarkAlt, default:#106ebe]";
+$themeDarker: "[theme:themeDarker, default:#004578]";
+$neutralLighter: "[theme:neutralLighter, default:#fff]";
+$white: "[theme:white, default:#fff]";
+
+.NewsLayout{
+  background-color: yellow;
+}
+.NewsItem{    
+  
+  @include ms-Grid-col;
+  @include ms-lg3;
+  @include ms-md3;
+  width: 100%;
+  height: 350px;
+}
+.FeaturedNewsItems{
+  // @include ms-Grid-row;
+  background-color:red;
+}
+.NonFeaturedNewsItemsContainer{
+  
+  @include ms-Grid-col;
+  @include ms-lg3;
+  @include ms-md3;
+  
+  width: 100%;
+  height: 350px;
+  overflow-y: auto;
+}
+.NonFeaturedNewsItems{
+  background-color:$themePrimary;
+  padding: 10px 0px 10px 0px;
+  width: 100%;
+  @include ms-font-m;
+  
+  
+  // @include ms-fontWeight-semibold;
+  margin-bottom: 2px;
+}
+.NonFeaturedNewsItems a,.NonFeaturedNewsItems a:hover{
+  @include ms-fontColor-white;
+  padding-left: 10px;
+}
+
+
+
+
