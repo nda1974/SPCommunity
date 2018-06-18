@@ -44,19 +44,23 @@ export class MyFavouritesService implements IMyFavoutitesService {
         // }
 
         myFavourites = await this._fetchFromSPList();
+        
         lbFavourites = await this._fetchFromSPList2();
+        
         for (var i = 0; i < myFavourites.length; i++) {
-            myFavourites[i].Mandatory==false;
+            myFavourites[i].PersonalFavourite==true;
         }
         for (var i = 0; i < lbFavourites.length; i++) {
-            lbFavourites[i].Mandatory==true;
+            lbFavourites[i].PersonalFavourite==false;
         }
-        var spread = [...myFavourites,...lbFavourites];
-
+        const spread = [...lbFavourites,...myFavourites];
+        // let arr= spread.sort(function(a,b){return Number(a.PersonalFavourite) -Number(b.PersonalFavourite) });
+        
+        // var spread = lbFavourites;
+        console.log(spread);
         // let favInCache: string = JSON.stringify(myFavourites);
         // let favInCache: string = JSON.stringify(spread);
         // window.sessionStorage.setItem(this._sessionStorageKey, favInCache);
-        // return myFavourites;
         return spread;
         
     }

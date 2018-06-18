@@ -9,4 +9,5 @@ export interface IMyFavouritesTopBarState {
     isEdit: boolean;
     status: JSX.Element;
     disableButtons: boolean;
+    
 }

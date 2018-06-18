@@ -121,7 +121,7 @@ export default class MyFavouritesTopBar extends React.Component<IMyFavouritesTop
                                        className={styles.ccDialogButton}/>
                         <DefaultButton onClick={this._hideDialog.bind(this)}
                                        disabled={this.state.disableButtons}
-                                       text="Annuller"
+                                       text="Luk"
                                        iconProps={{ iconName: "Cancel" }} />
                     </DialogFooter>
                 </Dialog>
@@ -181,6 +181,7 @@ export default class MyFavouritesTopBar extends React.Component<IMyFavouritesTop
         }
         disableButtons = false;
         this.setState({ ...this.state, status, disableButtons });
+        // this.setState({...this.state, status, disableButtons ,cancelBtnText});
     }
     //#endregion
 

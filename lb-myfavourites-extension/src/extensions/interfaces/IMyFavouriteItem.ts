@@ -4,4 +4,5 @@ export interface IMyFavouriteItem {
     ItemUrl?: string;
     Description?: string;
     Mandatory:boolean;
+    PersonalFavourite?:boolean;
 }
