@@ -13,6 +13,7 @@ import {
   IDocumentCardPreviewProps,
   DocumentCardType
 } from 'office-ui-fabric-react/lib/DocumentCard';
+import { Link } from 'office-ui-fabric-react/lib/Link';
 export default class NewsItem extends React.Component<INewsItemProps, {}> {
   
 
@@ -30,6 +31,7 @@ public render(): React.ReactElement<INewsItemProps> {
   };
     return (
       <div className={styles.Item}>
+      
         <div>
           <div className="ImagePlaceholderContainer">
               <div className={styles.ImagePlaceholder}>
@@ -37,17 +39,24 @@ public render(): React.ReactElement<INewsItemProps> {
               </div>
           </div>
 
-          <div className="ItemInfo">
-            <h2>
+          <div className={styles.ItemInfo}>
+            
               {this.props.documentTitle}
-            </h2>
+              
+          </div>
+            <div className={styles.ItemSender}>
+              {this.props.sender}
+            </div>
             <div>
               {this.props.documentDescription}
             </div>
           </div>
           
+        
+          
+        
         </div>
-      </div>
+      
     );
   }
 }

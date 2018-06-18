@@ -20,7 +20,10 @@
     "description": { "default": "Webdel til visning af LB Nyheder" },
     "officeFabricIconFontName": "Page",
     "properties": {
-      "description": "lb-corporate-news"
+      "description": "lb-corporate-news",
+      "item":"",
+      "listName":""
+
     }
   }]
 }

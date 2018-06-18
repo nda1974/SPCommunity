@@ -8,6 +8,15 @@
     // border-style: solid;
   
 }
+.ItemInfo {
+  @include ms-font-l;
+  @include ms-fontWeight-semibold;
+}
+.ItemSender {
+  @include ms-fontSize-xs;
+  @include ms-fontWeight-light;
+  
+}
 .ImagePlaceholder img{
   max-width: 271px;
   max-height: 171px;

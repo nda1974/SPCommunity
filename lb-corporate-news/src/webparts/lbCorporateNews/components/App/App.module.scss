@@ -36,7 +36,8 @@ $white: "[theme:white, default:#fff]";
   overflow-y: auto;
 }
 .NonFeaturedNewsItems{
-  background-color:$themePrimary;
+  // background-color:$themePrimary;
+  background-color:$themeSecondary;
   padding: 10px 0px 10px 0px;
   width: 100%;
   @include ms-font-m;

@@ -23,23 +23,22 @@ export default class App extends React.Component<IAppProps, IAppState> {
                     results:[]
           }
 
-    this.fetchSharePointData();
+          this.fetchSharePointData();
 }
+
 private fetchSharePointData(){
+ let f :string=this.props.filter;
  
   var startDate = new Date();
   
-  
    pnp.sp.web.lists.getByTitle("Webstedssider")
-              .items.select("Publiseringsdato,PrioriteretVisning,Title,Udl%5Fx00f8%5Fbsdato,LBNyhedsbillede,FileRef,Teaser")
-              // .items
-              // .filter(`Publiseringsdato le datetime'${startDate.toISOString()}' and Udl%5Fx00f8%5Fbsdato ge datetime'${startDate.toISOString()}' `)
+              .items.select("CorporateNews,Publiseringsdato,PrioriteretVisning,Title,Udl%5Fx00f8%5Fbsdato,LBNyhedsbillede,FileRef,Teaser,Afsender/Title")
+              .expand("Afsender")
               .filter(`Publiseringsdato le datetime'${startDate.toISOString()}' and Udl%5Fx00f8%5Fbsdato gt datetime'${startDate.toISOString()}'`)
               .orderBy('Publiseringsdato')
               .get().then(
                 (data:any[])=>{
 
-                  this.setState({results:data})
                   
                   let P1News:any[]=[];
                   let P2News:any[]=[];
@@ -48,16 +47,37 @@ private fetchSharePointData(){
 
 
                   data.map((item)=>{
-                    if(item.PrioriteretVisning==1){
-                      P1News.push(item)
-                    }
-                    else if(item.PrioriteretVisning==2){
-                      P2News.push(item)
-                    }
-                    else if(item.PrioriteretVisning==3){
-                      P3News.push(item)
+                    if(f.length>0 ){
+                      if(item.Afsender){
+                          item.Afsender.map((afsender)=>{
+                            if(afsender.Title==f){
+                              if(item.PrioriteretVisning==1){
+                                P1News.push(item)
+                              }
+                              else if(item.PrioriteretVisning==2){
+                                P2News.push(item)
+                              }
+                              else if(item.PrioriteretVisning==3){
+                                P3News.push(item)
+                              }  
+                            }  
+                          })
+                      }
+                    } 
+                    else
+                    {
+                      if(item.PrioriteretVisning==1){
+                        P1News.push(item)
+                      }
+                      else if(item.PrioriteretVisning==2){
+                        P2News.push(item)
+                      }
+                      else if(item.PrioriteretVisning==3){
+                        P3News.push(item)
+                      }
                     }
                   });
+
                   P1News.map((item)=>{
                     res.push(item);
                   })
@@ -67,12 +87,22 @@ private fetchSharePointData(){
                   P3News.map((item)=>{
                     res.push(item);
                   })
+                  
+                  
                   this.setState({'results':res});
 
                 }
               );
 }  
-
+private getSenders(newsItem):string{
+  
+  let res="";
+  newsItem.Afsender.map((item)=>{
+    res=res + item.Title + ", "
+  })
+  
+  return res.slice(0,-2);
+}
 public render(): React.ReactElement<IAppProps> {
     
     let counter :number=0;
@@ -80,16 +110,20 @@ public render(): React.ReactElement<IAppProps> {
     return (
       <div className='ms-Grid' >
         <div className='ms-Grid-row' >
+        
           <div className={styles.FeaturedNewsItems}>
             {
               this.state.results.map((item)=>{
                 counter=counter+1;  
                 let pictureUrl = item.LBNyhedsbillede==null?null:item.LBNyhedsbillede.Url
+                
                 if(counter<4)
                 {
                   return(
                     <div className={styles.NewsItem}>
-                      <NewsItem documentTitle={item.Title} previewImageUrl={pictureUrl} documentDescription={item.Teaser}/>
+                      <Link href={item.FileRef}>  
+                        <NewsItem documentTitle={item.Title} previewImageUrl={pictureUrl} documentDescription={item.Teaser} sender={this.getSenders(item)}/>
+                      </Link>
                     </div>
                   )
                 }
