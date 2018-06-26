@@ -1,0 +1,12 @@
+{
+  "$schema": "https://dev.office.com/json-schemas/spfx-build/package-solution.schema.json",
+  "solution": {
+    "name": "lb-employee-manual-client-side-solution",
+    "id": "04153777-6a20-4af5-95b2-f2613bf8f1b2",
+    "version": "1.0.0.0",
+    "includeClientSideAssets": true
+  },
+  "paths": {
+    "zippedPackage": "solution/lb-employee-manual.sppkg"
+  }
+}

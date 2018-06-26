@@ -1,0 +1,18 @@
+{
+  "$schema": "https://dev.office.com/json-schemas/spfx-build/config.2.0.schema.json",
+  "version": "2.0",
+  "bundles": {
+    "lb-skade-workprocess-web-part": {
+      "components": [
+        {
+          "entrypoint": "./lib/webparts/lbSkadeWorkprocess/LbSkadeWorkprocessWebPart.js",
+          "manifest": "./src/webparts/lbSkadeWorkprocess/LbSkadeWorkprocessWebPart.manifest.json"
+        }
+      ]
+    }
+  },
+  "externals": {},
+  "localizedResources": {
+    "LbSkadeWorkprocessWebPartStrings": "lib/webparts/lbSkadeWorkprocess/loc/{locale}.js"
+  }
+}

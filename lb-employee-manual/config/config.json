@@ -1,0 +1,18 @@
+{
+  "$schema": "https://dev.office.com/json-schemas/spfx-build/config.2.0.schema.json",
+  "version": "2.0",
+  "bundles": {
+    "lb-employee-manual-web-part": {
+      "components": [
+        {
+          "entrypoint": "./lib/webparts/lbEmployeeManual/LbEmployeeManualWebPart.js",
+          "manifest": "./src/webparts/lbEmployeeManual/LbEmployeeManualWebPart.manifest.json"
+        }
+      ]
+    }
+  },
+  "externals": {},
+  "localizedResources": {
+    "LbEmployeeManualWebPartStrings": "lib/webparts/lbEmployeeManual/loc/{locale}.js"
+  }
+}

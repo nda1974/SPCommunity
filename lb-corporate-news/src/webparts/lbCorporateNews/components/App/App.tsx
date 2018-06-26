@@ -49,38 +49,33 @@ private fetchSharePointData(){
                   data.map((item)=>{
 
                             
-                    if (item.CorporateNews==true) {
-                      P1News.push(item)
-                    }                            
-                    else{
-                      if(filterAfsender.length>0 ){
-                        if(item.Afsender){
-                            item.Afsender.map((afsender)=>{
-                              if(afsender.Title==filterAfsender){
-                                if(item.PrioriteretVisning==1){
-                                  P1News.push(item)
-                                }
-                                else if(item.PrioriteretVisning==2){
-                                  P2News.push(item)
-                                }
-                                else if(item.PrioriteretVisning==3){
-                                  P3News.push(item)
-                                }
-                              }  
-                            })
-                        }
-                      } 
-                      else
-                      {
-                        if(item.PrioriteretVisning==1){
-                          P1News.push(item)
-                        }
-                        else if(item.PrioriteretVisning==2){
-                          P2News.push(item)
-                        }
-                        else if(item.PrioriteretVisning==3){
-                          P3News.push(item)
-                        }
+                    if(filterAfsender.length>0 ){
+                      if(item.Afsender){
+                          item.Afsender.map((afsender)=>{
+                            if(afsender.Title==filterAfsender){
+                              if(item.PrioriteretVisning==1){
+                                P1News.push(item)
+                              }
+                              else if(item.PrioriteretVisning==2){
+                                P2News.push(item)
+                              }
+                              else if(item.PrioriteretVisning==3){
+                                P3News.push(item)
+                              }
+                            }  
+                          })
+                      }
+                    } 
+                    else
+                    {
+                      if(item.PrioriteretVisning==1){
+                        P1News.push(item)
+                      }
+                      else if(item.PrioriteretVisning==2){
+                        P2News.push(item)
+                      }
+                      else if(item.PrioriteretVisning==3){
+                        P3News.push(item)
                       }
                     }
 
