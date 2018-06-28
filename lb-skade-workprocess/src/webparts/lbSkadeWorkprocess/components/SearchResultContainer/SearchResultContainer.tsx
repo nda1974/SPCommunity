@@ -16,6 +16,7 @@ import { ISearchResultContainerState } from "./ISearchResultContainerState";
 import styles from "./SearchResultContainer.module.scss";
 import { ISearchResult } from "../../ISearchResults";
 import { Link } from 'office-ui-fabric-react/lib/Link';
+import SearchResultGroup from "./SearchResultGroup/SearchResultGroup";
 
 export default class SearchResultContainer extends React.Component<ISearchResultContainerProps, ISearchResultContainerState>{
     private queryText:string;
@@ -24,23 +25,41 @@ export default class SearchResultContainer extends React.Component<ISearchResult
     }
 
     public render(): React.ReactElement<ISearchResultContainerProps> {  
+        
+        let groups:ISearchResult[]=[];
+        var groupBy = require('lodash.groupby');
+
+
+
+        var groupedManuals:any=groupBy(this.props.results,'Målgruppe')
+        var arrGroupKeys:string[]=[];
+        {
+            Object.keys(groupedManuals).map((groupKey,i)=>{
+                arrGroupKeys.push(groupKey);
+        })}
+
+        arrGroupKeys.sort();
+
+
+
+        
         return(
-            <div className="ms-Grid-row">
+            <div >
             {
-                this.props.results.map((item)=>{
-                    return(
+                    arrGroupKeys.map((groupKey)=>{
+                        const group = groupedManuals[groupKey];
                         
-                        <div>
-                            <Link href={item.DocumentLink}>{item.Title}</Link>
-                        </div>
-                        
-                    )
-                })
+                        return ( <div >
+                                    <SearchResultGroup groupName={groupKey} manuals={group}  ></SearchResultGroup>    
+                                </div>
+                        )
+                        })
             }
             </div>
             
         );
     }
+    
     
     
     

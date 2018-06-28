@@ -10,16 +10,6 @@ export default class SPSearchService{
     public constructor(webPartContext: IWebPartContext) {
         this._context = webPartContext;
 
-        //refinablestring00 = AnsvarCategory
-        //refinablestring01 = HundCategory
-        //refinablestring02 = BaadCategory
-        //refinablestring03 = BaadArea
-        //refinablestring04 = BilCategory
-
-        //refinablestring05 = IndboCategory
-        //refinablestring06 = IndboArea
-
-
         // Setup the PnP JS instance
         const consoleListener = new ConsoleListener();
         Logger.subscribe(consoleListener);
@@ -60,8 +50,8 @@ export default class SPSearchService{
             const allItemsPromises: Promise<ISearchResult>[] = [];
 
             refinersMappedProperties= "Process,Målgruppe";
-            refinersMappedProperties= "Process";
-            selectProperties=['Title','Author','Process','Målgruppe','Path','ContentType','HitHighlightedSummary','DocumentLink'];
+            refinersMappedProperties= "Målgruppe,Process";
+            selectProperties=['Title','Author','Process','Målgruppe','Path','ContentType','HitHighlightedSummary','DocumentLink','LinkingUrl'];
             filterOnContentType = manualType;
             
             refinementFilters.length==1?searchQuery.Querytext="ContentType:"+filterOnContentType+" AND " + queryText + " " + refinersMappedProperties + ":" + refinementFilters[0]
