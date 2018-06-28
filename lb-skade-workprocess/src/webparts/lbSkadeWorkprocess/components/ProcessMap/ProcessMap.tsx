@@ -6,6 +6,7 @@ import { IRefinementValue, IRefinementResult } from "../../ISearchResults";
 import { Session, ITermStore, ITermSet, ITerms, ITermData, ITerm } from "@pnp/sp-taxonomy";
 import { SPFetchClient } from "@pnp/nodejs";
 import styles from './ProcessMap.module.scss'
+import globalStyles from '../App/App.module.scss'
 import ProcessMapButton from "./ProcessMapButton/ProcessMapButton";
 // ############# PROPS #############
 export interface IProcessMapProps{
@@ -49,17 +50,18 @@ export default class ProcessMap extends React.Component<IProcessMapProps, IProce
 
     public render(): React.ReactElement<IProcessMapProps> {  
         return(
-            <div>
+            // <div className={globalStyles.row}>
+            <div className={styles.container}>
             {
                 this.state.test.map((item)=>{
                     return(    
-                        <div className="ms-Grid-col">
+                        <div className={styles.column}>
                             <ProcessMapButton isSelected={this.state.selectedArea==item.Name?true:false} setAreaFilter={(areaName) => this.setAreaFilter(areaName) } areaFilter={item.Name} />
                         </div>
                     )
                 })
             }
-                <div className="ms-Grid-col">
+                <div className={styles.column}>
                     <ProcessMapButton isSelected={this.state.selectedArea=="Alle"?true:false} setAreaFilter={(areaName) => this.setAreaFilter(areaName) } areaFilter={"Alle"} />
                 </div>
             </div>

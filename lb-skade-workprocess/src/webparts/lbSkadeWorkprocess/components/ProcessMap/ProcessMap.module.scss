@@ -9,8 +9,11 @@ $themeDarkAlt: "[theme:themeDarkAlt, default:#106ebe]";
 $themeDarker: "[theme:themeDarker, default:#004578]";
 $neutralLighter: "[theme:neutralLighter, default:#fff]";
 $white: "[theme:white, default:#fff]";
-
+.container{
+    min-height: 40px;
+}
 .selected{
+    // background-color:$neutralLighter;
     background-color:$neutralLighter;
     
 }
@@ -18,3 +21,10 @@ $white: "[theme:white, default:#fff]";
     background-color:$themePrimary;
     color: $white;
 }
+.column {
+    @include ms-Grid-col;
+    // @include ms-lg10;
+    // @include ms-xl8;
+    // @include ms-xlPush2;
+    // @include ms-lgPush1;
+  }

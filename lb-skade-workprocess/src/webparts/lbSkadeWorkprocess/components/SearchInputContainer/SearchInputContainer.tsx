@@ -20,12 +20,13 @@ export default class SearchInputContainer extends React.Component<ISearchInputCo
 
     public render(): React.ReactElement<ISearchInputContainerProps> {  
         return(
-                    <div >
+                    <div className={styles.container}>
                         <SearchBox
                             placeholder='Søg'
                             onSearch={ (newValue:string) => {this._search(newValue)} }
+                            
                         />
-                        <label className={styles.SearchInputLabel}>Tryk Enter 2 gange for at udføre søgning. Tryk * for at nulstille søgningen</label>
+                        {/* <label className={styles.SearchInputLabel}>Tryk Enter 2 gange for at udføre søgning. Tryk * for at nulstille søgningen</label> */}
                     </div> 
                     
            

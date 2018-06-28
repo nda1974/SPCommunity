@@ -24,24 +24,25 @@ $white: "[theme:white, default:#fff]";
     float: right;
 }
 .GroupBar{
-    // @include ms-Grid-row;
-    background-color:rgb(0,50,98);
+    @include ms-Grid-row;
+    background-color:$themePrimary;
     color: white;
     width: 100%;
     padding:10px;
     @include ms-fontSize-l;
-    margin-bottom: 5px;
+    // margin-bottom: 5px;
+    margin: 0px;
     
 }
 
 .ManualRow a{
     color:rgba(0,50,98,1);
-    @include ms-fontSize-l;
+    @include ms-fontSize-m;
 }
 .ManualRow{
     // @include ms-Grid-row;
-    padding:5px 10px 5px 10px;
-    margin-bottom: 2px;
+    padding:5px 0px 5px 10px;
+    // margin-bottom: 2px;
     
     
     width: 100%;
@@ -53,5 +54,18 @@ $white: "[theme:white, default:#fff]";
 .ManualRow:hover{
     background-color:rgba(0,50,98,.2);
     color:white;
+}
+.processTagRow{
+    @include ms-Grid-row;
+
+}
+.processTag{
+    @include ms-fontSize-xs;
+    background-color:$themeDark;
+    color: $white;
+    text-align: center;
+    padding: 5px;
+    margin-top: 5px;
+    margin-bottom: 5px;
 }
 

@@ -136,56 +136,45 @@ export default class App extends React.Component<IAppProps, IAppState> {
        
         return (
             <div className="ms-Grid">    
-            <div className={styles.row}>
-                <div className="ms-Grid-col ms-sm12 ms-md12 ms-lg12">
-                    <SearchInputContainer callbackSetAppContainerQueryString={(newState) => this.onQueryTextChanged(newState) }/>
-                    <br/>
+                <div className={styles.row}>
+                        <SearchInputContainer callbackSetAppContainerQueryString={(newState) => this.onQueryTextChanged(newState) }/>
                 </div>
-            </div>
 
-            <div className="ms-Grid-row">
-            {
-                this.state.results.RefinementResults.map((refinementResults)=>{
-                    if (refinementResults.FilterName=="Målgruppe") {
-                        return(
-                            <div>
-                                <ProcessMap mapItems={this.state.results.RefinementResults[1]} setAreaFilter={(areaFilter) => this.setAreaFilter(areaFilter) } />
-                                <br/>
-                            </div>
-                        )                
-                    }
-                    else{
-                        return (
-                            null
-                        )
-                    }
-                })
-            }
-            </div>
+                {
+                    this.state.results.RefinementResults.map((refinementResults)=>{
+                        if (refinementResults.FilterName=="Målgruppe") {
+                            return(
+                                <div className={styles.row}>
+                                    <ProcessMap mapItems={this.state.results.RefinementResults[1]} setAreaFilter={(areaFilter) => this.setAreaFilter(areaFilter) } />
+                                </div>
+                            )                
+                        }
+                        else{
+                            return (
+                                null
+                            )
+                        }
+                    })
+                }
+                
 
-                <div className="ms-Grid-row">
-                    <div className="ms-Grid-col ms-md8">
+                <div className={styles.row}>
+                    <div className="ms-Grid-col ms-md8 ms-lg8">
                         <SearchResultContainer  results={this.state.results.RelevantResults} />
                     </div>
                     {
                         this.state.results.RefinementResults.map((refinementResult)=>{
                             if (refinementResult.FilterName=="Process") {
                             return(
-                                <div className="ms-Grid-col ms-md4">
+                                <div className="ms-Grid-col ms-md4 ms-lg4">
                                     <RefinementPanel selectedRefiners={this.state.refinementFilters} myRefiners={refinementResult} refiners={this.state.results.RefinementResults}  
                                                     callbackSetRefinementFilters={(newState,toggle) => this.onRefinementFiltersChanged(newState,toggle) }
                                                     callbackClearRefinementFilters={() => this.onRefinementFiltersChanged(null) }/>
-                                                    <div>{this.state.refinementFilters}</div>
                                 </div>
                                 )
                             }
                         })
                     }
-                <div>
-                  
-                    
-                    </div>
-                
                 </div>
         </div>
         );

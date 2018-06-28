@@ -2,7 +2,7 @@ import * as React from "react";
 import { Link } from 'office-ui-fabric-react/lib/Link';
 import { ISearchResultGroupProps } from "./ISearchResultGroupProps";
 import styles from "./SearchResultGroup.module.scss";
-
+import globalStyles from '../../App/App.module.scss'
 export default class SearchResultGroup extends React.Component<ISearchResultGroupProps, {}> {
     
     public constructor(props:ISearchResultGroupProps){  
@@ -29,7 +29,16 @@ export default class SearchResultGroup extends React.Component<ISearchResultGrou
                                 return(
                                     <div className={styles.ManualRow}>
                                         <Link href={item.LinkingUrl}>{item.Title}</Link>
-                                        <div>{item.Process}</div>    
+                                        {/* <div className="ms-Grid-row"> */}
+                                        <div className={styles.processTagRow}>
+                                        {
+                                            
+                                            item.Process.split(';').map((p)=>{
+                                                return <div className="ms-Grid-col ms-md2 ms-lg2"><div className={styles.processTag}>{p}</div></div>    
+                                            })
+                                        }
+                                        </div>
+                                        {/* <div>{item.Process}</div>     */}
                                     </div>
                                 )
                             })
