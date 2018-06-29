@@ -26,18 +26,23 @@ export default class SearchResultGroup extends React.Component<ISearchResultGrou
                         {
                             group.map((item)=>{
                                 console.log(item.Title)
+                                let previewUrl = "https://lbforsikring.sharepoint.com/sites/skade/_layouts/15/getpreview.ashx?resolution=0&clientMode=modernWebPart&path=" +
+                                item.LinkingUrl +"&width=252&height=200";
+
                                 return(
                                     <div className={styles.ManualRow}>
-                                        <Link href={item.LinkingUrl}>{item.Title}</Link>
+                                        <Link href={item.LinkingUrl} target="_new">{item.Title}</Link>
+                                        
                                         {/* <div className="ms-Grid-row"> */}
                                         <div className={styles.processTagRow}>
                                         {
                                             
                                             item.Process.split(';').map((p)=>{
-                                                return <div className="ms-Grid-col ms-md2 ms-lg2"><div className={styles.processTag}>{p}</div></div>    
+                                                return <div className="ms-Grid-col ms-md2 ms-lg4"><div className={styles.processTag}>{p}</div></div>    
                                             })
                                         }
                                         </div>
+                                        {/* <img src={previewUrl} /> */}
                                         {/* <div>{item.Process}</div>     */}
                                     </div>
                                 )

@@ -53,7 +53,7 @@ export default class SPSearchService{
             refinersMappedProperties= "Målgruppe,Process";
             selectProperties=['Title','Author','Process','Målgruppe','Path','ContentType','HitHighlightedSummary','DocumentLink','LinkingUrl'];
             filterOnContentType = manualType;
-            
+            searchQuery.TrimDuplicates=false;
             refinementFilters.length==1?searchQuery.Querytext="ContentType:"+filterOnContentType+" AND " + queryText + " " + refinersMappedProperties + ":" + refinementFilters[0]
             :searchQuery.Querytext="ContentType:"+filterOnContentType+" AND " + queryText;    
 

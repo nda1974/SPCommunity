@@ -45,7 +45,7 @@ $white: "[theme:white, default:#fff]";
     // margin-bottom: 2px;
     
     
-    width: 100%;
+    
     @include ms-fontSize-m;
     border-bottom-color: $themePrimary;
     border-bottom-style: solid;
@@ -67,5 +67,6 @@ $white: "[theme:white, default:#fff]";
     padding: 5px;
     margin-top: 5px;
     margin-bottom: 5px;
+    width: 100%;
 }
 

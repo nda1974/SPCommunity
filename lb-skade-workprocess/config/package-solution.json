@@ -1,7 +1,7 @@
 {
   "$schema": "https://dev.office.com/json-schemas/spfx-build/package-solution.schema.json",
   "solution": {
-    "name": "lb-skade-workprocess-client-side-solution",
+    "name": "LB Forsikring - Skade arbejdsbeskrivelser",
     "id": "2ea2388e-7fe4-4616-b605-1e320bc14050",
     "version": "1.0.0.0",
     "includeClientSideAssets": true
