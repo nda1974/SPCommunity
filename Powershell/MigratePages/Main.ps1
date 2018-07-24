@@ -50,7 +50,9 @@ function GetSourceFile($url)
 
     try {
             $IE.Visible=$true
+            $IE.fullscreen = $true;
             $IE.navigate2($url)
+            
             $IE = ConnectIExplorer -HWND $HWND -ShowPage $false
             Write-Host 'Sleeping.'
             $ticker = '';
@@ -73,7 +75,7 @@ function GetSourceFile($url)
 
                     $sourceDocument=$IE.Document;
                     $sourceDiv=$sourceDocument.IHTMLDocument3_getElementById('layoutsTable');
-                    Set-Clipboard -Value $sourceDiv.innerHTML -AsHtml
+                    Set-Clipboard -Value $sourceDiv.innerHTML -AsHtml 
                     $exitFlag=$true
                 }
 
@@ -170,7 +172,7 @@ function ProcesFile($fileName)
                 $url = [uri]::EscapeDataString($fileName)
                 #$url = [uri]::EscapeDataString("A conto-betaling.aspx")
                 
-                $sourceUrl= "http://intranet.lb.dk/Skade/hb/indbo/SitePages/" + $url ;
+                $sourceUrl= "http://intranet.lb.dk/Skade/hb/Baad/SitePages/" + $url ;
                 $targetUrl= "https://lbforsikring.sharepoint.com/sites/Skade/SitePages/" + $url ;
             
                 GetSourceFile -url $sourceUrl 
@@ -202,7 +204,12 @@ function Run($startIndex)
     try{
     
         
-        $files = Import-Csv -Path C:\Git\LBIntranet\Powershell\MigratePages\ImportFiles\IndbohåndbøgerCSVPrerun.csv
+        $files = Import-Csv -Path C:\Git\LBIntranet\Powershell\MigratePages\ImportFiles\IndbohåndbøgerCSV.csv
+        #$files = Import-Csv -Path C:\Git\LBIntranet\Powershell\MigratePages\ImportFiles\IndbohåndbøgerCSVPrerun.csv
+$files = Import-Csv -Path C:\Git\LBIntranet\Powershell\MigratePages\ImportFiles\BaadCSVPrerun.csv
+
+
+        
         $sw = [Diagnostics.Stopwatch]::StartNew()
     
         $files |foreach-object {
