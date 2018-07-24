@@ -314,7 +314,7 @@ namespace SPOApp
             else if (input.ToLower().Equals("w"))
             {
                 string targetSiteUrl = "https://lbforsikring.sharepoint.com/sites/skade";
-                ClientContext ctx = SPOUtility.Authenticate(targetSiteUrl, "admnicd@lb.dk", "MandM2222");
+                ClientContext ctx = SPOUtility.Authenticate(targetSiteUrl, "admnicd@lb.dk", "MandM4444");
                 string sitePagesLibrary= "IndboFromLBIntranet";
                 sitePagesLibrary = "Webstedssider";
 
@@ -370,7 +370,7 @@ namespace SPOApp
 
 
 
-            ClientContext ctx = SPOUtility.Authenticate(targetSiteUrl, "admnicd@lb.dk", "MandM2222");
+            ClientContext ctx = SPOUtility.Authenticate(targetSiteUrl, "admnicd@lb.dk", "MandM4444");
 
 
 
@@ -433,7 +433,7 @@ namespace SPOApp
             }
             else if (input.ToLower().Equals("f"))
             {
-                sourceLibraryName = "Båd";
+                sourceLibraryName = "Baad";
 
                 List<BaadManualProperies> BaadManuals = Baad.GetSourceFiles(ctx, sourceLibraryName);
                 Baad.CreateModernSitePages(ctx, BaadManuals);

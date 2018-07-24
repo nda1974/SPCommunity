@@ -46,7 +46,7 @@ export class MyFavouritesService implements IMyFavoutitesService {
         myFavourites = await this._fetchFromSPList();
         
         lbFavourites = await this._fetchFromSPList2();
-        
+        console.log(lbFavourites);
         for (var i = 0; i < myFavourites.length; i++) {
             myFavourites[i].PersonalFavourite==true;
         }
@@ -57,7 +57,7 @@ export class MyFavouritesService implements IMyFavoutitesService {
         // let arr= spread.sort(function(a,b){return Number(a.PersonalFavourite) -Number(b.PersonalFavourite) });
         
         // var spread = lbFavourites;
-        console.log(spread);
+        
         // let favInCache: string = JSON.stringify(myFavourites);
         // let favInCache: string = JSON.stringify(spread);
         // window.sessionStorage.setItem(this._sessionStorageKey, favInCache);
@@ -74,7 +74,7 @@ export class MyFavouritesService implements IMyFavoutitesService {
             'Mandatory':false
         }).then(async (result: ItemAddResult): Promise<boolean> => {
             let addedItem: IMyFavouriteItem = result.data;
-            console.log(addedItem);
+            // console.log(addedItem);
             await this.getMyFavourites(false);
             return true;
         }, (error: any): boolean => {
@@ -97,7 +97,7 @@ export class MyFavouritesService implements IMyFavoutitesService {
             'Title': favouriteItem.Title,
             'Description': favouriteItem.Description
         }).then(async (result: ItemUpdateResult): Promise<boolean> => { 
-            console.log(result);
+            // console.log(result);
             await this.getMyFavourites(false);
             return true;
         }, (error: any): boolean => {
@@ -122,6 +122,8 @@ export class MyFavouritesService implements IMyFavoutitesService {
 
     private async _fetchFromSPList(): Promise<IMyFavouriteItem[]> {
         const currentUserId: number = await this._getUserId();
+        const currentUserObject: any = await this._getUserObject();
+        console.log(currentUserObject);
         return pnp.sp.web.lists.getByTitle(FAVOURITES_LIST_NAME)
             .items
             .select(
@@ -155,10 +157,13 @@ export class MyFavouritesService implements IMyFavoutitesService {
         "Title",
         "ItemUrl",
         "Description",
-        "Mandatory"
+        "Mandatory",
+        "TargetGroup/FirstName"
         )
+        .expand("TargetGroup")
         .get()
         .then((myFavourites: IMyFavouriteItem[]) => {
+            console.log(myFavourites)
             Log.info(LOG_SOURCE, "Fetched favourites from list");
             return myFavourites;
         })
@@ -189,7 +194,14 @@ export class MyFavouritesService implements IMyFavoutitesService {
 
     private _getUserId(): Promise<number> {
         return pnp.sp.site.rootWeb.ensureUser(this._context.pageContext.user.email).then(result => {
+            
             return result.data.Id;
+        });
+    }
+    private _getUserObject(): Promise<any> {
+        return pnp.sp.site.rootWeb.ensureUser(this._context.pageContext.user.email).then(result => {
+            
+            return result.data;
         });
     }
 }

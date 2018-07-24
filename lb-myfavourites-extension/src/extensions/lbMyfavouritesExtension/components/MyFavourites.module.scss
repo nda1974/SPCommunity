@@ -124,3 +124,19 @@ html[dir='rtl'] .ccStatus {
     background-color: $themePrimary;
     // color: $themeLight;
 }
+.iconsContainer{
+    display:inline-block;
+}
+.iconsContainer i{
+    margin-left: 5px;
+    font-size: 14px;
+}
+.iconsContainer i:hover{
+    cursor: pointer;
+}
+.iconPrimaryColor{
+    color:$themePrimary;
+}
+.iconWarningColor{
+    color:#C00000;
+}

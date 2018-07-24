@@ -178,3 +178,6 @@ C:\Git\LBIntranet\SPOApp\SPOApp\SPOApp\bin\Debug\zh-Hant\System.Spatial.resource
 C:\Git\LBIntranet\SPOApp\SPOApp\SPOApp\obj\Debug\SPOApp.csprojResolveAssemblyReference.cache
 C:\Git\LBIntranet\SPOApp\SPOApp\SPOApp\obj\Debug\SPOApp.exe
 C:\Git\LBIntranet\SPOApp\SPOApp\SPOApp\obj\Debug\SPOApp.pdb
+C:\Git\LBIntranet\SPOApp\SPOApp\SPOApp\bin\Debug\HtmlAgilityPack.dll
+C:\Git\LBIntranet\SPOApp\SPOApp\SPOApp\bin\Debug\HtmlAgilityPack.pdb
+C:\Git\LBIntranet\SPOApp\SPOApp\SPOApp\bin\Debug\HtmlAgilityPack.xml

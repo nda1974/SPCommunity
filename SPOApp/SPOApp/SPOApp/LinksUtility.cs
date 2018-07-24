@@ -1,11 +1,14 @@
-﻿using Microsoft.SharePoint.Client;
+﻿using HtmlAgilityPack;
+using Microsoft.SharePoint.Client;
 using OfficeDevPnP.Core.Pages;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
+using System.Web;
 
 namespace SPOApp
 {
@@ -36,7 +39,7 @@ namespace SPOApp
             int counter = 0;
             foreach (ListItem oListItem in collListItem)
             {
-                if (oListItem.ContentType.Name == "IndboManual")
+                if (oListItem.ContentType.Name == "BaadManual")
                 {
                     string tmp= oListItem["FileRef"].ToString();
                     string fileName = tmp;
@@ -51,152 +54,86 @@ namespace SPOApp
                             if (control.Type.Name == "ClientSideText")
                             {
                                 ClientSideText t = (ClientSideText)control;
-
                                 var res = FindHrefs(fileName, t.Text);
-                                if (res.Length>0)
-                                {
-
-                                    //t.Text= res;
-                                    //P.Save();
-
-                                }
+                                t.Text = res;
                             }
-                            
                         }
                     }
-                    //if (oListItem["WikiField"].ToString().Contains("href"))
-                    //{
-                    //    Console.ForegroundColor = ConsoleColor.White;
-                    //    Console.WriteLine("ID: " + oListItem.Id);
-                    //    Console.WriteLine("Title: " + oListItem.DisplayName);
-                    //    Console.WriteLine("Url: " + oListItem["FileRef"]);
-                    //    Console.ForegroundColor = ConsoleColor.Yellow;
-                    //    List<string> urls = FindHrefs(oListItem["WikiField"].ToString());
-
-                    //    if (urls.Count > 0)
-                    //    {
-                    //        counter = counter + 1;
-                    //        strLog.Add("ID: " + oListItem.Id);
-                    //        strLog.Add("Title: " + oListItem.DisplayName);
-                    //        strLog.Add("Url: " + oListItem["FileRef"]);
-                    //        strLog.Add("-----------------------------");
-                    //        foreach (string s in urls)
-                    //        {
-                    //            strLog.Add("link: " + s);
-                    //        }
-                    //        strLog.Add("-----------------------------");
-                    //        System.IO.File.AppendAllLines(@"C:\Git\LBIntranet\SPOApp\SPOApp\SPOApp\logfiles\linksInManuals.txt", strLog.ToArray());
-                    //    }
-
-
-
-                    //    Console.WriteLine("");
-                    //    Console.WriteLine("------------------------------------------------");
-                    //    Console.ForegroundColor = ConsoleColor.White;
-
-                    //}
+                    P.Save();
+                    P.Publish();
+                   
                 }
                 
 
 
 
             }
-            System.IO.File.AppendAllLines(@"C:\Git\LBIntranet\SPOApp\SPOApp\SPOApp\logfiles\linksInManuals.csv", strLog.ToArray());
+            System.IO.File.AppendAllLines(@"C:\Git\LBIntranet\SPOApp\SPOApp\SPOApp\logfiles\linksInManuals.csv", strLog.ToArray(),Encoding.UTF8);
             Console.WriteLine("Links counter: " + counter);
 
         }
-        private static void ReplaceLinks()
+        private static void ReplaceLinks(string source, string target, string fileName)
         {
         }
         private static string FindHrefs(string fileName,string input)
         {
-            Console.WriteLine("Title: " + fileName);
+            string newInput = "";
+            string s= HttpUtility.UrlEncode("https://lbforsikring.sharepoint.com/sites/Skade/SitePages/" + fileName);
+
             
             string newPrefixUrl = "https://lbforsikring.sharepoint.com/sites/Skade/SitePages/";
             Regex regex = new Regex("href\\s*=\\s*(?:\"(?<1>[^\"]*)\"|(?<1>\\S+))", RegexOptions.IgnoreCase);
-            Match match;
             
-            //System.IO.File.AppendAllLines(@"C:\Git\LBIntranet\SPOApp\SPOApp\SPOApp\logfiles\linksInManuals.txt", strLog.ToArray());
+            Match match;
             
             for (match = regex.Match(input); match.Success; match = match.NextMatch())
             {
 
-                
-                foreach (System.Text.RegularExpressions.Group group in match.Groups)
+                foreach (System.Text.RegularExpressions.Capture capture in match.Captures)
                 {
-                    string postFileString = group.Value.Substring(0, group.Value.LastIndexOf('/') + 1);
-                    Console.WriteLine("group.Value: {0}", group.Value);
-                    Console.WriteLine("postFileString: {0}", postFileString);
-                    if (group.ToString().ToLower().Contains("ankeforsikring.dk") || 
-                        group.ToString().ToLower().Contains("retsinformation.dk") || 
-                        group.ToString().ToLower().Contains("borger.dk"))
+                    
+                    if (capture.Value.ToString().ToLower().Contains("skade/hb"))
                     {
+                        Console.WriteLine("Capture.Value: {0}", capture.Value);
+                        string postFileString = capture.Value.Substring(capture.Value.LastIndexOf('/') + 1);
+                        newInput=input.Replace(capture.Value, "href=\"/sites/Skade/SitePages/" + postFileString + "\"");
+                        //WebUtility.UrlEncode
+                        Console.WriteLine("New value: {0}", "href=\"/sites/Skade/SitePages/" + fileName + "\"");
+                        FindHrefs(fileName, newInput);
+                        
                     }
-                    else { 
-                        strLog.Add(fileName + ";" + group.Value + ";" + postFileString);
-                    }
-                    //if (group.ToString().ToLower().Contains("skade/hb/indbo/sitepages"))
-                    //{
-                    //    strLog.Add(fileName + ";" + group.Value +";" + "skade/hb/indbo/sitepages");
-
-
-                    //}
-                    //else if (group.ToString().ToLower().Contains("skade/hb/indbo/sitepages"))
-                    //{
-                    //    strLog.Add(fileName + ";" + group.Value + ";" + "skade/hb/indbo/sitepages");
-                    //}
-                    //if (group.ToString().ToLower().Contains("skade/hb/indbo/"))
-                    //{
-
-
-                    //    string oldString = "/Skade/hb/indbo/SitePages/";
-                    //    string res = input.Replace(oldString, newPrefixUrl);
-                    //    strLog.Add(fileName + ";" + oldString+";" + group.Value + ";" + "Check");
-
-                    //    Console.ForegroundColor = ConsoleColor.Yellow;
-                    //    Console.ForegroundColor = ConsoleColor.White;
-
-
-                    //    return res;
-                    //}
-                    //else if (group.ToString().Contains("sites/Skade/IndboFromLBIntranet"))
-                    //{
-                    //    string oldString = "sites/Skade/IndboFromLBIntranet";
-
-                    //    strLog.Add(fileName + ";" + oldString + ";" + group.Value + ";" + "Check");
-                    //    Console.ForegroundColor = ConsoleColor.DarkYellow;
-                    //    Console.WriteLine("Href value: {0}", group);
-                    //    Console.ForegroundColor = ConsoleColor.White;
-                    //    return "";
-
-                    //}
-                    //else if (group.ToString().ToLower().Contains("ankeforsikring.dk") || group.ToString().ToLower().Contains("retsinformation.dk"))
-                    //{
-
-                    //    //Console.ForegroundColor = ConsoleColor.Green;
-                    //    //Console.WriteLine("Href value: {0}", group);
-                    //    //Console.ForegroundColor = ConsoleColor.White;
-                    //    //return "";
-                    //}
                     //else
                     //{
-
-                    //    strLog.Add(fileName + ";" + group.Value + ";" + "[REFACTOR]" + ";" + "Refactor");
-
-
-                    //    strLog.Add(fileName + "," + "" + "," + group.Value + "," + "Check");
-
-                    //    Console.ForegroundColor = ConsoleColor.Red;
-                    //    Console.WriteLine("Href value: {0}", group);
-                    //    Console.ForegroundColor = ConsoleColor.White;
-                    //    return "";
-
+                    //    Console.WriteLine("Capture.Value: {0}", capture.Value);
                     //}
-
                 }
+
+                //    foreach (System.Text.RegularExpressions.Group group in match.Groups)
+                //{
+                //    string postFileString = group.Value.Substring(0, group.Value.LastIndexOf('/') + 1);
+                //    Console.WriteLine("group.Value: {0}", group.Value);
+                //    Console.WriteLine("postFileString: {0}", postFileString);
+                //    if (group.ToString().ToLower().Contains("ankeforsikring.dk") || 
+                //        group.ToString().ToLower().Contains("retsinformation.dk") || 
+                //        group.ToString().ToLower().Contains("borger.dk") ||
+                //        group.ToString().ToLower().Contains("tinglysning.dk") ||
+                //        group.ToString().ToLower().Contains("forsikringogpension.dk"))
+                //    {
+                //    }
+                //    else if (group.ToString().ToLower().Contains("skade/hb"))
+                //    {
+                //        ReplaceLinks(postFileString);
+                //        strLog.Add(fileName + ";" + group.Value + ";" + postFileString);
+                //    }
+                //    else { 
+                //        strLog.Add(fileName + ";" + group.Value + ";" + postFileString);
+                //    }
+                    
+
+                //}
             }
             Console.WriteLine("--------------------------------------------" );
-            return "";
+            return newInput;
 
         }
     }

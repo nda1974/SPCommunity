@@ -138,7 +138,7 @@ export default class MyFavouritesTopBar extends React.Component<IMyFavouritesTop
     }
 
     public editFavourite(favouriteItem: IMyFavouriteItem): void {
-        console.log(favouriteItem);
+        // console.log(favouriteItem);
         let status: JSX.Element = <span></span>;
         let dialogTitle: string = "Rediger favorit";
         this.setState({ ...this.state, showPanel: false, itemInContext: favouriteItem, isEdit: true, showDialog: true, dialogTitle, status });

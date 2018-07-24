@@ -51,7 +51,7 @@ namespace SPOApp
             string targetContentTypeName = "BaadManual";
             foreach (var p in pages)
             {
-                CreatePages(context, p, targetContentTypeName);
+                //CreatePages(context, p, targetContentTypeName);
                 if (p.FileName.Equals("Erstatning.aspx"))
                 {
                     CreatePages(context, p, targetContentTypeName);
@@ -93,18 +93,19 @@ namespace SPOApp
 
             if (!string.IsNullOrEmpty(p.BaadCategory))
             {
-                SPOUtility.SetMetadataField(context, item, p.BaadCategory, "BaadCategory");
+                SPOUtility.SetMetadataField(context, item, p.BaadCategory, "Gruppe");
                 item.Update();
             }
             if (!string.IsNullOrEmpty(p.BaadArea))
             {
-                SPOUtility.SetMetadataField(context, item, p.BaadArea, "BaadArea");
+                SPOUtility.SetMetadataField(context, item, p.BaadArea, "Undergruppe");
                 item.Update();
             }
 
 
             
             page.Save();
+            page.Publish();
 
 
             context.ExecuteQuery();
