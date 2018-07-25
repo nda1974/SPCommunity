@@ -71,16 +71,21 @@ namespace SPOApp
             context.ExecuteQuery();
 
             ListItem item = page.PageListItem;
+            //item.Update();
 
             context.Load(item);
             context.ExecuteQuery();
 
+            //item["ContentType"] = newContentType.Name;
             item.Properties["ContentTypeId"] = newContentType.Id.StringValue;
             item["ContentTypeId"] = newContentType.Id;
 
             item.Update();
             
+
+
             page.Save();
+            page.Publish();
 
 
             context.ExecuteQuery();

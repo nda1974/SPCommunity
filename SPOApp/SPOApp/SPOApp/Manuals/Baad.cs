@@ -51,11 +51,11 @@ namespace SPOApp
             string targetContentTypeName = "BaadManual";
             foreach (var p in pages)
             {
-                //CreatePages(context, p, targetContentTypeName);
-                if (p.FileName.Equals("Erstatning.aspx"))
-                {
-                    CreatePages(context, p, targetContentTypeName);
-                }
+                CreatePages(context, p, targetContentTypeName);
+                //if (p.FileName.Equals("Erstatning.aspx"))
+                //{
+                //    CreatePages(context, p, targetContentTypeName);
+                //}
 
             }
         }
