@@ -204,9 +204,9 @@ function Run($startIndex)
     try{
     
         
-        $files = Import-Csv -Path C:\Git\LBIntranet\Powershell\MigratePages\ImportFiles\IndbohåndbøgerCSV.csv
-        #$files = Import-Csv -Path C:\Git\LBIntranet\Powershell\MigratePages\ImportFiles\IndbohåndbøgerCSVPrerun.csv
-$files = Import-Csv -Path C:\Git\LBIntranet\Powershell\MigratePages\ImportFiles\BaadCSVPrerun.csv
+ 
+#$files = Import-Csv -Path C:\Git\LBIntranet\Powershell\MigratePages\ImportFiles\BaadCSVPrerun.csv -Encoding UTF8
+$files = Import-Csv -Path C:\Git\LBIntranet\Powershell\MigratePages\ImportFiles\BaadCSV.csv -Encoding UTF8
 
 
         
