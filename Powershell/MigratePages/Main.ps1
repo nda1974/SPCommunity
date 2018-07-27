@@ -172,7 +172,7 @@ function ProcesFile($fileName)
                 $url = [uri]::EscapeDataString($fileName)
                 #$url = [uri]::EscapeDataString("A conto-betaling.aspx")
                 
-                $sourceUrl= "http://intranet.lb.dk/Skade/hb/Baad/SitePages/" + $url ;
+                $sourceUrl= "http://intranet.lb.dk/Skade/hb/Byg/SitePages/" + $url ;
                 #$sourceUrl= "http://intranet.lb.dk/Skade/hb/BeSk/SitePages/" + $url ;
                 $targetUrl= "https://lbforsikring.sharepoint.com/sites/Skade/SitePages/" + $url ;
             
@@ -210,7 +210,8 @@ function Run($startIndex)
     #$files = Import-Csv -Path C:\Git\LBIntranet\Powershell\MigratePages\ImportFiles\BeredskabCSVPrerun.csv -Encoding UTF8
 
         #$files = Import-Csv -Path C:\Git\LBIntranet\Powershell\MigratePages\ImportFiles\BeredskabCSV.csv -Encoding UTF8
-        $files = Import-Csv -Path C:\Git\LBIntranet\Powershell\MigratePages\ImportFiles\BaadCSVRepair.csv -Encoding UTF8
+        #$files = Import-Csv -Path C:\Git\LBIntranet\Powershell\MigratePages\ImportFiles\BaadCSVRepair.csv -Encoding UTF8
+        $files = Import-Csv -Path C:\Git\LBIntranet\Powershell\MigratePages\ImportFiles\BygCSV.csv -Encoding UTF8
 
 
         
