@@ -56,17 +56,22 @@ namespace SPOApp
             int counter = 0;
 
             string documentLibrarySearchString = "";
-            string branch = "";
+            string branchLibraryName = "";
 
             if (contentType == "BaadManual")
             {
-                branch = "baad";
+                branchLibraryName = "baad";
                 documentLibrarySearchString = "skade/hb/baad/delte";
             }
             else if (contentType == "BeredskabManual")
             {
-                branch = "beredskab";
+                branchLibraryName = "beredskab";
                 documentLibrarySearchString = "skade/hb/besk/delte";
+            }
+            else if (contentType == "BygningManual")
+            {
+                branchLibraryName = "byg";
+                documentLibrarySearchString = "skade/hb/byg/delte";
             }
 
             string fileName = "";
@@ -76,7 +81,7 @@ namespace SPOApp
                 Console.WriteLine(counter + " of " + collListItem.Count);
 
                 fileName = oListItem["FileRef"].ToString();
-                EditFile(context, fileName, branch, documentLibrarySearchString);
+                EditFile(context, fileName, branchLibraryName, documentLibrarySearchString);
             }
 
            
@@ -85,7 +90,7 @@ namespace SPOApp
 
         }
 
-        private static void EditFile(ClientContext context, string fileName, string branch, string documentLibrarySearchString)
+        private static void EditFile(ClientContext context, string fileName, string branchLibraryName, string documentLibrarySearchString)
         {
             fileName = fileName.Substring(fileName.LastIndexOf('/') + 1);
             ClientSidePage P = ClientSidePage.Load(context, fileName);
@@ -97,7 +102,8 @@ namespace SPOApp
                     if (control.Type.Name == "ClientSideText")
                     {
                         ClientSideText t = (ClientSideText)control;
-                        var res = TraverseHyperLinks(fileName, t.Text, branch, documentLibrarySearchString);
+                        test(t.Text, fileName);
+                        //var res = TraverseHyperLinks(fileName, t.Text, branchLibraryName, documentLibrarySearchString);
                         //t.Text = res;
                     }
                 }
@@ -106,16 +112,25 @@ namespace SPOApp
             //P.Publish();
 
         }
-
-        private static string TraverseHyperLinks(string fileName, string input, string branch, string documentLibrarySearchString)
+        private static void test(string content,string fileName)
+        {
+            string testString = "false,false,1";
+            if (content.Contains(testString))
+            {
+                strLog.Add(fileName + ";" + string.Empty);
+                
+                Console.WriteLine(fileName);
+            }
+        }
+        private static string TraverseHyperLinks(string fileName, string input, string branchLibraryName, string documentLibrarySearchString)
         {
             Regex regex = new Regex("href\\s*=\\s*(?:\"(?<1>[^\"]*)\"|(?<1>\\S+))", RegexOptions.IgnoreCase);
             Match match;
 
             for (match = regex.Match(input); match.Success; match = match.NextMatch())
             {
-                //input = EditHyperLinks(fileName, input, branch, documentLibrarySearchString, match);
-                IdentifyHyperLinks(fileName, input, branch, documentLibrarySearchString, match);
+                input = EditHyperLinks(fileName, input, branchLibraryName, documentLibrarySearchString, match);
+                //IdentifyHyperLinks(fileName, input, branchLibraryName, documentLibrarySearchString, match);
 
             }
             Console.WriteLine("--------------------------------------------");
@@ -123,7 +138,7 @@ namespace SPOApp
 
         }
 
-        private static string EditHyperLinks(string fileName, string input, string branch, string documentLibrarySearchString, Match match)
+        private static string EditHyperLinks(string fileName, string input, string branchLibraryName, string documentLibrarySearchString, Match match)
         {
             foreach (System.Text.RegularExpressions.Capture capture in match.Captures)
             {
@@ -133,7 +148,7 @@ namespace SPOApp
                     if (capture.Value.ToString().ToLower().Contains(documentLibrarySearchString))
                     {
                         string postFileString = capture.Value.Substring(capture.Value.LastIndexOf('/') + 1);
-                        string newCapture = string.Format("href=\"/sites/Skade/{0}/" + postFileString + "\"", branch);
+                        string newCapture = string.Format("href=\"/sites/Skade/{0}/" + postFileString + "\"", branchLibraryName);
                         input = input.Replace(capture.Value, newCapture);
                     }
                     else
@@ -165,7 +180,7 @@ namespace SPOApp
             return input;
         }
 
-        private static void IdentifyHyperLinks(string fileName, string input, string branch, string documentLibrarySearchString, Match match)
+        private static void IdentifyHyperLinks(string fileName, string input, string branchLibraryName, string documentLibrarySearchString, Match match)
         {
             foreach (System.Text.RegularExpressions.Capture capture in match.Captures)
             {
@@ -174,23 +189,15 @@ namespace SPOApp
                 {
                     if (capture.Value.ToString().ToLower().Contains(documentLibrarySearchString))
                     {
-                        //string postFileString = capture.Value.Substring(capture.Value.LastIndexOf('/') + 1);
-                        //string newCapture = string.Format("href=\"/sites/Skade/{0}/" + postFileString + "\"", branch);
-                        //input = input.Replace(capture.Value, newCapture);
                         Console.ForegroundColor = ConsoleColor.Yellow;
                         Console.WriteLine(fileName +" : "+ capture);
                         Console.ForegroundColor = ConsoleColor.White;
                     }
                     else
                     {
-
                         Console.ForegroundColor = ConsoleColor.Yellow;
                         Console.WriteLine(fileName + " : " + capture);
                         Console.ForegroundColor = ConsoleColor.White;
-
-                        //string postFileString = capture.Value.Substring(capture.Value.LastIndexOf('/') + 1);
-                        //string newCapture = "href=\"/sites/Skade/SitePages/" + postFileString + "\"";
-                        //input = input.Replace(capture.Value, newCapture);
                     }
                 }
                 else if (capture.Value.ToString().ToLower().Contains("ankeforsikring.dk") ||
@@ -206,7 +213,6 @@ namespace SPOApp
                     Console.ForegroundColor = ConsoleColor.Green;
                     Console.WriteLine(fileName + " : " + capture);
                     Console.ForegroundColor = ConsoleColor.White;
-                    //Console.WriteLine("Capture.Value: {0}", capture.Value);
                 }
             }
 

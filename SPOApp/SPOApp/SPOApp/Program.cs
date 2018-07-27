@@ -138,6 +138,7 @@ namespace SPOApp
         public string ContentTypeName;
         public string SourceLibrary;
     }
+    
 
     class Program
     {
@@ -331,6 +332,7 @@ namespace SPOApp
             {
                 Console.WriteLine("Båd [1]");
                 Console.WriteLine("Beredskab [2]");
+                Console.WriteLine("Byg [3]");
                 string choice=Console.ReadLine();
                 string ctName = "";
                 if (choice == "1")
@@ -341,8 +343,12 @@ namespace SPOApp
                 {
                     ctName = "BeredskabManual";
                 }
+                else if (choice == "3")
+                {
+                    ctName = "BygningManual";
+                }
                 string targetSiteUrl = "https://lbforsikring.sharepoint.com/sites/skade";
-                ClientContext ctx = SPOUtility.Authenticate(targetSiteUrl, "admnicd@lb.dk", "MandM4444");
+                ClientContext ctx = SPOUtility.Authenticate(targetSiteUrl, "admnicd@lb.dk", "MandM5555");
                 string sitePagesLibrary= "Webstedssider";
 
                 LinksUtility.CheckForLinks(ctx, sitePagesLibrary,ctName);
