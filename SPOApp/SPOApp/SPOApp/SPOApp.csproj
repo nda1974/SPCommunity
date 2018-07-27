@@ -166,6 +166,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Manuals\GenericManual.cs" />
     <Compile Include="Manuals\Indbo.cs" />
     <Compile Include="Manuals\Hund.cs" />
     <Compile Include="Manuals\Gerningsmand.cs" />

@@ -15,9 +15,25 @@ namespace SPOApp
     public static class LinksUtility
     {
         private static List<string> strLog = new List<string>();
-        public static void CheckForLinks(ClientContext context, string sitePagesLibraryTitle)
+        public static void CheckForLinks(ClientContext context, string sitePagesLibraryTitle, string contentType)
         {
+            
             CamlQuery camlQuery = new CamlQuery();
+            string viewXml = string.Format(@"
+                <View>
+                    <Query>
+                        <Where>
+                            <Eq>
+                                <FieldRef Name='ContentType' />
+                                <Value Type='Computed'>{0}</Value>
+                            </Eq>
+                        </Where>
+                    </Query>
+                </View>",contentType);
+
+            camlQuery.ViewXml=viewXml;
+
+            //string cq = "<Where><Eq><FieldRef Name='ContentType'/><Value Type='Computed'> BaadManual </ Value></Eq></Where>";
 
             List<string> strLogMessageNoFilesWithLinks = new List<string>();
             List<string> strLogMessageNoFilesWithNoCanvas = new List<string>();
@@ -33,6 +49,7 @@ namespace SPOApp
                     item => item.ContentType,
                     item => item["FileRef"],
                     item => item["WikiField"]));
+            
             context.ExecuteQuery();
 
 
@@ -41,33 +58,36 @@ namespace SPOApp
             string documentLibrarySearchString = "";
             string branch = "";
 
+            if (contentType == "BaadManual")
+            {
+                branch = "baad";
+                documentLibrarySearchString = "skade/hb/baad/delte";
+            }
+            else if (contentType == "BeredskabManual")
+            {
+                branch = "beredskab";
+                documentLibrarySearchString = "skade/hb/besk/delte";
+            }
+
+            string fileName = "";
             foreach (ListItem oListItem in collListItem)
             {
                 counter++;
                 Console.WriteLine(counter + " of " + collListItem.Count);
-                if (oListItem.ContentType.Name == "BaadManual")
-                {
-                    branch = "baad";
-                    documentLibrarySearchString = "skade/hb/baad/delte";
-                    string tmp = oListItem["FileRef"].ToString();
-                    string fileName = tmp;
-                    //if (tmp.ToLower().Contains("links.aspx"))
-                    //{
-                    //    EditFile(context, tmp, fileName,branch, documentLibrarySearchString);
-                    //}
-                    EditFile(context, tmp, fileName, branch, documentLibrarySearchString);
 
-                }
+                fileName = oListItem["FileRef"].ToString();
+                EditFile(context, fileName, branch, documentLibrarySearchString);
             }
+
+           
             System.IO.File.AppendAllLines(@"C:\Git\LBIntranet\SPOApp\SPOApp\SPOApp\logfiles\linksInManuals.csv", strLog.ToArray(), Encoding.UTF8);
             Console.WriteLine("Links counter: " + counter);
 
         }
 
-        private static void EditFile(ClientContext context, string tmp, string fileName, string branch, string documentLibrarySearchString)
+        private static void EditFile(ClientContext context, string fileName, string branch, string documentLibrarySearchString)
         {
             fileName = fileName.Substring(fileName.LastIndexOf('/') + 1);
-            string postFileString = tmp.Substring(0, tmp.LastIndexOf('/') + 1);
             ClientSidePage P = ClientSidePage.Load(context, fileName);
             foreach (CanvasSection section in P.Sections)
             {
@@ -77,65 +97,118 @@ namespace SPOApp
                     if (control.Type.Name == "ClientSideText")
                     {
                         ClientSideText t = (ClientSideText)control;
-                        var res = EditHyperLinks(fileName, t.Text, branch, documentLibrarySearchString);
-                        t.Text = res;
+                        var res = TraverseHyperLinks(fileName, t.Text, branch, documentLibrarySearchString);
+                        //t.Text = res;
                     }
                 }
             }
-            P.Save();
-            P.Publish();
+            //P.Save();
+            //P.Publish();
 
         }
 
-        private static string EditHyperLinks(string fileName, string input, string branch, string documentLibrarySearchString)
+        private static string TraverseHyperLinks(string fileName, string input, string branch, string documentLibrarySearchString)
         {
             Regex regex = new Regex("href\\s*=\\s*(?:\"(?<1>[^\"]*)\"|(?<1>\\S+))", RegexOptions.IgnoreCase);
             Match match;
 
             for (match = regex.Match(input); match.Success; match = match.NextMatch())
             {
-
-                foreach (System.Text.RegularExpressions.Capture capture in match.Captures)
-                {
-
-                    if (capture.Value.ToString().ToLower().Contains("skade/hb"))
-                    {
-                        if (capture.Value.ToString().ToLower().Contains(documentLibrarySearchString))
-                        {
-                            string postFileString = capture.Value.Substring(capture.Value.LastIndexOf('/') + 1);
-                            string newCapture = string.Format("href=\"/sites/Skade/{0}/" + postFileString + "\"", branch);
-                            input = input.Replace(capture.Value, newCapture);
-                        }
-                        else
-                        {
-                            Console.WriteLine("Capture.Value: {0}", capture.Value);
-                            string postFileString = capture.Value.Substring(capture.Value.LastIndexOf('/') + 1);
-                            string newCapture = "href=\"/sites/Skade/SitePages/" + postFileString + "\"";
-                            input = input.Replace(capture.Value, newCapture);
-                        }
-                    }
-                    else if (capture.Value.ToString().ToLower().Contains("ankeforsikring.dk") ||
-                        capture.Value.ToString().ToLower().Contains("retsinformation.dk") ||
-                        capture.Value.ToString().ToLower().Contains("www.lb.dk") ||
-                        capture.Value.ToString().ToLower().Contains("tinglysning.dk") ||
-                        capture.Value.ToString().ToLower().Contains("tinglysning.dk")
-                        )
-                    {
-                    }
-                    else
-                    {
-                        Console.ForegroundColor = ConsoleColor.Green;
-                        Console.WriteLine(capture);
-                        Console.ForegroundColor = ConsoleColor.White;
-                        //Console.WriteLine("Capture.Value: {0}", capture.Value);
-                        strLog.Add(fileName + ";" + capture.Value);
-                    }
-                }
-
+                //input = EditHyperLinks(fileName, input, branch, documentLibrarySearchString, match);
+                IdentifyHyperLinks(fileName, input, branch, documentLibrarySearchString, match);
 
             }
             Console.WriteLine("--------------------------------------------");
             return input;
+
+        }
+
+        private static string EditHyperLinks(string fileName, string input, string branch, string documentLibrarySearchString, Match match)
+        {
+            foreach (System.Text.RegularExpressions.Capture capture in match.Captures)
+            {
+
+                if (capture.Value.ToString().ToLower().Contains("skade/hb"))
+                {
+                    if (capture.Value.ToString().ToLower().Contains(documentLibrarySearchString))
+                    {
+                        string postFileString = capture.Value.Substring(capture.Value.LastIndexOf('/') + 1);
+                        string newCapture = string.Format("href=\"/sites/Skade/{0}/" + postFileString + "\"", branch);
+                        input = input.Replace(capture.Value, newCapture);
+                    }
+                    else
+                    {
+                        Console.WriteLine("Capture.Value: {0}", capture.Value);
+                        string postFileString = capture.Value.Substring(capture.Value.LastIndexOf('/') + 1);
+                        string newCapture = "href=\"/sites/Skade/SitePages/" + postFileString + "\"";
+                        input = input.Replace(capture.Value, newCapture);
+                    }
+                }
+                else if (capture.Value.ToString().ToLower().Contains("ankeforsikring.dk") ||
+                    capture.Value.ToString().ToLower().Contains("retsinformation.dk") ||
+                    capture.Value.ToString().ToLower().Contains("www.lb.dk") ||
+                    capture.Value.ToString().ToLower().Contains("tinglysning.dk") ||
+                    capture.Value.ToString().ToLower().Contains("tinglysning.dk")
+                    )
+                {
+                }
+                else
+                {
+                    Console.ForegroundColor = ConsoleColor.Green;
+                    Console.WriteLine(capture);
+                    Console.ForegroundColor = ConsoleColor.White;
+                    //Console.WriteLine("Capture.Value: {0}", capture.Value);
+                    strLog.Add(fileName + ";" + capture.Value);
+                }
+            }
+
+            return input;
+        }
+
+        private static void IdentifyHyperLinks(string fileName, string input, string branch, string documentLibrarySearchString, Match match)
+        {
+            foreach (System.Text.RegularExpressions.Capture capture in match.Captures)
+            {
+
+                if (capture.Value.ToString().ToLower().Contains("skade/hb"))
+                {
+                    if (capture.Value.ToString().ToLower().Contains(documentLibrarySearchString))
+                    {
+                        //string postFileString = capture.Value.Substring(capture.Value.LastIndexOf('/') + 1);
+                        //string newCapture = string.Format("href=\"/sites/Skade/{0}/" + postFileString + "\"", branch);
+                        //input = input.Replace(capture.Value, newCapture);
+                        Console.ForegroundColor = ConsoleColor.Yellow;
+                        Console.WriteLine(fileName +" : "+ capture);
+                        Console.ForegroundColor = ConsoleColor.White;
+                    }
+                    else
+                    {
+
+                        Console.ForegroundColor = ConsoleColor.Yellow;
+                        Console.WriteLine(fileName + " : " + capture);
+                        Console.ForegroundColor = ConsoleColor.White;
+
+                        //string postFileString = capture.Value.Substring(capture.Value.LastIndexOf('/') + 1);
+                        //string newCapture = "href=\"/sites/Skade/SitePages/" + postFileString + "\"";
+                        //input = input.Replace(capture.Value, newCapture);
+                    }
+                }
+                else if (capture.Value.ToString().ToLower().Contains("ankeforsikring.dk") ||
+                    capture.Value.ToString().ToLower().Contains("retsinformation.dk") ||
+                    capture.Value.ToString().ToLower().Contains("www.lb.dk") ||
+                    capture.Value.ToString().ToLower().Contains("tinglysning.dk") ||
+                    capture.Value.ToString().ToLower().Contains("tinglysning.dk")
+                    )
+                {
+                }
+                else
+                {
+                    Console.ForegroundColor = ConsoleColor.Green;
+                    Console.WriteLine(fileName + " : " + capture);
+                    Console.ForegroundColor = ConsoleColor.White;
+                    //Console.WriteLine("Capture.Value: {0}", capture.Value);
+                }
+            }
 
         }
     }

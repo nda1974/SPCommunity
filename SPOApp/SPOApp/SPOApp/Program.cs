@@ -52,6 +52,8 @@ namespace SPOApp
         public string FileName;
         public string Title;
     }
+    
+    
     public struct BygningManualProperies
     {
         public string BygningCategory;
@@ -121,6 +123,20 @@ namespace SPOApp
         public string LBTeaser;
         public string LBKendelser;
 
+    }
+
+    public struct GenericManualProperies
+    {
+        public string Gruppe;
+        public string UnderGruppe;
+        public string WikiContent;
+        public string FileName;
+        public string Title;
+    }
+    public struct GenericConfiguration
+    {
+        public string ContentTypeName;
+        public string SourceLibrary;
     }
 
     class Program
@@ -313,12 +329,23 @@ namespace SPOApp
             }
             else if (input.ToLower().Equals("w"))
             {
+                Console.WriteLine("Båd [1]");
+                Console.WriteLine("Beredskab [2]");
+                string choice=Console.ReadLine();
+                string ctName = "";
+                if (choice == "1")
+                {
+                    ctName = "BaadManual";
+                }
+                else if (choice == "2")
+                {
+                    ctName = "BeredskabManual";
+                }
                 string targetSiteUrl = "https://lbforsikring.sharepoint.com/sites/skade";
                 ClientContext ctx = SPOUtility.Authenticate(targetSiteUrl, "admnicd@lb.dk", "MandM4444");
-                string sitePagesLibrary= "IndboFromLBIntranet";
-                sitePagesLibrary = "Webstedssider";
+                string sitePagesLibrary= "Webstedssider";
 
-                LinksUtility.CheckForLinks(ctx, sitePagesLibrary);
+                LinksUtility.CheckForLinks(ctx, sitePagesLibrary,ctName);
                 
                 Console.WriteLine("Done searching for links");
                 Console.ReadLine();
@@ -375,114 +402,132 @@ namespace SPOApp
 
 
 
-            
+            Console.WriteLine("Create Generic Manuals [X]");
 
 
-            Console.WriteLine("Create Ansvar Manuals [A]");
-            Console.WriteLine("Create Beredskab Manuals [B]");
-            Console.WriteLine("Create Bil Manuals [C]");
-            Console.WriteLine("Create BilskadePortalGuide Manuals [D]");
-            Console.WriteLine("Create Bygning Manuals [E]");
-            Console.WriteLine("Create Båd Manuals [F]");
-            Console.WriteLine("Create Ejerskifte Manuals [G]");
-            Console.WriteLine("Create Enterprise Manuals [H]");
-            Console.WriteLine("Create Erhverv Manuals [I]");
-            Console.WriteLine("Create Gerningsmand Manuals [J]");
-            Console.WriteLine("Create Hund Manuals [K]");
-            Console.WriteLine("Create Indbo Manuals [L]");
+            //Console.WriteLine("Create Ansvar Manuals [A]");
+            //Console.WriteLine("Create Beredskab Manuals [B]");
+            //Console.WriteLine("Create Bil Manuals [C]");
+            //Console.WriteLine("Create BilskadePortalGuide Manuals [D]");
+            //Console.WriteLine("Create Bygning Manuals [E]");
+            //Console.WriteLine("Create Båd Manuals [F]");
+            //Console.WriteLine("Create Ejerskifte Manuals [G]");
+            //Console.WriteLine("Create Enterprise Manuals [H]");
+            //Console.WriteLine("Create Erhverv Manuals [I]");
+            //Console.WriteLine("Create Gerningsmand Manuals [J]");
+            //Console.WriteLine("Create Hund Manuals [K]");
+            //Console.WriteLine("Create Indbo Manuals [L]");
             var input = Console.ReadLine();
 
-            
 
-            
+            GenericConfiguration g;
+            g.ContentTypeName = "";
+            g.SourceLibrary = "";
 
-            if (input.ToLower().Equals("a"))
+            if (input.ToLower().Equals("x"))
             {
-                sourceLibraryName = "Ansvar";
+                Console.WriteLine("Vælg branch:");
+                Console.WriteLine("Bygning [1]");
+                
+                string branch = Console.ReadLine();
+                if (branch=="1")
+                {
+                    
+                    g.ContentTypeName = "BygningManual";
+                    g.SourceLibrary = "Bygwebsider";
+                }
 
-                List<AnsvarManualProperies> AnsvarManuals = Ansvar.GetSourceFiles(ctx, sourceLibraryName);
-                Ansvar.CreateModernSitePages(ctx, AnsvarManuals);
+                
+                List<GenericManualProperies> manuals = GenericManual.GetSourceFiles(ctx, g);
+                GenericManual.CreateModernSitePages(ctx, manuals,g);
             }
-            else if (input.ToLower().Equals("b"))
-            {
-                sourceLibraryName = "Beredskab";
+            //else if (input.ToLower().Equals("a"))
+            //{
+            //    sourceLibraryName = "Ansvar";
 
-                List<BeredskabManualProperies> BeredskabManuals = Beredskab.GetSourceFiles(ctx, sourceLibraryName);
-                Beredskab.CreateModernSitePages(ctx, BeredskabManuals);
-            }
-            else if (input.ToLower().Equals("c"))
-            {
-                sourceLibraryName = "Bil";
+            //    List<AnsvarManualProperies> AnsvarManuals = Ansvar.GetSourceFiles(ctx, sourceLibraryName);
+            //    Ansvar.CreateModernSitePages(ctx, AnsvarManuals);
+            //}
+            //else if (input.ToLower().Equals("b"))
+            //{
+            //    sourceLibraryName = "Beredskab";
 
-                List<BilManualProperies> BilManuals = Bil.GetSourceFiles(ctx, sourceLibraryName);
-                Bil.CreateModernSitePages(ctx, BilManuals);
-            }
-            else if (input.ToLower().Equals("d"))
-            {
-                sourceLibraryName = "Bilskade Portal Guide";
+            //    List<BeredskabManualProperies> BeredskabManuals = Beredskab.GetSourceFiles(ctx, sourceLibraryName);
+            //    Beredskab.CreateModernSitePages(ctx, BeredskabManuals);
+            //}
+            //else if (input.ToLower().Equals("c"))
+            //{
+            //    sourceLibraryName = "Bil";
 
-                List<BilSkadePortalGuideManualProperies> BilSkadePortalGuideManuals = BilSkadePortalGuide.GetSourceFiles(ctx, sourceLibraryName);
-                BilSkadePortalGuide.CreateModernSitePages(ctx, BilSkadePortalGuideManuals);
-            }
-            else if (input.ToLower().Equals("e"))
-            {
-                sourceLibraryName = "Bygning";
+            //    List<BilManualProperies> BilManuals = Bil.GetSourceFiles(ctx, sourceLibraryName);
+            //    Bil.CreateModernSitePages(ctx, BilManuals);
+            //}
+            //else if (input.ToLower().Equals("d"))
+            //{
+            //    sourceLibraryName = "Bilskade Portal Guide";
 
-                List<BygningManualProperies> BygningManuals = Bygning.GetSourceFiles(ctx, sourceLibraryName);
-                Bygning.CreateModernSitePages(ctx, BygningManuals);
-            }
-            else if (input.ToLower().Equals("f"))
-            {
-                sourceLibraryName = "Baad";
+            //    List<BilSkadePortalGuideManualProperies> BilSkadePortalGuideManuals = BilSkadePortalGuide.GetSourceFiles(ctx, sourceLibraryName);
+            //    BilSkadePortalGuide.CreateModernSitePages(ctx, BilSkadePortalGuideManuals);
+            //}
+            //else if (input.ToLower().Equals("e"))
+            //{
+            //    sourceLibraryName = "Bygwebsider";
 
-                List<BaadManualProperies> BaadManuals = Baad.GetSourceFiles(ctx, sourceLibraryName);
-                Baad.CreateModernSitePages(ctx, BaadManuals);
-            }
-            else if (input.ToLower().Equals("g"))
-            {
-                sourceLibraryName = "Ejerskifte";
+            //    List<BygningManualProperies> BygningManuals = Bygning.GetSourceFiles(ctx, sourceLibraryName);
+            //    Bygning.CreateModernSitePages(ctx, BygningManuals);
+            //}
+            //else if (input.ToLower().Equals("f"))
+            //{
+            //    sourceLibraryName = "Baad";
 
-                List<EjerskifteManualProperies> EjerskifteManuals = Ejerskifte.GetSourceFiles(ctx, sourceLibraryName);
-                Ejerskifte.CreateModernSitePages(ctx, EjerskifteManuals);
-            }
-            else if (input.ToLower().Equals("h"))
-            {
-                sourceLibraryName = "Enterprise";
+            //    List<BaadManualProperies> BaadManuals = Baad.GetSourceFiles(ctx, sourceLibraryName);
+            //    Baad.CreateModernSitePages(ctx, BaadManuals);
+            //}
+            //else if (input.ToLower().Equals("g"))
+            //{
+            //    sourceLibraryName = "Ejerskifte";
 
-                List<EnterpriseManualProperies> EnterpriseManuals = Enterprise.GetSourceFiles(ctx, sourceLibraryName);
-                Enterprise.CreateModernSitePages(ctx, EnterpriseManuals);
-            }
-            else if (input.ToLower().Equals("i"))
-            {
-                sourceLibraryName = "Erhverv";
+            //    List<EjerskifteManualProperies> EjerskifteManuals = Ejerskifte.GetSourceFiles(ctx, sourceLibraryName);
+            //    Ejerskifte.CreateModernSitePages(ctx, EjerskifteManuals);
+            //}
+            //else if (input.ToLower().Equals("h"))
+            //{
+            //    sourceLibraryName = "Enterprise";
 
-                List<ErhvervManualProperies> ErhvervManuals = Erhverv.GetSourceFiles(ctx, sourceLibraryName);
-                Erhverv.CreateModernSitePages(ctx, ErhvervManuals);
-            }
-            else if (input.ToLower().Equals("j"))
-            {
-                sourceLibraryName = "Gerningsmand";
+            //    List<EnterpriseManualProperies> EnterpriseManuals = Enterprise.GetSourceFiles(ctx, sourceLibraryName);
+            //    Enterprise.CreateModernSitePages(ctx, EnterpriseManuals);
+            //}
+            //else if (input.ToLower().Equals("i"))
+            //{
+            //    sourceLibraryName = "Erhverv";
 
-                List<GerningsmandManualProperies> GerningsmandManuals = Gerningsmand.GetSourceFiles(ctx, sourceLibraryName);
-                Gerningsmand.CreateModernSitePages(ctx, GerningsmandManuals);
-            }
-            else if (input.ToLower().Equals("k"))
-            {
-                sourceLibraryName = "Hund";
+            //    List<ErhvervManualProperies> ErhvervManuals = Erhverv.GetSourceFiles(ctx, sourceLibraryName);
+            //    Erhverv.CreateModernSitePages(ctx, ErhvervManuals);
+            //}
+            //else if (input.ToLower().Equals("j"))
+            //{
+            //    sourceLibraryName = "Gerningsmand";
 
-                List<HundManualProperies> HundManuals = Hund.GetSourceFiles(ctx, sourceLibraryName);
-                Hund.CreateModernSitePages(ctx, HundManuals);
-            }
-            else if (input.ToLower().Equals("l"))
-            {
-                sourceLibraryName = "Indbo";
-                sourceLibraryName = "Websider";
-                sourceLibraryName = "IndboFromLBIntranet";
+            //    List<GerningsmandManualProperies> GerningsmandManuals = Gerningsmand.GetSourceFiles(ctx, sourceLibraryName);
+            //    Gerningsmand.CreateModernSitePages(ctx, GerningsmandManuals);
+            //}
+            //else if (input.ToLower().Equals("k"))
+            //{
+            //    sourceLibraryName = "Hund";
+
+            //    List<HundManualProperies> HundManuals = Hund.GetSourceFiles(ctx, sourceLibraryName);
+            //    Hund.CreateModernSitePages(ctx, HundManuals);
+            //}
+            //else if (input.ToLower().Equals("l"))
+            //{
+            //    sourceLibraryName = "Indbo";
+            //    sourceLibraryName = "Websider";
+            //    sourceLibraryName = "IndboFromLBIntranet";
                 
 
-                List<IndboManualProperies> IndboManuals = Indbo.GetSourceFiles(ctx, sourceLibraryName);
-                Indbo.CreateModernSitePages(ctx, IndboManuals);
-            }
+            //    List<IndboManualProperies> IndboManuals = Indbo.GetSourceFiles(ctx, sourceLibraryName);
+            //    Indbo.CreateModernSitePages(ctx, IndboManuals);
+            //}
 
 
 
