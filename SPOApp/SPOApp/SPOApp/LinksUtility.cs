@@ -282,7 +282,7 @@ namespace SPOApp
                     }
                     else
                     {
-                        Console.WriteLine("Capture.Value: {0}", capture.Value);
+                        Console.WriteLine("Filename: {1} - Capture.Value: {0}", capture.Value, fileName);
                         string postFileString = capture.Value.Substring(capture.Value.LastIndexOf('/') + 1);
                         string newCapture = "href=\"/sites/Skade/SitePages/" + postFileString + "\"";
                         input = input.Replace(capture.Value, newCapture);
