@@ -132,8 +132,12 @@ namespace SPOApp
 
             string documentLibrarySearchString = "";
             string branchLibraryName = "";
-
-            if (contentType == "BaadManual")
+            if (contentType == "AnsvarManual")
+            {
+                branchLibraryName = "ansvar";
+                documentLibrarySearchString = "skade/hb/ansvarny/delte";
+            }
+            else if (contentType == "BaadManual")
             {
                 branchLibraryName = "baad";
                 documentLibrarySearchString = "skade/hb/baad/delte";
@@ -205,6 +209,7 @@ namespace SPOApp
                         }
                         else if (parsingFeature == "2")
                         {
+                            test(fileName, t.Text, branchLibraryName, documentLibrarySearchString);
                         }
                         else if (parsingFeature == "3")
                         {
@@ -245,6 +250,20 @@ namespace SPOApp
             }
             Console.WriteLine("--------------------------------------------");
             return input;
+
+        }
+        private static void test(string fileName, string input, string branchLibraryName, string documentLibrarySearchString)
+        {
+            Regex regex = new Regex("href\\s*=\\s*(?:\"(?<1>[^\"]*)\"|(?<1>\\S+))", RegexOptions.IgnoreCase);
+            Match match;
+
+            for (match = regex.Match(input); match.Success; match = match.NextMatch())
+            {
+                IdentifyHyperLinks(fileName, input, branchLibraryName, documentLibrarySearchString, match);
+
+            }
+            Console.WriteLine("--------------------------------------------");
+            
 
         }
 
