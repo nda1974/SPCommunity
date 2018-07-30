@@ -29,7 +29,17 @@ namespace SPOApp
 
                     GenericManualProperies spp;
                     spp.WikiContent = (listItem["WikiField"] == null) ? "" : listItem["WikiField"].ToString();
-                    spp.Gruppe = (listItem["Kategori"] == null) ? "" : listItem["Kategori"].ToString();
+
+                    
+                    if (g.ContentTypeName=="AnsvarManual")
+                    {
+                        spp.Gruppe = (listItem["kATEGORI"] == null) ? "" : listItem["kATEGORI"].ToString();
+                    }
+                    else
+                    {
+                        spp.Gruppe = (listItem["Kategori"] == null) ? "" : listItem["Kategori"].ToString();
+                    }
+                    
                     spp.UnderGruppe= (listItem["Omr_x00e5_de"] == null) ? "" : listItem["Omr_x00e5_de"].ToString();
                     spp.Title = listItem["FileLeafRef"].ToString().Split('.')[0];
                     spp.FileName = listItem["FileLeafRef"].ToString();
