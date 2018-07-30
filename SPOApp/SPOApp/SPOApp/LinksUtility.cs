@@ -82,9 +82,84 @@ namespace SPOApp
 
                 fileName = oListItem["FileRef"].ToString();
                 EditFile(context, fileName, branchLibraryName, documentLibrarySearchString);
+                
             }
 
            
+            System.IO.File.AppendAllLines(@"C:\Git\LBIntranet\SPOApp\SPOApp\SPOApp\logfiles\linksInManuals.csv", strLog.ToArray(), Encoding.UTF8);
+            Console.WriteLine("Links counter: " + counter);
+
+        }
+        public static void CheckForLinks(ClientContext context, string sitePagesLibraryTitle, string contentType,string parsingFeaure)
+        {
+
+            CamlQuery camlQuery = new CamlQuery();
+            string viewXml = string.Format(@"
+                <View>
+                    <Query>
+                        <Where>
+                            <Eq>
+                                <FieldRef Name='ContentType' />
+                                <Value Type='Computed'>{0}</Value>
+                            </Eq>
+                        </Where>
+                    </Query>
+                </View>", contentType);
+
+            camlQuery.ViewXml = viewXml;
+
+            //string cq = "<Where><Eq><FieldRef Name='ContentType'/><Value Type='Computed'> BaadManual </ Value></Eq></Where>";
+
+            List<string> strLogMessageNoFilesWithLinks = new List<string>();
+            List<string> strLogMessageNoFilesWithNoCanvas = new List<string>();
+
+            var oList = context.Web.Lists.GetByTitle(sitePagesLibraryTitle);
+
+            ListItemCollection collListItem = oList.GetItems(camlQuery);
+            //context.Load(collListItem);
+            context.Load(collListItem,
+                 items => items.Include(
+                    item => item.Id,
+                    item => item.DisplayName,
+                    item => item.ContentType,
+                    item => item["FileRef"],
+                    item => item["WikiField"]));
+
+            context.ExecuteQuery();
+
+
+            int counter = 0;
+
+            string documentLibrarySearchString = "";
+            string branchLibraryName = "";
+
+            if (contentType == "BaadManual")
+            {
+                branchLibraryName = "baad";
+                documentLibrarySearchString = "skade/hb/baad/delte";
+            }
+            else if (contentType == "BeredskabManual")
+            {
+                branchLibraryName = "beredskab";
+                documentLibrarySearchString = "skade/hb/besk/delte";
+            }
+            else if (contentType == "BygningManual")
+            {
+                branchLibraryName = "byg";
+                documentLibrarySearchString = "skade/hb/byg/delte";
+            }
+
+            string fileName = "";
+            foreach (ListItem oListItem in collListItem)
+            {
+                counter++;
+                Console.WriteLine(counter + " of " + collListItem.Count);
+
+                fileName = oListItem["FileRef"].ToString();
+                ParseManualPages(context, fileName, branchLibraryName, documentLibrarySearchString,parsingFeaure);
+            }
+
+
             System.IO.File.AppendAllLines(@"C:\Git\LBIntranet\SPOApp\SPOApp\SPOApp\logfiles\linksInManuals.csv", strLog.ToArray(), Encoding.UTF8);
             Console.WriteLine("Links counter: " + counter);
 
@@ -110,6 +185,41 @@ namespace SPOApp
             }
             //P.Save();
             //P.Publish();
+
+        }
+        private static void ParseManualPages(ClientContext context, string fileName, string branchLibraryName, string documentLibrarySearchString, string parsingFeature)
+        {
+            fileName = fileName.Substring(fileName.LastIndexOf('/') + 1);
+            ClientSidePage P = ClientSidePage.Load(context, fileName);
+            foreach (CanvasSection section in P.Sections)
+            {
+
+                foreach (CanvasControl control in section.Controls)
+                {
+                    if (control.Type.Name == "ClientSideText")
+                    {
+                        ClientSideText t = (ClientSideText)control;
+                        if (parsingFeature=="1")
+                        {
+                            test(t.Text, fileName);
+                        }
+                        else if (parsingFeature == "2")
+                        {
+                        }
+                        else if (parsingFeature == "3")
+                        {
+                            var res = TraverseHyperLinks(fileName, t.Text, branchLibraryName, documentLibrarySearchString);
+                            t.Text = res;
+                            P.Save();
+                            P.Publish();
+                        }
+
+
+
+                    }
+                }
+            }
+            
 
         }
         private static void test(string content,string fileName)
@@ -182,6 +292,7 @@ namespace SPOApp
 
         private static void IdentifyHyperLinks(string fileName, string input, string branchLibraryName, string documentLibrarySearchString, Match match)
         {
+
             foreach (System.Text.RegularExpressions.Capture capture in match.Captures)
             {
 

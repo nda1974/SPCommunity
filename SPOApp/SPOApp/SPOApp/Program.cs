@@ -334,6 +334,12 @@ namespace SPOApp
                 Console.WriteLine("Beredskab [2]");
                 Console.WriteLine("Byg [3]");
                 string choice=Console.ReadLine();
+
+                Console.WriteLine("Find 'false,1,1' string [1]");
+                Console.WriteLine("Write links to file [2]");
+                Console.WriteLine("Migrate links [3]");
+                string featureToRun= Console.ReadLine();
+
                 string ctName = "";
                 if (choice == "1")
                 {
@@ -351,7 +357,7 @@ namespace SPOApp
                 ClientContext ctx = SPOUtility.Authenticate(targetSiteUrl, "admnicd@lb.dk", "MandM5555");
                 string sitePagesLibrary= "Webstedssider";
 
-                LinksUtility.CheckForLinks(ctx, sitePagesLibrary,ctName);
+                LinksUtility.CheckForLinks(ctx, sitePagesLibrary,ctName,featureToRun);
                 
                 Console.WriteLine("Done searching for links");
                 Console.ReadLine();
