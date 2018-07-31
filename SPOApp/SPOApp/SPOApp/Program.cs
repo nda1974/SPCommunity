@@ -320,10 +320,6 @@ namespace SPOApp
                 }
 
             }
-            else if (input.ToLower().Equals("c"))
-            {
-                StartCreatingContentType();
-            }
             else if (input.ToLower().Equals("m"))
             {
                 StartCreatingModernPages();
@@ -361,7 +357,7 @@ namespace SPOApp
                 }
                 else if (choice == "5")
                 {
-                    ctName = "hundManual";
+                    ctName = "HundManual";
                 }
                 string targetSiteUrl = "https://lbforsikring.sharepoint.com/sites/skade";
                 ClientContext ctx = SPOUtility.Authenticate(targetSiteUrl, "admnicd@lb.dk", "MandM5555");
@@ -381,30 +377,6 @@ namespace SPOApp
 
         }
 
-        
-
-        
-
-        private static void StartCreatingContentType()
-        {
-
-            string sourceSiteUrl = "https://lboffice365.sharepoint.com/sites/MigrateOne";
-            string targetSiteUrl = "https://lboffice365.sharepoint.com/sites/Skade/";
-            string siteUrl = "https://lboffice365.sharepoint.com/sites/LbCommunicationSite/";
-
-
-            string contentTypeHubSiteUrl = "https://lboffice365.sharepoint.com/sites/contentTypeHub";
-
-            string contentTypeName = "IndboManual";
-            string categoryFieldName = "IndboManualCategory";
-            string internalFieldName = "IndboManualCategory";
-            string termSetName = "Indbo";
-            ClientContext ctxContentTypeHubSiteUrl = SPOUtility.Authenticate(contentTypeHubSiteUrl,"","");
-
-            ContentType.CreateSiteColumn(ctxContentTypeHubSiteUrl, "Indbo kategori", internalFieldName, termSetName);
-            ContentType.CreateContentType(ctxContentTypeHubSiteUrl, contentTypeName, categoryFieldName);
-        }
-
         private static void StartCreatingModernPages()
         {
 
@@ -419,39 +391,28 @@ namespace SPOApp
 
 
 
-            ClientContext ctx = SPOUtility.Authenticate(targetSiteUrl, "admnicd@lb.dk", "MandM4444");
+            ClientContext ctx = SPOUtility.Authenticate(targetSiteUrl, "admnicd@lb.dk", "MandM5555");
 
 
 
 
-            Console.WriteLine("Create Generic Manuals [X]");
+            //Console.WriteLine("Create Generic Manuals [X]");
 
-
-            //Console.WriteLine("Create Ansvar Manuals [A]");
-            //Console.WriteLine("Create Beredskab Manuals [B]");
-            //Console.WriteLine("Create Bil Manuals [C]");
-            //Console.WriteLine("Create BilskadePortalGuide Manuals [D]");
-            //Console.WriteLine("Create Bygning Manuals [E]");
-            //Console.WriteLine("Create Båd Manuals [F]");
-            //Console.WriteLine("Create Ejerskifte Manuals [G]");
-            //Console.WriteLine("Create Enterprise Manuals [H]");
-            //Console.WriteLine("Create Erhverv Manuals [I]");
-            //Console.WriteLine("Create Gerningsmand Manuals [J]");
-            //Console.WriteLine("Create Hund Manuals [K]");
-            //Console.WriteLine("Create Indbo Manuals [L]");
-            var input = Console.ReadLine();
+            
+            //var input = Console.ReadLine();
 
 
             GenericConfiguration g;
             g.ContentTypeName = "";
             g.SourceLibrary = "";
 
-            if (input.ToLower().Equals("x"))
-            {
+            //if (input.ToLower().Equals("x"))
+            //{
                 Console.WriteLine("Vælg branch:");
                 Console.WriteLine("Bygning [1]");
                 Console.WriteLine("Ansvar [2]");
                 Console.WriteLine("Hund [3]");
+                Console.WriteLine("Ejerskifte [4]");
 
                 string branch = Console.ReadLine();
                 if (branch=="1")
@@ -472,11 +433,17 @@ namespace SPOApp
                     g.ContentTypeName = "HundManual";
                     g.SourceLibrary = "Hundwebsider";
                 }
+                else if (branch == "4")
+                {
+
+                    g.ContentTypeName = "EjerskifteManual";
+                    g.SourceLibrary = "Ejerskiftewebsider";
+                }
 
 
                 List<GenericManualProperies> manuals = GenericManual.GetSourceFiles(ctx, g);
                 GenericManual.CreateModernSitePages(ctx, manuals,g);
-            }
+            //}
             //else if (input.ToLower().Equals("a"))
             //{
             //    sourceLibraryName = "Ansvar";
