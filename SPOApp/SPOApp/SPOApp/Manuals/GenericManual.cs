@@ -43,7 +43,10 @@ namespace SPOApp
                     {
                         spp.Gruppe = (listItem["Kategori"] == null) ? "" : listItem["Kategori"].ToString();
                     }
-                    if (g.ContentTypeName != "HundManual")
+
+                    
+                    if (g.ContentTypeName != "HundManual" &&
+                        g.ContentTypeName != "GerningsmandManual" )
                     {
                         spp.UnderGruppe = (listItem["Omr_x00e5_de"] == null) ? "" : listItem["Omr_x00e5_de"].ToString();
                     }

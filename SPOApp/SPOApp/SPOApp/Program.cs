@@ -21,7 +21,7 @@ namespace SPOApp
     /// </summary>
 
 
-    
+
     public struct SitePageProperies
     {
         public string ManualCategory;
@@ -52,8 +52,8 @@ namespace SPOApp
         public string FileName;
         public string Title;
     }
-    
-    
+
+
     public struct BygningManualProperies
     {
         public string BygningCategory;
@@ -138,13 +138,13 @@ namespace SPOApp
         public string ContentTypeName;
         public string SourceLibrary;
     }
-    
+
 
     class Program
     {
-   
 
-    private static void CheckForTextField(ClientContext context, string fileName)
+
+        private static void CheckForTextField(ClientContext context, string fileName)
         {
             ClientSidePage p = ClientSidePage.Load(context, fileName);
             if (p.Controls.Count == 0)
@@ -177,7 +177,7 @@ namespace SPOApp
             string decodedString = System.Text.ASCIIEncoding.ASCII.GetString(topicContentBytes);
 
 
-            
+
             //copyService.FieldInformation wikiField = new copyService.FieldInformation();
             //wikiField.DisplayName = "Wiki Content";
             //wikiField.InternalName = "WikiField";
@@ -187,16 +187,16 @@ namespace SPOApp
         public static void CreateWordDocument(string txt)
         {
             var app = new Microsoft.Office.Interop.Word.Application();
-            
+
             object oMissing = System.Reflection.Missing.Value;
             Microsoft.Office.Interop.Word._Document oDoc = app.Documents.Add(ref oMissing, ref oMissing,
             ref oMissing, ref oMissing);
-            
+
             object start = 0;
             object end = 0;
 
             ////Range r = oDoc.Range();
-            Clipboard.SetText(txt,TextDataFormat.Html);
+            Clipboard.SetText(txt, TextDataFormat.Html);
             ////wdFormatOriginalFormatting
             //oDoc.Content.Text = Clipboard.GetText(TextDataFormat.Text);
 
@@ -204,11 +204,11 @@ namespace SPOApp
             oDoc.Activate();
             oDoc.ActiveWindow.Selection.WholeStory();
             oDoc.ActiveWindow.Selection.PasteAndFormat(WdRecoveryType.wdFormatOriginalFormatting);
-            
+
 
 
             //r.Text = txt;
-            
+
             app.ActiveDocument.SaveAs2(@"C:\Test\CreateMigrateTest.docx");
             object nullobj = System.Reflection.Missing.Value;
             oDoc.Close(ref nullobj, ref nullobj, ref nullobj);
@@ -243,9 +243,9 @@ namespace SPOApp
             string getdata = data.GetData(DataFormats.StringFormat).ToString();
             //rng.Select();
             //rng.Copy();
-            
+
             Console.WriteLine(getdata);
-            
+
             //return doc.Content.Text;
             return Clipboard.GetText(TextDataFormat.Html);
             //Console.WriteLine(rng.Text);
@@ -254,7 +254,7 @@ namespace SPOApp
             //string s = Clipboard.GetText(TextDataFormat.Html).ToString();
             //Console.WriteLine("From Clipboard");
             //Console.WriteLine(s);
-            
+
 
             //doc.ActiveWindow.Selection.WholeStory();
             //doc.ActiveWindow.Selection.Copy();
@@ -267,56 +267,65 @@ namespace SPOApp
             //wordApp.Quit(ref nullobj, ref nullobj, ref nullobj);
             //return getdata;
         }
-        
+
         static void Main(string[] args)
         {
-            
-            //EmptyRecycleBin();
-            //CopyService();
-
-            //CreateWordDocument("");
-            //return;
-            //ReadFromWordDocument("");
-            //CheckForTextField(SPOUtility.Authenticate("https://lbforsikring.sharepoint.com/sites/skade", "admnicd@lb.dk", "MandM777"));
-
-
-
-            //NewMethod(SPOUtility.Authenticate("https://lbforsikring.sharepoint.com/sites/PoliceTemp", "sadmnicd@lbforsikring.onmicrosoft.com", "MandM777"));
-            //NewMethod(SPOUtility.Authenticate("https://lbforsikring.sharepoint.com/sites/PoliceTemp", "admnicd@lb.dk", "MandM777"));
-            //return;
-
+            string manualsToDelete = "IndboManual";
             System.Diagnostics.Debugger.Launch();
-            Console.WriteLine("Convert pagelayout [X]");
-            Console.WriteLine("Create ContentType App [C]");
+            Console.WriteLine(string.Format("Delete all pages with content type = {0} [X]", manualsToDelete));
             Console.WriteLine("Check for links in WikiFields [W]");
             Console.WriteLine("Create Modern Pages [M]");
             Console.WriteLine("Publish All Pages [P]");
             var input = Console.ReadLine();
+
             if (input.ToLower().Equals("x"))
             {
                 string targetSiteUrl = "https://lbforsikring.sharepoint.com/sites/skade";
-                ClientContext ctx = SPOUtility.Authenticate(targetSiteUrl, "admnicd@lb.dk", "MandM777");
+                ClientContext ctx = SPOUtility.Authenticate(targetSiteUrl, "admnicd@lb.dk", "MandM5555");
                 var lst = ctx.Web.Lists.GetByTitle("Webstedssider");
                 ctx.Load(lst);
                 ctx.ExecuteQuery();
                 CamlQuery cq = new CamlQuery();
-                string s = "<Where><Eq><FieldRef Name=\"ContentType\" /><Value Type=\"Computed\">IndboManual</Value></Eq></Where>";
-                
-                cq.ViewXml = string.Format("<View Scope=\"RecursiveAll\">{0}</View>", s); 
+                string s = "<Where><Eq><FieldRef Name=\"ContentType\" /><Value Type=\"Computed\">" + manualsToDelete + "</Value></Eq></Where>";
+
+
+                string viewXml = string.Format(@"
+                <View>
+                    <Query>
+                        <Where>
+                            <Eq>
+                                <FieldRef Name='ContentType' />
+                                <Value Type='Computed'>{0}</Value>
+                            </Eq>
+                        </Where>
+                    </Query>
+                </View>", manualsToDelete);
+
+
+
+                //cq.ViewXml = string.Format("<View Scope=\"RecursiveAll\">{0}</View>", s);
+                cq.ViewXml = viewXml;
                 ListItemCollection collListItem = lst.GetItems(cq);
                 ctx.Load(collListItem);
                 ctx.ExecuteQuery();
+                int counter = 0;
                 foreach (ListItem item in collListItem)
                 {
+                    counter++;
+                    Console.WriteLine("Processing " + counter + " of " + collListItem.Count);
                     ctx.Load(item.ContentType);
                     ctx.ExecuteQuery();
                     Console.WriteLine(item.ContentType.Name);
-                    if (item.ContentType.Name.Equals("IndboManual"))
+                    if (item.ContentType.Name.Equals(manualsToDelete))
                     {
+                        Console.WriteLine("Deleting webpage : " + item["Title"]);
+
+
+
                         item.DeleteObject();
                         ctx.ExecuteQuery();
                     }
-                    
+
                 }
 
             }
@@ -331,12 +340,12 @@ namespace SPOApp
                 Console.WriteLine("Byg [3]");
                 Console.WriteLine("Ansvar [4]");
                 Console.WriteLine("Hund [5]");
-                string choice=Console.ReadLine();
+                string choice = Console.ReadLine();
 
                 Console.WriteLine("Find 'false,1,1' string [1]");
                 Console.WriteLine("Write links to file [2]");
                 Console.WriteLine("Migrate links [3]");
-                string featureToRun= Console.ReadLine();
+                string featureToRun = Console.ReadLine();
 
                 string ctName = "";
                 if (choice == "1")
@@ -361,17 +370,17 @@ namespace SPOApp
                 }
                 string targetSiteUrl = "https://lbforsikring.sharepoint.com/sites/skade";
                 ClientContext ctx = SPOUtility.Authenticate(targetSiteUrl, "admnicd@lb.dk", "MandM5555");
-                string sitePagesLibrary= "Webstedssider";
+                string sitePagesLibrary = "Webstedssider";
 
-                LinksUtility.CheckForLinks(ctx, sitePagesLibrary,ctName,featureToRun);
-                
+                LinksUtility.CheckForLinks(ctx, sitePagesLibrary, ctName, featureToRun);
+
                 Console.WriteLine("Done searching for links");
                 Console.ReadLine();
             }
             else if (input.ToLower().Equals("p"))
             {
                 string targetSiteUrl = "https://lbforsikring.sharepoint.com/sites/skade";
-                ClientContext ctx = SPOUtility.Authenticate(targetSiteUrl,"","");
+                ClientContext ctx = SPOUtility.Authenticate(targetSiteUrl, "", "");
                 SPOUtility.CheckInAllDocuments(ctx, "Webstedssider");
             }
 
@@ -398,7 +407,7 @@ namespace SPOApp
 
             //Console.WriteLine("Create Generic Manuals [X]");
 
-            
+
             //var input = Console.ReadLine();
 
 
@@ -408,41 +417,48 @@ namespace SPOApp
 
             //if (input.ToLower().Equals("x"))
             //{
-                Console.WriteLine("Vælg branch:");
-                Console.WriteLine("Bygning [1]");
-                Console.WriteLine("Ansvar [2]");
-                Console.WriteLine("Hund [3]");
-                Console.WriteLine("Ejerskifte [4]");
+            Console.WriteLine("Vælg branch:");
+            Console.WriteLine("Bygning [1]");
+            Console.WriteLine("Ansvar [2]");
+            Console.WriteLine("Hund [3]");
+            Console.WriteLine("Ejerskifte [4]");
+            Console.WriteLine("Gerningsmand[5]");
 
-                string branch = Console.ReadLine();
-                if (branch=="1")
-                {
-                    
-                    g.ContentTypeName = "BygningManual";
-                    g.SourceLibrary = "Bygwebsider";
-                }
-                else if (branch == "2")
-                {
+            string branch = Console.ReadLine();
+            if (branch == "1")
+            {
 
-                    g.ContentTypeName = "AnsvarManual";
-                    g.SourceLibrary = "Ansvarwebsider";
-                }
-                else if (branch == "3")
-                {
+                g.ContentTypeName = "BygningManual";
+                g.SourceLibrary = "Bygwebsider";
+            }
+            else if (branch == "2")
+            {
 
-                    g.ContentTypeName = "HundManual";
-                    g.SourceLibrary = "Hundwebsider";
-                }
-                else if (branch == "4")
-                {
+                g.ContentTypeName = "AnsvarManual";
+                g.SourceLibrary = "Ansvarwebsider";
+            }
+            else if (branch == "3")
+            {
 
-                    g.ContentTypeName = "EjerskifteManual";
-                    g.SourceLibrary = "Ejerskiftewebsider";
-                }
+                g.ContentTypeName = "HundManual";
+                g.SourceLibrary = "Hundwebsider";
+            }
+            else if (branch == "4")
+            {
+
+                g.ContentTypeName = "EjerskifteManual";
+                g.SourceLibrary = "Ejerskiftewebsider";
+            }
+            else if (branch == "5")
+            {
+
+                g.ContentTypeName = "GerningsmandManual";
+                g.SourceLibrary = "Gerningsmandwebsider";
+            }
 
 
-                List<GenericManualProperies> manuals = GenericManual.GetSourceFiles(ctx, g);
-                GenericManual.CreateModernSitePages(ctx, manuals,g);
+            List<GenericManualProperies> manuals = GenericManual.GetSourceFiles(ctx, g);
+            GenericManual.CreateModernSitePages(ctx, manuals, g);
             //}
             //else if (input.ToLower().Equals("a"))
             //{
@@ -526,7 +542,7 @@ namespace SPOApp
             //    sourceLibraryName = "Indbo";
             //    sourceLibraryName = "Websider";
             //    sourceLibraryName = "IndboFromLBIntranet";
-                
+
 
             //    List<IndboManualProperies> IndboManuals = Indbo.GetSourceFiles(ctx, sourceLibraryName);
             //    Indbo.CreateModernSitePages(ctx, IndboManuals);
@@ -543,7 +559,7 @@ namespace SPOApp
 
 
         }
-        
+
 
 
         #region Helper methods
@@ -782,22 +798,22 @@ namespace SPOApp
         }
         private static void CreateLBContentType(ClientContext ctx)
         {
-            
+
             //ContentTypeCollection contentTypes = ctx.Web.ContentTypes;
             //ctx.Load(contentTypes);
             //ctx.ExecuteQuery();
 
-            
+
             //// Create a Content Type Information object.
             //ContentTypeCreationInformation newCt = new ContentTypeCreationInformation();
-            
+
             //// Set the name for the content type.
             //newCt.Name = "Indbo håndbog";
 
 
             ////Site Page - 0x0101009D1CB255DA76424F860D91F20E6C4118
             //newCt.ParentContentType = ctx.Web.ContentTypes.GetById("0x0101009D1CB255DA76424F860D91F20E6C4118"); 
-            
+
             //// Set content type to be available from specific group.
             //newCt.Group = "LB Content Types";
 
@@ -820,9 +836,9 @@ namespace SPOApp
             //{
             //    if (f.InternalName.Equals("LBManualCategory"))
             //    {
-                    
+
             //    }
-                
+
             //}
             ////string FieldAsXML = @"<Field ID='{4F34B2ED-9CFF-4900-B091-4C0033F89944}' Name='ContosoString' DisplayName='Contoso String' Type='Text' Hidden='False' Group='Contoso Site Columns' Description='Contoso Text Field' />";
             ////Field fld = fields.AddFieldAsXml(FieldAsXML, true, AddFieldOptions.DefaultValue);
@@ -830,7 +846,7 @@ namespace SPOApp
             ////ctx.Load(fld);
             ////ctx.ExecuteQuery();
         }
-        
+
 
 
     }
