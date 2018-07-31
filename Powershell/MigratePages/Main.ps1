@@ -217,7 +217,8 @@ function Run($startIndex)
         #$files = Import-Csv -Path C:\Git\LBIntranet\Powershell\MigratePages\ImportFiles\HundCSV.csv -Encoding UTF8
 
         #$files = Import-Csv -Path C:\Git\LBIntranet\Powershell\MigratePages\ImportFiles\HundCSVPrerun.csv -Encoding UTF8
-        $files = Import-Csv -Path C:\Git\LBIntranet\Powershell\MigratePages\ImportFiles\EjerskifteCSV.csv -Encoding UTF8
+        #$files = Import-Csv -Path C:\Git\LBIntranet\Powershell\MigratePages\ImportFiles\EjerskifteCSV.csv -Encoding UTF8
+        $files = Import-Csv -Path C:\Git\LBIntranet\Powershell\MigratePages\ImportFiles\GerningsmandCSVPrerun.csv -Encoding UTF8
 
 
 
