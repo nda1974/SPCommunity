@@ -152,6 +152,11 @@ namespace SPOApp
                 branchLibraryName = "byg";
                 documentLibrarySearchString = "skade/hb/byg/delte";
             }
+            else if (contentType == "HundManual")
+            {
+                branchLibraryName = "hund";
+                documentLibrarySearchString = "skade/hb/hund/delte";
+            }
 
             string fileName = "";
             foreach (ListItem oListItem in collListItem)

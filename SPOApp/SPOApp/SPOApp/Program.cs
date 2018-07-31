@@ -334,6 +334,7 @@ namespace SPOApp
                 Console.WriteLine("Beredskab [2]");
                 Console.WriteLine("Byg [3]");
                 Console.WriteLine("Ansvar [4]");
+                Console.WriteLine("Hund [5]");
                 string choice=Console.ReadLine();
 
                 Console.WriteLine("Find 'false,1,1' string [1]");
@@ -357,6 +358,10 @@ namespace SPOApp
                 else if (choice == "4")
                 {
                     ctName = "AnsvarManual";
+                }
+                else if (choice == "5")
+                {
+                    ctName = "hundManual";
                 }
                 string targetSiteUrl = "https://lbforsikring.sharepoint.com/sites/skade";
                 ClientContext ctx = SPOUtility.Authenticate(targetSiteUrl, "admnicd@lb.dk", "MandM5555");
@@ -446,6 +451,7 @@ namespace SPOApp
                 Console.WriteLine("Vælg branch:");
                 Console.WriteLine("Bygning [1]");
                 Console.WriteLine("Ansvar [2]");
+                Console.WriteLine("Hund [3]");
 
                 string branch = Console.ReadLine();
                 if (branch=="1")
@@ -454,11 +460,17 @@ namespace SPOApp
                     g.ContentTypeName = "BygningManual";
                     g.SourceLibrary = "Bygwebsider";
                 }
-                if (branch == "2")
+                else if (branch == "2")
                 {
 
                     g.ContentTypeName = "AnsvarManual";
                     g.SourceLibrary = "Ansvarwebsider";
+                }
+                else if (branch == "3")
+                {
+
+                    g.ContentTypeName = "HundManual";
+                    g.SourceLibrary = "Hundwebsider";
                 }
 
 
