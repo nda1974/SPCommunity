@@ -307,6 +307,7 @@ namespace SPOApp
             Console.WriteLine("Hund [3]");
             Console.WriteLine("Ejerskifte [4]");
             Console.WriteLine("Gerningsmand[5]");
+            Console.WriteLine("Erhverv[6]");
 
             string branch = Console.ReadLine();
             if (branch == "1")
@@ -338,6 +339,12 @@ namespace SPOApp
 
                 g.ContentTypeName = "GerningsmandManual";
                 g.SourceLibrary = "Gerningsmandwebsider";
+            }
+            else if (branch == "6")
+            {
+
+                g.ContentTypeName = "ErhvervManual";
+                g.SourceLibrary = "Erhvervwebsider";
             }
 
 
