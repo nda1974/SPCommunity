@@ -260,12 +260,12 @@ function Run($startIndex)
     elseif($branch -eq 7)
     {
         $branchSiteUrl="http://intranet.lb.dk/Skade/hb/erhv/SitePages/";
-        $importFileName = 'C:\Git\LBIntranet\Powershell\MigratePages\ImportFiles\ErhverCSV.csv'
+        $importFileName = 'C:\Git\LBIntranet\Powershell\MigratePages\ImportFiles\ErhvervCSV.csv'
     }
     elseif($branch -eq 8)
     {
         $branchSiteUrl="http://intranet.lb.dk/Skade/hb/erhv/SitePages/";
-        $importFileName = 'C:\Git\LBIntranet\Powershell\MigratePages\ImportFiles\ErhverCSVRepair.csv'
+        $importFileName = 'C:\Git\LBIntranet\Powershell\MigratePages\ImportFiles\ErhvervCSVRepair.csv'
     }   
     $files = Import-Csv -Path $importFileName -Encoding UTF8 -Delimiter ';' 
     #$files = Import-Csv -Path C:\Git\LBIntranet\Powershell\MigratePages\ImportFiles\BaadCSVPrerun.csv -Encoding UTF8
