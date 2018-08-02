@@ -73,6 +73,11 @@ namespace SPOApp
                 branchLibraryName = "byg";
                 documentLibrarySearchString = "skade/hb/byg/delte";
             }
+            else if (contentType == "EjerskifteManual")
+            {
+                branchLibraryName = "ejerskifte";
+                documentLibrarySearchString = "skade/hb/ejerskifte/delte";
+            }
 
             string fileName = "";
             foreach (ListItem oListItem in collListItem)
@@ -81,7 +86,7 @@ namespace SPOApp
                 Console.WriteLine(counter + " of " + collListItem.Count);
 
                 fileName = oListItem["FileRef"].ToString();
-                EditFile(context, fileName, branchLibraryName, documentLibrarySearchString);
+                AnalyzeFile(context, fileName, branchLibraryName, documentLibrarySearchString);
 
             }
 
@@ -162,6 +167,11 @@ namespace SPOApp
                 branchLibraryName = "gerningsmand";
                 documentLibrarySearchString = "skade/hb/gerningsmand/delte";
             }
+            else if (contentType == "EjerskifteManual")
+            {
+                branchLibraryName = "ejerskifte";
+                documentLibrarySearchString = "skade/hb/ejerskifte/delte";
+            }
 
             string fileName = "";
             foreach (ListItem oListItem in collListItem)
@@ -179,7 +189,7 @@ namespace SPOApp
 
         }
 
-        private static void EditFile(ClientContext context, string fileName, string branchLibraryName, string documentLibrarySearchString)
+        private static void AnalyzeFile(ClientContext context, string fileName, string branchLibraryName, string documentLibrarySearchString)
         {
             fileName = fileName.Substring(fileName.LastIndexOf('/') + 1);
             ClientSidePage P = ClientSidePage.Load(context, fileName);
@@ -191,7 +201,8 @@ namespace SPOApp
                     if (control.Type.Name == "ClientSideText")
                     {
                         ClientSideText t = (ClientSideText)control;
-                        test(t.Text, fileName);
+                        //test(t.Text, fileName);
+                        FindObscureText(t.Text, fileName);
                         //var res = TraverseHyperLinks(fileName, t.Text, branchLibraryName, documentLibrarySearchString);
                         //t.Text = res;
                     }
@@ -216,11 +227,12 @@ namespace SPOApp
                             ClientSideText t = (ClientSideText)control;
                             if (parsingFeature == "1")
                             {
-                                test(t.Text, fileName);
+                                FindObscureText(t.Text, fileName);
+
                             }
                             else if (parsingFeature == "2")
                             {
-                                test(fileName, t.Text, branchLibraryName, documentLibrarySearchString);
+                                OutputLinksToScreen(fileName, t.Text, branchLibraryName, documentLibrarySearchString);
 
                             }
                             else if (parsingFeature == "3")
@@ -230,25 +242,6 @@ namespace SPOApp
                                 P.Save();
                                 P.Publish();
                             }
-                            else if (parsingFeature == "4")
-                            {
-                                if (t.Text.Length < 50)
-                                {
-
-                                    strLog.Add(fileName);
-                                    Console.WriteLine(fileName);
-                                    Console.ForegroundColor = ConsoleColor.Yellow;
-                                    Console.WriteLine("------------------------------------------");
-                                    Console.WriteLine(t.Text);
-                                    Console.WriteLine("------------------------------------------");
-
-                                    Console.ForegroundColor = ConsoleColor.White;
-                                }
-
-                            }
-
-
-
                         }
                     }
                 }
@@ -263,7 +256,7 @@ namespace SPOApp
                     Console.ForegroundColor = ConsoleColor.White;
                     //throw;
                 }
-                
+
             }
 
             System.IO.File.WriteAllLines(@"C:\Git\LBIntranet\SPOApp\SPOApp\SPOApp\logfiles\bla.txt", strLog.ToArray());
@@ -273,13 +266,14 @@ namespace SPOApp
         /// </summary>
         /// <param name="content"></param>
         /// <param name="fileName"></param>
-        private static void test(string content, string fileName)
+        private static void FindObscureText(string content, string fileName)
         {
-            string testString = "false,false,1";
-            if (content.Contains(testString) || content.Contains("<p>a</p>") || content.Contains("<p>v</p>"))
+            if (content.Contains("false,false,1") ||
+                content.Contains("<p>a</p>") ||
+                content.Contains("<p>v</p>") ||
+                content.Length < 50)
             {
                 strLog.Add(fileName + ";" + string.Empty);
-
                 Console.WriteLine(fileName);
             }
         }
@@ -290,7 +284,7 @@ namespace SPOApp
         /// <param name="input"></param>
         /// <param name="branchLibraryName"></param>
         /// <param name="documentLibrarySearchString"></param>
-        private static void test(string fileName, string input, string branchLibraryName, string documentLibrarySearchString)
+        private static void OutputLinksToScreen(string fileName, string input, string branchLibraryName, string documentLibrarySearchString)
         {
             Regex regex = new Regex("href\\s*=\\s*(?:\"(?<1>[^\"]*)\"|(?<1>\\S+))", RegexOptions.IgnoreCase);
             Match match;
@@ -319,7 +313,7 @@ namespace SPOApp
             return input;
 
         }
-        
+
 
         private static string EditHyperLinks(string fileName, string input, string branchLibraryName, string documentLibrarySearchString, Match match)
         {
