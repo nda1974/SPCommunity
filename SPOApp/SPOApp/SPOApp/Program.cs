@@ -216,6 +216,7 @@ namespace SPOApp
                 Console.WriteLine("Hund [5]");
                 Console.WriteLine("Gerningsmand [6]");
                 Console.WriteLine("Ejerskifte [7]");
+                Console.WriteLine("Erhverv [8]");
                 string choice = Console.ReadLine();
 
                 Console.WriteLine("Find obscure and empty content  ex. 'false,1,1' and '<p>a</p>' and '<p>v</p>' string [1]");
@@ -251,6 +252,10 @@ namespace SPOApp
                 else if (choice == "7")
                 {
                     ctName = "EjerskifteManual";
+                }
+                else if (choice == "8")
+                {
+                    ctName = "ErhvervManual";
                 }
                 string targetSiteUrl = "https://lbforsikring.sharepoint.com/sites/skade";
                 ClientContext ctx = SPOUtility.Authenticate(targetSiteUrl, "admnicd@lb.dk", "MandM5555");
