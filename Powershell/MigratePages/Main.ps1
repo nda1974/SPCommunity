@@ -105,13 +105,15 @@ function GetTargetFile($url)
                     Start-Sleep 1
                     }
             
-            $IE2 = ConnectIExplorer -HWND $HWND -ShowPage $true
+            $IE2 = ConnectIExplorer -HWND $HWND -ShowPage $true 
+#            $IE2 = ConnectIExplorer -HWND $HWND -ShowPage $false
             while( $IE2.ReadyState -ne 4){
                 Write-Host 'State : '  $IE2.ReadyState
                 Start-Sleep 1
                 }
         
             $IE2 = ConnectIExplorer -HWND $HWND -ShowPage $true
+            #$IE2 = ConnectIExplorer -HWND $HWND -ShowPage $false
             $exitFlag =$false
                 do {
                     if ( $IE2.ReadyState -eq 4 ) {
@@ -162,7 +164,7 @@ function GetTargetFile($url)
     
 }
 
-function ProcesFile($fileName)
+function ProcesFile($fileName, $branchSiteUrl)
 {
         try{
             
@@ -172,8 +174,8 @@ function ProcesFile($fileName)
                 $url = [uri]::EscapeDataString($fileName)
                 #$url = [uri]::EscapeDataString("A conto-betaling.aspx")
                 
-                $sourceUrl= "http://intranet.lb.dk/Skade/hb/Hund/SitePages/" + $url ;
-                #$sourceUrl= "http://intranet.lb.dk/Skade/hb/BeSk/SitePages/" + $url ;
+                #$sourceUrl= "http://intranet.lb.dk/Skade/hb/Baad/SitePages/" + $url ;
+                $sourceUrl= $branchSiteUrl + $url ;
                 $targetUrl= "https://lbforsikring.sharepoint.com/sites/Skade/SitePages/" + $url ;
             
                 GetSourceFile -url $sourceUrl 
@@ -199,18 +201,53 @@ function ProcesFile($fileName)
 
 function Run($startIndex)
 {
+    if($startIndex -eq 0){
+        Write-Host "Vælg branch"
+        Write-Host "----- Byg -----"
+        Write-Host "Byg [1]"
+        Write-Host "Byg repair[2]"
+        Write-Host "----- Ansvar -----"
+        Write-Host "Ansvar [3]"
+        Write-Host "Ansvar repair[4]"
+        $branch = Read-Host 
+    }
+
+    
     $files=0;
     $i=0;
     $currentFileName='';
+    $branchSiteUrl='';
+    $importFileName=''
+    
     try{
     
-        
+    if($branch -eq 1)
+    {
+        $branchSiteUrl="http://intranet.lb.dk/Skade/hb/Byg/SitePages/";
+        $files = Import-Csv -Path C:\Git\LBIntranet\Powershell\MigratePages\ImportFiles\BygCSV.csv -Encoding UTF8
+    }
+    elseif($branch -eq 2)
+    {
+        $branchSiteUrl="http://intranet.lb.dk/Skade/hb/Byg/SitePages/";
+        $files = Import-Csv -Path C:\Git\LBIntranet\Powershell\MigratePages\ImportFiles\BygCSVRepair.csv -Encoding UTF8
+    }
+    if($branch -eq 3)
+    {
+        $branchSiteUrl="http://intranet.lb.dk/Skade/hb/ansvarny/SitePages/";
+        $files = Import-Csv -Path C:\Git\LBIntranet\Powershell\MigratePages\ImportFiles\AnsvarCSV.csv -Encoding UTF8
+    }
+    elseif($branch -eq 4)
+    {
+        $branchSiteUrl="http://intranet.lb.dk/Skade/hb/ansvarny/SitePages/";
+        $importFileName = 'C:\Git\LBIntranet\Powershell\MigratePages\ImportFiles\AnsvarCSVRepair.csv'
+    }   
+    $files = Import-Csv -Path $importFileName -Encoding UTF8 -Delimiter ';' 
     #$files = Import-Csv -Path C:\Git\LBIntranet\Powershell\MigratePages\ImportFiles\BaadCSVPrerun.csv -Encoding UTF8
     #$files = Import-Csv -Path C:\Git\LBIntranet\Powershell\MigratePages\ImportFiles\BaadCSV.csv -Encoding UTF8
     #$files = Import-Csv -Path C:\Git\LBIntranet\Powershell\MigratePages\ImportFiles\BeredskabCSVPrerun.csv -Encoding UTF8
 
         #$files = Import-Csv -Path C:\Git\LBIntranet\Powershell\MigratePages\ImportFiles\BeredskabCSV.csv -Encoding UTF8
-        #$files = Import-Csv -Path C:\Git\LBIntranet\Powershell\MigratePages\ImportFiles\BaadCSVRepair.csv -Encoding UTF8
+        #$files = Import-Csv -Path C:\Git\LBIntranet\Powershell\MigratePages\ImportFiles\BaadCSVRepair.csv -Encoding UTF8 -Delimiter ';'
         #$files = Import-Csv -Path C:\Git\LBIntranet\Powershell\MigratePages\ImportFiles\BygCSV.csv -Encoding UTF8
         #$files = Import-Csv -Path C:\Git\LBIntranet\Powershell\MigratePages\ImportFiles\BygCSVRepair.csv -Encoding UTF8
 
@@ -218,7 +255,8 @@ function Run($startIndex)
 
         #$files = Import-Csv -Path C:\Git\LBIntranet\Powershell\MigratePages\ImportFiles\HundCSVPrerun.csv -Encoding UTF8
         #$files = Import-Csv -Path C:\Git\LBIntranet\Powershell\MigratePages\ImportFiles\EjerskifteCSV.csv -Encoding UTF8
-        $files = Import-Csv -Path C:\Git\LBIntranet\Powershell\MigratePages\ImportFiles\GerningsmandCSVPrerun.csv -Encoding UTF8
+        #$files = Import-Csv -Path C:\Git\LBIntranet\Powershell\MigratePages\ImportFiles\GerningsmandCSVPrerun.csv -Encoding UTF8
+        #$files = Import-Csv -Path C:\Git\LBIntranet\Powershell\MigratePages\ImportFiles\AnsvarToSkadeCSV.csv -Encoding UTF8
 
 
 
@@ -226,9 +264,11 @@ function Run($startIndex)
         $sw = [Diagnostics.Stopwatch]::StartNew()
     
         $files |foreach-object {
+        
         $i=$i+1;
         #$currentFileName=$_.Navn;
         $currentFileName=$_.SourcePath;
+        #$currentFileName=$_.Title;
         
 
         Write-Host "Processing " $i " of " $files.count "- elapsed time: " $sw.Elapsed -ForegroundColor Yellow
@@ -236,7 +276,7 @@ function Run($startIndex)
         Write-Host ""
 
             if($i -ge $startIndex){
-                ProcesFile ($currentFileName)
+                ProcesFile -branchSiteUrl $branchSiteUrl -fileName $currentFileName
             }
         }
     }
@@ -244,12 +284,14 @@ function Run($startIndex)
         $currentFileName | Out-File C:\Git\LBIntranet\Powershell\MigratePages\LogFiles\FilesWithErrors.txt -Append            
         "Restart at index  - $i" | Out-File C:\Git\LBIntranet\Powershell\MigratePages\LogFiles\FilesWithErrors.txt -Append     
         Start-Sleep -Seconds 2
-               
-    }
-    finally{
         if ($files.count -ge $i) {
             Run -startIndex $i    
-        }
+        }       
+    }
+    finally{
+        #if ($files.count -ge $i) {
+         #   Run -startIndex $i    
+        #}
         
     }
 }
