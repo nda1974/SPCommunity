@@ -1,17 +1,5 @@
-Skybrud.aspx;
-Selvrisiko.aspx;
-Bygningsbeskadigelse på løsøre.aspx;
-Driftstab.aspx;
-Elskade.aspx;
-Glas og kumme på løsøre.aspx;
-Gulvbelægninger.aspx;
-Haveanlæg.aspx;
-Hvor dækker forsikringen - bygning.aspx;
-Klausuler på bygning.aspx;
-Lynnedslag.aspx;
-Skybrud bygning.aspx;
-Tilfældig udstrømning.aspx;
-Transportskade.aspx;
-Tyveri og hærværk.aspx;
-Udstillingsforsikring.aspx;
-Vilkår 87-2 Forældelse.aspx;
+Hvem er sikret - Løsøre.aspx;href="http://www.forsikringogpension.dk/medlemmer/branchesamarbejde/skadeforsikringsaftalerne/Documents/Dobbeltforsikringsaftalen.pdf"
+Hvem er sikret - Løsøre.aspx;href="http://www.forsikringogpension.dk/medlemmer/branchesamarbejde/skadeforsikringsaftalerne/Documents/Dobbeltforsikringsaftalen.pdf"
+Varegruppe og sikringsniveau.aspx;href="/Docs/Dokumenter/Marketingsektionen/Betingelser/80-05_2007.pdf"
+Varegruppe og sikringsniveau.aspx;href="/Docs/Dokumenter/Marketingsektionen/Betingelser/81-5_2007.pdf"
+Varegruppe og sikringsniveau.aspx;href="http://www.forsikringogpension.dk/virksomheder/fpsikring/tyveri/kataloger_og_vejledninger/Sider/sikringskatalog.aspx"
