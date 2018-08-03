@@ -53,7 +53,7 @@ function GetSourceFile($url)
             $IE.fullscreen = $true;
             $IE.navigate2($url)
             
-            $IE = ConnectIExplorer -HWND $HWND -ShowPage $false
+            $IE = ConnectIExplorer -HWND $HWND -ShowPage $true 
             Write-Host 'Sleeping.'
             $ticker = '';
             while( $IE.Busy){
@@ -63,6 +63,9 @@ function GetSourceFile($url)
                     }
             
             $IE = ConnectIExplorer -HWND $HWND -ShowPage $false
+            #nyt
+            #$p=Get-Process | Where-Object{$_.MainWindowHandle  -eq $IE.HWND}
+            #Show-Process -Process (Get-Process -Id $p.Id) -Maximize
             
             while( $IE.ReadyState -ne 4){
                 Write-Host 'State : ' $IE.ReadyState
@@ -75,6 +78,7 @@ function GetSourceFile($url)
 
                     $sourceDocument=$IE.Document;
                     $sourceDiv=$sourceDocument.IHTMLDocument3_getElementById('layoutsTable');
+                    Write-Host $sourceDiv.innerHTML -AsHtml
                     Set-Clipboard -Value $sourceDiv.innerHTML -AsHtml 
                     $exitFlag=$true
                 }
@@ -106,6 +110,7 @@ function GetTargetFile($url)
                     }
             
             $IE2 = ConnectIExplorer -HWND $HWND -ShowPage $true 
+             
 #            $IE2 = ConnectIExplorer -HWND $HWND -ShowPage $false
             while( $IE2.ReadyState -ne 4){
                 Write-Host 'State : '  $IE2.ReadyState
@@ -140,6 +145,7 @@ function GetTargetFile($url)
                         $p=Get-Process | Where-Object{$_.MainWindowHandle  -eq $IE2.HWND}
                         Show-Process -Process (Get-Process -Id $p.Id) -Maximize
                         $targetDiv.focus();
+                        Start-Sleep -Seconds 2
                         [System.Windows.Forms.SendKeys]::SendWait("^{a}")
                         [System.Windows.Forms.SendKeys]::SendWait("^{v}")
             
@@ -221,6 +227,9 @@ function Run($startIndex)
         Write-Host "----- Lønsikring individuel -----"
         Write-Host "Lønsikring individuel [11]"
         Write-Host "Lønsikring individuel repair[12]"
+        Write-Host "----- Lønsikring kollektiv -----"
+        Write-Host "Lønsikring individuel [13]"
+        Write-Host "Lønsikring individuel repair[14]"
         $branch = Read-Host 
     }
 
@@ -292,6 +301,16 @@ function Run($startIndex)
     {
         $branchSiteUrl="http://intranet.lb.dk/Skade/hb/lønsikring/SitePages/";
         $importFileName = 'C:\Git\LBIntranet\Powershell\MigratePages\ImportFiles\LønsikringIndividuelRepair.csv'
+    }
+    elseif($branch -eq 13)
+    {
+        $branchSiteUrl="http://intranet.lb.dk/Skade/hb/lønsikringkollektiv/SitePages/"
+        $importFileName = 'C:\Git\LBIntranet\Powershell\MigratePages\ImportFiles\LønsikringKollektiv.csv'
+    }
+    elseif($branch -eq 14)
+    {
+        $branchSiteUrl="http://intranet.lb.dk/Skade/hb/lønsikringkollektiv/SitePages/"
+        $importFileName = 'C:\Git\LBIntranet\Powershell\MigratePages\ImportFiles\LønsikringKollektivRepair.csv'
     }   
     $files = Import-Csv -Path $importFileName -Encoding UTF8 -Delimiter ';' 
     #$files = Import-Csv -Path C:\Git\LBIntranet\Powershell\MigratePages\ImportFiles\BaadCSVPrerun.csv -Encoding UTF8

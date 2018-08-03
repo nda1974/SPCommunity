@@ -262,7 +262,11 @@ namespace SPOApp
                 {
                     ctName = "LønsikringIndividuelManual";
                 }
-                
+                else if (choice == "10")
+                {
+                    ctName = "LønsikringKollektivManual";
+                }
+
                 string targetSiteUrl = "https://lbforsikring.sharepoint.com/sites/skade";
                 ClientContext ctx = SPOUtility.Authenticate(targetSiteUrl, "admnicd@lb.dk", "MandM5555");
                 string sitePagesLibrary = "Webstedssider";
@@ -320,7 +324,9 @@ namespace SPOApp
             Console.WriteLine("Gerningsmand[5]");
             Console.WriteLine("Erhverv[6]");
             Console.WriteLine("Lønsikring Individuel[7]");
-            
+            Console.WriteLine("Lønsikring Kollektiv[8]");
+            Console.WriteLine("Indbo[9]");
+
 
             string branch = Console.ReadLine();
             if (branch == "1")
@@ -364,7 +370,17 @@ namespace SPOApp
                 g.ContentTypeName = "LønsikringIndividuelManual";
                 g.SourceLibrary = "LoensikringIndividuelWebsider";
             }
-            
+            else if (branch == "8")
+            {
+                g.ContentTypeName = "LønsikringKollektivManual";
+                g.SourceLibrary = "loensikringKollektivWebsider";
+            }
+            else if (branch == "9")
+            {
+                g.ContentTypeName = "IndboManual";
+                g.SourceLibrary = "indboWebsider";
+            }
+
 
             List<GenericManualProperies> manuals = GenericManual.GetSourceFiles(ctx, g);
             GenericManual.CreateModernSitePages(ctx, manuals, g);
