@@ -1,5 +1,2 @@
-Hvem er sikret - Løsøre.aspx;href="http://www.forsikringogpension.dk/medlemmer/branchesamarbejde/skadeforsikringsaftalerne/Documents/Dobbeltforsikringsaftalen.pdf"
-Hvem er sikret - Løsøre.aspx;href="http://www.forsikringogpension.dk/medlemmer/branchesamarbejde/skadeforsikringsaftalerne/Documents/Dobbeltforsikringsaftalen.pdf"
-Varegruppe og sikringsniveau.aspx;href="/Docs/Dokumenter/Marketingsektionen/Betingelser/80-05_2007.pdf"
-Varegruppe og sikringsniveau.aspx;href="/Docs/Dokumenter/Marketingsektionen/Betingelser/81-5_2007.pdf"
-Varegruppe og sikringsniveau.aspx;href="http://www.forsikringogpension.dk/virksomheder/fpsikring/tyveri/kataloger_og_vejledninger/Sider/sikringskatalog.aspx"
+Vilkår - DLF (Lærerstanden).aspx;
+Vilkår - DSA (Bauta).aspx;

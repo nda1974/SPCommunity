@@ -172,6 +172,11 @@ namespace SPOApp
                 branchLibraryName = "ejerskifte";
                 documentLibrarySearchString = "skade/hb/ejerskifte/delte";
             }
+            else if (contentType == "LønsikringIndividuelManual")
+            {
+                branchLibraryName = "loensikring";
+                documentLibrarySearchString = "skade/hb/lønsikring/delte";
+            }
 
             string fileName = "";
             foreach (ListItem oListItem in collListItem)

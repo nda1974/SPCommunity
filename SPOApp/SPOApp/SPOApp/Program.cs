@@ -217,6 +217,7 @@ namespace SPOApp
                 Console.WriteLine("Gerningsmand [6]");
                 Console.WriteLine("Ejerskifte [7]");
                 Console.WriteLine("Erhverv [8]");
+                Console.WriteLine("Lønsikring Individuel [9]");
                 string choice = Console.ReadLine();
 
                 Console.WriteLine("Find obscure and empty content  ex. 'false,1,1' and '<p>a</p>' and '<p>v</p>' string [1]");
