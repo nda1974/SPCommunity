@@ -5,4 +5,5 @@ export interface IMyFavouriteItem {
     Description?: string;
     Mandatory:boolean;
     PersonalFavourite?:boolean;
+    LBAudience?:any;
 }

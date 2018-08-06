@@ -326,6 +326,9 @@ namespace SPOApp
             Console.WriteLine("Lønsikring Individuel[7]");
             Console.WriteLine("Lønsikring Kollektiv[8]");
             Console.WriteLine("Indbo[9]");
+            Console.WriteLine("Personskade[10]");
+            Console.WriteLine("Regres[11]");
+            Console.WriteLine("Retshjælp[12]");
 
 
             string branch = Console.ReadLine();
@@ -379,6 +382,21 @@ namespace SPOApp
             {
                 g.ContentTypeName = "IndboManual";
                 g.SourceLibrary = "indboWebsider";
+            }
+            else if (branch == "10")
+            {
+                g.ContentTypeName = "PersonskadeManual";
+                g.SourceLibrary = "PersonskadeWebsider";
+            }
+            else if (branch == "11")
+            {
+                g.ContentTypeName = "RegresManual";
+                g.SourceLibrary = "RegresWebsider";
+            }
+            else if (branch == "12")
+            {
+                g.ContentTypeName = "RetshjælpManual";
+                g.SourceLibrary = "RetshjaelpWebsider";
             }
 
 

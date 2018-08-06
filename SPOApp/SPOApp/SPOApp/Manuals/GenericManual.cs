@@ -13,7 +13,7 @@ namespace SPOApp
     {
         public static List<GenericManualProperies> GetSourceFiles(ClientContext context, GenericConfiguration g)
         {
-            
+
             List sourceSitePagesLibrary = context.Web.Lists.GetByTitle(g.SourceLibrary);
 
             CamlQuery query = CamlQuery.CreateAllItemsQuery();
@@ -30,8 +30,12 @@ namespace SPOApp
                     GenericManualProperies spp;
                     spp.WikiContent = (listItem["WikiField"] == null) ? "" : listItem["WikiField"].ToString();
 
-                    
-                    if (g.ContentTypeName=="AnsvarManual")
+                    if (g.ContentTypeName == "RegresManual")
+                    {
+                        // Der er ingen kategori i Regreshåndbogen
+                        spp.Gruppe = null;
+                    }
+                    else if (g.ContentTypeName == "AnsvarManual")
                     {
                         spp.Gruppe = (listItem["kATEGORI"] == null) ? "" : listItem["kATEGORI"].ToString();
                     }
@@ -44,9 +48,10 @@ namespace SPOApp
                         spp.Gruppe = (listItem["Kategori"] == null) ? "" : listItem["Kategori"].ToString();
                     }
 
-                    
+
                     if (g.ContentTypeName != "HundManual" &&
-                        g.ContentTypeName != "GerningsmandManual" )
+                        g.ContentTypeName != "RetshjælpManual" &&
+                        g.ContentTypeName != "GerningsmandManual")
                     {
                         spp.UnderGruppe = (listItem["Omr_x00e5_de"] == null) ? "" : listItem["Omr_x00e5_de"].ToString();
                     }
@@ -54,7 +59,7 @@ namespace SPOApp
                     {
                         spp.UnderGruppe = null;
                     }
-                    
+
                     spp.Title = listItem["FileLeafRef"].ToString().Split('.')[0];
                     spp.FileName = listItem["FileLeafRef"].ToString();
 
@@ -64,7 +69,7 @@ namespace SPOApp
             return pages;
         }
 
-        public static void CreateModernSitePages(ClientContext context, List<GenericManualProperies> pages,GenericConfiguration g)
+        public static void CreateModernSitePages(ClientContext context, List<GenericManualProperies> pages, GenericConfiguration g)
         {
             int counter = 1;
             foreach (var p in pages)
@@ -84,43 +89,53 @@ namespace SPOApp
 
         private static void CreatePages(ClientContext context, GenericManualProperies p, string targetContentTypeName)
         {
-            var page = context.Web.AddClientSidePage(p.FileName, true);
-
-            ClientSideText txt1 = new ClientSideText() { Text = p.WikiContent };
-
-            page.AddControl(txt1, -1);
-
-            Microsoft.SharePoint.Client.ContentType newContentType = context.Web.GetContentTypeByName(targetContentTypeName);
-            context.Load(newContentType);
-            context.ExecuteQuery();
-
-            ListItem item = page.PageListItem;
-
-            context.Load(item);
-            context.ExecuteQuery();
-
-            item.Properties["ContentTypeId"] = newContentType.Id.StringValue;
-            item["ContentTypeId"] = newContentType.Id;
-
-            item.Update();
-
-            if (!string.IsNullOrEmpty(p.Gruppe))
+            try
             {
-                SPOUtility.SetMetadataField(context, item, p.Gruppe, "Gruppe");
+                var page = context.Web.AddClientSidePage(p.FileName, true);
+
+                ClientSideText txt1 = new ClientSideText() { Text = p.WikiContent };
+
+                page.AddControl(txt1, -1);
+
+                Microsoft.SharePoint.Client.ContentType newContentType = context.Web.GetContentTypeByName(targetContentTypeName);
+                context.Load(newContentType);
+                context.ExecuteQuery();
+
+                ListItem item = page.PageListItem;
+
+                context.Load(item);
+                context.ExecuteQuery();
+
+                item.Properties["ContentTypeId"] = newContentType.Id.StringValue;
+                item["ContentTypeId"] = newContentType.Id;
+
                 item.Update();
+
+                if (!string.IsNullOrEmpty(p.Gruppe))
+                {
+                    SPOUtility.SetMetadataField(context, item, p.Gruppe, "Gruppe");
+                    item.Update();
+                }
+                if (!string.IsNullOrEmpty(p.UnderGruppe))
+                {
+                    SPOUtility.SetMetadataField(context, item, p.UnderGruppe, "Undergruppe");
+                    item.Update();
+                }
+
+                page.Save();
+                page.Publish();
+
+                context.ExecuteQuery();
+
             }
-            if (!string.IsNullOrEmpty(p.UnderGruppe))
+            catch (Exception ex)
             {
-                SPOUtility.SetMetadataField(context, item, p.UnderGruppe, "Undergruppe");
-                item.Update();
+                Console.WriteLine(p.FileName);
+                Console.WriteLine(ex);
             }
-            
-            page.Save();
-            page.Publish();
-
-            context.ExecuteQuery();
-
         }
+
+            
 
 
     }

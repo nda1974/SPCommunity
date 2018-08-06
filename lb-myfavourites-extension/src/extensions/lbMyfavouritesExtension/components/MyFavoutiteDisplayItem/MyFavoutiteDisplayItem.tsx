@@ -22,7 +22,7 @@ export default class MyFavoutiteDisplayItem extends React.Component<IMyFavoutite
     public render(): React.ReactElement<IMyFavoutiteDisplayItemProps> {
         
         pnp.sp.web.currentUser.get().then(result=>{
-            console.log(result)
+            //console.log(result)
         })
 
 

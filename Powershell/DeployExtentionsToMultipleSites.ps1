@@ -4,9 +4,9 @@ $credentials = Get-Credential
 $sitesToProcess = import-csv "sites.csv"
 
 # details of custom action/SPFx extension
-[guid]$spfxExtId = "[extension id goes here]"
-[string]$spfxExtName = "[extension name goes here]"
-[string]$spfxExtTitle = "[extension title goes here]"
+[guid]$spfxExtId = "bed8bed5-b73f-4586-9cad-104557e47ac5"
+[string]$spfxExtName = "LbMyfavouritesExtensionApplicationCustom"
+[string]$spfxExtTitle = "LB - Mine favoritter"
 [string]$spfxExtGroup = "[extension group goes here]"
 [string]$spfxExtDescription = "[extension description goes here]"
 [string]$spfxExtLocation = "ClientSideExtension.ApplicationCustomizer"
@@ -27,7 +27,7 @@ function Add-CustomActionForSPFxExt ([string]$url, $clientContext) {
     $custAction.Description = $spfxExtDescription
     $custAction.Location = $spfxExtLocation
     $custAction.ClientSideComponentId = $spfxExtId
-    $custAction.ClientSideComponentProperties = $spfxExtension_Properties
+    #$custAction.ClientSideComponentProperties = $spfxExtension_Properties
     $custAction.Update()
     $clientContext.ExecuteQuery()
 

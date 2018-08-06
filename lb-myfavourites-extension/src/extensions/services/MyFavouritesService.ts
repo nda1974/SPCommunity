@@ -35,6 +35,7 @@ export class MyFavouritesService implements IMyFavoutitesService {
 
     public async getMyFavourites(tryFromCache: boolean): Promise<IMyFavouriteItem[]> {
         let myFavourites: IMyFavouriteItem[] = [];
+        let tmplbFavourites: IMyFavouriteItem[] = [];
         let lbFavourites: IMyFavouriteItem[] = [];
         // if(tryFromCache) {
         //     myFavourites = this._fetchFromSessionStorge();
@@ -42,17 +43,41 @@ export class MyFavouritesService implements IMyFavoutitesService {
         //         return myFavourites;
         //     }
         // }
-
-        myFavourites = await this._fetchFromSPList();
+        var userID  = await this._getUserId();
         
-        lbFavourites = await this._fetchFromSPList2();
-        console.log(lbFavourites);
+        myFavourites = await this._getPersonalFavourites();
+        tmplbFavourites = await this._getMandatoryFavourites();
+
+        
+        //console.log("This is mandatory");
+        //console.log(lbFavourites);
         for (var i = 0; i < myFavourites.length; i++) {
+            // Sætter PersonalFavourite==true for at kunne identificere denne favorit til at være en personling favorit
             myFavourites[i].PersonalFavourite==true;
         }
-        for (var i = 0; i < lbFavourites.length; i++) {
-            lbFavourites[i].PersonalFavourite==false;
+        for (var i = 0; i < tmplbFavourites.length; i++) {
+            
+            if (tmplbFavourites[i].LBAudience.Title != "Alle" ) {
+                console.log("LBAudience:: " + tmplbFavourites[i].LBAudience.Title)    
+                // Returnere de bruger der er i LBAudience gruppen
+                var any = await this._getLBAudience(tmplbFavourites[i].LBAudience.Title)
+                
+                any.map((user=>{
+                    if (user.Id == userID) {
+                        
+                        lbFavourites.push(tmplbFavourites[i]);
+                    }
+                }))
+            }
+            else
+            {
+                console.log("LBAudience:: " + tmplbFavourites[i].LBAudience.Title)    
+                lbFavourites.push(tmplbFavourites[i]);
+            }
+            // Sætter PersonalFavourite==true for at kunne identificere denne favorit til at være en LB favorit
+            tmplbFavourites[i].PersonalFavourite==false;
         }
+        // const spread = [...tmplbFavourites,...myFavourites];
         const spread = [...lbFavourites,...myFavourites];
         // let arr= spread.sort(function(a,b){return Number(a.PersonalFavourite) -Number(b.PersonalFavourite) });
         
@@ -120,7 +145,7 @@ export class MyFavouritesService implements IMyFavoutitesService {
         return result;
     }
 
-    private async _fetchFromSPList(): Promise<IMyFavouriteItem[]> {
+    private async _getPersonalFavourites(): Promise<IMyFavouriteItem[]> {
         const currentUserId: number = await this._getUserId();
         const currentUserObject: any = await this._getUserObject();
         console.log(currentUserObject);
@@ -144,7 +169,7 @@ export class MyFavouritesService implements IMyFavoutitesService {
                 return [];
             });
     }
-    private async _fetchFromSPList2(): Promise<IMyFavouriteItem[]> {
+    private async _getMandatoryFavourites(): Promise<IMyFavouriteItem[]> {
         const w = new Web("https://lbforsikring.sharepoint.com/sites/intra");
 
         const currentUserId: number = await this._getUserId();
@@ -158,11 +183,12 @@ export class MyFavouritesService implements IMyFavoutitesService {
         "ItemUrl",
         "Description",
         "Mandatory",
-        "TargetGroup/FirstName"
+        "LBAudience/Title"
         )
-        .expand("TargetGroup")
+        .expand("LBAudience")
         .get()
         .then((myFavourites: IMyFavouriteItem[]) => {
+            
             console.log(myFavourites)
             Log.info(LOG_SOURCE, "Fetched favourites from list");
             return myFavourites;
@@ -172,24 +198,38 @@ export class MyFavouritesService implements IMyFavoutitesService {
             return [];
         });
 
-        // return pnp.sp.web.lists.getByTitle(MANDATORY_FAVOURITES_LIST_NAME)
-        //     .items
-        //     .select(
-        //     "Id",
-        //     "Title",
-        //     "ItemUrl",
-        //     "Description",
-        //     "Mandatory"
-        //     )
-        //     .get()
-        //     .then((myFavourites: IMyFavouriteItem[]) => {
-        //         Log.info(LOG_SOURCE, "Fetched favourites from list");
-        //         return myFavourites;
-        //     })
-        //     .catch((error) => {
-        //         Log.error(LOG_SOURCE, error);
-        //         return [];
-        //     });
+        
+    }
+    private async _getLBAudience(lbAudience?:string): Promise<any[]> {
+        const w = new Web("https://lbforsikring.sharepoint.com/sites/intra");
+
+        //const currentUserId: number = await this._getUserId();
+
+
+        return w.lists.getByTitle("LBAudience")
+        .items
+        .select(
+        "Title",
+        "Bruger/Title",
+        "Bruger/Id",
+        "Bruger/EMail"
+        ).filter("Title eq '"+lbAudience + "'")
+        .expand("Bruger")
+        .get()
+        .then((users: any[]) => {
+            console.log("users from _getLBAudience")
+            console.log(users)
+            // console.log(users[0].Bruger.Title)
+            // console.log(users[0].Bruger.Id)
+            // console.log(users[0].Bruger.EMail)
+            
+            return users[0].Bruger;
+        })
+        .catch((error) => {
+            Log.error(LOG_SOURCE, error);
+            return [];
+        });
+
     }
 
     private _getUserId(): Promise<number> {
