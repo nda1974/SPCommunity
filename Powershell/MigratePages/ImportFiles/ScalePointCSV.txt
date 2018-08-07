@@ -1,0 +1,44 @@
+﻿SourcePath
+Erstatning via Scalepoint løsøre når erstatningslinjen er på under 500 kr.aspx
+Valideringsregler.aspx
+Leverandøroversigt.aspx
+Opgørelse i henhold til priser i SP.aspx
+Vi er mærkeloyale.aspx
+Hvis SP melder fejl.aspx
+eGavekortet.aspx
+test.aspx
+Startside.aspx
+Release ECB.aspx
+Briller.aspx
+Erstatningsopgørelser, som ikke indeholder gavekort.aspx
+Restbeløb i ECC Indbetaling til ECC.aspx
+Samarbejde ophørt.aspx
+Kontakt ved spørgsmål.aspx
+Selvrisiko.aspx
+Tilbagetrækning af beløb.aspx
+Hvor ser eller gensender jeg mails.aspx
+Hvornår og hvordan bruges SP Løsøre.aspx
+Matchservice.aspx
+Opgørelse efter kategori.aspx
+Affugtningsfirmaer i ECB.aspx
+Scalepoint håndværkere.aspx
+Hvis du mangler dit kodeord til ECC.aspx
+Underentreprenør til SP håndværker.aspx
+Tilkobling af ekstern håndværker.aspx
+Skabeloner til selvbetjening og afslutning med mail.aspx
+Gavekort El-giganten.aspx
+Besigtigelse, tilbud og godkendelse.aspx
+Hvis du mangler dit kodeord ECB.aspx
+skadeservice.aspx
+Scalepoint faktura for vurdering eller reparation.aspx
+Betalinger over 200.000 kr.aspx
+Forklaring til medlem.aspx
+Afslutning af skade ECB.aspx
+Deludbetaling.aspx
+Afskrivning og rabat.aspx
+Medlem har ingen mail eller ønsker ikke at benytte SP.aspx
+TV-inspektioner.aspx
+Hjælp.aspx
+Manuel oprettelse.aspx
+PDF fil med opgørelse.aspx
+Selvbetjening.aspx
