@@ -230,6 +230,9 @@ function Run($startIndex)
         Write-Host "----- Lønsikring kollektiv -----"
         Write-Host "Lønsikring individuel [13]"
         Write-Host "Lønsikring individuel repair[14]"
+        Write-Host "----- Retshjælp -----"
+        Write-Host "Lønsikring individuel [15]"
+        Write-Host "Lønsikring individuel repair[16]"
         $branch = Read-Host 
     }
 
@@ -295,22 +298,32 @@ function Run($startIndex)
     elseif($branch -eq 11)
     {
         $branchSiteUrl="http://intranet.lb.dk/Skade/hb/lønsikring/SitePages/";
-        $importFileName = 'C:\Git\LBIntranet\Powershell\MigratePages\ImportFiles\LønsikringIndividuel.csv'
+        $importFileName = 'C:\Git\LBIntranet\Powershell\MigratePages\ImportFiles\LønsikringIndividuelCSV.csv'
     }
     elseif($branch -eq 12)
     {
         $branchSiteUrl="http://intranet.lb.dk/Skade/hb/lønsikring/SitePages/";
-        $importFileName = 'C:\Git\LBIntranet\Powershell\MigratePages\ImportFiles\LønsikringIndividuelRepair.csv'
+        $importFileName = 'C:\Git\LBIntranet\Powershell\MigratePages\ImportFiles\LønsikringIndividuelCSVRepair.csv'
     }
     elseif($branch -eq 13)
     {
         $branchSiteUrl="http://intranet.lb.dk/Skade/hb/lønsikringkollektiv/SitePages/"
-        $importFileName = 'C:\Git\LBIntranet\Powershell\MigratePages\ImportFiles\LønsikringKollektiv.csv'
+        $importFileName = 'C:\Git\LBIntranet\Powershell\MigratePages\ImportFiles\LønsikringKollektivCSV.csv'
     }
     elseif($branch -eq 14)
     {
         $branchSiteUrl="http://intranet.lb.dk/Skade/hb/lønsikringkollektiv/SitePages/"
-        $importFileName = 'C:\Git\LBIntranet\Powershell\MigratePages\ImportFiles\LønsikringKollektivRepair.csv'
+        $importFileName = 'C:\Git\LBIntranet\Powershell\MigratePages\ImportFiles\LønsikringKollektivCSVRepair.csv'
+    }
+    elseif($branch -eq 15)
+    {
+        $branchSiteUrl="http://intranet.lb.dk/Skade/hb/retshj/SitePages/"
+        $importFileName = 'C:\Git\LBIntranet\Powershell\MigratePages\ImportFiles\RetshjælpCSV.csv'
+    }
+    elseif($branch -eq 15)
+    {
+        $branchSiteUrl="http://intranet.lb.dk/Skade/hb/retshj/SitePages/"
+        $importFileName = 'C:\Git\LBIntranet\Powershell\MigratePages\ImportFiles\RetshjælpCSVRepair.csv'
     }   
     $files = Import-Csv -Path $importFileName -Encoding UTF8 -Delimiter ';' 
     #$files = Import-Csv -Path C:\Git\LBIntranet\Powershell\MigratePages\ImportFiles\BaadCSVPrerun.csv -Encoding UTF8
