@@ -78,7 +78,7 @@ function GetSourceFile($url)
 
                     $sourceDocument=$IE.Document;
                     $sourceDiv=$sourceDocument.IHTMLDocument3_getElementById('layoutsTable');
-                    Write-Host $sourceDiv.innerHTML -AsHtml
+                    $s = $sourceDiv.innerHTML 
                     Set-Clipboard -Value $sourceDiv.innerHTML -AsHtml 
                     $exitFlag=$true
                 }
@@ -144,12 +144,15 @@ function GetTargetFile($url)
             
                         $p=Get-Process | Where-Object{$_.MainWindowHandle  -eq $IE2.HWND}
                         Show-Process -Process (Get-Process -Id $p.Id) -Maximize
+                        Start-Sleep -Seconds 5
                         $targetDiv.focus();
                         Start-Sleep -Seconds 2
                         [System.Windows.Forms.SendKeys]::SendWait("^{a}")
-                        [System.Windows.Forms.SendKeys]::SendWait("^{v}")
+                        #[System.Windows.Forms.SendKeys]::SendWait("{DEL}")
+                        [System.Windows.Forms.SendKeys]::SendWait("^{v}") 
+                        
             
-    
+                        sleep -milliseconds 5000
                         $btnPublish=$targetDocument.IHTMLDocument3_getElementsByTagName('button')| Where-Object {$_.name -eq 'Udgiv'}
                         $btnPublish.click();
                         sleep -milliseconds 5000

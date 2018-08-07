@@ -45,7 +45,7 @@ export default class App extends React.Component<IAppProps, IAppState> {
                     this.onDisplayModeChanged= this.onDisplayModeChanged.bind(this);
 
                     let ss: SPSearchService=new SPSearchService(this.props.webPartContext)
-                    let searchResult:Promise<ISearchResults>=ss.search(this.state.queryText + ' ' + this.props.searchUrl,this.state.refinementFilters,this.props.manualType);
+                    let searchResult:Promise<ISearchResults>=ss.search(this.state.queryText + '*' + this.props.searchUrl,this.state.refinementFilters,this.props.manualType);
                     
                     let results: ISearchResults = {
                         RelevantResults : [],
@@ -61,33 +61,51 @@ export default class App extends React.Component<IAppProps, IAppState> {
     }
                 
 
-                onQueryTextChanged(newState?:string) {
-                    
-                    this.setState({ queryText: newState })
-                }
-                
-                onDisplayModeChanged(newState:boolean) {
-                    this.setState({ compactMode: newState })
-                    console.log(this.state.compactMode);
-                    
-                }
-                
-                onRefinementFiltersChanged(newState?:string) {
-                    if (newState==null) {
-                        let filters:string[]=this.state.refinementFilters;
-                        filters=[];
-                        this.setState({ refinementFilters: filters })        
-                    } else {
-                        let filters:string[]=[];
-                        filters.push(newState)
-                        this.setState({ refinementFilters: filters })        
-                    }
-                    
-                    
-                
-                }
+    public onQueryTextChanged(newState?:string) {
+        
+        this.setState({ queryText: newState })
+        this.GetSharePointData();
+        
+    }
+    
+    onDisplayModeChanged(newState:boolean) {
+        this.setState({ compactMode: newState })
+        console.log(this.state.compactMode);
+        
+    }
+    
+   public onRefinementFiltersChanged(newState?:string) {
+        if (newState==null) {
+            let filters:string[]=this.state.refinementFilters;
+            filters=[];
+            this.setState({ refinementFilters: filters })        
+        } else {
+            let filters:string[]=[];
+            filters.push(newState)
+            this.setState({ refinementFilters: filters })        
+        }
+
+        this.GetSharePointData();
+        
+        
+    
+    }
             
-              
+    public GetSharePointData(){
+        let ss: SPSearchService=new SPSearchService(this.props.webPartContext)
+        let searchResult:Promise<ISearchResults>=ss.search(this.state.queryText + ' ' + this.props.searchUrl,this.state.refinementFilters,this.props.manualType);
+        
+        let results: ISearchResults = {
+            RelevantResults : [],
+            RefinementResults: [],
+            TotalRows: 0,
+        };
+
+        searchResult.then(
+            (data:ISearchResults)=>{this.setState({results:data})}
+
+        );
+    }          
     
         public render(): React.ReactElement<IAppProps> {
             

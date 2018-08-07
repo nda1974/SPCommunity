@@ -61,7 +61,8 @@ export default class SPSearchService{
                 case "BAAD":
                     // refinersMappedProperties= "BaadCategory";    
                     refinersMappedProperties= "Gruppe";    
-                    selectProperties=['Title','Author',refinersMappedProperties,'Path','ContentType'];
+                    
+                    selectProperties=['Title','Author',refinersMappedProperties,'Path','ContentType','LBInfo','LBTeaser','HitHighlightedSummary'];
                     filterOnContentType = "BaadManual";
 
                     
