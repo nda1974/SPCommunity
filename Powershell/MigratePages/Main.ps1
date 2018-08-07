@@ -210,10 +210,10 @@ function Run($startIndex)
     if($startIndex -eq 0){
         Write-Host "Vælg branch"
         Write-Host "----- Byg -----"
-        Write-Host "Byg [1]"
-        Write-Host "Byg repair[2]"
+        Write-Host "Byg [1] WARNING REFACTORING NEEDED"
+        Write-Host "Byg repair[2] WARNING REFACTORING NEEDED"
         Write-Host "----- Ansvar -----"
-        Write-Host "Ansvar [3]"
+        Write-Host "Ansvar [3] WARNING REFACTORING NEEDED"
         Write-Host "Ansvar repair[4]"
         Write-Host "----- Ejerskifte -----"
         Write-Host "Ejerskifte [5]"
@@ -233,6 +233,9 @@ function Run($startIndex)
         Write-Host "----- Retshjælp -----"
         Write-Host "Retshjælp [15]"
         Write-Host "Retshjælp repair[16]"
+        Write-Host "----- ScalePoint -----"
+        Write-Host "ScalePoint [17]"
+        Write-Host "ScalePoint repair[18]"
         $branch = Read-Host 
     }
 
@@ -324,6 +327,16 @@ function Run($startIndex)
     {
         $branchSiteUrl="http://intranet.lb.dk/Skade/hb/retshj/SitePages/"
         $importFileName = 'C:\Git\LBIntranet\Powershell\MigratePages\ImportFiles\RetshjælpCSVRepair.csv'
+    }
+    elseif($branch -eq 17)
+    {
+        $branchSiteUrl="http://intranet.lb.dk/Skade/hb/sp/SitePages/"
+        $importFileName = 'C:\Git\LBIntranet\Powershell\MigratePages\ImportFiles\ScalePointCSV.csv'
+    }
+    elseif($branch -eq 18)
+    {
+        $branchSiteUrl="http://intranet.lb.dk/Skade/sp/retshj/SitePages/"
+        $importFileName = 'C:\Git\LBIntranet\Powershell\MigratePages\ImportFiles\ScalePointCSVRepair.csv'
     }   
     $files = Import-Csv -Path $importFileName -Encoding UTF8 -Delimiter ';' 
     #$files = Import-Csv -Path C:\Git\LBIntranet\Powershell\MigratePages\ImportFiles\BaadCSVPrerun.csv -Encoding UTF8
