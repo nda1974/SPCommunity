@@ -335,7 +335,7 @@ function Run($startIndex)
     }
     elseif($branch -eq 18)
     {
-        $branchSiteUrl="http://intranet.lb.dk/Skade/sp/retshj/SitePages/"
+        $branchSiteUrl="http://intranet.lb.dk/Skade/sp/sp/SitePages/"
         $importFileName = 'C:\Git\LBIntranet\Powershell\MigratePages\ImportFiles\ScalePointCSVRepair.csv'
     }   
     $files = Import-Csv -Path $importFileName -Encoding UTF8 -Delimiter ';' 
