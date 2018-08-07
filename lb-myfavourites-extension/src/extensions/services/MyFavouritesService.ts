@@ -211,8 +211,7 @@ export class MyFavouritesService implements IMyFavoutitesService {
         .select(
         "Title",
         "Bruger/Title",
-        "Bruger/Id",
-        "Bruger/EMail"
+        "Bruger/Id"
         ).filter("Title eq '"+lbAudience + "'")
         .expand("Bruger")
         .get()
