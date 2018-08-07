@@ -222,6 +222,7 @@ namespace SPOApp
                 Console.WriteLine("ScalePoint [11]");
                 Console.WriteLine("Lønsikring Kollektiv [12]");
                 Console.WriteLine("Personskade [13]");
+                Console.WriteLine("Regres [14]");
                 string choice = Console.ReadLine();
 
                 Console.WriteLine("Find obscure and empty content  ex. 'false,1,1' and '<p>a</p>' and '<p>v</p>' string [1]");
@@ -281,6 +282,10 @@ namespace SPOApp
                 else if (choice == "13")
                 {
                     ctName = "PersonskadeManual";
+                }
+                else if (choice == "14")
+                {
+                    ctName = "RegresManual";
                 }
 
 
