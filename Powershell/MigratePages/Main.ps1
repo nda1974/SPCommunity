@@ -320,7 +320,7 @@ function Run($startIndex)
         $branchSiteUrl="http://intranet.lb.dk/Skade/hb/retshj/SitePages/"
         $importFileName = 'C:\Git\LBIntranet\Powershell\MigratePages\ImportFiles\RetshjælpCSV.csv'
     }
-    elseif($branch -eq 15)
+    elseif($branch -eq 16)
     {
         $branchSiteUrl="http://intranet.lb.dk/Skade/hb/retshj/SitePages/"
         $importFileName = 'C:\Git\LBIntranet\Powershell\MigratePages\ImportFiles\RetshjælpCSVRepair.csv'
