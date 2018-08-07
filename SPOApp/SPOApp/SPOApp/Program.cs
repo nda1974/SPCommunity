@@ -352,6 +352,7 @@ namespace SPOApp
             Console.WriteLine("Regres[11]");
             Console.WriteLine("Retshjælp[12]");
             Console.WriteLine("ScalePoint[13]");
+            Console.WriteLine("Generel Skadepolitik[14]");
 
 
             string branch = Console.ReadLine();
@@ -425,6 +426,11 @@ namespace SPOApp
             {
                 g.ContentTypeName = "ScalePointManual";
                 g.SourceLibrary = "ScalePointWebsider";
+            }
+            else if (branch == "14")
+            {
+                g.ContentTypeName = "GenerelSkadepolitikManual";
+                g.SourceLibrary = "GenerelSkadepolitikWebsider";
             }
 
 
