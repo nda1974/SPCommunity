@@ -59,9 +59,11 @@ export default class SPSearchService{
 
             switch (manualType.toUpperCase()) {
                 case "BAAD":
-                    refinersMappedProperties= "BaadCategory";    
+                    // refinersMappedProperties= "BaadCategory";    
+                    refinersMappedProperties= "Gruppe";    
                     selectProperties=['Title','Author',refinersMappedProperties,'Path','ContentType'];
                     filterOnContentType = "BaadManual";
+
                     
 
                     // if (refinementFilters.length>0) {
@@ -119,6 +121,7 @@ export default class SPSearchService{
 
             
             let rf:string[]=[];
+            
             if (refinementFilters.length==1) {
                 // searchQuery.Querytext=searchQueryQueryText;
                 searchQuery.Querytext="ContentType:"+filterOnContentType+" AND " + queryText + " " + refinersMappedProperties + ":" + refinementFilters[0];

@@ -67,7 +67,8 @@ export default class SearchInputContainer extends React.Component<ISearchInputCo
     private _search(newValue:string):void{
         console.log('search called') 
         this.setState({queryText: newValue});
-        this.props.callbackSetAppContainerQueryString(this.state.queryText); 
+        this.props.callbackSetAppContainerQueryString(newValue); 
+        // this.props.callbackSetAppContainerQueryString(this.state.queryText); 
     }
     private _toggleChanged(value:boolean):void{
         this.props.callbackDisplayMode(value);

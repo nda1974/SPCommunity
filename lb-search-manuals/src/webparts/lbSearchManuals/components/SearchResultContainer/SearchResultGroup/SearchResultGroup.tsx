@@ -77,16 +77,16 @@ export default class SearchResultGroup extends React.Component<ISearchResultGrou
                     }    
                 }
 
-                if(group[manual].LBVerdicts!=null){
-                    if(group[manual].LBVerdicts.length>0){
-                        showAdditionalInfoRow=true;
-                    }    
-                }
+                // if(group[manual].LBVerdicts!=null){
+                //     if(group[manual].LBVerdicts.length>0){
+                //         showAdditionalInfoRow=true;
+                //     }    
+                // }
                 
-                if(group[manual].Verdicts.length>0){
-                    showAdditionalInfoRow=true;
-                    showVerdicts=true;
-                }
+                // if(group[manual].Verdicts.length>0){
+                //     showAdditionalInfoRow=true;
+                //     showVerdicts=true;
+                // }
                 
                 
                 return <div className={styles.ManualRow}>
