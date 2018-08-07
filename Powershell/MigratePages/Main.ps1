@@ -231,8 +231,8 @@ function Run($startIndex)
         Write-Host "Lønsikring individuel [13]"
         Write-Host "Lønsikring individuel repair[14]"
         Write-Host "----- Retshjælp -----"
-        Write-Host "Lønsikring individuel [15]"
-        Write-Host "Lønsikring individuel repair[16]"
+        Write-Host "Retshjælp [15]"
+        Write-Host "Retshjælp repair[16]"
         $branch = Read-Host 
     }
 

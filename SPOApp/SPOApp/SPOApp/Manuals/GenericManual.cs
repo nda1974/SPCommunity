@@ -29,9 +29,8 @@ namespace SPOApp
 
                     GenericManualProperies spp;
                     spp.WikiContent = (listItem["WikiField"] == null) ? "" : listItem["WikiField"].ToString();
-
-                    if (g.ContentTypeName == "RegresManual" ||
-                        g.ContentTypeName == "ScalePointManual")
+                    
+                    if (g.ContentTypeName == "RegresManual")
                     {
                         // Der er ingen kategori i Regreshåndbogen
                         spp.Gruppe = null;
@@ -43,6 +42,10 @@ namespace SPOApp
                     else if (g.ContentTypeName == "HundManual")
                     {
                         spp.Gruppe = (listItem["kategori"] == null) ? "" : listItem["kategori"].ToString();
+                    }
+                    else if (g.ContentTypeName == "ScalePointManual")
+                    {
+                        spp.Gruppe = (listItem["L_x00f8_sning"] == null) ? "" : listItem["L_x00f8_sning"].ToString();
                     }
                     else
                     {

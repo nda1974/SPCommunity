@@ -218,6 +218,7 @@ namespace SPOApp
                 Console.WriteLine("Ejerskifte [7]");
                 Console.WriteLine("Erhverv [8]");
                 Console.WriteLine("Lønsikring Individuel [9]");
+                Console.WriteLine("Retshjælp [10]");
                 string choice = Console.ReadLine();
 
                 Console.WriteLine("Find obscure and empty content  ex. 'false,1,1' and '<p>a</p>' and '<p>v</p>' string [1]");
@@ -264,7 +265,7 @@ namespace SPOApp
                 }
                 else if (choice == "10")
                 {
-                    ctName = "LønsikringKollektivManual";
+                    ctName = "RetshjælpManual";
                 }
 
                 string targetSiteUrl = "https://lbforsikring.sharepoint.com/sites/skade";
