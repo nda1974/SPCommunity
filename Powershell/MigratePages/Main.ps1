@@ -236,6 +236,9 @@ function Run($startIndex)
         Write-Host "----- ScalePoint -----"
         Write-Host "ScalePoint [17]"
         Write-Host "ScalePoint repair[18]"
+        Write-Host "----- Regress -----"
+        Write-Host "Regress [19]"
+        Write-Host "Regress repair[20]"
         $branch = Read-Host 
     }
 
@@ -337,6 +340,11 @@ function Run($startIndex)
     {
         $branchSiteUrl="http://intranet.lb.dk/Skade/sp/sp/SitePages/"
         $importFileName = 'C:\Git\LBIntranet\Powershell\MigratePages\ImportFiles\ScalePointCSVRepair.csv'
+    }
+    elseif($branch -eq 19)
+    {
+        $branchSiteUrl="http://intranet.lb.dk/Skade/hb/reg/SitePages/"
+        $importFileName = 'C:\Git\LBIntranet\Powershell\MigratePages\ImportFiles\RegressCSV.csv'
     }   
     $files = Import-Csv -Path $importFileName -Encoding UTF8 -Delimiter ';' 
     #$files = Import-Csv -Path C:\Git\LBIntranet\Powershell\MigratePages\ImportFiles\BaadCSVPrerun.csv -Encoding UTF8

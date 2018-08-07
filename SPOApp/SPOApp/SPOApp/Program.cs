@@ -220,6 +220,8 @@ namespace SPOApp
                 Console.WriteLine("Lønsikring Individuel [9]");
                 Console.WriteLine("Retshjælp [10]");
                 Console.WriteLine("ScalePoint [11]");
+                Console.WriteLine("Lønsikring Kollektiv [12]");
+                Console.WriteLine("Personskade [13]");
                 string choice = Console.ReadLine();
 
                 Console.WriteLine("Find obscure and empty content  ex. 'false,1,1' and '<p>a</p>' and '<p>v</p>' string [1]");
@@ -272,6 +274,15 @@ namespace SPOApp
                 {
                     ctName = "ScalePointManual";
                 }
+                else if (choice == "12")
+                {
+                    ctName = "LønsikringKollektivManual";
+                }
+                else if (choice == "13")
+                {
+                    ctName = "PersonskadeManual";
+                }
+
 
                 string targetSiteUrl = "https://lbforsikring.sharepoint.com/sites/skade";
                 ClientContext ctx = SPOUtility.Authenticate(targetSiteUrl, "admnicd@lb.dk", "MandM5555");
