@@ -223,6 +223,8 @@ namespace SPOApp
                 Console.WriteLine("Lønsikring Kollektiv [12]");
                 Console.WriteLine("Personskade [13]");
                 Console.WriteLine("Regres [14]");
+                Console.WriteLine("Skybrud [15]");
+                Console.WriteLine("Storskade [16]");
                 string choice = Console.ReadLine();
 
                 Console.WriteLine("Find obscure and empty content  ex. 'false,1,1' and '<p>a</p>' and '<p>v</p>' string [1]");
@@ -231,61 +233,106 @@ namespace SPOApp
                 string featureToRun = Console.ReadLine();
 
                 string ctName = "";
+                string branchLibraryName = "";
+                string documentLibrarySearchString = "";
+
                 if (choice == "1")
                 {
                     ctName = "BaadManual";
+                    branchLibraryName = "baad";
+                    documentLibrarySearchString = "skade/hb/baad/delte";
                 }
                 else if (choice == "2")
                 {
                     ctName = "BeredskabManual";
+                    branchLibraryName = "Beredskab";
+                    documentLibrarySearchString = "skade/hb/besk/delte";
                 }
                 else if (choice == "3")
                 {
                     ctName = "BygningManual";
+                    branchLibraryName = "Byg";
+                    documentLibrarySearchString = "skade/hb/byg/delte";
                 }
                 else if (choice == "4")
                 {
                     ctName = "AnsvarManual";
+                    branchLibraryName = "ansvar";
+                    documentLibrarySearchString = "skade/hb/ansvarny/delte";
                 }
                 else if (choice == "5")
                 {
                     ctName = "HundManual";
+                    branchLibraryName = "Hund";
+                    documentLibrarySearchString = "skade/hb/hund/delte";
                 }
                 else if (choice == "6")
                 {
                     ctName = "GerningsmandManual";
+                    branchLibraryName = "Gerningsmand";
+                    documentLibrarySearchString = "skade/hb/gerningsmand/delte";
+                    
                 }
                 else if (choice == "7")
                 {
                     ctName = "EjerskifteManual";
+                    branchLibraryName = "Ejerskifte";
+                    documentLibrarySearchString = "skade/hb/ejerskifte/delte";
+
                 }
                 else if (choice == "8")
                 {
                     ctName = "ErhvervManual";
+                    branchLibraryName = "Erhverv";
+                    documentLibrarySearchString = "skade/hb/erhv/delte";
                 }
                 else if (choice == "9")
                 {
                     ctName = "LønsikringIndividuelManual";
+                    branchLibraryName = "LoensikringIndividuel";
+                    documentLibrarySearchString = "skade/hb/lønsikring/delte";
                 }
                 else if (choice == "10")
                 {
                     ctName = "RetshjælpManual";
+                    branchLibraryName = "Retshjlp";
+                    documentLibrarySearchString = "skade/hb/retshj/delte";
                 }
                 else if (choice == "11")
                 {
                     ctName = "ScalePointManual";
+                    branchLibraryName = "ScalePoint";
+                    documentLibrarySearchString = "skade/hb/sp/delte";
                 }
                 else if (choice == "12")
                 {
                     ctName = "LønsikringKollektivManual";
+                    branchLibraryName = "LoensikringKollektiv";
+                    documentLibrarySearchString = "skade/hb/lønsikringkollektiv/delte";
                 }
                 else if (choice == "13")
                 {
                     ctName = "PersonskadeManual";
+                    branchLibraryName = "Personskade";
+                    documentLibrarySearchString = "skade/hb/person/delte";
                 }
                 else if (choice == "14")
                 {
                     ctName = "RegresManual";
+                    branchLibraryName = "Regres";
+                    documentLibrarySearchString = "skade/hb/reg/delte";
+                }
+                else if (choice == "15")
+                {
+                    ctName = "SkybrudsManual";
+                    branchLibraryName = "Skybrudsmanual";
+                    documentLibrarySearchString = "skade/hb/SkybrudsManual/delte";
+                }
+                else if (choice == "16")
+                {
+                    ctName = "StorskadeManual";
+                    branchLibraryName = "Storskade";
+                    documentLibrarySearchString = "skade/hb/storskade/delte";
                 }
 
 
@@ -293,7 +340,8 @@ namespace SPOApp
                 ClientContext ctx = SPOUtility.Authenticate(targetSiteUrl, "admnicd@lb.dk", "MandM5555");
                 string sitePagesLibrary = "Webstedssider";
 
-                LinksUtility.CheckForLinks(ctx, sitePagesLibrary, ctName, featureToRun);
+                //ORG LinksUtility.CheckForLinks(ctx, sitePagesLibrary, ctName, featureToRun);
+                LinksUtility.CheckForLinks(ctx, sitePagesLibrary, ctName, featureToRun,documentLibrarySearchString,branchLibraryName);
 
                 Console.WriteLine("Done searching for links");
                 Console.ReadLine();
