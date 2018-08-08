@@ -1,2 +1,0 @@
-Startside.aspx;
-Voldgift.aspx;

@@ -365,12 +365,14 @@ function Run($startIndex)
     }
     elseif($branch -eq 21)
     {
+    
         $branchSiteUrl="http://intranet.lb.dk/Skade/hb/Person/SitePages/"
         $importFileName = 'C:\Git\LBIntranet\Powershell\MigratePages\ImportFiles\PersonskaderCSV.csv'
     }
     elseif($branch -eq 22)
     {
         $branchSiteUrl="http://intranet.lb.dk/Skade/hb/Person/SitePages/"
+        $branchSiteUrl="https://lbforsikring.sharepoint.com/sites/Skade/PersonskadeWebsider/"
         $importFileName = 'C:\Git\LBIntranet\Powershell\MigratePages\ImportFiles\PersonskaderCSVRepair.csv'
     }
     elseif($branch -eq 23)
@@ -387,6 +389,11 @@ function Run($startIndex)
     {
         $branchSiteUrl="http://intranet.lb.dk/Skade/hb/StorSkade/SitePages/"
         $importFileName = 'C:\Git\LBIntranet\Powershell\MigratePages\ImportFiles\StorskadeCSV.csv'
+    }
+    elseif($branch -eq 26)
+    {
+        $branchSiteUrl="http://intranet.lb.dk/Skade/hb/StorSkade/SitePages/"
+        $importFileName = 'C:\Git\LBIntranet\Powershell\MigratePages\ImportFiles\StorskadeCSVRepair.csv'
     }   
     $files = Import-Csv -Path $importFileName -Encoding UTF8 -Delimiter ';' 
         
