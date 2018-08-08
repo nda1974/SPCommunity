@@ -146,7 +146,7 @@ function GetTargetFile($url)
                         Show-Process -Process (Get-Process -Id $p.Id) -Maximize
                         Start-Sleep -Seconds 2
                         $targetDiv.focus();
-                        Start-Sleep -Seconds 2
+                        
                         [System.Windows.Forms.SendKeys]::SendWait("^{a}")
                         #[System.Windows.Forms.SendKeys]::SendWait("{DEL}")
                         [System.Windows.Forms.SendKeys]::SendWait("^{v}") 
@@ -245,6 +245,9 @@ function Run($startIndex)
         Write-Host "----- Personskade -----"
         Write-Host "Personskade [21]"
         Write-Host "Personskade repair[22]"
+        Write-Host "----- Skybrudsmanual -----"
+        Write-Host "Skybrudsmanual [23]"
+        Write-Host "Skybrudsmanual repair[24]"
         $branch = Read-Host 
     }
 
@@ -366,6 +369,16 @@ function Run($startIndex)
     {
         $branchSiteUrl="http://intranet.lb.dk/Skade/hb/Person/SitePages/"
         $importFileName = 'C:\Git\LBIntranet\Powershell\MigratePages\ImportFiles\PersonskaderCSVRepair.csv'
+    }
+    elseif($branch -eq 23)
+    {
+        $branchSiteUrl="http://intranet.lb.dk/Skade/hb/SkybrudsManual/SitePages/"
+        $importFileName = 'C:\Git\LBIntranet\Powershell\MigratePages\ImportFiles\SkybrudsmanualCSV.csv'
+    }
+    elseif($branch -eq 24)
+    {
+        $branchSiteUrl="http://intranet.lb.dk/Skade/hb/SkybrudsManual/SitePages/"
+        $importFileName = 'C:\Git\LBIntranet\Powershell\MigratePages\ImportFiles\SkybrudsmanualCSVRepair.csv'
     }   
     $files = Import-Csv -Path $importFileName -Encoding UTF8 -Delimiter ';' 
     #$files = Import-Csv -Path C:\Git\LBIntranet\Powershell\MigratePages\ImportFiles\BaadCSVPrerun.csv -Encoding UTF8

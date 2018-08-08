@@ -47,6 +47,10 @@ namespace SPOApp
                     {
                         spp.Gruppe = (listItem["L_x00f8_sning"] == null) ? "" : listItem["L_x00f8_sning"].ToString();
                     }
+                    else if (g.ContentTypeName == "SkybrudsManual")
+                    {
+                        spp.Gruppe = (listItem["Emne"] == null) ? "" : listItem["Emne"].ToString();
+                    }
                     else
                     {
                         spp.Gruppe = (listItem["Kategori"] == null) ? "" : listItem["Kategori"].ToString();
@@ -56,9 +60,14 @@ namespace SPOApp
                     if (g.ContentTypeName != "HundManual" &&
                         g.ContentTypeName != "RetshjælpManual" &&
                         g.ContentTypeName != "GerningsmandManual" &&
-                        g.ContentTypeName != "ScalePointManual")
+                        g.ContentTypeName != "ScalePointManual" &&
+                        g.ContentTypeName != "SkybrudsManual")
                     {
                         spp.UnderGruppe = (listItem["Omr_x00e5_de"] == null) ? "" : listItem["Omr_x00e5_de"].ToString();
+                    }
+                    else if (g.ContentTypeName == "SkybrudsManual")
+                    {
+                        spp.UnderGruppe= (listItem["Forklaring"] == null) ? "" : listItem["Forklaring"].ToString();
                     }
                     else
                     {
@@ -98,7 +107,8 @@ namespace SPOApp
             {
                 var page = context.Web.AddClientSidePage(p.FileName, true);
 
-                ClientSideText txt1 = new ClientSideText() { Text = p.WikiContent };
+                //ClientSideText txt1 = new ClientSideText() { Text = p.WikiContent };
+                ClientSideText txt1 = new ClientSideText() { Text = "[TODO]" };
 
                 page.AddControl(txt1, -1);
 
