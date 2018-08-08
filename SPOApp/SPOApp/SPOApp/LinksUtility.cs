@@ -95,7 +95,7 @@ namespace SPOApp
             Console.WriteLine("Links counter: " + counter);
 
         }
-        public static void CheckForLinks(ClientContext context, string sitePagesLibraryTitle, string contentType, string parsingFeature)
+        public static void CheckForLinks(ClientContext context, string sitePagesLibraryTitle, string contentType, string parsingFeature, string documentLibrarySearchString,string branchLibraryName)
         {
 
             CamlQuery camlQuery = new CamlQuery();
@@ -135,48 +135,48 @@ namespace SPOApp
 
             int counter = 0;
 
-            string documentLibrarySearchString = "";
-            string branchLibraryName = "";
-            if (contentType == "AnsvarManual")
-            {
-                branchLibraryName = "ansvar";
-                documentLibrarySearchString = "skade/hb/ansvarny/delte";
-            }
-            else if (contentType == "BaadManual")
-            {
-                branchLibraryName = "baad";
-                documentLibrarySearchString = "skade/hb/baad/delte";
-            }
-            else if (contentType == "BeredskabManual")
-            {
-                branchLibraryName = "beredskab";
-                documentLibrarySearchString = "skade/hb/besk/delte";
-            }
-            else if (contentType == "BygningManual")
-            {
-                branchLibraryName = "byg";
-                documentLibrarySearchString = "skade/hb/byg/delte";
-            }
-            else if (contentType == "HundManual")
-            {
-                branchLibraryName = "hund";
-                documentLibrarySearchString = "skade/hb/hund/delte";
-            }
-            else if (contentType == "GerningsmandManual")
-            {
-                branchLibraryName = "gerningsmand";
-                documentLibrarySearchString = "skade/hb/gerningsmand/delte";
-            }
-            else if (contentType == "EjerskifteManual")
-            {
-                branchLibraryName = "ejerskifte";
-                documentLibrarySearchString = "skade/hb/ejerskifte/delte";
-            }
-            else if (contentType == "LønsikringIndividuelManual")
-            {
-                branchLibraryName = "loensikring";
-                documentLibrarySearchString = "skade/hb/lønsikring/delte";
-            }
+            //string documentLibrarySearchString = "";
+            //string branchLibraryName = "";
+            //if (contentType == "AnsvarManual")
+            //{
+            //    branchLibraryName = "ansvar";
+            //    documentLibrarySearchString = "skade/hb/ansvarny/delte";
+            //}
+            //else if (contentType == "BaadManual")
+            //{
+            //    branchLibraryName = "baad";
+            //    documentLibrarySearchString = "skade/hb/baad/delte";
+            //}
+            //else if (contentType == "BeredskabManual")
+            //{
+            //    branchLibraryName = "beredskab";
+            //    documentLibrarySearchString = "skade/hb/besk/delte";
+            //}
+            //else if (contentType == "BygningManual")
+            //{
+            //    branchLibraryName = "byg";
+            //    documentLibrarySearchString = "skade/hb/byg/delte";
+            //}
+            //else if (contentType == "HundManual")
+            //{
+            //    branchLibraryName = "hund";
+            //    documentLibrarySearchString = "skade/hb/hund/delte";
+            //}
+            //else if (contentType == "GerningsmandManual")
+            //{
+            //    branchLibraryName = "gerningsmand";
+            //    documentLibrarySearchString = "skade/hb/gerningsmand/delte";
+            //}
+            //else if (contentType == "EjerskifteManual")
+            //{
+            //    branchLibraryName = "ejerskifte";
+            //    documentLibrarySearchString = "skade/hb/ejerskifte/delte";
+            //}
+            //else if (contentType == "LønsikringIndividuelManual")
+            //{
+            //    branchLibraryName = "loensikring";
+            //    documentLibrarySearchString = "skade/hb/lønsikring/delte";
+            //}
 
             string fileName = "";
             foreach (ListItem oListItem in collListItem)
@@ -276,6 +276,7 @@ namespace SPOApp
             if (content.Contains("false,false,1") ||
                 content.Contains("<p>a</p>") ||
                 content.Contains("<p>v</p>") ||
+                content.Contains("[TODO]") ||
                 content.Length < 50)
             {
                 strLog.Add(fileName + ";" + string.Empty);

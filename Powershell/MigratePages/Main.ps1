@@ -248,6 +248,9 @@ function Run($startIndex)
         Write-Host "----- Skybrudsmanual -----"
         Write-Host "Skybrudsmanual [23]"
         Write-Host "Skybrudsmanual repair[24]"
+        Write-Host "----- Storskade -----"
+        Write-Host "Storskade [25]"
+        Write-Host "Storskade repair[26]"
         $branch = Read-Host 
     }
 
@@ -379,26 +382,13 @@ function Run($startIndex)
     {
         $branchSiteUrl="http://intranet.lb.dk/Skade/hb/SkybrudsManual/SitePages/"
         $importFileName = 'C:\Git\LBIntranet\Powershell\MigratePages\ImportFiles\SkybrudsmanualCSVRepair.csv'
+    }
+    elseif($branch -eq 25)
+    {
+        $branchSiteUrl="http://intranet.lb.dk/Skade/hb/StorSkade/SitePages/"
+        $importFileName = 'C:\Git\LBIntranet\Powershell\MigratePages\ImportFiles\StorskadeCSV.csv'
     }   
     $files = Import-Csv -Path $importFileName -Encoding UTF8 -Delimiter ';' 
-    #$files = Import-Csv -Path C:\Git\LBIntranet\Powershell\MigratePages\ImportFiles\BaadCSVPrerun.csv -Encoding UTF8
-    #$files = Import-Csv -Path C:\Git\LBIntranet\Powershell\MigratePages\ImportFiles\BaadCSV.csv -Encoding UTF8
-    #$files = Import-Csv -Path C:\Git\LBIntranet\Powershell\MigratePages\ImportFiles\BeredskabCSVPrerun.csv -Encoding UTF8
-
-        #$files = Import-Csv -Path C:\Git\LBIntranet\Powershell\MigratePages\ImportFiles\BeredskabCSV.csv -Encoding UTF8
-        #$files = Import-Csv -Path C:\Git\LBIntranet\Powershell\MigratePages\ImportFiles\BaadCSVRepair.csv -Encoding UTF8 -Delimiter ';'
-        #$files = Import-Csv -Path C:\Git\LBIntranet\Powershell\MigratePages\ImportFiles\BygCSV.csv -Encoding UTF8
-        #$files = Import-Csv -Path C:\Git\LBIntranet\Powershell\MigratePages\ImportFiles\BygCSVRepair.csv -Encoding UTF8
-
-        #$files = Import-Csv -Path C:\Git\LBIntranet\Powershell\MigratePages\ImportFiles\HundCSV.csv -Encoding UTF8
-
-        #$files = Import-Csv -Path C:\Git\LBIntranet\Powershell\MigratePages\ImportFiles\HundCSVPrerun.csv -Encoding UTF8
-        #$files = Import-Csv -Path C:\Git\LBIntranet\Powershell\MigratePages\ImportFiles\EjerskifteCSV.csv -Encoding UTF8
-        #$files = Import-Csv -Path C:\Git\LBIntranet\Powershell\MigratePages\ImportFiles\GerningsmandCSVPrerun.csv -Encoding UTF8
-        #$files = Import-Csv -Path C:\Git\LBIntranet\Powershell\MigratePages\ImportFiles\AnsvarToSkadeCSV.csv -Encoding UTF8
-
-
-
         
         $sw = [Diagnostics.Stopwatch]::StartNew()
     
