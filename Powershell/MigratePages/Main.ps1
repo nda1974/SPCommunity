@@ -247,6 +247,9 @@ function Run($startIndex)
         Write-Host "----- Storskade -----"
         Write-Host "Storskade [25]"
         Write-Host "Storskade repair[26]"
+        Write-Host "----- Indbo -----"
+        Write-Host "indbo [27]"
+        Write-Host "Indbo repair[28]"
         $branch = Read-Host 
     }
 
@@ -393,6 +396,16 @@ function Run($startIndex)
     {
         $branchSiteUrl="http://intranet.lb.dk/Skade/hb/StorSkade/SitePages/"
         $importFileName = 'C:\Git\LBIntranet\Powershell\MigratePages\ImportFiles\StorskadeCSVRepair.csv'
+    }
+    elseif($branch -eq 27)
+    {
+        $branchSiteUrl="http://intranet.lb.dk/Skade/hb/indbo/SitePages/"
+        $importFileName = 'C:\Git\LBIntranet\Powershell\MigratePages\ImportFiles\IndboCSV.csv'
+    }   
+    elseif($branch -eq 28)
+    {
+        $branchSiteUrl="http://intranet.lb.dk/Skade/hb/indbo/SitePages/"
+        $importFileName = 'C:\Git\LBIntranet\Powershell\MigratePages\ImportFiles\IndboCSVRepair.csv'
     }   
     $files = Import-Csv -Path $importFileName -Encoding UTF8 -Delimiter ';' 
         
