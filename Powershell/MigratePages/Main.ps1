@@ -54,12 +54,14 @@ function GetSourceFile($url)
             $IE.navigate2($url)
             
             $IE = ConnectIExplorer -HWND $HWND -ShowPage $true 
+            $IE.Visible=$true
+            $IE.fullscreen = $true;
             Write-Host 'Sleeping.'
-            $ticker = '';
+            $ticker = 0;
             while( $IE.Busy){
-                    $ticker=$ticker+'.'
-                    Write-Host  '.'
-                    Start-Sleep -Milliseconds 100
+                    $ticker=$ticker+1000
+                    Write-Host  $ticker 'Millisec'
+                    Start-Sleep -Milliseconds 1000
                     }
             
             $IE = ConnectIExplorer -HWND $HWND -ShowPage $false
@@ -118,6 +120,8 @@ function GetTargetFile($url)
                 }
         
             $IE2 = ConnectIExplorer -HWND $HWND -ShowPage $true
+            $IE2.Visible=$true
+            $IE2.fullscreen = $true;
             #$IE2 = ConnectIExplorer -HWND $HWND -ShowPage $false
             $exitFlag =$false
                 do {
@@ -125,15 +129,7 @@ function GetTargetFile($url)
     
                         $targetDocument=$IE2.Document;
                         $btnEdit=$targetDocument.IHTMLDocument3_getElementsByTagName('button')| Where-Object {$_.name -eq 'Rediger'}
-                        if($btnEdit -eq $null)
-                        {
                         
-                        }
-                        else
-                        {
-                        
-                        }
-                        #$btnEdit=$targetDocument.IHTMLDocument3_getElementById('id__15')
                         $btnEdit.click()
                         Start-Sleep -Seconds 2
                         
@@ -270,8 +266,11 @@ function Run($startIndex)
     }
     elseif($branch -eq 2)
     {
-        $branchSiteUrl="http://intranet.lb.dk/Skade/hb/Byg/SitePages/";
-        $files = Import-Csv -Path C:\Git\LBIntranet\Powershell\MigratePages\ImportFiles\BygCSVRepair.csv -Encoding UTF8
+        #$branchSiteUrl="http://intranet.lb.dk/Skade/hb/Byg/SitePages/";
+        #$files = Import-Csv -Path C:\Git\LBIntranet\Powershell\MigratePages\ImportFiles\BygCSVRepair.csv -Encoding UTF8
+
+        $branchSiteUrl="http://intranet.lb.dk/Skade/hb/byg/SitePages/";
+        $importFileName = 'C:\Git\LBIntranet\Powershell\MigratePages\ImportFiles\BygCSVRepair.csv'
     }
     if($branch -eq 3)
     {
