@@ -1,4 +1,5 @@
 ﻿using Microsoft.SharePoint.Client;
+using OfficeDevPnP.Core;
 using OfficeDevPnP.Core.Pages;
 using System;
 using System.Collections.Generic;
@@ -29,8 +30,9 @@ namespace SPOApp
 
                     GenericManualProperies spp;
                     spp.WikiContent = (listItem["WikiField"] == null) ? "" : listItem["WikiField"].ToString();
-                    
+
                     if (g.ContentTypeName == "RegresManual" ||
+                        g.ContentTypeName == "BeredskabManual" ||
                         g.ContentTypeName == "StorskadeManual")
                     {
                         // Der er ingen kategori i Regreshåndbogen
@@ -63,13 +65,15 @@ namespace SPOApp
                         g.ContentTypeName != "GerningsmandManual" &&
                         g.ContentTypeName != "ScalePointManual" &&
                         g.ContentTypeName != "StorskadeManual" &&
+                        g.ContentTypeName != "RejseManual" &&
+                        g.ContentTypeName != "BeredskabManual" &&
                         g.ContentTypeName != "SkybrudsManual")
                     {
                         spp.UnderGruppe = (listItem["Omr_x00e5_de"] == null) ? "" : listItem["Omr_x00e5_de"].ToString();
                     }
                     else if (g.ContentTypeName == "SkybrudsManual")
                     {
-                        spp.UnderGruppe= (listItem["Forklaring"] == null) ? "" : listItem["Forklaring"].ToString();
+                        spp.UnderGruppe = (listItem["Forklaring"] == null) ? "" : listItem["Forklaring"].ToString();
                     }
                     else
                     {
@@ -102,16 +106,23 @@ namespace SPOApp
 
             }
         }
-
+        
         private static void CreatePages(ClientContext context, GenericManualProperies p, string targetContentTypeName)
         {
             try
             {
-                var page = context.Web.AddClientSidePage(p.FileName, true);
+                string ManualName = "";
+                string ManualImage = "";
+                switch (targetContentTypeName)
+                {
+                    default:
+                        break;
+                }
+                ClientSidePage page = context.Web.AddClientSidePage(p.FileName, true);
 
                 //ClientSideText txt1 = new ClientSideText() { Text = p.WikiContent };
                 ClientSideText txt1 = new ClientSideText() { Text = "[TODO]" };
-
+                
                 page.AddControl(txt1, -1);
 
                 Microsoft.SharePoint.Client.ContentType newContentType = context.Web.GetContentTypeByName(targetContentTypeName);
@@ -139,21 +150,30 @@ namespace SPOApp
                     item.Update();
                 }
 
+                SPOUtility.SetMetadataField(context, item, "Hest", "Håndbog");
+
+
+
                 page.Save();
                 page.Publish();
 
                 context.ExecuteQuery();
+                string newFilePrefix = Program.IsPageCoincidence(p.FileName);
+                if (!string.IsNullOrEmpty(newFilePrefix))
+                {
+                    Program.RenameFile(newFilePrefix + p.FileName);
+                }
 
             }
             catch (Exception ex)
             {
                 Console.WriteLine(p.FileName);
                 Console.WriteLine(ex);
-                
+
             }
         }
 
-            
+
 
 
     }

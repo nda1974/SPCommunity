@@ -12,7 +12,8 @@ namespace SPOApp
 {
     public static class SPOUtility
     {
-        public static ClientContext Authenticate(string url, string userName, string passWord) {
+        public static ClientContext Authenticate(string url, string userName, string passWord)
+        {
             AuthenticationManager am = new AuthenticationManager();
             return am.GetWebLoginClientContext(url, null);
             //SecureString ss = GetSecureString(passWord);
@@ -33,7 +34,7 @@ namespace SPOApp
             sStrPwd = secure;
             return sStrPwd;
 
-            
+
         }
 
         public static void CheckInAllDocuments(ClientContext context, string documentLibraryUrl)
@@ -44,34 +45,34 @@ namespace SPOApp
             ListItemCollection items = sourceSitePagesLibrary.GetItems(query);
             context.Load(items);
             context.ExecuteQuery();
-            
+
             foreach (ListItem listItem in items)
             {
                 try
                 {
-                    
 
-                        if (listItem.FieldValues["ContentTypeId"].ToString() == "0x0101009D1CB255DA76424F860D91F20E6C4118003547E51ACD90E14980D58AF37F7253291000F87F21B783C0CB43B9694B28192B178B" && listItem.FileSystemObjectType == FileSystemObjectType.File)
-                        {
-                            listItem.File.PublishFileToLevel(FileLevel.Published);
-                        }
+
+                    if (listItem.FieldValues["ContentTypeId"].ToString() == "0x0101009D1CB255DA76424F860D91F20E6C4118003547E51ACD90E14980D58AF37F7253291000F87F21B783C0CB43B9694B28192B178B" && listItem.FileSystemObjectType == FileSystemObjectType.File)
+                    {
+                        listItem.File.PublishFileToLevel(FileLevel.Published);
+                    }
                 }
                 catch (Exception)
                 {
 
 
                 }
-                
+
             }
             context.ExecuteQuery();
 
         }
 
 
-        public static void SetMetadataField(ClientContext ctx, ListItem item, string term,string taxFieldInternalName)
+        public static void SetMetadataField(ClientContext ctx, ListItem item, string term, string taxFieldInternalName)
         {
             List sitePagesList = ctx.Web.Lists.GetByTitle("Webstedssider");
-            
+
             //Field field = sitePagesList.Fields.GetFieldByInternalName("IndboManualCategory");
             Field field = sitePagesList.Fields.GetFieldByInternalName(taxFieldInternalName);
 
@@ -81,7 +82,32 @@ namespace SPOApp
             TaxonomyField txField = ctx.CastTo<TaxonomyField>(field);
 
             string termId = GetTermIdForTerm(term, txField.TermSetId, ctx);
-            
+
+            if (!string.IsNullOrEmpty(termId))
+            {
+                TaxonomyFieldValue termValue = new TaxonomyFieldValue();
+                termValue.Label = term;
+                termValue.TermGuid = termId;
+                termValue.WssId = -1;
+                txField.SetFieldValueByValue(item, termValue);
+            }
+        }
+        public static void SetMetadataField(ClientContext ctx, ListItem item, string term, string taxFieldInternalName, string manual)
+        {
+            List sitePagesList = ctx.Web.Lists.GetByTitle("Webstedssider");
+
+
+            //Field field = sitePagesList.Fields.GetFieldByInternalName(taxFieldInternalName);
+            Field field = sitePagesList.Fields.GetFieldByInternalName(taxFieldInternalName);
+
+            ctx.Load(field);
+            ctx.ExecuteQuery();
+
+            TaxonomyField txField = ctx.CastTo<TaxonomyField>(field);
+
+            //string termId = GetTermIdForTerm(term, txField.TermSetId, ctx);
+            string termId = GetTermIdForTermNew(manual, term, txField.TermSetId, ctx);
+
             if (!string.IsNullOrEmpty(termId))
             {
                 TaxonomyFieldValue termValue = new TaxonomyFieldValue();
@@ -92,7 +118,6 @@ namespace SPOApp
             }
         }
 
-        
 
         public static string GetTermIdForTerm(string term, Guid termSetId, ClientContext clientContext)
         {
@@ -135,6 +160,100 @@ namespace SPOApp
 
             }
 
+
+            return termId;
+
+        }
+
+
+        public static string GetTermIdForTermNew(string term, string subTerm, Guid termSetId, ClientContext clientContext)
+        {
+
+            string termId = string.Empty;
+            try
+            {
+                subTerm = subTerm.TrimEnd();
+
+
+                TaxonomySession tSession = TaxonomySession.GetTaxonomySession(clientContext);
+                TermStore ts = tSession.GetDefaultSiteCollectionTermStore();
+                TermSet tset = ts.GetTermSet(termSetId);
+
+                LabelMatchInformation lmi = new LabelMatchInformation(clientContext);
+
+                lmi.Lcid = 1033;
+                lmi.TrimUnavailable = true;
+                lmi.TermLabel = term;
+
+                //TermCollection termMatches = tset.GetTerms(lmi);
+                TermCollection termMatches = tset.GetTerms(lmi);
+
+
+                //tset.CreateTerm()
+                clientContext.Load(tSession);
+                clientContext.Load(ts);
+                clientContext.Load(tset);
+                clientContext.Load(termMatches);
+                clientContext.ExecuteQuery();
+
+                if (termMatches != null && termMatches.Count() > 0)
+                {
+                    Term t = termMatches.First();
+                    TermCollection tc = t.Terms;
+                    clientContext.Load(tc);
+                    clientContext.ExecuteQuery();
+                    bool createSubTerm = true;
+                    foreach (var item in tc)
+                    {
+                        if (item.Name.ToLower() == subTerm.ToLower())
+                        {
+                            createSubTerm = false;
+                        }
+                    }
+                    if (createSubTerm == true)
+                    {
+                        Term newSubTerm = t.CreateTerm(subTerm, 1033, Guid.NewGuid());
+                        clientContext.ExecuteQuery();
+                        clientContext.Load(newSubTerm);
+                        clientContext.ExecuteQuery();
+                        termId = newSubTerm.Id.ToString();
+                    }
+                    else
+                    {
+                        Term T = t.Terms.GetByName(subTerm);
+                        clientContext.Load(T);
+                        clientContext.ExecuteQuery();
+                        termId = T.Id.ToString();
+                    }
+                }
+                else
+                {
+                    Term TermAdd = tset.CreateTerm(term, 1033, Guid.NewGuid());
+                    clientContext.ExecuteQuery();
+                    clientContext.Load(TermAdd);
+                    clientContext.ExecuteQuery();
+                    termId = TermAdd.Id.ToString();
+
+
+
+                    Term newSubTerm = TermAdd.CreateTerm(subTerm, 1033, Guid.NewGuid());
+                    clientContext.ExecuteQuery();
+                    clientContext.Load(newSubTerm);
+                    clientContext.ExecuteQuery();
+                    termId = newSubTerm.Id.ToString();
+
+
+                }
+
+            }
+            catch (Exception ex)
+            {
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.WriteLine("Failing on Term : " + term);
+                Console.WriteLine("Failing on Subterm : " + subTerm);
+                Console.ForegroundColor = ConsoleColor.White;
+                throw;
+            }
 
             return termId;
 
