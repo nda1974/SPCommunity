@@ -424,6 +424,18 @@ function Run($startIndex)
         
         $sw = [Diagnostics.Stopwatch]::StartNew()
     
+
+
+    
+<#
+kør test på en enkelt fil
+ ProcesFile -branchSiteUrl $branchSiteUrl -fileName '1. Forsikringen dækker - Afbestilling grundet død eller sygdom hos tidligere ægtefælle.aspx'
+    exit
+#>
+
+
+
+
         $files |foreach-object {
         
         $i=$i+1;

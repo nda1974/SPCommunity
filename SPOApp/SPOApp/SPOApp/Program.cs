@@ -575,7 +575,7 @@ namespace SPOApp
         /// </summary>
         private static void StartCreatingModernPagesDEV()
         {
-            string branchImageName = "";
+            string branchImageUrl = "";
             string manualTaxFieldValue = "";
             string sourceLibraryName = "";
             string targetLibraryName = "SitePages";
@@ -659,6 +659,7 @@ namespace SPOApp
             }
             else if (branch == "9")
             {
+                branchImageUrl = @"https://lbforsikring.sharepoint.com/sites/skade/SiteAssets/ikoner/indbo.png";
                 manualTaxFieldValue = "Indbo";
                 g.ContentTypeName = "IndboManual";
                 g.SourceLibrary = "indboWebsider";
@@ -700,9 +701,7 @@ namespace SPOApp
             }
             else if (branch == "17")
             {
-                branchImageName = @"\sites\Skade\SiteAssets\ikoner\rejse.png";
-
-
+                branchImageUrl = @"https://lbforsikring.sharepoint.com/sites/skade/SiteAssets/ikoner/rejse.png";
                 manualTaxFieldValue = "Rejse";
                 g.ContentTypeName = "RejseManual";
                 g.SourceLibrary = "RejseWebsider";
@@ -740,15 +739,19 @@ namespace SPOApp
                     }
 
                     ClientSidePage page = ctx.Web.AddClientSidePage(fileName, true);
+                    //ClientSidePage page = new ClientSidePage(ctx);
 
                     Microsoft.SharePoint.Client.ContentType newContentType = ctx.Web.GetContentTypeByName("Skadehåndbog");
                     ctx.Load(newContentType);
                     ctx.ExecuteQuery();
+
                     ListItem item = page.PageListItem;
                     ctx.Load(item);
                     ctx.ExecuteQuery();
                     item.Properties["ContentTypeId"] = newContentType.Id.StringValue;
                     item["ContentTypeId"] = newContentType.Id;
+                    item["PageLayoutType"] = "Home";
+                    item["BannerImageUrl"] = "https://lbforsikring.sharepoint.com"+branchImageUrl;
                     item.Update();
 
                     if (!string.IsNullOrEmpty(p.Gruppe))
@@ -766,11 +769,15 @@ namespace SPOApp
                     SPOUtility.SetMetadataField(ctx, item, manualTaxFieldValue, "H_x00e5_ndbog");
                     item.Update();
 
-                    page.PageTitle = p.FileName.Substring(0, p.FileName.Length - 5);
-                    page.Save();
+                    ctx.Load(item);
+                    ctx.ExecuteQuery();
 
-                    page.AddSection(CanvasSectionTemplate.TwoColumn, 1);
-                    page.Save();
+
+                    page.PageTitle = p.FileName.Substring(0, p.FileName.Length - 5);
+                    //page.Save();
+
+                    page.AddSection(CanvasSectionTemplate.TwoColumnLeft, 1);
+                    //page.Save();
                     CanvasSection section = page.Sections[0];
 
 
@@ -779,18 +786,21 @@ namespace SPOApp
 
 
                     ClientSideWebPart imageWebPart = page.InstantiateDefaultWebPart(DefaultClientSideWebParts.Image);
-                    //imageWebPart.Properties["siteId"] = "c827cb03-d059-4956-83d0-cd60e02e3b41";
-                    //imageWebPart.Properties["webId"] = "9fafd7c0-e8c3-4a3c-9e87-4232c481ca26";
-                    //imageWebPart.Properties["listId"] = "78d1b1ac-7590-49e7-b812-55f37c018c4b";
-                    //imageWebPart.Properties["uniqueId"] = "3C27A419-66D0-4C36-BF24-BD6147719052";
+                    //imageWebPart.Properties["siteId"] = "843f7b1b-ffcf-4881-bcf7-2ada5969a5fe";
+                    //imageWebPart.Properties["webId"] = "18196690-7d06-4ad4-ae87-af7cd393a25";
+                    //imageWebPart.Properties["listId"] = "8e992018-f0cc-48fa-a4e3-74cb8af6eb63";
+                    ////rejse.png
+                    //imageWebPart.Properties["uniqueId"] = "d2bd511c-5fb8-475e-9e23-dcd2d72c621b";
                     //imageWebPart.Properties["imgWidth"] = 1002;
                     //imageWebPart.Properties["imgHeight"] = 469;
                     imageWebPart.Properties["imageSourceType"] = 2;
-                    imageWebPart.Properties["imageSource"] = branchImageName;
+                    imageWebPart.Properties["imageSource"] = branchImageUrl;
+                    //page.Save();
+
                     page.AddControl(imageWebPart, section.Columns[1], 0);
                     page.Save();
                     page.Publish();
-                    ctx.ExecuteQuery();
+                    //ctx.ExecuteQuery();
 
                     counter++;
                 }
