@@ -11,6 +11,7 @@ using System.Net;
 using System.Runtime.InteropServices.ComTypes;
 using System.Security;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -22,7 +23,13 @@ namespace SPOApp
     /// </summary>
 
 
-
+public enum ParsingFeature
+    {
+        CheckForObscurity = 1,
+        OutputLinksToScreen =2,
+        MigrateLinks=3,
+        UnknownFeature
+    }
     public struct SitePageProperies
     {
         public string ManualCategory;
@@ -140,10 +147,12 @@ namespace SPOApp
         public string SourceLibrary;
     }
 
+    
 
     class Program
     {
-
+        private static List<string> lstLog = new List<string>();
+        private static List<string> lstError = new List<string>();
         public static string IsPageCoincidence(string fileName)
         {
             
@@ -222,15 +231,14 @@ namespace SPOApp
             while (info.Key != ConsoleKey.Enter);
             return securePassword;
         }
-    
-    static void Main(string[] args)
+
+        static void Main(string[] args)
         {
+            
             string targetSiteUrl = "https://lbforsikring.sharepoint.com/sites/skade";
             ClientContext ctx = SPOUtility.Authenticate(targetSiteUrl, "admnicd@lb.dk", "MandM5555");
-            //devCreateModernPage(ctx);
 
             
-            string manualsToDelete = "IndboManual";
             System.Diagnostics.Debugger.Launch();
             
             Console.WriteLine("Check for links in WikiFields [W]");
@@ -240,10 +248,9 @@ namespace SPOApp
 
             if (input.ToLower().Equals("m"))
             {
-                //StartCreatingModernPages();
                 try
                 {
-                    StartCreatingModernPagesDEV();
+                    StartCreatingModernPages();
                 }
                 catch (Exception ex)
                 {
@@ -273,124 +280,230 @@ namespace SPOApp
                 Console.WriteLine("Regres [14]");
                 Console.WriteLine("Skybrud [15]");
                 Console.WriteLine("Storskade [16]");
+                Console.WriteLine("Rejse [17]");
+                Console.WriteLine("Indbo [18]");
                 string choice = Console.ReadLine();
 
                 Console.WriteLine("Find obscure and empty content  ex. 'false,1,1' and '<p>a</p>' and '<p>v</p>' string [1]");
                 Console.WriteLine("Output links to screen[2]");
                 Console.WriteLine("Migrate links [3]");
                 string featureToRun = Console.ReadLine();
+                ParsingFeature parsingFeature;
 
-                string ctName = "";
+
                 string branchLibraryName = "";
                 string documentLibrarySearchString = "";
+                string manualTaxDisplayname = "";
 
+                #region REGION Choose branch
                 if (choice == "1")
                 {
-                    ctName = "BaadManual";
+                    //ctName = "BaadManual";
                     branchLibraryName = "baad";
                     documentLibrarySearchString = "skade/hb/baad/delte";
                 }
                 else if (choice == "2")
                 {
-                    ctName = "BeredskabManual";
+                    //ctName = "BeredskabManual";
                     branchLibraryName = "Beredskab";
                     documentLibrarySearchString = "skade/hb/besk/delte";
                 }
                 else if (choice == "3")
                 {
-                    ctName = "BygningManual";
+                    //ctName = "BygningManual";
                     branchLibraryName = "Byg";
                     documentLibrarySearchString = "skade/hb/byg/delte";
                 }
                 else if (choice == "4")
                 {
-                    ctName = "AnsvarManual";
-                    branchLibraryName = "ansvar";
+                    //ctName = "AnsvarManual";
+                    branchLibraryName = "Ansvar";
                     documentLibrarySearchString = "skade/hb/ansvarny/delte";
                 }
                 else if (choice == "5")
                 {
-                    ctName = "HundManual";
+                    //ctName = "HundManual";
                     branchLibraryName = "Hund";
                     documentLibrarySearchString = "skade/hb/hund/delte";
                 }
                 else if (choice == "6")
                 {
-                    ctName = "GerningsmandManual";
+                    //ctName = "GerningsmandManual";
                     branchLibraryName = "Gerningsmand";
                     documentLibrarySearchString = "skade/hb/gerningsmand/delte";
-                    
+
                 }
                 else if (choice == "7")
                 {
-                    ctName = "EjerskifteManual";
+                    //ctName = "EjerskifteManual";
                     branchLibraryName = "Ejerskifte";
                     documentLibrarySearchString = "skade/hb/ejerskifte/delte";
 
                 }
                 else if (choice == "8")
                 {
-                    ctName = "ErhvervManual";
+                    //ctName = "ErhvervManual";
                     branchLibraryName = "Erhverv";
                     documentLibrarySearchString = "skade/hb/erhv/delte";
                 }
                 else if (choice == "9")
                 {
-                    ctName = "LønsikringIndividuelManual";
+                    //ctName = "LønsikringIndividuelManual";
                     branchLibraryName = "LoensikringIndividuel";
                     documentLibrarySearchString = "skade/hb/lønsikring/delte";
                 }
                 else if (choice == "10")
                 {
-                    ctName = "RetshjælpManual";
+                    //ctName = "RetshjælpManual";
                     branchLibraryName = "Retshjlp";
                     documentLibrarySearchString = "skade/hb/retshj/delte";
                 }
                 else if (choice == "11")
                 {
-                    ctName = "ScalePointManual";
+                    //ctName = "ScalePointManual";
                     branchLibraryName = "ScalePoint";
                     documentLibrarySearchString = "skade/hb/sp/delte";
                 }
                 else if (choice == "12")
                 {
-                    ctName = "LønsikringKollektivManual";
+                    //ctName = "LønsikringKollektivManual";
                     branchLibraryName = "LoensikringKollektiv";
                     documentLibrarySearchString = "skade/hb/lønsikringkollektiv/delte";
                 }
                 else if (choice == "13")
                 {
-                    ctName = "PersonskadeManual";
+                    //ctName = "PersonskadeManual";
                     branchLibraryName = "Personskade";
                     documentLibrarySearchString = "skade/hb/person/delte";
                 }
                 else if (choice == "14")
                 {
-                    ctName = "RegresManual";
+                    //ctName = "RegresManual";
                     branchLibraryName = "Regres";
                     documentLibrarySearchString = "skade/hb/reg/delte";
                 }
                 else if (choice == "15")
                 {
-                    ctName = "SkybrudsManual";
+                    //ctName = "SkybrudsManual";
                     branchLibraryName = "Skybrudsmanual";
                     documentLibrarySearchString = "skade/hb/SkybrudsManual/delte";
                 }
                 else if (choice == "16")
                 {
-                    ctName = "StorskadeManual";
+                    //ctName = "StorskadeManual";
                     branchLibraryName = "Storskade";
                     documentLibrarySearchString = "skade/hb/storskade/delte";
                 }
+                else if (choice == "17")
+                {
+                    manualTaxDisplayname = "Rejse";
+                    //ctName = "StorskadeManual";
+                    branchLibraryName = "Storskade";
+                    documentLibrarySearchString = "skade/hb/storskade/delte";
+                }
+                else if (choice == "18")
+                {
+                    manualTaxDisplayname = "Indbo";
+                    //ctName = "StorskadeManual";
+                    branchLibraryName = "Indbo";
+                    documentLibrarySearchString = "skade/hb/indbo/delte";
+                }
+                #endregion
 
 
                 //string targetSiteUrl = "https://lbforsikring.sharepoint.com/sites/skade";
                 //ClientContext ctx = SPOUtility.Authenticate(targetSiteUrl, "admnicd@lb.dk", "MandM5555");
                 
+                string logFileName="";
+                string errorFileName = "";
+
+                if (featureToRun == "1")
+                {
+                    logFileName = branchLibraryName + "_CheckForObscurityLOG.txt";
+                    errorFileName = branchLibraryName + "_CheckForObscurityERROR.txt";
+                    parsingFeature = ParsingFeature.CheckForObscurity;
+                }
+                else if (featureToRun == "2")
+                {
+                    errorFileName = branchLibraryName + "_OutputLinksToScreenERROR.txt";
+                    logFileName = branchLibraryName + "_OutputLinksToScreenLOG.txt";
+                    parsingFeature = ParsingFeature.OutputLinksToScreen;
+                }
+                else if (featureToRun == "3")
+                {
+                    errorFileName = branchLibraryName + "_MigrateLinksERROR.txt";
+                    logFileName = branchLibraryName + "_MigrateLinksLOG.txt";
+                    parsingFeature = ParsingFeature.MigrateLinks;
+                }
+                else
+                {
+                    parsingFeature = ParsingFeature.UnknownFeature;
+                }
                 string sitePagesLibrary = "Webstedssider";
 
+                ListItemCollection collListItem = LinksUtility.GetManualsFromSitePages(ctx, sitePagesLibrary, manualTaxDisplayname);
+                foreach (ListItem item in collListItem)
+                {
+                    var fileName = item["FileRef"].ToString();
+                    ClientSidePage P = ClientSidePage.Load(ctx, fileName);
+                    foreach (CanvasSection section in P.Sections)
+                    {
+                        try
+                        {
+                            foreach (CanvasControl control in section.Controls)
+                            {
+                                if (control.Type.Name == "ClientSideText")
+                                {
+                                    ClientSideText t = (ClientSideText)control;
+                                    if (parsingFeature == ParsingFeature.CheckForObscurity)
+                                    {
+                                        LinksUtility.FindObscureText(t.Text, fileName);
+
+                                    }
+                                    else if (parsingFeature == ParsingFeature.OutputLinksToScreen)
+                                    {
+                                        try
+                                        {
+                                            OutputLinksToScreen(fileName, t.Text, branchLibraryName, documentLibrarySearchString);
+                                        }
+                                        catch (Exception ex)
+                                        {
+
+                                            lstError.Add(fileName +";" + ex.Message + ";OutputLinksToScreen");
+                                        }
+                                        
+                                    }
+                                    else if (parsingFeature == ParsingFeature.MigrateLinks)
+                                    {
+                                        var res = LinksUtility.TraverseHyperLinks(fileName, t.Text, branchLibraryName, documentLibrarySearchString);
+                                        t.Text = res;
+                                        P.Save();
+                                        P.Publish();
+                                    }
+                                }
+                            }
+                        }
+                        catch (Exception)
+                        {
+
+                            Console.ForegroundColor = ConsoleColor.Red;
+                            Console.WriteLine("------------------------------------------");
+                            Console.WriteLine(fileName);
+                            Console.WriteLine("------------------------------------------");
+
+                            Console.ForegroundColor = ConsoleColor.White;
+                            //throw;
+                        }
+
+                    }
+                }
+
+                
+                System.IO.File.WriteAllLines(@"C:\Git\LBIntranet\SPOApp\SPOApp\SPOApp\logfiles\" + logFileName, lstLog.ToArray());
                 //ORG LinksUtility.CheckForLinks(ctx, sitePagesLibrary, ctName, featureToRun);
-                LinksUtility.CheckForLinks(ctx, sitePagesLibrary, ctName, featureToRun,documentLibrarySearchString,branchLibraryName);
+
+
+                //LinksUtility.CheckForLinks(ctx, sitePagesLibrary, parsingFeature ,documentLibrarySearchString,branchLibraryName,manualTaxDisplayname);
 
                 Console.WriteLine("Done searching for links");
                 Console.ReadLine();
@@ -401,6 +514,56 @@ namespace SPOApp
                 SPOUtility.CheckInAllDocuments(ctx, "Webstedssider");
             }
             
+        }
+        public static void OutputLinksToScreen(string fileName, string input, string branchLibraryName, string documentLibrarySearchString)
+        {
+            
+            Regex regex = new Regex("href\\s*=\\s*(?:\"(?<1>[^\"]*)\"|(?<1>\\S+))", RegexOptions.IgnoreCase);
+            Match match;
+
+            for (match = regex.Match(input); match.Success; match = match.NextMatch())
+            {
+                //IdentifyHyperLinks(fileName, input, branchLibraryName, documentLibrarySearchString, match);
+                foreach (System.Text.RegularExpressions.Capture capture in match.Captures)
+                {
+
+                    if (capture.Value.ToString().ToLower().Contains("skade/hb"))
+                    {
+                        if (capture.Value.ToString().ToLower().Contains(documentLibrarySearchString))
+                        {
+                            Console.ForegroundColor = ConsoleColor.Yellow;
+                            Console.WriteLine(fileName + " : " + capture);
+                            Console.ForegroundColor = ConsoleColor.White;
+                            strLog.Add(fileName + ";" + capture);
+                        }
+                        else
+                        {
+                            Console.ForegroundColor = ConsoleColor.Yellow;
+                            Console.WriteLine(fileName + " : " + capture);
+                            Console.ForegroundColor = ConsoleColor.White;
+                            strLog.Add(fileName + ";" + capture);
+                        }
+                    }
+                    else if (capture.Value.ToString().ToLower().Contains("ankeforsikring.dk") ||
+                        capture.Value.ToString().ToLower().Contains("retsinformation.dk") ||
+                        capture.Value.ToString().ToLower().Contains("www.lb.dk") ||
+                        capture.Value.ToString().ToLower().Contains("tinglysning.dk") ||
+                        capture.Value.ToString().ToLower().Contains("tinglysning.dk")
+                        )
+                    {
+                    }
+                    else
+                    {
+                        Console.ForegroundColor = ConsoleColor.Green;
+                        Console.WriteLine(fileName + " : " + capture);
+                        Console.ForegroundColor = ConsoleColor.White;
+                        strLog.Add(fileName + ";" + capture);
+                    }
+                }
+            }
+            Console.WriteLine("--------------------------------------------");
+
+
         }
         private static void devCreateModernPage(ClientContext context)
         {
@@ -437,147 +600,146 @@ namespace SPOApp
         /// <summary>
         /// ORG
         /// </summary>
-        private static void StartCreatingModernPages()
-        {
+        //private static void StartCreatingModernPages()
+        //{
             
-            string sourceLibraryName = "";
-            string targetLibraryName = "SitePages";
-            targetLibraryName = "Webstedssider";
+        //    string sourceLibraryName = "";
+        //    string targetLibraryName = "SitePages";
+        //    targetLibraryName = "Webstedssider";
 
 
-            string targetSiteUrl = "https://lbforsikring.sharepoint.com/sites/skade";
+        //    string targetSiteUrl = "https://lbforsikring.sharepoint.com/sites/skade";
 
-            ClientContext ctx = SPOUtility.Authenticate(targetSiteUrl, "admnicd@lb.dk", "MandM5555");
-
-
-            GenericConfiguration g;
-            g.ContentTypeName = "";
-            g.SourceLibrary = "";
-
-            Console.WriteLine("Vælg branch:");
-            Console.WriteLine("Bygning [1]");
-            Console.WriteLine("Ansvar [2]");
-            Console.WriteLine("Hund [3]");
-            Console.WriteLine("Ejerskifte [4]");
-            Console.WriteLine("Gerningsmand[5]");
-            Console.WriteLine("Erhverv[6]");
-            Console.WriteLine("Lønsikring Individuel[7]");
-            Console.WriteLine("Lønsikring Kollektiv[8]");
-            Console.WriteLine("Indbo[9]");
-            Console.WriteLine("Personskade[10]");
-            Console.WriteLine("Regres[11]");
-            Console.WriteLine("Retshjælp[12]");
-            Console.WriteLine("ScalePoint[13]");
-            Console.WriteLine("Generel Skadepolitik[14]");
-            Console.WriteLine("Skybrud[15]");
-            Console.WriteLine("Storskade[16]");
-            Console.WriteLine("Rejse[17]");
+        //    ClientContext ctx = SPOUtility.Authenticate(targetSiteUrl, "admnicd@lb.dk", "MandM5555");
 
 
-            string branch = Console.ReadLine();
-            if (branch == "1")
-            {
-                g.ContentTypeName = "BygningManual";
-                g.SourceLibrary = "Bygwebsider";
-            }
-            else if (branch == "2")
-            {
-                g.ContentTypeName = "AnsvarManual";
-                g.SourceLibrary = "Ansvarwebsider";
-            }
-            else if (branch == "3")
-            {
-                g.ContentTypeName = "HundManual";
-                g.SourceLibrary = "Hundwebsider";
-            }
-            else if (branch == "4")
-            {
-                g.ContentTypeName = "EjerskifteManual";
-                g.SourceLibrary = "Ejerskiftewebsider";
-            }
-            else if (branch == "5")
-            {
-                g.ContentTypeName = "GerningsmandManual";
-                g.SourceLibrary = "Gerningsmandwebsider";
-            }
-            else if (branch == "6")
-            {
-                g.ContentTypeName = "ErhvervManual";
-                g.SourceLibrary = "Erhvervwebsider";
-            }
-            else if (branch == "7")
-            {
-                g.ContentTypeName = "LønsikringIndividuelManual";
-                g.SourceLibrary = "LoensikringIndividuelWebsider";
-            }
-            else if (branch == "8")
-            {
-                g.ContentTypeName = "LønsikringKollektivManual";
-                g.SourceLibrary = "loensikringKollektivWebsider";
-            }
-            else if (branch == "9")
-            {
-                g.ContentTypeName = "IndboManual";
-                g.SourceLibrary = "indboWebsider";
-            }
-            else if (branch == "10")
-            {
-                g.ContentTypeName = "PersonskadeManual";
-                g.SourceLibrary = "PersonskadeWebsider";
-            }
-            else if (branch == "11")
-            {
-                g.ContentTypeName = "RegresManual";
-                g.SourceLibrary = "RegresWebsider";
-            }
-            else if (branch == "12")
-            {
-                g.ContentTypeName = "RetshjælpManual";
-                g.SourceLibrary = "RetshjaelpWebsider";
-            }
-            else if (branch == "13")
-            {
-                g.ContentTypeName = "ScalePointManual";
-                g.SourceLibrary = "ScalePointWebsider";
-            }
-            else if (branch == "14")
-            {
-                g.ContentTypeName = "GenerelSkadepolitikManual";
-                g.SourceLibrary = "GenerelSkadepolitikWebsider";
-            }
-            else if (branch == "15")
-            {
-                g.ContentTypeName = "SkybrudsManual";
-                g.SourceLibrary = "SkybrudsManualWebsider";
-            }
-            else if (branch == "16")
-            {
-                g.ContentTypeName = "StorskadeManual";
-                g.SourceLibrary = "StorskadeWebsider";
-            }
-            else if (branch == "17")
-            {
-                g.ContentTypeName = "RejseManual";
-                g.SourceLibrary = "RejseWebsider";
-            }
+        //    GenericConfiguration g;
+        //    g.ContentTypeName = "";
+        //    g.SourceLibrary = "";
+
+        //    Console.WriteLine("Vælg branch:");
+        //    Console.WriteLine("Bygning [1]");
+        //    Console.WriteLine("Ansvar [2]");
+        //    Console.WriteLine("Hund [3]");
+        //    Console.WriteLine("Ejerskifte [4]");
+        //    Console.WriteLine("Gerningsmand[5]");
+        //    Console.WriteLine("Erhverv[6]");
+        //    Console.WriteLine("Lønsikring Individuel[7]");
+        //    Console.WriteLine("Lønsikring Kollektiv[8]");
+        //    Console.WriteLine("Indbo[9]");
+        //    Console.WriteLine("Personskade[10]");
+        //    Console.WriteLine("Regres[11]");
+        //    Console.WriteLine("Retshjælp[12]");
+        //    Console.WriteLine("ScalePoint[13]");
+        //    Console.WriteLine("Generel Skadepolitik[14]");
+        //    Console.WriteLine("Skybrud[15]");
+        //    Console.WriteLine("Storskade[16]");
+        //    Console.WriteLine("Rejse[17]");
 
 
-            List<GenericManualProperies> manuals = GenericManual.GetSourceFiles(ctx, g);
-            GenericManual.CreateModernSitePages(ctx, manuals, g);
+        //    string branch = Console.ReadLine();
+        //    if (branch == "1")
+        //    {
+        //        g.ContentTypeName = "BygningManual";
+        //        g.SourceLibrary = "Bygwebsider";
+        //    }
+        //    else if (branch == "2")
+        //    {
+        //        g.ContentTypeName = "AnsvarManual";
+        //        g.SourceLibrary = "Ansvarwebsider";
+        //    }
+        //    else if (branch == "3")
+        //    {
+        //        g.ContentTypeName = "HundManual";
+        //        g.SourceLibrary = "Hundwebsider";
+        //    }
+        //    else if (branch == "4")
+        //    {
+        //        g.ContentTypeName = "EjerskifteManual";
+        //        g.SourceLibrary = "Ejerskiftewebsider";
+        //    }
+        //    else if (branch == "5")
+        //    {
+        //        g.ContentTypeName = "GerningsmandManual";
+        //        g.SourceLibrary = "Gerningsmandwebsider";
+        //    }
+        //    else if (branch == "6")
+        //    {
+        //        g.ContentTypeName = "ErhvervManual";
+        //        g.SourceLibrary = "Erhvervwebsider";
+        //    }
+        //    else if (branch == "7")
+        //    {
+        //        g.ContentTypeName = "LønsikringIndividuelManual";
+        //        g.SourceLibrary = "LoensikringIndividuelWebsider";
+        //    }
+        //    else if (branch == "8")
+        //    {
+        //        g.ContentTypeName = "LønsikringKollektivManual";
+        //        g.SourceLibrary = "loensikringKollektivWebsider";
+        //    }
+        //    else if (branch == "9")
+        //    {
+        //        g.ContentTypeName = "IndboManual";
+        //        g.SourceLibrary = "indboWebsider";
+        //    }
+        //    else if (branch == "10")
+        //    {
+        //        g.ContentTypeName = "PersonskadeManual";
+        //        g.SourceLibrary = "PersonskadeWebsider";
+        //    }
+        //    else if (branch == "11")
+        //    {
+        //        g.ContentTypeName = "RegresManual";
+        //        g.SourceLibrary = "RegresWebsider";
+        //    }
+        //    else if (branch == "12")
+        //    {
+        //        g.ContentTypeName = "RetshjælpManual";
+        //        g.SourceLibrary = "RetshjaelpWebsider";
+        //    }
+        //    else if (branch == "13")
+        //    {
+        //        g.ContentTypeName = "ScalePointManual";
+        //        g.SourceLibrary = "ScalePointWebsider";
+        //    }
+        //    else if (branch == "14")
+        //    {
+        //        g.ContentTypeName = "GenerelSkadepolitikManual";
+        //        g.SourceLibrary = "GenerelSkadepolitikWebsider";
+        //    }
+        //    else if (branch == "15")
+        //    {
+        //        g.ContentTypeName = "SkybrudsManual";
+        //        g.SourceLibrary = "SkybrudsManualWebsider";
+        //    }
+        //    else if (branch == "16")
+        //    {
+        //        g.ContentTypeName = "StorskadeManual";
+        //        g.SourceLibrary = "StorskadeWebsider";
+        //    }
+        //    else if (branch == "17")
+        //    {
+        //        g.ContentTypeName = "RejseManual";
+        //        g.SourceLibrary = "RejseWebsider";
+        //    }
+
+
+        //    List<GenericManualProperies> manuals = GenericManual.GetSourceFiles(ctx, g);
+        //    GenericManual.CreateModernSitePages(ctx, manuals, g);
             
 
-        }
+        //}
 
 
 
         /// <summary>
         /// DEV
         /// </summary>
-        private static void StartCreatingModernPagesDEV()
+        private static void StartCreatingModernPages()
         {
             string branchImageUrl = "";
             string manualTaxFieldValue = "";
-            string sourceLibraryName = "";
             string targetLibraryName = "SitePages";
             targetLibraryName = "Webstedssider";
 
@@ -784,7 +946,7 @@ namespace SPOApp
                     ClientSideText t = new ClientSideText() { Text = "[TODO]" };
                     page.AddControl(t, section.Columns[0], 0);
 
-
+                    
                     ClientSideWebPart imageWebPart = page.InstantiateDefaultWebPart(DefaultClientSideWebParts.Image);
                     //imageWebPart.Properties["siteId"] = "843f7b1b-ffcf-4881-bcf7-2ada5969a5fe";
                     //imageWebPart.Properties["webId"] = "18196690-7d06-4ad4-ae87-af7cd393a25";

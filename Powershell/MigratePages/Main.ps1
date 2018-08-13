@@ -169,7 +169,7 @@ function GetTargetFile($url)
     
 }
 
-function ProcesFile($fileName, $branchSiteUrl)
+function ProcesFile($fileName, $branchSiteUrl, $coincidenceFileNamePrefix)
 {
         try{
             
@@ -181,7 +181,7 @@ function ProcesFile($fileName, $branchSiteUrl)
                 
                 #$sourceUrl= "http://intranet.lb.dk/Skade/hb/Baad/SitePages/" + $url ;
                 $sourceUrl= $branchSiteUrl + $url ;
-                $targetUrl= "https://lbforsikring.sharepoint.com/sites/Skade/SitePages/" + $url ;
+                $targetUrl= "https://lbforsikring.sharepoint.com/sites/Skade/SitePages/" + $coincidenceFileNamePrefix + $url ;
             
                 GetSourceFile -url $sourceUrl 
                 GetTargetFile -url $targetUrl 
@@ -250,6 +250,7 @@ function Run($startIndex)
         Write-Host "----- Indbo -----"
         Write-Host "indbo [27]"
         Write-Host "Indbo repair[28]"
+        Write-Host "Indbo coincidence[28C]"
         Write-Host "----- Rejse -----"
         Write-Host "Rejse [29]"
         Write-Host "Rejse repair[30]"
@@ -261,7 +262,8 @@ function Run($startIndex)
     $i=0;
     $currentFileName='';
     $branchSiteUrl='';
-    $importFileName=''
+    $importFileName='';
+    $coincidenceFilenamePrefix='';
     
     try{
     
@@ -410,6 +412,12 @@ function Run($startIndex)
         $branchSiteUrl="http://intranet.lb.dk/Skade/hb/indbo/SitePages/"
         $importFileName = 'C:\Git\LBIntranet\Powershell\MigratePages\ImportFiles\IndboCSVRepair.csv'
     }
+    elseif($branch -eq '28c')
+    {
+        $coincidenceFilenamePrefix = 'Indbo'
+        $branchSiteUrl="http://intranet.lb.dk/Skade/hb/indbo/SitePages/"
+        $importFileName = 'C:\Git\LBIntranet\Powershell\MigratePages\ImportFiles\IndboCSVCoincidence.csv'
+    }
     elseif($branch -eq 29)
     {
         $branchSiteUrl="http://intranet.lb.dk/Skade/hb/rejseny/SitePages/"
@@ -449,7 +457,7 @@ kør test på en enkelt fil
         Write-Host ""
 
             if($i -ge $startIndex){
-                ProcesFile -branchSiteUrl $branchSiteUrl -fileName $currentFileName
+                ProcesFile -branchSiteUrl $branchSiteUrl -fileName $currentFileName -coincidenceFileNamePrefix $coincidenceFilenamePrefix
             }
         }
     }
