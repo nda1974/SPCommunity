@@ -1,5 +1,0 @@
-Musikfiler.aspx;Microsoft.SharePoint.Client.PropertyOrFieldNotInitializedException: The property or field 'ServerRelativeUrl' has not been initialized. It has not been requested or the request has not been executed. It may need to be explicitly requested.
-   ved Microsoft.SharePoint.Client.ClientObject.CheckUninitializedProperty(String propName)
-   ved Microsoft.SharePoint.Client.Folder.get_ServerRelativeUrl()
-   ved OfficeDevPnP.Core.Pages.ClientSidePage.Load(ClientContext cc, String pageName)
-   ved SPOApp.LinksUtility.ParseManualPages(ClientContext context, String fileName, String branchLibraryName, String documentLibrarySearchString, ParsingFeature parsingFeature) i C:\Git\LBIntranet\SPOApp\SPOApp\SPOApp\LinksUtility.cs:linje 182

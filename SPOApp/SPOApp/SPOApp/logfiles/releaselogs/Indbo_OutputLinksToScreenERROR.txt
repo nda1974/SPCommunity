@@ -1,0 +1,2 @@
+Medicin.aspx;Den underliggende forbindelse blev lukket: En forbindelse, der forventedes at være aktiv, blev lukket af serveren.;OutputLinksToScreen
+Omstilling af flere låsecylindre på samme dør.aspx;The property or field 'ServerRelativeUrl' has not been initialized. It has not been requested or the request has not been executed. It may need to be explicitly requested.;OutputLinksToScreen
