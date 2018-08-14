@@ -81,6 +81,7 @@ namespace SPOApp
                             g.ContentTypeName != "StorskadeManual" &&
                             g.ContentTypeName != "RejseManual" &&
                             g.ContentTypeName != "BeredskabManual" &&
+                            g.ContentTypeName != "BilManual" &&
                             g.ContentTypeName != "SkybrudsManual")
                         {
                             spp.UnderGruppe = (listItem["Omr_x00e5_de"] == null) ? "" : listItem["Omr_x00e5_de"].ToString();
@@ -159,6 +160,7 @@ namespace SPOApp
                         g.ContentTypeName != "StorskadeManual" &&
                         g.ContentTypeName != "RejseManual" &&
                         g.ContentTypeName != "BeredskabManual" &&
+                        g.ContentTypeName != "BilManual" &&
                         g.ContentTypeName != "SkybrudsManual")
                     {
                         spp.UnderGruppe = (listItem["Omr_x00e5_de"] == null) ? "" : listItem["Omr_x00e5_de"].ToString();

@@ -520,8 +520,8 @@ namespace SPOApp
                 SPOUtility.CheckInAllDocuments(ctx, "Webstedssider");
             }
             
-            System.IO.File.WriteAllLines(@"C:\Git\LBIntranet\SPOApp\SPOApp\SPOApp\logfiles\" + logFileName, lstLog.ToArray());
-            System.IO.File.WriteAllLines(@"C:\Git\LBIntranet\SPOApp\SPOApp\SPOApp\logfiles\" + errorFileName, lstError.ToArray());
+            //System.IO.File.WriteAllLines(@"C:\Git\LBIntranet\SPOApp\SPOApp\SPOApp\logfiles\" + logFileName, lstLog.ToArray());
+            //System.IO.File.WriteAllLines(@"C:\Git\LBIntranet\SPOApp\SPOApp\SPOApp\logfiles\" + errorFileName, lstError.ToArray());
             //ORG LinksUtility.CheckForLinks(ctx, sitePagesLibrary, ctName, featureToRun);
 
 
@@ -792,6 +792,7 @@ namespace SPOApp
             Console.WriteLine("Rejse[17]");
             Console.WriteLine("Beredskab[18]");
             Console.WriteLine("Båd[19]");
+            Console.WriteLine("Bil[20]");
 
 
             string branch = Console.ReadLine();
@@ -901,8 +902,15 @@ namespace SPOApp
                 g.ContentTypeName = "BaadManual";
                 g.SourceLibrary = "BaadWebsider";
             }
+            else if (branch == "20")
+            {
+                branchImageUrl = @"https://lbforsikring.sharepoint.com/sites/skade/SiteAssets/ikoner/bil.png";
+                manualTaxFieldValue = "Bil";
+                g.ContentTypeName = "BilManual";
+                g.SourceLibrary = "BilWebsider";
+            }
 
-            List<GenericManualProperies> manuals = new List<GenericManualProperies>();
+            List<GenericManualProperies> manuals;
             if (repair == true)
             {
                 manuals = GenericManual.GetSourceFilesForRepair(ctx, g);
