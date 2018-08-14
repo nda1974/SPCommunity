@@ -209,10 +209,10 @@ function Run($startIndex)
     if($startIndex -eq 0){
         Write-Host "Vælg branch"
         Write-Host "----- Byg -----"
-        Write-Host "Byg [1] WARNING REFACTORING NEEDED"
-        Write-Host "Byg repair[2] WARNING REFACTORING NEEDED"
+        Write-Host "Byg [1] "
+        Write-Host "Byg repair[2] "
         Write-Host "----- Ansvar -----"
-        Write-Host "Ansvar [3] WARNING REFACTORING NEEDED"
+        Write-Host "Ansvar [3] "
         Write-Host "Ansvar repair[4]"
         Write-Host "----- Ejerskifte -----"
         Write-Host "Ejerskifte [5]"
@@ -270,7 +270,7 @@ function Run($startIndex)
     if($branch -eq 1)
     {
         $branchSiteUrl="http://intranet.lb.dk/Skade/hb/Byg/SitePages/";
-        $files = Import-Csv -Path C:\Git\LBIntranet\Powershell\MigratePages\ImportFiles\BygCSV.csv -Encoding UTF8
+        $importFileName = 'C:\Git\LBIntranet\Powershell\MigratePages\ImportFiles\BygCSV.csv'
     }
     elseif($branch -eq 2)
     {
@@ -283,7 +283,8 @@ function Run($startIndex)
     if($branch -eq 3)
     {
         $branchSiteUrl="http://intranet.lb.dk/Skade/hb/ansvarny/SitePages/";
-        $files = Import-Csv -Path C:\Git\LBIntranet\Powershell\MigratePages\ImportFiles\AnsvarCSV.csv -Encoding UTF8
+        $importFileName = 'C:\Git\LBIntranet\Powershell\MigratePages\ImportFiles\AnsvarCSV.csv'
+        
     }
     elseif($branch -eq 4)
     {
@@ -444,13 +445,10 @@ kør test på en enkelt fil
 
 
 
-        $files |foreach-object {
+    $files |foreach-object {
         
         $i=$i+1;
-        #$currentFileName=$_.Navn;
         $currentFileName=$_.SourcePath;
-        #$currentFileName=$_.Title;
-        
 
         Write-Host "Processing " $i " of " $files.count "- elapsed time: " $sw.Elapsed -ForegroundColor Yellow
         Write-Host “Url :”  $currentFileName -ForegroundColor Yellow
