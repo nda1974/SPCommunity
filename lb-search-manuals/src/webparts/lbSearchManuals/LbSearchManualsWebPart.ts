@@ -57,6 +57,7 @@ export default class LbSearchManualsWebPart extends BaseClientSideWebPart<ILbSea
                   options:[{ key: 'Baad', text: 'Båd'}, 
                        { key: 'Bil', text: 'Bil' }, 
                        { key: 'Indbo', text: 'Indbo' },
+                       { key: 'Rejse', text: 'Rejse' },
                        { key: 'Hund', text: 'Hund' } 
                   ]
                 }),

@@ -31,10 +31,10 @@ export default class SearchInputContainer extends React.Component<ISearchInputCo
                         /> */}
 
                         <SearchBox
-                            placeholder='Søg'
+                            placeholder="Søg"
                             onSearch={ (newValue:string) => {this._search(newValue)} }
                         />
-                        <label className={styles.SearchInputLabel}>Tryk Enter 2 gange for at udføre søgning. Tryk * for at nulstille søgningen</label>
+                        <label className={styles.SearchInputLabel}>Tryk [Enter] for at udføre søgning. Tryk [*] + [Enter] for at nulstille søgningen</label>
 
 
 

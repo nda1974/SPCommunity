@@ -167,19 +167,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Manuals\GenericManual.cs" />
-    <Compile Include="Manuals\Indbo.cs" />
-    <Compile Include="Manuals\Hund.cs" />
-    <Compile Include="Manuals\Gerningsmand.cs" />
-    <Compile Include="Manuals\Erhverv.cs" />
-    <Compile Include="Manuals\Enterprise.cs" />
-    <Compile Include="Manuals\Ejerskifte.cs" />
-    <Compile Include="Manuals\Baad.cs" />
-    <Compile Include="Manuals\Bygning.cs" />
-    <Compile Include="Manuals\BilSkadePortalGuide.cs" />
-    <Compile Include="Manuals\Bil.cs" />
-    <Compile Include="Manuals\Beredskab.cs" />
-    <Compile Include="Manuals\Ansvar.cs" />
-    <Compile Include="ContentType.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\Settings.Designer.cs">

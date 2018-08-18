@@ -146,17 +146,27 @@ namespace SPOApp
         public string ContentTypeName;
         public string SourceLibrary;
     }
+    public struct FileWithLinks
+    {
+        public string FileName;
+        public string OriginalLink;
+        public string NewLink;
+        public string CoincidenceFilePrefix;
+    }
 
 
+    
 
     class Program
     {
+        private const string COINCIDENCE_IN_FILES_FILEPATH = @"C:\Git\LBIntranet\Powershell\MigratePages\CoincidenceFeature\CoincidenceOfFilenamesFiltered.csv";
+        private const string LINKS_IN_PAGES_FILEPATH = @"C:\Git\LBIntranet\SPOApp\SPOApp\SPOApp\importfiles\LinkMigration\Indbo_Links.csv";
         private static List<string> lstLog = new List<string>();
         private static List<string> lstError = new List<string>();
         public static string IsPageCoincidence(string fileName)
         {
-
-            using (var reader = new StreamReader(@"C:\Git\LBIntranet\Powershell\MigratePages\CoincidenceFeature\CoincidenceOfFilenamesFiltered.csv"))
+            
+            using (var reader = new StreamReader(COINCIDENCE_IN_FILES_FILEPATH))
             {
                 List<string> listA = new List<string>();
                 List<string> listB = new List<string>();
@@ -176,7 +186,31 @@ namespace SPOApp
             return null;
 
         }
-        
+
+
+        public static List<FileWithLinks> GetFilesWithLinks()
+        {
+            List<FileWithLinks> resFiles = new List<FileWithLinks>();
+            using (var reader = new StreamReader(LINKS_IN_PAGES_FILEPATH, Encoding.UTF8))
+            {
+                while (!reader.EndOfStream)
+                {
+                    var line = reader.ReadLine();
+                    var values = line.Split(';');
+
+                    FileWithLinks fwl;
+                    fwl.FileName = values[0];
+                    fwl.OriginalLink = values[1];
+                    fwl.NewLink = values[2];
+                    fwl.CoincidenceFilePrefix = values[3];
+                    resFiles.Add(fwl);
+
+                }
+            }
+            return resFiles;
+
+        }
+
         public static void RenameFile(string newFileName)
         {
             Console.WriteLine("Enter your password.");
@@ -330,6 +364,7 @@ namespace SPOApp
                 }
                 else if (choice == "3")
                 {
+                    manualTaxDisplayname = "Bygning";
                     //ctName = "BygningManual";
                     branchLibraryName = "Byg";
                     documentLibrarySearchString = "skade/hb/byg/delte";
@@ -428,6 +463,13 @@ namespace SPOApp
                     branchLibraryName = "Indbo";
                     documentLibrarySearchString = "skade/hb/indbo/delte";
                 }
+                else if (choice == "19")
+                {
+                    manualTaxDisplayname = "Bil";
+                    //ctName = "StorskadeManual";
+                    branchLibraryName = "Bil";
+                    documentLibrarySearchString = "skade/hb/bil/delte";
+                }
                 #endregion
 
 
@@ -456,62 +498,123 @@ namespace SPOApp
                 {
                     parsingFeature = ParsingFeature.UnknownFeature;
                 }
+
                 string sitePagesLibrary = "Webstedssider";
                 var fileName = "";
                 ListItemCollection collListItem = LinksUtility.GetManualsFromSitePages(ctx, sitePagesLibrary, manualTaxDisplayname);
 
-                foreach (ListItem item in collListItem)
+                if (parsingFeature == ParsingFeature.MigrateLinks)
                 {
-                    fileName = item["FileRef"].ToString();
-                    fileName = fileName.Substring(fileName.LastIndexOf('/') + 1);
-                    try
+                    List<FileWithLinks> files = GetFilesWithLinks();
+
+                    List<FileWithLinks> orderedFiles = files.OrderBy(o => o.FileName).ToList();
+                    int i = 0;
+                    foreach (var file in orderedFiles)
                     {
-                        ClientSidePage P = ClientSidePage.Load(ctx, fileName);
-
-                        foreach (CanvasSection section in P.Sections)
+                        i++;
+                        Console.WriteLine("Processing " + i + " of " + orderedFiles.Count);
+                        // Handle only the files with these 'CoincidenceFilePrefix' in order to keep track of the migration stages.
+                        if (!string.IsNullOrEmpty(file.FileName)
+                            && (file.CoincidenceFilePrefix.Equals("Indbo") ||
+                                file.CoincidenceFilePrefix.Equals("Bygning") ||
+                                file.CoincidenceFilePrefix.Equals("Bil") ||
+                                file.CoincidenceFilePrefix.Equals("Rejse")
+                                )
+                        )
                         {
-                            foreach (CanvasControl control in section.Controls)
+                            try
                             {
-                                if (control.Type.Name == "ClientSideText")
+                                string tmpFileNameFromLink = Uri.UnescapeDataString(file.OriginalLink);
+                                bool coincidenceInLink;
+                                // Coincidence in filenames
+                                if (IsPageCoincidence(tmpFileNameFromLink.Substring(tmpFileNameFromLink.LastIndexOf('/') + 1)) != null)
                                 {
-                                    ClientSideText t = (ClientSideText)control;
-                                    if (parsingFeature == ParsingFeature.CheckForObscurity)
-                                    {
-                                        LinksUtility.FindObscureText(t.Text, fileName);
+                                    coincidenceInLink = true;
+                                    //Console.ForegroundColor = ConsoleColor.Red;
+                                    //Console.WriteLine(file.FileName);
+                                    //Console.WriteLine(tmpFileNameFromLink);
+                                    //Console.ForegroundColor = ConsoleColor.White;
+                                }
+                                else
+                                {
+                                    coincidenceInLink = false;
+                                    //Console.ForegroundColor = ConsoleColor.White;
+                                }
+                                EditCurrentLink(ctx, file, coincidenceInLink);
+                            }
+                            catch (Exception ex)
+                            {
+                                Console.ForegroundColor = ConsoleColor.Red;
+                                Console.WriteLine("----------------------------------------------");
+                                Console.WriteLine(file.FileName);
+                                Console.WriteLine("----------------------------------------------");
+                                Console.ForegroundColor = ConsoleColor.Yellow;
+                                Console.WriteLine("----------------------------------------------");
+                                Console.WriteLine(ex.Message);
+                                Console.WriteLine("----------------------------------------------");
+                                Console.ForegroundColor = ConsoleColor.White;
+                            }
 
-                                    }
-                                    else if (parsingFeature == ParsingFeature.OutputLinksToScreen)
+                        }
+
+                    }
+                }
+                else
+                {
+                    foreach (ListItem item in collListItem)
+                    {
+                        fileName = item["FileRef"].ToString();
+                        fileName = fileName.Substring(fileName.LastIndexOf('/') + 1);
+                        try
+                        {
+                            ClientSidePage P = ClientSidePage.Load(ctx, fileName);
+
+                            foreach (CanvasSection section in P.Sections)
+                            {
+                                foreach (CanvasControl control in section.Controls)
+                                {
+                                    if (control.Type.Name == "ClientSideText")
                                     {
-                                        try
+                                        ClientSideText t = (ClientSideText)control;
+                                        if (parsingFeature == ParsingFeature.CheckForObscurity)
                                         {
-                                            OutputLinksToScreen(fileName, t.Text, branchLibraryName, documentLibrarySearchString);
+                                            LinksUtility.FindObscureText(t.Text, fileName);
+
                                         }
-                                        catch (Exception ex)
+                                        else if (parsingFeature == ParsingFeature.OutputLinksToScreen)
+                                        {
+                                            try
+                                            {
+                                                OutputLinksToScreen(fileName, t.Text, branchLibraryName, documentLibrarySearchString);
+                                            }
+                                            catch (Exception ex)
+                                            {
+
+                                                lstError.Add(fileName + ";" + ex.Message + ";OutputLinksToScreen");
+                                            }
+
+                                        }
+                                        else if (parsingFeature == ParsingFeature.MigrateLinks)
                                         {
 
-                                            lstError.Add(fileName + ";" + ex.Message + ";OutputLinksToScreen");
+                                            //var res = LinksUtility.TraverseHyperLinks(fileName, t.Text, branchLibraryName, documentLibrarySearchString);
+                                            //t.Text = res;
+                                            //P.Save();
+                                            //P.Publish();
                                         }
-
-                                    }
-                                    else if (parsingFeature == ParsingFeature.MigrateLinks)
-                                    {
-                                        var res = LinksUtility.TraverseHyperLinks(fileName, t.Text, branchLibraryName, documentLibrarySearchString);
-                                        t.Text = res;
-                                        P.Save();
-                                        P.Publish();
                                     }
                                 }
                             }
                         }
-                    }
-                    catch (Exception ex)
-                    {
-                        Console.ForegroundColor = ConsoleColor.Red;
-                        Console.WriteLine(ex.Message);
-                        Console.ForegroundColor = ConsoleColor.White;
-                        lstError.Add(fileName + ";" + ex.Message + ";OutputLinksToScreen");
-                    }
+                        catch (Exception ex)
+                        {
+                            Console.ForegroundColor = ConsoleColor.Red;
+                            Console.WriteLine(ex.Message);
+                            Console.ForegroundColor = ConsoleColor.White;
+                            lstError.Add(fileName + ";" + ex.Message + ";OutputLinksToScreen");
+                        }
 
+                    }
                 }
             }
             else if (input.ToLower().Equals("p"))
@@ -519,8 +622,8 @@ namespace SPOApp
 
                 SPOUtility.CheckInAllDocuments(ctx, "Webstedssider");
             }
-            
-            //System.IO.File.WriteAllLines(@"C:\Git\LBIntranet\SPOApp\SPOApp\SPOApp\logfiles\" + logFileName, lstLog.ToArray());
+
+            System.IO.File.WriteAllLines(@"C:\Git\LBIntranet\SPOApp\SPOApp\SPOApp\logfiles\" + logFileName, lstLog.ToArray());
             //System.IO.File.WriteAllLines(@"C:\Git\LBIntranet\SPOApp\SPOApp\SPOApp\logfiles\" + errorFileName, lstError.ToArray());
             //ORG LinksUtility.CheckForLinks(ctx, sitePagesLibrary, ctName, featureToRun);
 
@@ -531,6 +634,50 @@ namespace SPOApp
             Console.ReadLine();
         }
 
+        private static void EditCurrentLink(ClientContext ctx, FileWithLinks file, bool linkToCoincidenceFile)
+        {
+            string filePrefix = "";
+            string tmpFileNameFromLink = "";
+            ClientSidePage P = ClientSidePage.Load(ctx, file.FileName);
+            foreach (CanvasSection section in P.Sections)
+            {
+                foreach (CanvasControl control in section.Controls)
+                {
+                    if (control.Type.Name == "ClientSideText")
+                    {
+                        ClientSideText t = (ClientSideText)control;
+                        //Console.WriteLine(file.FileName);
+                        //Console.WriteLine(t.Text.IndexOf(file.OriginalLink));
+
+                        
+
+                        string s = t.Text;
+                        //Console.ForegroundColor = ConsoleColor.Green;
+                        //Console.WriteLine(s);
+                        //Console.ForegroundColor = ConsoleColor.Yellow;
+                        //Console.WriteLine(s.Replace(file.OriginalLink, file.NewLink));
+                        //Console.ForegroundColor = ConsoleColor.White;
+                        
+                        //Replace link
+                        string newPageText=Uri.UnescapeDataString(t.Text).Replace(Uri.UnescapeDataString(file.OriginalLink), Uri.UnescapeDataString("https://lbforsikring.sharepoint.com/sites/Skade" + file.NewLink));
+                        
+                        //Replace filename
+                        if (linkToCoincidenceFile)
+                        {
+                            tmpFileNameFromLink = Uri.UnescapeDataString(file.OriginalLink);
+                            filePrefix = IsPageCoincidence(tmpFileNameFromLink.Substring(tmpFileNameFromLink.LastIndexOf('/') + 1));
+                            newPageText.Replace(tmpFileNameFromLink, filePrefix + tmpFileNameFromLink);
+                        }
+
+                        t.Text = newPageText;
+                        P.Save();
+                        P.Publish();
+                        filePrefix = "";
+                        tmpFileNameFromLink = "";
+                    }
+                }
+            }
+        }
 
 
 
@@ -551,6 +698,7 @@ namespace SPOApp
                         if (capture.Value.ToString().ToLower().Contains(documentLibrarySearchString))
                         {
                             Console.ForegroundColor = ConsoleColor.Yellow;
+                            Console.WriteLine(fileName + " : " + capture);
                             Console.WriteLine(fileName + " : " + capture);
                             Console.ForegroundColor = ConsoleColor.White;
                             lstLog.Add(fileName + ";" + capture);
@@ -584,38 +732,44 @@ namespace SPOApp
 
 
         }
-        private static void devCreateModernPage(ClientContext context)
-        {
-
-            ClientSidePage page = context.Web.AddClientSidePage("dev.aspx", true);
-            page.PageTitle = "My Title";
-            page.Save();
-
-            page.AddSection(CanvasSectionTemplate.TwoColumn, 1);
-            page.Save();
-            CanvasSection section = page.Sections[0];
-
-            ClientSideWebPart imageWebPart = page.InstantiateDefaultWebPart(DefaultClientSideWebParts.Image);
-            //imageWebPart.Properties["siteId"] = "c827cb03-d059-4956-83d0-cd60e02e3b41";
-            //imageWebPart.Properties["webId"] = "9fafd7c0-e8c3-4a3c-9e87-4232c481ca26";
-            //imageWebPart.Properties["listId"] = "78d1b1ac-7590-49e7-b812-55f37c018c4b";
-            //imageWebPart.Properties["uniqueId"] = "3C27A419-66D0-4C36-BF24-BD6147719052";
-            //imageWebPart.Properties["imgWidth"] = 1002;
-            //imageWebPart.Properties["imgHeight"] = 469;
-            imageWebPart.Properties["imageSourceType"] = 2;
-            imageWebPart.Properties["imageSource"] = @"\sites\Skade\SiteAssets\ikoner\hund.png";
-            page.AddControl(imageWebPart, section.Columns[1], 0);
-            page.Save();
-
-            ClientSideText t = new ClientSideText() { Text = "Hund kiks" };
-            page.AddControl(t, section.Columns[0], 0);
-
-            page.Save();
-            page.Publish();
 
 
 
-        }
+        //private static void devCreateModernPage(ClientContext context)
+        //{
+
+        //    ClientSidePage page = context.Web.AddClientSidePage("dev.aspx", true);
+        //    page.PageTitle = "My Title";
+        //    page.Save();
+
+        //    page.AddSection(CanvasSectionTemplate.TwoColumn, 1);
+        //    page.Save();
+        //    CanvasSection section = page.Sections[0];
+
+        //    ClientSideWebPart imageWebPart = page.InstantiateDefaultWebPart(DefaultClientSideWebParts.Image);
+        //    //imageWebPart.Properties["siteId"] = "c827cb03-d059-4956-83d0-cd60e02e3b41";
+        //    //imageWebPart.Properties["webId"] = "9fafd7c0-e8c3-4a3c-9e87-4232c481ca26";
+        //    //imageWebPart.Properties["listId"] = "78d1b1ac-7590-49e7-b812-55f37c018c4b";
+        //    //imageWebPart.Properties["uniqueId"] = "3C27A419-66D0-4C36-BF24-BD6147719052";
+        //    //imageWebPart.Properties["imgWidth"] = 1002;
+        //    //imageWebPart.Properties["imgHeight"] = 469;
+        //    imageWebPart.Properties["imageSourceType"] = 2;
+        //    imageWebPart.Properties["imageSource"] = @"\sites\Skade\SiteAssets\ikoner\hund.png";
+        //    page.AddControl(imageWebPart, section.Columns[1], 0);
+        //    page.Save();
+
+        //    ClientSideText t = new ClientSideText() { Text = "Hund kiks" };
+        //    page.AddControl(t, section.Columns[0], 0);
+
+        //    page.Save();
+        //    page.Publish();
+
+
+
+        //}
+      
+        
+        
         /// <summary>
         /// ORG
         /// </summary>
@@ -797,6 +951,7 @@ namespace SPOApp
 
             string branch = Console.ReadLine();
 
+            #region Menu choices
             if (branch == "1")
             {
                 branchImageUrl = @"https://lbforsikring.sharepoint.com/sites/skade/SiteAssets/ikoner/hus.png";
@@ -908,7 +1063,8 @@ namespace SPOApp
                 manualTaxFieldValue = "Bil";
                 g.ContentTypeName = "BilManual";
                 g.SourceLibrary = "BilWebsider";
-            }
+            } 
+            #endregion
 
             List<GenericManualProperies> manuals;
             if (repair == true)
@@ -919,8 +1075,8 @@ namespace SPOApp
             {
                 manuals = GenericManual.GetSourceFiles(ctx, g);
             }
-            
-            
+
+
 
 
             int counter = 1;

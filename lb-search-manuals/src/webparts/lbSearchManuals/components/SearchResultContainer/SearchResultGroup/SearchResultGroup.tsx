@@ -98,7 +98,9 @@ export default class SearchResultGroup extends React.Component<ISearchResultGrou
                                 <div>
                                         <div >
                                             {/* <h4></h4> */}
-                                            <Link href={group[manual].Path}>{group[manual].Title}</Link>
+                                            <Link href={group[manual].Path}>{group[manual].Title}
+                                            {/* <img src="https://lbforsikring.sharepoint.com/sites/skade/_layouts/15/getpreview.ashx?resolution=0&clientMode=modernWebPart&path={group[manual].Path}&width=252&height=200" /> */}
+                                            </Link>
                                             {/* <TeachingBubbleBasicExample targetUrl={group[manual].OriginalPath}
                                                                                 // text={group[manual].LBVerdicts} 
                                                                                 showButtonLabel="Vis kendelser" 

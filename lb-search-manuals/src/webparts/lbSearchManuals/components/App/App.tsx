@@ -44,27 +44,28 @@ export default class App extends React.Component<IAppProps, IAppState> {
                     this.onRefinementFiltersChanged= this.onRefinementFiltersChanged.bind(this);
                     this.onDisplayModeChanged= this.onDisplayModeChanged.bind(this);
 
-                    let ss: SPSearchService=new SPSearchService(this.props.webPartContext)
-                    let searchResult:Promise<ISearchResults>=ss.search(this.state.queryText + '*' + this.props.searchUrl,this.state.refinementFilters,this.props.manualType);
+                    // let ss: SPSearchService=new SPSearchService(this.props.webPartContext)
+                    // let searchResult:Promise<ISearchResults>=ss.search(this.state.queryText + '*' + this.props.searchUrl,this.state.refinementFilters,this.props.manualType);
                     
-                    let results: ISearchResults = {
-                        RelevantResults : [],
-                        RefinementResults: [],
-                        TotalRows: 0,
-                    };
+                    // let results: ISearchResults = {
+                    //     RelevantResults : [],
+                    //     RefinementResults: [],
+                    //     TotalRows: 0,
+                    // };
         
-                    searchResult.then(
-                        (data:ISearchResults)=>{this.setState({results:data})}
+                    // searchResult.then(
+                    //     (data:ISearchResults)=>{this.setState({results:data})}
         
-                    );
+                    // );
+                    this.GetSharePointData();
                     
     }
                 
 
     public onQueryTextChanged(newState?:string) {
         
-        this.setState({ queryText: newState })
-        this.GetSharePointData();
+        this.setState({ queryText: newState },()=>this.GetSharePointData())
+        
         
     }
     
@@ -75,17 +76,19 @@ export default class App extends React.Component<IAppProps, IAppState> {
     }
     
    public onRefinementFiltersChanged(newState?:string) {
+    let filters:string[]=[];    
         if (newState==null) {
-            let filters:string[]=this.state.refinementFilters;
+            filters=this.state.refinementFilters;
             filters=[];
-            this.setState({ refinementFilters: filters })        
+            //this.setState({ refinementFilters: filters })        
         } else {
-            let filters:string[]=[];
+            // let filters:string[]=[];
             filters.push(newState)
-            this.setState({ refinementFilters: filters })        
+            // this.setState({ refinementFilters: filters })        
         }
+        this.setState({ refinementFilters: filters },()=>this.GetSharePointData())
 
-        this.GetSharePointData();
+        // this.GetSharePointData();
         
         
     

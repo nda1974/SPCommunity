@@ -79,6 +79,10 @@ function Test{
             Write-Host $file.FileName ' ' $file.PageLibrary
             $counter++
         }
+        else{
+            Write-Host $file.FileName ' ' $file.PageLibrary
+            $counter++
+        }
         
     }
     Write-Host 'Count ' $counter
@@ -88,6 +92,7 @@ Connect-PnPOnline -Url $site -Credentials 'sadmnicd@lbforsikring.onmicrosoft.com
 Test
 
 $PageLibraries = Import-Csv -Path $libraryFilePath -Encoding UTF8 
+
 $res=GetAllFileNames -PageLibraries $PageLibraries
 Add-Content -LiteralPath $filePath -Value $res -Encoding UTF8
 

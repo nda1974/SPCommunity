@@ -56,82 +56,82 @@ export default class SPSearchService{
             let searchQueryQueryText:string="";
             let selectProperties:string[];
 
+            selectProperties=['Title','Author',refinersMappedProperties,'Path','ContentType','LBInfo','LBTeaser','HitHighlightedSummary','Gruppe','Undergruppe'];
+                    
+            // switch (manualType.toUpperCase()) {
+            //     case "BAAD":
+            //         // refinersMappedProperties= "BaadCategory";    
+            //         refinersMappedProperties= "Gruppe";    
+                    
+            //         selectProperties=['Title','Author',refinersMappedProperties,'Path','ContentType','LBInfo','LBTeaser','HitHighlightedSummary'];
+            //         filterOnContentType = "BaadManual";
 
-            switch (manualType.toUpperCase()) {
-                case "BAAD":
-                    // refinersMappedProperties= "BaadCategory";    
-                    refinersMappedProperties= "Gruppe";    
-                    
-                    selectProperties=['Title','Author',refinersMappedProperties,'Path','ContentType','LBInfo','LBTeaser','HitHighlightedSummary'];
-                    filterOnContentType = "BaadManual";
-
                     
 
-                    // if (refinementFilters.length>0) {
-                    //     searchQueryQueryText="ContentType:"+filterOnContentType+" AND " + queryText + " " +"RefinableString04:'" + refinementFilters[0] + "'";
-                    // }
-                    // else{
-                    //     searchQueryQueryText=="ContentType:"+filterOnContentType+" AND " + queryText; 
-                    // }
-                    break;
+            //         // if (refinementFilters.length>0) {
+            //         //     searchQueryQueryText="ContentType:"+filterOnContentType+" AND " + queryText + " " +"RefinableString04:'" + refinementFilters[0] + "'";
+            //         // }
+            //         // else{
+            //         //     searchQueryQueryText=="ContentType:"+filterOnContentType+" AND " + queryText; 
+            //         // }
+            //         break;
 
-                case "BIL":
-                    refinersMappedProperties= "BilCategory";    
-                    selectProperties=['Title','Author',refinersMappedProperties,'Path','ContentType'];
-                    filterOnContentType = "BilManual";
+            //     case "BIL":
+            //         refinersMappedProperties= "BilCategory";    
+            //         selectProperties=['Title','Author',refinersMappedProperties,'Path','ContentType'];
+            //         filterOnContentType = "BilManual";
                     
                     
-                    // if (refinementFilters.length==1) {
-                    //     searchQueryQueryText="ContentType:"+filterOnContentType+" AND " + queryText + " " + refinersMappedProperties + ":" + refinementFilters[0];
-                    // }
-                    // else{
-                    //     searchQueryQueryText=="ContentType:"+filterOnContentType+" AND " + queryText; 
-                    // }
+            //         // if (refinementFilters.length==1) {
+            //         //     searchQueryQueryText="ContentType:"+filterOnContentType+" AND " + queryText + " " + refinersMappedProperties + ":" + refinementFilters[0];
+            //         // }
+            //         // else{
+            //         //     searchQueryQueryText=="ContentType:"+filterOnContentType+" AND " + queryText; 
+            //         // }
                     
-                    break;
+            //         break;
 
-                case "HUND":
-                    refinersMappedProperties= "HundCategory";    
-                    selectProperties=['Title','Author',refinersMappedProperties,'Path','ContentType'];
-                    filterOnContentType = "HundManual";
+            //     case "HUND":
+            //         refinersMappedProperties= "HundCategory";    
+            //         selectProperties=['Title','Author',refinersMappedProperties,'Path','ContentType'];
+            //         filterOnContentType = "HundManual";
                     
                     
-                    // if (refinementFilters.length==1) {
-                    //     searchQueryQueryText="ContentType:"+filterOnContentType+" AND " + queryText + " " + refinersMappedProperties + ":" + refinementFilters[0];
-                    // }
-                    // else{
-                    //     searchQueryQueryText=="ContentType:"+filterOnContentType+" AND " + queryText; 
-                    // }
+            //         // if (refinementFilters.length==1) {
+            //         //     searchQueryQueryText="ContentType:"+filterOnContentType+" AND " + queryText + " " + refinersMappedProperties + ":" + refinementFilters[0];
+            //         // }
+            //         // else{
+            //         //     searchQueryQueryText=="ContentType:"+filterOnContentType+" AND " + queryText; 
+            //         // }
                     
-                    break;
-                    case "INDBO":
-                    refinersMappedProperties= "IndboCategory";    
-                    selectProperties=['Title','Author',refinersMappedProperties,'Path','ContentType','LBInfo','LBTeaser','LBVerdicts','HitHighlightedSummary','Verdicts'];
-                    filterOnContentType = "IndboManual";
-                    
-                    // pnp.sp.web.lists.getByTitle("SitePages").items.getById(2273).select("Title", "Lookup/Title", "Lookup/ID").expand("Lookup").get().then((item: any) => {
-                    //     console.log(item);
-                    // });
-                    
-                    break;
+            //         break;
+            //     case "INDBO":
+            //     refinersMappedProperties= "IndboCategory";    
+            //     selectProperties=['Title','Author',refinersMappedProperties,'Path','ContentType','LBInfo','LBTeaser','LBVerdicts','HitHighlightedSummary','Verdicts'];
+            //     filterOnContentType = "IndboManual";
+                
+            //     // pnp.sp.web.lists.getByTitle("SitePages").items.getById(2273).select("Title", "Lookup/Title", "Lookup/ID").expand("Lookup").get().then((item: any) => {
+            //     //     console.log(item);
+            //     // });
+                
+            //     break;
+
         
-                default:
-                    break;
+            //     default:
+            //         break;
                     
-            }
+            // }
 
             
             let rf:string[]=[];
-            
+            refinersMappedProperties="Gruppe";
             if (refinementFilters.length==1) {
                 // searchQuery.Querytext=searchQueryQueryText;
-                searchQuery.Querytext="ContentType:"+filterOnContentType+" AND " + queryText + " " + refinersMappedProperties + ":" + refinementFilters[0];
+                searchQuery.Querytext="ContentType:Skadehåndbog AND Håndbog:"+ manualType + " AND " + queryText + " " + refinersMappedProperties + ":" + refinementFilters[0];
             }
             else
             {
-                searchQuery.Querytext="ContentType:"+filterOnContentType+" AND " + queryText;    
-                
-                
+                searchQuery.Querytext="ContentType:Skadehåndbog AND Håndbog:"+ manualType + " AND " + queryText;    
             }
 
 
@@ -164,7 +164,7 @@ export default class SPSearchService{
                             
                 // Be careful, there was an issue with paging calculation under 2.0.8 version of sp-pnp-js library
                 // More info https://github.com/SharePoint/PnP-JS-Core/issues/535
-                const r2 = await r.getPage(1,100);
+                const r2 = await r.getPage(1,500);
                 
                 const resultRows = r2.RawSearchResults.PrimaryQueryResult.RelevantResults.Table.Rows;
                 console.log (resultRows);

@@ -43,6 +43,7 @@ namespace SPOApp
                     {
 
                         GenericManualProperies spp;
+                        
                         spp.WikiContent = (listItem["WikiField"] == null) ? "" : listItem["WikiField"].ToString();
 
                         if (g.ContentTypeName == "RegresManual" ||
@@ -183,89 +184,89 @@ namespace SPOApp
             return pages;
         }
        
-        public static void CreateModernSitePages(ClientContext context, List<GenericManualProperies> pages, GenericConfiguration g)
-        {
-            int counter = 1;
-            foreach (var p in pages)
-            {
-                Console.WriteLine("Creating " + counter + " of " + pages.Count);
-                Console.WriteLine("Start creating " + p.FileName);
-                CreatePages(context, p, g.ContentTypeName);
-                //if (p.FileName.Equals("1 eller 2 selvrisikobeløb.aspx"))
-                //{
-                //    Console.WriteLine("Creating " + counter + " of " + pages.Count);
-                //    Console.WriteLine("Start creating " + p.FileName);
-                //    CreatePages(context, p, g.ContentTypeName);
-                //}
+        //public static void CreateModernSitePages(ClientContext context, List<GenericManualProperies> pages, GenericConfiguration g)
+        //{
+        //    int counter = 1;
+        //    foreach (var p in pages)
+        //    {
+        //        Console.WriteLine("Creating " + counter + " of " + pages.Count);
+        //        Console.WriteLine("Start creating " + p.FileName);
+        //        CreatePages(context, p, g.ContentTypeName);
+        //        //if (p.FileName.Equals("1 eller 2 selvrisikobeløb.aspx"))
+        //        //{
+        //        //    Console.WriteLine("Creating " + counter + " of " + pages.Count);
+        //        //    Console.WriteLine("Start creating " + p.FileName);
+        //        //    CreatePages(context, p, g.ContentTypeName);
+        //        //}
 
-            }
-        }
+        //    }
+        //}
         
-        private static void CreatePages(ClientContext context, GenericManualProperies p, string targetContentTypeName)
-        {
-            try
-            {
-                string ManualName = "";
-                string ManualImage = "";
-                switch (targetContentTypeName)
-                {
-                    default:
-                        break;
-                }
-                ClientSidePage page = context.Web.AddClientSidePage(p.FileName, true);
+        //private static void CreatePages(ClientContext context, GenericManualProperies p, string targetContentTypeName)
+        //{
+        //    try
+        //    {
+        //        string ManualName = "";
+        //        string ManualImage = "";
+        //        switch (targetContentTypeName)
+        //        {
+        //            default:
+        //                break;
+        //        }
+        //        ClientSidePage page = context.Web.AddClientSidePage(p.FileName, true);
 
-                //ClientSideText txt1 = new ClientSideText() { Text = p.WikiContent };
-                ClientSideText txt1 = new ClientSideText() { Text = "[TODO]" };
+        //        //ClientSideText txt1 = new ClientSideText() { Text = p.WikiContent };
+        //        ClientSideText txt1 = new ClientSideText() { Text = "[TODO]" };
                 
-                page.AddControl(txt1, -1);
+        //        page.AddControl(txt1, -1);
 
-                Microsoft.SharePoint.Client.ContentType newContentType = context.Web.GetContentTypeByName(targetContentTypeName);
-                context.Load(newContentType);
-                context.ExecuteQuery();
+        //        Microsoft.SharePoint.Client.ContentType newContentType = context.Web.GetContentTypeByName(targetContentTypeName);
+        //        context.Load(newContentType);
+        //        context.ExecuteQuery();
 
-                ListItem item = page.PageListItem;
+        //        ListItem item = page.PageListItem;
 
-                context.Load(item);
-                context.ExecuteQuery();
+        //        context.Load(item);
+        //        context.ExecuteQuery();
 
-                item.Properties["ContentTypeId"] = newContentType.Id.StringValue;
-                item["ContentTypeId"] = newContentType.Id;
+        //        item.Properties["ContentTypeId"] = newContentType.Id.StringValue;
+        //        item["ContentTypeId"] = newContentType.Id;
 
-                item.Update();
+        //        item.Update();
 
-                if (!string.IsNullOrEmpty(p.Gruppe))
-                {
-                    SPOUtility.SetMetadataField(context, item, p.Gruppe, "Gruppe");
-                    item.Update();
-                }
-                if (!string.IsNullOrEmpty(p.UnderGruppe))
-                {
-                    SPOUtility.SetMetadataField(context, item, p.UnderGruppe, "Undergruppe");
-                    item.Update();
-                }
+        //        if (!string.IsNullOrEmpty(p.Gruppe))
+        //        {
+        //            SPOUtility.SetMetadataField(context, item, p.Gruppe, "Gruppe");
+        //            item.Update();
+        //        }
+        //        if (!string.IsNullOrEmpty(p.UnderGruppe))
+        //        {
+        //            SPOUtility.SetMetadataField(context, item, p.UnderGruppe, "Undergruppe");
+        //            item.Update();
+        //        }
 
-                SPOUtility.SetMetadataField(context, item, "Hest", "Håndbog");
+        //        SPOUtility.SetMetadataField(context, item, "Hest", "Håndbog");
 
 
 
-                page.Save();
-                page.Publish();
+        //        page.Save();
+        //        page.Publish();
 
-                context.ExecuteQuery();
-                string newFilePrefix = Program.IsPageCoincidence(p.FileName);
-                if (!string.IsNullOrEmpty(newFilePrefix))
-                {
-                    Program.RenameFile(newFilePrefix + p.FileName);
-                }
+        //        context.ExecuteQuery();
+        //        string newFilePrefix = Program.IsPageCoincidence(p.FileName);
+        //        if (!string.IsNullOrEmpty(newFilePrefix))
+        //        {
+        //            Program.RenameFile(newFilePrefix + p.FileName);
+        //        }
 
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine(p.FileName);
-                Console.WriteLine(ex);
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        Console.WriteLine(p.FileName);
+        //        Console.WriteLine(ex);
 
-            }
-        }
+        //    }
+        //}
 
 
 

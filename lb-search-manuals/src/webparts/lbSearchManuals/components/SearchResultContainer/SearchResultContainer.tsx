@@ -77,7 +77,7 @@ export default class SearchResultContainer extends React.Component<ISearchResult
             showCompactMode=this.props.showCompactMode;
         }
 
-        var groupedManuals:any=this._groupBy('IndboCategory',this.props.results);
+        var groupedManuals:any=this._groupBy('Gruppe',this.props.results);
         var arrGroupKeys:string[]=[];
         {
             Object.keys(groupedManuals).map((groupKey,i)=>{

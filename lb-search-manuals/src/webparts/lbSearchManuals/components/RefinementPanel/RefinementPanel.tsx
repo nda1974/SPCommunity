@@ -63,9 +63,7 @@ export default class RefinementPanel extends React.Component<IRefinementPanelPro
                                                                     )
                                                                 )
                                                             )
-                        
-                                                        )
-                                                        
+                                                        )                          
                         }
 
 
