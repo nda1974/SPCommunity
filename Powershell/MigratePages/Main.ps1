@@ -143,7 +143,7 @@ function GetTargetFile($url)
                         Start-Sleep -Seconds 2
                         $targetDiv.focus();
                         
-                        $clipBoard = Get-Clipboard -Format Text -TextFormatType Html
+                        #$clipBoard = Get-Clipboard -Format Text -TextFormatType Html
                         
 
 
@@ -154,11 +154,11 @@ function GetTargetFile($url)
                         
                         
                         [System.Windows.Forms.SendKeys]::SendWait("^{a}")
-                        [System.Windows.Forms.SendKeys]::SendWait("{DEL}")
-                        $clipBoard -replace '<*IMG.*pdf16.gif.*?>'
-                        $targetDiv.innerText=$clipBoard
+                        #[System.Windows.Forms.SendKeys]::SendWait("{DEL}")
+                        #$clipBoard -replace '<*IMG.*pdf16.gif.*?>'
+                        #$targetDiv.innerText=$clipBoard
 
-                        #[System.Windows.Forms.SendKeys]::SendWait("^{v}") 
+                        [System.Windows.Forms.SendKeys]::SendWait("^{v}") 
                         
             
                         
