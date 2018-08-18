@@ -64,7 +64,7 @@ function GetSourceFile($url)
                     Start-Sleep -Milliseconds 1000
                     }
             
-            $IE = ConnectIExplorer -HWND $HWND -ShowPage $false
+            $IE = ConnectIExplorer -HWND $HWND -ShowPage $true
             #nyt
             #$p=Get-Process | Where-Object{$_.MainWindowHandle  -eq $IE.HWND}
             #Show-Process -Process (Get-Process -Id $p.Id) -Maximize
@@ -81,7 +81,10 @@ function GetSourceFile($url)
                     $sourceDocument=$IE.Document;
                     $sourceDiv=$sourceDocument.IHTMLDocument3_getElementById('layoutsTable');
                     $s = $sourceDiv.innerHTML 
+                    
                     Set-Clipboard -Value $sourceDiv.innerHTML -AsHtml 
+
+                    #Set-Clipboard -Value $sourceDiv.innerHTML -replace '<*IMG.*pdf16.gif.*?>' -AsHtml 
                     $exitFlag=$true
                 }
 
@@ -144,10 +147,8 @@ function GetTargetFile($url)
                         $targetDiv.focus();
                         
                         
-                        
                         [System.Windows.Forms.SendKeys]::SendWait("^{a}")
-                        
-
+                        [System.Windows.Forms.SendKeys]::SendWait("^{DEL}") 
                         [System.Windows.Forms.SendKeys]::SendWait("^{v}") 
                         
             
@@ -388,7 +389,6 @@ function Run($startIndex)
     elseif($branch -eq 22)
     {
         $branchSiteUrl="http://intranet.lb.dk/Skade/hb/Person/SitePages/"
-        $branchSiteUrl="https://lbforsikring.sharepoint.com/sites/Skade/PersonskadeWebsider/"
         $importFileName = 'C:\Git\LBIntranet\Powershell\MigratePages\ImportFiles\PersonskaderCSVRepair.csv'
     }
     elseif($branch -eq 23)
