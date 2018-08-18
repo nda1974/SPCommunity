@@ -868,7 +868,7 @@ namespace SPOApp
 
 
             string branch = Console.ReadLine();
-
+            string importFile = @"C:\Git\LBIntranet\SPOApp\SPOApp\SPOApp\importfiles\SharePointToExcel_{0}.csv";
             #region Menu choices
             if (branch == "1")
             {
@@ -933,6 +933,9 @@ namespace SPOApp
             }
             else if (branch == "11")
             {
+                branchImageUrl = @"https://lbforsikring.sharepoint.com/sites/skade/SiteAssets/ikoner/regres.png";
+
+                manualTaxFieldValue = "Regres";
                 g.ContentTypeName = "RegresManual";
                 g.SourceLibrary = "RegresWebsider";
             }
@@ -1000,8 +1003,8 @@ namespace SPOApp
             //{
             //    manuals = GenericManual.GetSourceFiles(ctx, g);
             //}
-
-            manuals = GenericManual.GetSourceFilesFromCSV(); 
+            
+            manuals = GenericManual.GetSourceFilesFromCSV(string.Format(importFile,manualTaxFieldValue)); 
 
 
             int counter = 1;

@@ -187,10 +187,10 @@ namespace SPOApp
 
 
 
-        public static List<GenericManualProperies> GetSourceFilesFromCSV()
+        public static List<GenericManualProperies> GetSourceFilesFromCSV(string sourceFilesFilePath)
         {
             List<GenericManualProperies> pages = new List<GenericManualProperies>();
-            using (TextFieldParser parser = new TextFieldParser(@"C:\Git\LBIntranet\SPOApp\SPOApp\SPOApp\importfiles\SharePointToExcel_Ansvar_Repair.csv"))
+            using (TextFieldParser parser = new TextFieldParser(sourceFilesFilePath))
             {
                 parser.TextFieldType = Microsoft.VisualBasic.FileIO.FieldType.Delimited;
                 parser.SetDelimiters(";");
