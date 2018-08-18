@@ -160,8 +160,10 @@ namespace SPOApp
     class Program
     {
         private const string COINCIDENCE_IN_FILES_FILEPATH = @"C:\Git\LBIntranet\Powershell\MigratePages\CoincidenceFeature\CoincidenceOfFilenamesFiltered.csv";
-        private const string LINKS_IN_PAGES_FILEPATH = @"C:\Git\LBIntranet\SPOApp\SPOApp\SPOApp\importfiles\LinkMigration\Indbo_Links.csv";
+        private const string LINKS_IN_PAGES_FILEPATH = @"C:\Git\LBIntranet\SPOApp\SPOApp\SPOApp\importfiles\LinkMigration\Indbo_LinksRepair.csv";
+        private const string OUTPUT_LINKS_IN_PAGES_FILEPATH = @"C:\Git\LBIntranet\SPOApp\SPOApp\SPOApp\logfiles\OutputLinks\";
         private static List<string> lstLog = new List<string>();
+        private static List<string> lstOutputLinksInPages = new List<string>();
         private static List<string> lstError = new List<string>();
         public static string IsPageCoincidence(string fileName)
         {
@@ -211,44 +213,7 @@ namespace SPOApp
 
         }
 
-        public static void RenameFile(string newFileName)
-        {
-            Console.WriteLine("Enter your password.");
-            SecureString password = GetPassword();
-            // Input Parameters  
-            string url = "https://lbforsikring.sharepoint.com/sites/nicd";
-            string userName = "sadmnicd@lbforsikring.onmicrosoft.com";
-            //string password = "MandM1974";
-
-            userName = "nicd@lb.dk";
-            //password = "MandM4444";
-
-            // PnP component to set context  
-            ClientContext clientContext = new ClientContext(url);
-
-            clientContext.Credentials = new SharePointOnlineCredentials(userName, password);
-
-            Microsoft.SharePoint.Client.List spList = clientContext.Web.Lists.GetByTitle("Webstedssider");
-            clientContext.Load(spList);
-            clientContext.ExecuteQuery();
-
-            if (spList != null && spList.ItemCount > 0)
-            {
-                Microsoft.SharePoint.Client.CamlQuery camlQuery = new CamlQuery();
-                camlQuery.ViewXml = @"<View>  <Query> <Where><Eq><FieldRef Name='LinkFilenameNoMenu' /><Value Type='Computed'>Kat.aspx </Value></Eq></Where> </Query> <ViewFields><FieldRef Name='Title' /></ViewFields> </View>";
-
-                ListItemCollection listItems = spList.GetItems(camlQuery);
-                clientContext.Load(listItems);
-                clientContext.ExecuteQuery();
-                listItems[0]["Title"] = "Stor FISK";
-                listItems[0]["FileLeafRef"] = "FISK.aspx";
-                listItems[0].Update();
-                clientContext.ExecuteQuery();
-            }
-
-
-
-        }
+       
         private static SecureString GetPassword()
         {
             ConsoleKeyInfo info;
@@ -336,9 +301,10 @@ namespace SPOApp
                 Console.WriteLine("Storskade [16]");
                 Console.WriteLine("Rejse [17]");
                 Console.WriteLine("Indbo [18]");
+                Console.WriteLine("Bil [19]");
                 string choice = Console.ReadLine();
 
-                Console.WriteLine("Find obscure and empty content  ex. 'false,1,1' and '<p>a</p>' and '<p>v</p>' string [1]");
+                //Console.WriteLine("Find obscure and empty content  ex. 'false,1,1' and '<p>a</p>' and '<p>v</p>' string [1]");
                 Console.WriteLine("Output links to screen[2]");
                 Console.WriteLine("Migrate links [3]");
                 string featureToRun = Console.ReadLine();
@@ -485,7 +451,7 @@ namespace SPOApp
                 else if (featureToRun == "2")
                 {
                     errorFileName = branchLibraryName + "_OutputLinksToScreenERROR.txt";
-                    logFileName = branchLibraryName + "_OutputLinksToScreenLOG.txt";
+                    logFileName = branchLibraryName + "_OutputLinksToScreen.txt";
                     parsingFeature = ParsingFeature.OutputLinksToScreen;
                 }
                 else if (featureToRun == "3")
@@ -530,15 +496,10 @@ namespace SPOApp
                                 if (IsPageCoincidence(tmpFileNameFromLink.Substring(tmpFileNameFromLink.LastIndexOf('/') + 1)) != null)
                                 {
                                     coincidenceInLink = true;
-                                    //Console.ForegroundColor = ConsoleColor.Red;
-                                    //Console.WriteLine(file.FileName);
-                                    //Console.WriteLine(tmpFileNameFromLink);
-                                    //Console.ForegroundColor = ConsoleColor.White;
-                                }
+                                    }
                                 else
                                 {
                                     coincidenceInLink = false;
-                                    //Console.ForegroundColor = ConsoleColor.White;
                                 }
                                 EditCurrentLink(ctx, file, coincidenceInLink);
                             }
@@ -561,6 +522,7 @@ namespace SPOApp
                 }
                 else
                 {
+                    lstOutputLinksInPages.Add("FileName;OriginalHyperLink;NewHyperLink;CoincidencePrefix");
                     foreach (ListItem item in collListItem)
                     {
                         fileName = item["FileRef"].ToString();
@@ -622,8 +584,10 @@ namespace SPOApp
 
                 SPOUtility.CheckInAllDocuments(ctx, "Webstedssider");
             }
-
+            
             System.IO.File.WriteAllLines(@"C:\Git\LBIntranet\SPOApp\SPOApp\SPOApp\logfiles\" + logFileName, lstLog.ToArray());
+
+            System.IO.File.WriteAllLines(OUTPUT_LINKS_IN_PAGES_FILEPATH + logFileName, lstOutputLinksInPages.ToArray());
             //System.IO.File.WriteAllLines(@"C:\Git\LBIntranet\SPOApp\SPOApp\SPOApp\logfiles\" + errorFileName, lstError.ToArray());
             //ORG LinksUtility.CheckForLinks(ctx, sitePagesLibrary, ctName, featureToRun);
 
@@ -646,17 +610,7 @@ namespace SPOApp
                     if (control.Type.Name == "ClientSideText")
                     {
                         ClientSideText t = (ClientSideText)control;
-                        //Console.WriteLine(file.FileName);
-                        //Console.WriteLine(t.Text.IndexOf(file.OriginalLink));
-
-                        
-
                         string s = t.Text;
-                        //Console.ForegroundColor = ConsoleColor.Green;
-                        //Console.WriteLine(s);
-                        //Console.ForegroundColor = ConsoleColor.Yellow;
-                        //Console.WriteLine(s.Replace(file.OriginalLink, file.NewLink));
-                        //Console.ForegroundColor = ConsoleColor.White;
                         
                         //Replace link
                         string newPageText=Uri.UnescapeDataString(t.Text).Replace(Uri.UnescapeDataString(file.OriginalLink), Uri.UnescapeDataString("https://lbforsikring.sharepoint.com/sites/Skade" + file.NewLink));
@@ -686,49 +640,16 @@ namespace SPOApp
 
             Regex regex = new Regex("href\\s*=\\s*(?:\"(?<1>[^\"]*)\"|(?<1>\\S+))", RegexOptions.IgnoreCase);
             Match match;
-
+            
             for (match = regex.Match(input); match.Success; match = match.NextMatch())
             {
-                //IdentifyHyperLinks(fileName, input, branchLibraryName, documentLibrarySearchString, match);
+                
                 foreach (System.Text.RegularExpressions.Capture capture in match.Captures)
                 {
-
-                    if (capture.Value.ToString().ToLower().Contains("skade/hb"))
-                    {
-                        if (capture.Value.ToString().ToLower().Contains(documentLibrarySearchString))
-                        {
-                            Console.ForegroundColor = ConsoleColor.Yellow;
-                            Console.WriteLine(fileName + " : " + capture);
-                            Console.WriteLine(fileName + " : " + capture);
-                            Console.ForegroundColor = ConsoleColor.White;
-                            lstLog.Add(fileName + ";" + capture);
-                        }
-                        else
-                        {
-                            Console.ForegroundColor = ConsoleColor.Yellow;
-                            Console.WriteLine(fileName + " : " + capture);
-                            Console.ForegroundColor = ConsoleColor.White;
-                            lstLog.Add(fileName + ";" + capture);
-                        }
-                    }
-                    else if (capture.Value.ToString().ToLower().Contains("ankeforsikring.dk") ||
-                        capture.Value.ToString().ToLower().Contains("retsinformation.dk") ||
-                        capture.Value.ToString().ToLower().Contains("www.lb.dk") ||
-                        capture.Value.ToString().ToLower().Contains("tinglysning.dk") ||
-                        capture.Value.ToString().ToLower().Contains("tinglysning.dk")
-                        )
-                    {
-                    }
-                    else
-                    {
-                        Console.ForegroundColor = ConsoleColor.Green;
-                        Console.WriteLine(fileName + " : " + capture);
-                        Console.ForegroundColor = ConsoleColor.White;
-                        lstLog.Add(fileName + ";" + capture);
-                    }
+                    lstOutputLinksInPages.Add(fileName + ";N/A;" + capture + ";N/A");
                 }
             }
-            Console.WriteLine("--------------------------------------------");
+            
 
 
         }
@@ -905,10 +826,7 @@ namespace SPOApp
         //}
 
 
-
-        /// <summary>
-        /// DEV
-        /// </summary>
+            
         private static void StartCreatingModernPages(bool? repair)
         {
             string branchImageUrl = "";
@@ -961,6 +879,8 @@ namespace SPOApp
             }
             else if (branch == "2")
             {
+                manualTaxFieldValue = "Ansvar";
+                branchImageUrl = @"https://lbforsikring.sharepoint.com/sites/skade/SiteAssets/ikoner/ansvar.png";
                 g.ContentTypeName = "AnsvarManual";
                 g.SourceLibrary = "Ansvarwebsider";
             }
@@ -1005,6 +925,9 @@ namespace SPOApp
             }
             else if (branch == "10")
             {
+                branchImageUrl = @"https://lbforsikring.sharepoint.com/sites/skade/SiteAssets/ikoner/personskade.png";
+                
+                manualTaxFieldValue = "Personskade";
                 g.ContentTypeName = "PersonskadeManual";
                 g.SourceLibrary = "PersonskadeWebsider";
             }
@@ -1063,20 +986,22 @@ namespace SPOApp
                 manualTaxFieldValue = "Bil";
                 g.ContentTypeName = "BilManual";
                 g.SourceLibrary = "BilWebsider";
-            } 
+            }
             #endregion
 
+            
+
             List<GenericManualProperies> manuals;
-            if (repair == true)
-            {
-                manuals = GenericManual.GetSourceFilesForRepair(ctx, g);
-            }
-            else
-            {
-                manuals = GenericManual.GetSourceFiles(ctx, g);
-            }
+            //if (repair == true)
+            //{
+            //    manuals = GenericManual.GetSourceFilesForRepair(ctx, g);
+            //}
+            //else
+            //{
+            //    manuals = GenericManual.GetSourceFiles(ctx, g);
+            //}
 
-
+            manuals = GenericManual.GetSourceFilesFromCSV(); 
 
 
             int counter = 1;
