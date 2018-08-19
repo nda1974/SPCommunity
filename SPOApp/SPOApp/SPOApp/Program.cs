@@ -1,6 +1,7 @@
 ﻿using Microsoft.Office.Interop.Word;
 using Microsoft.SharePoint.Client;
 using Microsoft.SharePoint.Client.Taxonomy;
+using Microsoft.VisualBasic.FileIO;
 using OfficeDevPnP.Core;
 using OfficeDevPnP.Core.Pages;
 using System;
@@ -141,6 +142,15 @@ namespace SPOApp
         public string FileName;
         public string Title;
     }
+    public struct GenericManualStruct
+    {
+        public string Gruppe;
+        public string UnderGruppe;
+        public string WikiContent;
+        public string FileName;
+        public string Title;
+        public string Branche;
+    }
     public struct GenericConfiguration
     {
         public string ContentTypeName;
@@ -155,19 +165,154 @@ namespace SPOApp
     }
 
 
-    
 
+    public static class MigrationEngine
+    {
+        public static List<GenericManualStruct> GetSourceFilesFromCSV(string sourceFilesFilePath)
+        {
+            List<GenericManualStruct> pages = new List<GenericManualStruct>();
+            using (TextFieldParser parser = new TextFieldParser(sourceFilesFilePath))
+            {
+                parser.TextFieldType = Microsoft.VisualBasic.FileIO.FieldType.Delimited;
+                parser.SetDelimiters(";");
+                string[] fields = parser.ReadFields();
+                while (!parser.EndOfData)
+                {
+                    GenericManualStruct page;
+                    //Process row
+                    //string[] fields = parser.ReadFields();
+
+                    string line = parser.ReadLine();
+                    page.FileName = line.Split(';')[0];
+                    page.Gruppe = line.Split(';')[1];
+                    page.UnderGruppe = line.Split(';')[2];
+                    page.Branche = line.Split(';')[3];
+                    page.WikiContent = "[TODO]";
+                    //line.Substring(0, line.LastIndexOf('.'))
+                    //page.Title = line.Split(';')[0].Split('.')[0];
+                    string title = line.Split(';')[0];
+                    page.Title = title.Substring(0, title.LastIndexOf('.'));
+                    pages.Add(page);
+                }
+            }
+            return pages;
+        }
+        public static bool IsPageCoincidence(GenericManualStruct CurrentManual, List<List<GenericManualStruct>> ManualCollection)
+        {
+            bool isCoincidenceInFilename = false;
+            foreach (List<GenericManualStruct> lstManual in ManualCollection)
+            {
+                foreach (GenericManualStruct manual in lstManual)
+                {
+                    if (manual.FileName.Equals(CurrentManual.FileName) && !manual.Branche.Equals(CurrentManual.Branche))
+                    {
+                        Console.WriteLine(manual.Branche + ":" + manual.FileName);
+                        Console.WriteLine(CurrentManual.Branche + ":" + CurrentManual.FileName);
+                        return true;
+                    }
+
+                }
+
+            }
+            return false;
+
+        }
+
+        private static string GetImageUrl(GenericManualStruct g)
+        {
+            switch (g.Branche)
+            {
+                case "Ansvar":
+                    return @"https://lbforsikring.sharepoint.com/sites/Skade/SiteAssets/ikoner/Ansvar.png";
+                case "Bil":
+                    return @"https://lbforsikring.sharepoint.com/sites/Skade/SiteAssets/ikoner/Bil.png";
+                case "Bygning":
+                    return @"https://lbforsikring.sharepoint.com/sites/Skade/SiteAssets/ikoner/hus.png";
+                case "Indbo":
+                    return @"https://lbforsikring.sharepoint.com/sites/Skade/SiteAssets/ikoner/indbo.png";
+                case "Personskade":
+                    return @"https://lbforsikring.sharepoint.com/sites/Skade/SiteAssets/ikoner/personskade.png";
+                case "Rejse":
+                    return @"https://lbforsikring.sharepoint.com/sites/Skade/SiteAssets/ikoner/rejse.png";
+                case "Regres":
+                    return @"https://lbforsikring.sharepoint.com/sites/Skade/SiteAssets/ikoner/regres.png";
+                default:
+                    return string.Empty;
+            }
+        }
+        public static void CreateNewModernPage(ClientContext ctx, GenericManualStruct p, string fileNameMatchedAgainstCoicidence)
+        {
+            try
+            {
+
+
+                ClientSidePage page = ctx.Web.AddClientSidePage(fileNameMatchedAgainstCoicidence, true);
+                Microsoft.SharePoint.Client.ContentType newContentType = ctx.Web.GetContentTypeByName("Skadehåndbog");
+                ctx.Load(newContentType);
+                ctx.ExecuteQuery();
+
+                ListItem item = page.PageListItem;
+                ctx.Load(item);
+                ctx.ExecuteQuery();
+                item.Properties["ContentTypeId"] = newContentType.Id.StringValue;
+                item["ContentTypeId"] = newContentType.Id;
+                item["PageLayoutType"] = "Home";
+                //item["BannerImageUrl"] = GetImageUrl(p);
+                item.Update();
+
+                if (!string.IsNullOrEmpty(p.Gruppe))
+                {
+                    SPOUtility.SetMetadataField(ctx, item, p.Gruppe, "Gruppe", p.Branche);
+                    item.Update();
+                }
+                if (!string.IsNullOrEmpty(p.UnderGruppe))
+                {
+                    SPOUtility.SetMetadataField(ctx, item, p.UnderGruppe, "Undergruppe", p.Branche);
+                    item.Update();
+                }
+
+                SPOUtility.SetMetadataField(ctx, item, p.Branche, "H_x00e5_ndbog");
+                item.Update();
+                ctx.Load(item);
+                ctx.ExecuteQuery();
+
+                page.PageTitle = p.FileName.Substring(0, p.FileName.Length - 5);
+                page.AddSection(CanvasSectionTemplate.TwoColumnLeft, 1);
+
+                CanvasSection section = page.Sections[0];
+                ClientSideText t = new ClientSideText() { Text = "[TODO]" };
+                page.AddControl(t, section.Columns[0], 0);
+
+
+                ClientSideWebPart imageWebPart = page.InstantiateDefaultWebPart(DefaultClientSideWebParts.Image);
+                imageWebPart.Properties["imageSourceType"] = 2;
+                imageWebPart.Properties["imageSource"] = GetImageUrl(p);
+
+                page.AddControl(imageWebPart, section.Columns[1], 0);
+                page.Save();
+                page.Publish();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+    }
     class Program
     {
         private const string COINCIDENCE_IN_FILES_FILEPATH = @"C:\Git\LBIntranet\Powershell\MigratePages\CoincidenceFeature\CoincidenceOfFilenamesFiltered.csv";
         private const string LINKS_IN_PAGES_FILEPATH = @"C:\Git\LBIntranet\SPOApp\SPOApp\SPOApp\importfiles\LinkMigration\Indbo_LinksRepair.csv";
         private const string OUTPUT_LINKS_IN_PAGES_FILEPATH = @"C:\Git\LBIntranet\SPOApp\SPOApp\SPOApp\logfiles\OutputLinks\";
+        private const string OBSCURITIES_IN_FILES_FILEPATH = @"C:\Git\LBIntranet\SPOApp\SPOApp\SPOApp\logfiles\CheckForObscurities\";
+
+        private const string SHAREPOINT_2_EXCEL_FILEPATH = @"C:\Git\LBIntranet\SPOApp\SPOApp\SPOApp\importfiles\SharePoint2Excel\";
+        private static List<string> lstCreateModernPagesLog = new List<string>();
         private static List<string> lstLog = new List<string>();
         private static List<string> lstOutputLinksInPages = new List<string>();
         private static List<string> lstError = new List<string>();
         public static string IsPageCoincidence(string fileName)
         {
-            
+
             using (var reader = new StreamReader(COINCIDENCE_IN_FILES_FILEPATH))
             {
                 List<string> listA = new List<string>();
@@ -213,7 +358,21 @@ namespace SPOApp
 
         }
 
-       
+        public static void FindObscureText(string content, string fileName)
+        {
+            if (content.Contains("false,false,1") ||
+                content.Contains("<p>a</p>") ||
+                content.Contains("<p>v</p>") ||
+                content.Contains("[TODO]") ||
+                content.Length < 50)
+            {
+                Console.ForegroundColor = ConsoleColor.Yellow;
+
+                lstLog.Add(fileName + ";" + string.Empty);
+                Console.WriteLine(fileName);
+                Console.ForegroundColor = ConsoleColor.White;
+            }
+        }
         private static SecureString GetPassword()
         {
             ConsoleKeyInfo info;
@@ -233,12 +392,104 @@ namespace SPOApp
 
         static void Main(string[] args)
         {
+            Console.WriteLine("Skriv hvilken 'Branche' Der skal migreres");
+            string InputFromScreen = Console.ReadLine();
+            Console.WriteLine(DateTime.Now.ToShortTimeString());
+            string targetSiteUrl = "https://lbforsikring.sharepoint.com/sites/skade";
+            ClientContext ctx = SPOUtility.Authenticate(targetSiteUrl, "admnicd@lb.dk", "MandM5555");
 
+            List<List<GenericManualStruct>> L = new List<List<GenericManualStruct>>();
+            List<GenericManualStruct> lstAnsvar = MigrationEngine.GetSourceFilesFromCSV(SHAREPOINT_2_EXCEL_FILEPATH + "Ansvar.csv");
+            List<GenericManualStruct> lstBil = MigrationEngine.GetSourceFilesFromCSV(SHAREPOINT_2_EXCEL_FILEPATH + "Bil.csv");
+            List<GenericManualStruct> lstBPG = MigrationEngine.GetSourceFilesFromCSV(SHAREPOINT_2_EXCEL_FILEPATH + "BPG.csv");
+            List<GenericManualStruct> lstBygning = MigrationEngine.GetSourceFilesFromCSV(SHAREPOINT_2_EXCEL_FILEPATH + "Bygning.csv");
+            List<GenericManualStruct> lstGerningsmand = MigrationEngine.GetSourceFilesFromCSV(SHAREPOINT_2_EXCEL_FILEPATH + "Gerningsmand.csv");
+            List<GenericManualStruct> lstHund = MigrationEngine.GetSourceFilesFromCSV(SHAREPOINT_2_EXCEL_FILEPATH + "Hund.csv");
+            List<GenericManualStruct> lstIndbo = MigrationEngine.GetSourceFilesFromCSV(SHAREPOINT_2_EXCEL_FILEPATH + "Indbo.csv");
+            List<GenericManualStruct> lstPersonskade = MigrationEngine.GetSourceFilesFromCSV(SHAREPOINT_2_EXCEL_FILEPATH + "Personskade.csv");
+            List<GenericManualStruct> lstRegres = MigrationEngine.GetSourceFilesFromCSV(SHAREPOINT_2_EXCEL_FILEPATH + "Regres.csv");
+            List<GenericManualStruct> lstRejse = MigrationEngine.GetSourceFilesFromCSV(SHAREPOINT_2_EXCEL_FILEPATH + "Rejse.csv");
+            List<GenericManualStruct> lstRetshjælp = MigrationEngine.GetSourceFilesFromCSV(SHAREPOINT_2_EXCEL_FILEPATH + "Retshjælp.csv");
+            List<GenericManualStruct> lstSanering = MigrationEngine.GetSourceFilesFromCSV(SHAREPOINT_2_EXCEL_FILEPATH + "Sanering.csv");
+            List<GenericManualStruct> lstScalePoint = MigrationEngine.GetSourceFilesFromCSV(SHAREPOINT_2_EXCEL_FILEPATH + "ScalePoint.csv");
+            List<GenericManualStruct> lstSkadeservice = MigrationEngine.GetSourceFilesFromCSV(SHAREPOINT_2_EXCEL_FILEPATH + "Skadeservice.csv");
+
+            List<GenericManualStruct> lstSkybrudsmanual = MigrationEngine.GetSourceFilesFromCSV(SHAREPOINT_2_EXCEL_FILEPATH + "Skybrudsmanual.csv");
+            List<GenericManualStruct> lstBeredskab = MigrationEngine.GetSourceFilesFromCSV(SHAREPOINT_2_EXCEL_FILEPATH + "Beredskab.csv");
+            List<GenericManualStruct> lstStormmanual = MigrationEngine.GetSourceFilesFromCSV(SHAREPOINT_2_EXCEL_FILEPATH + "Stormmanual.csv");
+            List<GenericManualStruct> lstStorskade = MigrationEngine.GetSourceFilesFromCSV(SHAREPOINT_2_EXCEL_FILEPATH + "Storskade.csv");
+
+
+            L.Add(lstAnsvar);
+            L.Add(lstBil);
+            L.Add(lstBPG);
+            L.Add(lstBygning);
+            L.Add(lstGerningsmand);
+            L.Add(lstHund);
+            L.Add(lstIndbo);
+            L.Add(lstPersonskade);
+            L.Add(lstRegres);
+            L.Add(lstRejse);
+            L.Add(lstRetshjælp);
+            L.Add(lstSanering);
+            L.Add(lstScalePoint);
+            L.Add(lstSkadeservice);
+            L.Add(lstSkybrudsmanual);
+            L.Add(lstBeredskab);
+            L.Add(lstStormmanual);
+            L.Add(lstStorskade);
+
+            string newFilenamePrefix = string.Empty;
+            lstCreateModernPagesLog.Add("Filnavn;Gruppe;Undergruppe;Branche;Status");
+            foreach (List<GenericManualStruct> lstManual in L)
+            {
+
+                foreach (GenericManualStruct manual in lstManual)
+                {
+                    if (manual.Branche.Equals(InputFromScreen))
+                    {
+                        if (MigrationEngine.IsPageCoincidence(manual, L))
+                        {
+                            newFilenamePrefix = manual.Branche;
+                        }
+
+                        try
+                        {
+                            MigrationEngine.CreateNewModernPage(ctx, manual, newFilenamePrefix + manual.FileName);
+                            lstCreateModernPagesLog.Add(string.Format("{0};{1};{2};{3};{4}",
+                                                        manual.FileName,
+                                                        manual.Gruppe,
+                                                        manual.UnderGruppe,
+                                                        manual.Branche,
+                                                        "Success"));
+                        }
+                        catch (Exception ex )
+                        {
+
+                            lstCreateModernPagesLog.Add(string.Format("{0};{1};{2};{3};{4}",
+                                                        manual.FileName,
+                                                        manual.Gruppe,
+                                                        manual.UnderGruppe,
+                                                        manual.Branche,
+                                                        "Error"));
+                        }
+                        finally
+                        {
+                            newFilenamePrefix = string.Empty;
+                        }
+
+
+                    }
+                }
+
+            }
+            System.IO.File.WriteAllLines(@"C:\Git\LBIntranet\SPOApp\SPOApp\SPOApp\importfiles\CreateModernPagesLog\log_"+InputFromScreen+".csv", lstCreateModernPagesLog.ToArray(),Encoding.UTF8);
+            Console.WriteLine(DateTime.Now.ToShortTimeString());
+            Console.ReadLine();
+            return;
             string logFileName = "";
             string errorFileName = "";
 
-            string targetSiteUrl = "https://lbforsikring.sharepoint.com/sites/skade";
-            ClientContext ctx = SPOUtility.Authenticate(targetSiteUrl, "admnicd@lb.dk", "MandM5555");
 
 
             System.Diagnostics.Debugger.Launch();
@@ -304,7 +555,7 @@ namespace SPOApp
                 Console.WriteLine("Bil [19]");
                 string choice = Console.ReadLine();
 
-                //Console.WriteLine("Find obscure and empty content  ex. 'false,1,1' and '<p>a</p>' and '<p>v</p>' string [1]");
+                Console.WriteLine("Find obscure and empty content  ex. 'false,1,1' and '<p>a</p>' and '<p>v</p>' string [1]");
                 Console.WriteLine("Output links to screen[2]");
                 Console.WriteLine("Migrate links [3]");
                 string featureToRun = Console.ReadLine();
@@ -375,6 +626,7 @@ namespace SPOApp
                 }
                 else if (choice == "10")
                 {
+                    manualTaxDisplayname = "Retshjælp";
                     //ctName = "RetshjælpManual";
                     branchLibraryName = "Retshjlp";
                     documentLibrarySearchString = "skade/hb/retshj/delte";
@@ -394,6 +646,7 @@ namespace SPOApp
                 else if (choice == "13")
                 {
                     //ctName = "PersonskadeManual";
+                    manualTaxDisplayname = "Personskade";
                     branchLibraryName = "Personskade";
                     documentLibrarySearchString = "skade/hb/person/delte";
                 }
@@ -444,7 +697,7 @@ namespace SPOApp
 
                 if (featureToRun == "1")
                 {
-                    logFileName = branchLibraryName + "_CheckForObscurityLOG.txt";
+                    logFileName = branchLibraryName + "_CheckForObscurity.txt";
                     errorFileName = branchLibraryName + "_CheckForObscurityERROR.txt";
                     parsingFeature = ParsingFeature.CheckForObscurity;
                 }
@@ -496,7 +749,7 @@ namespace SPOApp
                                 if (IsPageCoincidence(tmpFileNameFromLink.Substring(tmpFileNameFromLink.LastIndexOf('/') + 1)) != null)
                                 {
                                     coincidenceInLink = true;
-                                    }
+                                }
                                 else
                                 {
                                     coincidenceInLink = false;
@@ -540,7 +793,7 @@ namespace SPOApp
                                         ClientSideText t = (ClientSideText)control;
                                         if (parsingFeature == ParsingFeature.CheckForObscurity)
                                         {
-                                            LinksUtility.FindObscureText(t.Text, fileName);
+                                            FindObscureText(t.Text, fileName);
 
                                         }
                                         else if (parsingFeature == ParsingFeature.OutputLinksToScreen)
@@ -584,10 +837,12 @@ namespace SPOApp
 
                 SPOUtility.CheckInAllDocuments(ctx, "Webstedssider");
             }
-            
-            System.IO.File.WriteAllLines(@"C:\Git\LBIntranet\SPOApp\SPOApp\SPOApp\logfiles\" + logFileName, lstLog.ToArray());
+
+            //System.IO.File.WriteAllLines(@"C:\Git\LBIntranet\SPOApp\SPOApp\SPOApp\logfiles\" + logFileName, lstLog.ToArray());
 
             System.IO.File.WriteAllLines(OUTPUT_LINKS_IN_PAGES_FILEPATH + logFileName, lstOutputLinksInPages.ToArray());
+            System.IO.File.WriteAllLines(OBSCURITIES_IN_FILES_FILEPATH + logFileName, lstLog.ToArray());
+
             //System.IO.File.WriteAllLines(@"C:\Git\LBIntranet\SPOApp\SPOApp\SPOApp\logfiles\" + errorFileName, lstError.ToArray());
             //ORG LinksUtility.CheckForLinks(ctx, sitePagesLibrary, ctName, featureToRun);
 
@@ -611,10 +866,10 @@ namespace SPOApp
                     {
                         ClientSideText t = (ClientSideText)control;
                         string s = t.Text;
-                        
+
                         //Replace link
-                        string newPageText=Uri.UnescapeDataString(t.Text).Replace(Uri.UnescapeDataString(file.OriginalLink), Uri.UnescapeDataString("https://lbforsikring.sharepoint.com/sites/Skade" + file.NewLink));
-                        
+                        string newPageText = Uri.UnescapeDataString(t.Text).Replace(Uri.UnescapeDataString(file.OriginalLink), Uri.UnescapeDataString("https://lbforsikring.sharepoint.com/sites/Skade" + file.NewLink));
+
                         //Replace filename
                         if (linkToCoincidenceFile)
                         {
@@ -640,16 +895,16 @@ namespace SPOApp
 
             Regex regex = new Regex("href\\s*=\\s*(?:\"(?<1>[^\"]*)\"|(?<1>\\S+))", RegexOptions.IgnoreCase);
             Match match;
-            
+
             for (match = regex.Match(input); match.Success; match = match.NextMatch())
             {
-                
+
                 foreach (System.Text.RegularExpressions.Capture capture in match.Captures)
                 {
                     lstOutputLinksInPages.Add(fileName + ";N/A;" + capture + ";N/A");
                 }
             }
-            
+
 
 
         }
@@ -688,9 +943,9 @@ namespace SPOApp
 
 
         //}
-      
-        
-        
+
+
+
         /// <summary>
         /// ORG
         /// </summary>
@@ -826,7 +1081,7 @@ namespace SPOApp
         //}
 
 
-            
+
         private static void StartCreatingModernPages(bool? repair)
         {
             string branchImageUrl = "";
@@ -926,7 +1181,7 @@ namespace SPOApp
             else if (branch == "10")
             {
                 branchImageUrl = @"https://lbforsikring.sharepoint.com/sites/skade/SiteAssets/ikoner/personskade.png";
-                
+
                 manualTaxFieldValue = "Personskade";
                 g.ContentTypeName = "PersonskadeManual";
                 g.SourceLibrary = "PersonskadeWebsider";
@@ -941,6 +1196,8 @@ namespace SPOApp
             }
             else if (branch == "12")
             {
+                branchImageUrl = @"https://lbforsikring.sharepoint.com/sites/skade/SiteAssets/ikoner/retshjælp.png";
+                manualTaxFieldValue = "Retshjælp";
                 g.ContentTypeName = "RetshjælpManual";
                 g.SourceLibrary = "RetshjaelpWebsider";
             }
@@ -992,7 +1249,7 @@ namespace SPOApp
             }
             #endregion
 
-            
+
 
             List<GenericManualProperies> manuals;
             //if (repair == true)
@@ -1003,8 +1260,8 @@ namespace SPOApp
             //{
             //    manuals = GenericManual.GetSourceFiles(ctx, g);
             //}
-            
-            manuals = GenericManual.GetSourceFilesFromCSV(string.Format(importFile,manualTaxFieldValue)); 
+
+            manuals = GenericManual.GetSourceFilesFromCSV(string.Format(importFile, manualTaxFieldValue));
 
 
             int counter = 1;
@@ -1084,6 +1341,7 @@ namespace SPOApp
                     page.AddControl(imageWebPart, section.Columns[1], 0);
                     page.Save();
                     page.Publish();
+
                     //ctx.ExecuteQuery();
 
                     counter++;

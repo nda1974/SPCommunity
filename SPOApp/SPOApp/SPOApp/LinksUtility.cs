@@ -101,96 +101,96 @@ namespace SPOApp
 
 
 
-        public static void RunFeature(ClientContext context, string sitePagesLibraryTitle, ParsingFeature parsingFeature, string documentLibrarySearchString, string branchLibraryName, string manualDisplayName)
-        {
-            ListItemCollection collListItem = GetManualsFromSitePages(context, sitePagesLibraryTitle, manualDisplayName);
+        //public static void RunFeature(ClientContext context, string sitePagesLibraryTitle, ParsingFeature parsingFeature, string documentLibrarySearchString, string branchLibraryName, string manualDisplayName)
+        //{
+        //    ListItemCollection collListItem = GetManualsFromSitePages(context, sitePagesLibraryTitle, manualDisplayName);
 
-            int counter = 0;
-            string fileName = "";
-            foreach (ListItem oListItem in collListItem)
-            {
-                counter++;
-                Console.WriteLine(counter + " of " + collListItem.Count);
+        //    int counter = 0;
+        //    string fileName = "";
+        //    foreach (ListItem oListItem in collListItem)
+        //    {
+        //        counter++;
+        //        Console.WriteLine(counter + " of " + collListItem.Count);
 
-                fileName = oListItem["FileRef"].ToString();
-
-
-                fileName = fileName.Substring(fileName.LastIndexOf('/') + 1);
-                //fileName="Forretningsgange og retningslinier - Forlængelser hos Selandia.aspx";
-                ClientSidePage P = ClientSidePage.Load(context, fileName);
-                foreach (CanvasSection section in P.Sections)
-                {
-                    try
-                    {
-                        foreach (CanvasControl control in section.Controls)
-                        {
-                            if (control.Type.Name == "ClientSideText")
-                            {
-                                ClientSideText t = (ClientSideText)control;
-                                if (parsingFeature == ParsingFeature.CheckForObscurity)
-                                {
-                                    FindObscureText(t.Text, fileName);
-
-                                }
-                                else if (parsingFeature == ParsingFeature.OutputLinksToScreen)
-                                {
-                                    OutputLinksToScreen(fileName, t.Text, branchLibraryName, documentLibrarySearchString);
-
-                                }
-                                else if (parsingFeature == ParsingFeature.MigrateLinks)
-                                {
-                                    var res = TraverseHyperLinks(fileName, t.Text, branchLibraryName, documentLibrarySearchString);
-                                    t.Text = res;
-                                    P.Save();
-                                    P.Publish();
-                                }
-                            }
-                        }
-                    }
-                    catch (Exception)
-                    {
-
-                        Console.ForegroundColor = ConsoleColor.Red;
-                        Console.WriteLine("------------------------------------------");
-                        Console.WriteLine(fileName);
-                        Console.WriteLine("------------------------------------------");
-
-                        Console.ForegroundColor = ConsoleColor.White;
-                        //throw;
-                    }
-
-                }
+        //        fileName = oListItem["FileRef"].ToString();
 
 
+        //        fileName = fileName.Substring(fileName.LastIndexOf('/') + 1);
+        //        //fileName="Forretningsgange og retningslinier - Forlængelser hos Selandia.aspx";
+        //        ClientSidePage P = ClientSidePage.Load(context, fileName);
+        //        foreach (CanvasSection section in P.Sections)
+        //        {
+        //            try
+        //            {
+        //                foreach (CanvasControl control in section.Controls)
+        //                {
+        //                    if (control.Type.Name == "ClientSideText")
+        //                    {
+        //                        ClientSideText t = (ClientSideText)control;
+        //                        if (parsingFeature == ParsingFeature.CheckForObscurity)
+        //                        {
+        //                            FindObscureText(t.Text, fileName);
 
-            }
+        //                        }
+        //                        else if (parsingFeature == ParsingFeature.OutputLinksToScreen)
+        //                        {
+        //                            OutputLinksToScreen(fileName, t.Text, branchLibraryName, documentLibrarySearchString);
+
+        //                        }
+        //                        else if (parsingFeature == ParsingFeature.MigrateLinks)
+        //                        {
+        //                            var res = TraverseHyperLinks(fileName, t.Text, branchLibraryName, documentLibrarySearchString);
+        //                            t.Text = res;
+        //                            P.Save();
+        //                            P.Publish();
+        //                        }
+        //                    }
+        //                }
+        //            }
+        //            catch (Exception)
+        //            {
+
+        //                Console.ForegroundColor = ConsoleColor.Red;
+        //                Console.WriteLine("------------------------------------------");
+        //                Console.WriteLine(fileName);
+        //                Console.WriteLine("------------------------------------------");
+
+        //                Console.ForegroundColor = ConsoleColor.White;
+        //                //throw;
+        //            }
+
+        //        }
 
 
-            System.IO.File.AppendAllLines(@"C:\Git\LBIntranet\SPOApp\SPOApp\SPOApp\logfiles\linksInManuals.csv", strLog.ToArray(), Encoding.UTF8);
-            Console.WriteLine("Links counter: " + counter);
 
-        }
-
-        public static void CheckForLinks(ClientContext context, string sitePagesLibraryTitle, ParsingFeature parsingFeature, string documentLibrarySearchString,string branchLibraryName,string manualDisplayName)
-        {
-            ListItemCollection collListItem = GetManualsFromSitePages(context, sitePagesLibraryTitle, manualDisplayName);
-
-            int counter = 0;
-            string fileName = "";
-            foreach (ListItem oListItem in collListItem)
-            {
-                counter++;
-                Console.WriteLine(counter + " of " + collListItem.Count);
-
-                fileName = oListItem["FileRef"].ToString();
-                ParseManualPages(context, fileName, branchLibraryName, documentLibrarySearchString, parsingFeature);
-            }
+        //    }
 
 
-            System.IO.File.AppendAllLines(@"C:\Git\LBIntranet\SPOApp\SPOApp\SPOApp\logfiles\linksInManuals.csv", strLog.ToArray(), Encoding.UTF8);
-            Console.WriteLine("Links counter: " + counter);
+        //    System.IO.File.AppendAllLines(@"C:\Git\LBIntranet\SPOApp\SPOApp\SPOApp\logfiles\linksInManuals.csv", strLog.ToArray(), Encoding.UTF8);
+        //    Console.WriteLine("Links counter: " + counter);
 
-        }
+        //}
+
+        //public static void CheckForLinks(ClientContext context, string sitePagesLibraryTitle, ParsingFeature parsingFeature, string documentLibrarySearchString,string branchLibraryName,string manualDisplayName)
+        //{
+        //    ListItemCollection collListItem = GetManualsFromSitePages(context, sitePagesLibraryTitle, manualDisplayName);
+
+        //    int counter = 0;
+        //    string fileName = "";
+        //    foreach (ListItem oListItem in collListItem)
+        //    {
+        //        counter++;
+        //        Console.WriteLine(counter + " of " + collListItem.Count);
+
+        //        fileName = oListItem["FileRef"].ToString();
+        //        ParseManualPages(context, fileName, branchLibraryName, documentLibrarySearchString, parsingFeature);
+        //    }
+
+
+        //    System.IO.File.AppendAllLines(@"C:\Git\LBIntranet\SPOApp\SPOApp\SPOApp\logfiles\linksInManuals.csv", strLog.ToArray(), Encoding.UTF8);
+        //    Console.WriteLine("Links counter: " + counter);
+
+        //}
         /// <summary>
         /// 
         /// </summary>
@@ -229,107 +229,110 @@ namespace SPOApp
             return collListItem;
         }
 
-        private static void AnalyzeFile(ClientContext context, string fileName, string branchLibraryName, string documentLibrarySearchString)
-        {
-            fileName = fileName.Substring(fileName.LastIndexOf('/') + 1);
-            ClientSidePage P = ClientSidePage.Load(context, fileName);
-            foreach (CanvasSection section in P.Sections)
-            {
+        //private static void AnalyzeFile(ClientContext context, string fileName, string branchLibraryName, string documentLibrarySearchString)
+        //{
+        //    fileName = fileName.Substring(fileName.LastIndexOf('/') + 1);
+        //    ClientSidePage P = ClientSidePage.Load(context, fileName);
+        //    foreach (CanvasSection section in P.Sections)
+        //    {
 
-                foreach (CanvasControl control in section.Controls)
-                {
-                    if (control.Type.Name == "ClientSideText")
-                    {
-                        ClientSideText t = (ClientSideText)control;
-                        //test(t.Text, fileName);
-                        FindObscureText(t.Text, fileName);
-                        //var res = TraverseHyperLinks(fileName, t.Text, branchLibraryName, documentLibrarySearchString);
-                        //t.Text = res;
-                    }
-                }
-            }
-            //P.Save();
-            //P.Publish();
+        //        foreach (CanvasControl control in section.Controls)
+        //        {
+        //            if (control.Type.Name == "ClientSideText")
+        //            {
+        //                ClientSideText t = (ClientSideText)control;
+        //                //test(t.Text, fileName);
+        //                FindObscureText(t.Text, fileName);
+        //                //var res = TraverseHyperLinks(fileName, t.Text, branchLibraryName, documentLibrarySearchString);
+        //                //t.Text = res;
+        //            }
+        //        }
+        //    }
+        //    //P.Save();
+        //    //P.Publish();
 
-        }
-        private static void ParseManualPages(ClientContext context, string fileName, string branchLibraryName, string documentLibrarySearchString, ParsingFeature parsingFeature)
-        {
-            List<string> errors = new List<string>();
-            try
-            {
+        //}
+        //private static void ParseManualPages(ClientContext context, string fileName, string branchLibraryName, string documentLibrarySearchString, ParsingFeature parsingFeature)
+        //{
+        //    List<string> errors = new List<string>();
+        //    try
+        //    {
 
             
-            fileName = fileName.Substring(fileName.LastIndexOf('/') + 1);
-            //fileName="Forretningsgange og retningslinier - Forlængelser hos Selandia.aspx";
-            ClientSidePage P = ClientSidePage.Load(context, fileName);
-            foreach (CanvasSection section in P.Sections)
-            {
-                try
-                {
-                    foreach (CanvasControl control in section.Controls)
-                    {
-                        if (control.Type.Name == "ClientSideText")
-                        {
-                            ClientSideText t = (ClientSideText)control;
-                            if (parsingFeature == ParsingFeature.CheckForObscurity)
-                            {
-                                FindObscureText(t.Text, fileName);
+        //    fileName = fileName.Substring(fileName.LastIndexOf('/') + 1);
+        //    //fileName="Forretningsgange og retningslinier - Forlængelser hos Selandia.aspx";
+        //    ClientSidePage P = ClientSidePage.Load(context, fileName);
+        //    foreach (CanvasSection section in P.Sections)
+        //    {
+        //        try
+        //        {
+        //            foreach (CanvasControl control in section.Controls)
+        //            {
+        //                if (control.Type.Name == "ClientSideText")
+        //                {
+        //                    ClientSideText t = (ClientSideText)control;
+        //                    if (parsingFeature == ParsingFeature.CheckForObscurity)
+        //                    {
+        //                        FindObscureText(t.Text, fileName);
 
-                            }
-                            else if (parsingFeature == ParsingFeature.OutputLinksToScreen)
-                            {
-                                OutputLinksToScreen(fileName, t.Text, branchLibraryName, documentLibrarySearchString);
+        //                    }
+        //                    else if (parsingFeature == ParsingFeature.OutputLinksToScreen)
+        //                    {
+        //                        OutputLinksToScreen(fileName, t.Text, branchLibraryName, documentLibrarySearchString);
 
-                            }
-                            else if (parsingFeature == ParsingFeature.MigrateLinks)
-                            {
-                                var res = TraverseHyperLinks(fileName, t.Text, branchLibraryName, documentLibrarySearchString);
-                                t.Text = res;
-                                P.Save();
-                                P.Publish();
-                            }
-                        }
-                    }
-                }
-                catch (Exception)
-                {
+        //                    }
+        //                    else if (parsingFeature == ParsingFeature.MigrateLinks)
+        //                    {
+        //                        var res = TraverseHyperLinks(fileName, t.Text, branchLibraryName, documentLibrarySearchString);
+        //                        t.Text = res;
+        //                        P.Save();
+        //                        P.Publish();
+        //                    }
+        //                }
+        //            }
+        //        }
+        //        catch (Exception)
+        //        {
 
-                    Console.ForegroundColor = ConsoleColor.Red;
-                    Console.WriteLine("------------------------------------------");
-                    Console.WriteLine(fileName);
-                    Console.WriteLine("------------------------------------------");
+        //            Console.ForegroundColor = ConsoleColor.Red;
+        //            Console.WriteLine("------------------------------------------");
+        //            Console.WriteLine(fileName);
+        //            Console.WriteLine("------------------------------------------");
 
-                    Console.ForegroundColor = ConsoleColor.White;
-                    //throw;
-                }
+        //            Console.ForegroundColor = ConsoleColor.White;
+        //            //throw;
+        //        }
 
-            }
-            }
-            catch (Exception ex)
-            {
-                errors.Add(fileName + ";" + ex);
-                System.IO.File.WriteAllLines(@"C:\Git\LBIntranet\SPOApp\SPOApp\SPOApp\logfiles\errors.txt", errors.ToArray());
+        //    }
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        errors.Add(fileName + ";" + ex);
+        //        System.IO.File.WriteAllLines(@"C:\Git\LBIntranet\SPOApp\SPOApp\SPOApp\logfiles\errors.txt", errors.ToArray());
 
-            }
-            System.IO.File.WriteAllLines(@"C:\Git\LBIntranet\SPOApp\SPOApp\SPOApp\logfiles\bla.txt", strLog.ToArray());
-        }
+        //    }
+        //    System.IO.File.WriteAllLines(@"C:\Git\LBIntranet\SPOApp\SPOApp\SPOApp\logfiles\bla.txt", strLog.ToArray());
+        //}
         /// <summary>
         /// Feature = 1
         /// </summary>
         /// <param name="content"></param>
         /// <param name="fileName"></param>
-        public static void FindObscureText(string content, string fileName)
-        {
-            if (content.Contains("false,false,1") ||
-                content.Contains("<p>a</p>") ||
-                content.Contains("<p>v</p>") ||
-                content.Contains("[TODO]") ||
-                content.Length < 50)
-            {
-                strLog.Add(fileName + ";" + string.Empty);
-                Console.WriteLine(fileName);
-            }
-        }
+        //public static void FindObscureText(string content, string fileName)
+        //{
+        //    if (content.Contains("false,false,1") ||
+        //        content.Contains("<p>a</p>") ||
+        //        content.Contains("<p>v</p>") ||
+        //        content.Contains("[TODO]") ||
+        //        content.Length < 50)
+        //    {
+        //        Console.ForegroundColor = ConsoleColor.Yellow;
+                
+        //        strLog.Add(fileName + ";" + string.Empty);
+        //        Console.WriteLine(fileName);
+        //        Console.ForegroundColor = ConsoleColor.White;
+        //    }
+        //}
         /// <summary>
         /// Feature = 2
         /// </summary>
