@@ -252,7 +252,7 @@ function GetFilePrefix{
 function Run($startIndex)
 {
     ################### Kør denne funktion når der skal genereres en ny coincidence fil ###############
-    $coincidenceList=BuildCoincidenceList
+    #$coincidenceList=BuildCoincidenceList
     ###################################################################################################
     
     $coincidenceInFilespages = Import-Csv -Path 'C:\Git\LBIntranet\SPOApp\SPOApp\SPOApp\importfiles\CoincidenceFile\coincidence.csv' -Encoding UTF8 -Delimiter ';'
