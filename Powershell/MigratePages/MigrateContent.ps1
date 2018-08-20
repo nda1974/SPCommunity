@@ -362,13 +362,13 @@ function Run($startIndex)
     }
     while (!$branchSiteUrl )
 
-    try{
+   
     #Læser csv filen på baggrund af input fra konsollen
     $importFileName = [string]::Format("C:\Git\LBIntranet\SPOApp\SPOApp\SPOApp\importfiles\SharePoint2Excel\{0}{1}", $branch, ".csv") 
     $files = Import-Csv -Path $importFileName -Encoding UTF8 -Delimiter ';' 
     
     $sw = [Diagnostics.Stopwatch]::StartNew()
-    
+    $stuff = @();
     $files |foreach-object {
         
         $i=$i+1;
@@ -378,46 +378,39 @@ function Run($startIndex)
         Write-Host “Url :”  $currentFileName -ForegroundColor Yellow
         Write-Host ""
 
-            if($i -ge $startIndex){
-                #ProcesFile -branchSiteUrl $branchSiteUrl -fileName $currentFileName -coincidenceFileNamePrefix $coincidenceFilenamePrefix
-                try{
-                        $url = [uri]::EscapeDataString($currentFileName)
+        try{
+                $url = [uri]::EscapeDataString($currentFileName)
                         
-                        $sourceUrl= $branchSiteUrl + $url;
+                $sourceUrl= $branchSiteUrl + $url;
                         
-                        #Henter coincidence prefix
-                        $coincidenceFileNamePrefix = GetFilePrefix -CurrentFile $_ -CoincidenceInFilesList $coincidenceInFilespages
-                        Write-Host 'Coincidence' $coincidenceFileNamePrefix
-                        $targetUrl= "https://lbforsikring.sharepoint.com/sites/Skade/SitePages/" + $coincidenceFileNamePrefix + $url ;
-            
-                        GetSourceFile -url $sourceUrl 
-                        GetTargetFile -url $targetUrl 
+                #Henter coincidence prefix
+                $coincidenceFileNamePrefix = GetFilePrefix -CurrentFile $_ -CoincidenceInFilesList $coincidenceInFilespages
+                Write-Host 'Coincidence' $coincidenceFileNamePrefix
+                $targetUrl= "https://lbforsikring.sharepoint.com/sites/Skade/SitePages/" + $coincidenceFileNamePrefix + $url ;
+                        
+                GetSourceFile -url $sourceUrl 
+                GetTargetFile -url $targetUrl 
                     
-                }
-                catch{
-                        Write-Host  $fileName " - "$($PSItem.ToString()) -ForegroundColor Magenta
-                        "ERROR - Page"  +  $fileName  | Out-File C:\Git\LBIntranet\Powershell\MigratePages\LogFiles\Errors.txt -Append
-                        "ERROR - Cause"  +  $($PSItem.ToString()) | Out-File C:\Git\LBIntranet\Powershell\MigratePages\LogFiles\Errors.txt -Append
-                        "ERROR - #############################"| Out-File C:\Git\LBIntranet\Powershell\MigratePages\LogFiles\Errors.txt -Append
-                        throw $_.Exception
-                }
-            }
+        }
+        catch{
+                Write-Host  $fileName " - "$($PSItem.ToString()) -ForegroundColor Red
+        }
+        finally{
+                
+        
+                $obj = new-object PSObject
+                $obj | add-member -membertype NoteProperty -name 'Filnavn' -value $page.Filnavn
+                $obj | add-member -membertype NoteProperty -name 'Gruppe' -value $page.Gruppe
+                $obj | add-member -membertype NoteProperty -name 'Undergruppe' -value $page.Undergruppe
+                $obj | add-member -membertype NoteProperty -name 'Branche' -value $page.Branche
+                $stuff += $obj
+         
         }
     }
-    catch{
-        $currentFileName | Out-File C:\Git\LBIntranet\Powershell\MigratePages\LogFiles\FilesWithErrors.txt -Append            
-        "Restart at index  - $i" | Out-File C:\Git\LBIntranet\Powershell\MigratePages\LogFiles\FilesWithErrors.txt -Append     
-        Start-Sleep -Seconds 2
-        if ($files.count -ge $i) {
-            Run -startIndex $i    
-        }       
-    }
-    finally{
-        #if ($files.count -ge $i) {
-         #   Run -startIndex $i    
-        #}
-        
-    }
+    
+
+    $logFileName = [string]::Format("'C:\Git\LBIntranet\SPOApp\SPOApp\SPOApp\importfiles\ContentMigration\{0}{1}", $branch, ".csv") 
+    $stuff | export-csv $logFileName -notypeinformation -Encoding UTF8 -Delimiter ';'
 }
 
 #----------------- Start -----------------#

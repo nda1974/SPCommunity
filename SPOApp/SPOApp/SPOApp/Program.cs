@@ -236,6 +236,8 @@ namespace SPOApp
                     return @"https://lbforsikring.sharepoint.com/sites/Skade/SiteAssets/ikoner/rejse.png";
                 case "Regres":
                     return @"https://lbforsikring.sharepoint.com/sites/Skade/SiteAssets/ikoner/regres.png";
+                case "Storskade":
+                    return @"https://lbforsikring.sharepoint.com/sites/Skade/SiteAssets/ikoner/Storskade.png";
                 default:
                     return string.Empty;
             }

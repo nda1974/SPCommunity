@@ -25,7 +25,7 @@ Function Restore-PreviousVersion()
 
 
         #Get all items from the list/library
-        $query= [string]::Format("<View><Query><OrderBy><FieldRef Name='Title' Ascending='FALSE'/></OrderBy><Where><Eq><FieldRef Name='H_x00e5_ndbog'/><Value Type='Text'>{0}</Value></Eq></Where></Query></View>", "Indbo") 
+        $query= [string]::Format("<View><Query><OrderBy><FieldRef Name='Title' Ascending='FALSE'/></OrderBy><Where><Eq><FieldRef Name='H_x00e5_ndbog'/><Value Type='Text'>{0}</Value></Eq></Where></Query></View>", "Bil") 
 
         $listItems=Get-PnPListItem -List $List -Query $query
         
@@ -40,15 +40,24 @@ Function Restore-PreviousVersion()
         $Ctx.Load($fileVersions)
         $Ctx.ExecuteQuery()
         If($fileVersions.Count -gt 0){
-        Write-Host -f Green $file.Title
-            
-                $versionLabel=$fileVersions[$fileVersions.Count - 1].VersionLabel 
-                $versionLabel = '1.0'
-                $fileVersions.RestoreByLabel($versionLabel)
-                $Ctx.ExecuteQuery()
-                $file.Publish('Published by PowerShell')
-                $ctx.ExecuteQuery()
-                Write-Host -f Green "Previous version $VersionLabel Restored on :" $file.Name
+            Write-Host -f Green $file.Title
+            foreach ($version in $fileVersions)
+            {
+                if($version.IsCurrentVersion -eq $false){
+                    Write-Host -f Red $version.VersionLabel 
+                }
+                else{
+                    Write-Host -f Green $version.VersionLabel
+                }
+                
+            }
+            $versionLabel=$fileVersions[$fileVersions.Count - 1].VersionLabel 
+            $versionLabel = '1.0'
+            $fileVersions.RestoreByLabel($versionLabel)
+            #$Ctx.ExecuteQuery()
+            #$file.Publish('Published by PowerShell')
+            #$ctx.ExecuteQuery()
+            Write-Host -f Green "Previous version $VersionLabel Restored on :" $file.Name
             
             
         }
