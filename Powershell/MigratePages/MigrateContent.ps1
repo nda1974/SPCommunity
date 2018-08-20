@@ -408,8 +408,9 @@ function Run($startIndex)
     }
     
 
-    $logFileName = [string]::Format("C:\Git\LBIntranet\SPOApp\SPOApp\SPOApp\importfiles\ContentMigration\{0}{1}", $branch, ".csv") 
-    $stuff | export-csv $logFileName -notypeinformation -Encoding UTF8 -Delimiter ';'
+    
+    $stuff | export-csv 'C:\Git\LBIntranet\SPOApp\SPOApp\SPOApp\importfiles\ContentMigration\coontent.csv' -notypeinformation -Encoding UTF8 -Delimiter ';'
+    
 }
 
 #----------------- Start -----------------#
