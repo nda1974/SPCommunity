@@ -409,7 +409,7 @@ function Run($startIndex)
     
 
     
-    $stuff | export-csv 'C:\Git\LBIntranet\SPOApp\SPOApp\SPOApp\importfiles\ContentMigration\content.csv' -notypeinformation -Encoding UTF8 -Delimiter ';'
+    $stuff | export-csv "C:\Git\LBIntranet\SPOApp\SPOApp\SPOApp\importfiles\ContentMigration\content.csv" -notypeinformation -Encoding UTF8 -Delimiter ';'
     
 }
 
