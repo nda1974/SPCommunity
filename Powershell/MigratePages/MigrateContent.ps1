@@ -389,26 +389,34 @@ function Run($startIndex)
                         
                 GetSourceFile -url $sourceUrl 
                 GetTargetFile -url $targetUrl 
-                    
+                $obj = new-object PSObject
+                $obj | add-member -membertype NoteProperty -name 'Filnavn' -value $_.Filnavn
+                $obj | add-member -membertype NoteProperty -name 'Gruppe' -value $_.Gruppe
+                $obj | add-member -membertype NoteProperty -name 'Undergruppe' -value $_.Undergruppe
+                $obj | add-member -membertype NoteProperty -name 'Branche' -value $_.Branche
+                $obj | add-member -membertype NoteProperty -name 'Status' -value 'Success'
+                $stuff += $obj            
         }
         catch{
                 Write-Host  $fileName " - "$($PSItem.ToString()) -ForegroundColor Red
-        }
-        finally{
-                
-        
                 $obj = new-object PSObject
-                $obj | add-member -membertype NoteProperty -name 'Filnavn' -value $page.Filnavn
-                $obj | add-member -membertype NoteProperty -name 'Gruppe' -value $page.Gruppe
-                $obj | add-member -membertype NoteProperty -name 'Undergruppe' -value $page.Undergruppe
-                $obj | add-member -membertype NoteProperty -name 'Branche' -value $page.Branche
+                $obj | add-member -membertype NoteProperty -name 'Filnavn' -value $_.Filnavn
+                $obj | add-member -membertype NoteProperty -name 'Gruppe' -value $_.Gruppe
+                $obj | add-member -membertype NoteProperty -name 'Undergruppe' -value $_.Undergruppe
+                $obj | add-member -membertype NoteProperty -name 'Branche' -value $_.Branche
+                $obj | add-member -membertype NoteProperty -name 'Error' -value $_.Branche
                 $stuff += $obj
-         
         }
+        
     }
     
 
     
+
+
+
+
+
     $stuff | export-csv "C:\Git\LBIntranet\SPOApp\SPOApp\SPOApp\importfiles\ContentMigration\content.csv" -notypeinformation -Encoding UTF8 -Delimiter ';'
     
 }
