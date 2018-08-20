@@ -53,7 +53,7 @@ Function Restore-PreviousVersion()
             }
             $versionLabel=$fileVersions[$fileVersions.Count - 1].VersionLabel 
             $versionLabel = '1.0'
-            $fileVersions.RestoreByLabel($versionLabel)
+            #$fileVersions.RestoreByLabel($versionLabel)
             #$Ctx.ExecuteQuery()
             #$file.Publish('Published by PowerShell')
             #$ctx.ExecuteQuery()

@@ -97,7 +97,6 @@ function GetSourceFile($url)
     finally{
         $IE = ConnectIExplorer -HWND $HWND -ShowPage $false
         $IE.Quit();
-        #Exit-PSSession 
     }
 }
 #function GetTargetFile($url,$IE2)
@@ -409,7 +408,7 @@ function Run($startIndex)
     }
     
 
-    $logFileName = [string]::Format("'C:\Git\LBIntranet\SPOApp\SPOApp\SPOApp\importfiles\ContentMigration\{0}{1}", $branch, ".csv") 
+    $logFileName = [string]::Format("C:\Git\LBIntranet\SPOApp\SPOApp\SPOApp\importfiles\ContentMigration\{0}{1}", $branch, ".csv") 
     $stuff | export-csv $logFileName -notypeinformation -Encoding UTF8 -Delimiter ';'
 }
 
