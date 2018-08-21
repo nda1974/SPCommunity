@@ -13,7 +13,7 @@ import { Layer,LayerHost  } from 'office-ui-fabric-react/lib/Layer';
 export interface ITickerItemProps {
   title: string;
   description: string;
-  severity: string;
+  severity: number;
   showInfoPanel: boolean;
 }
 
@@ -41,7 +41,7 @@ export default class TickerItem extends React.Component<ITickerItemProps, ITicke
     return (((1+Math.random())*0x10000)|0).toString(16).substring(1); 
 }
   public render(): React.ReactElement<ITickerItemProps> {
-    let nmbMessageBarType = this.props.severity=='Høj' ? 1 : this.props.severity=='Middel' ? 5 : 0;
+    let isMessageSevere = this.props.severity==1 ? true : false;
     const g = this._newGuid();
     const content = (
       <div >
@@ -49,19 +49,10 @@ export default class TickerItem extends React.Component<ITickerItemProps, ITicke
         <i className="ms-Icon ms-Icon--Info" aria-hidden="true"></i>
       </div>
     );
-    nmbMessageBarType=5;
+    
     return (
-      <div className={styles.MyMessageBar} onClick={this._showInfoPanel.bind(this)}>
+      <div className={isMessageSevere==true ? styles.Alert : styles.Warning} onClick={this._showInfoPanel.bind(this)}>
         
-          {/* <MessageBar messageBarType={nmbMessageBarType}
-                      isMultiline={ false}
-                      >
-            {this.props.title} 
-          </MessageBar> */}
-          {/* <LayerHost id={g}  /> */}
-          {/* <Layer hostId='myHost'>
-            {content} 
-          </Layer>  */}
           <div>
             {content} 
           </div> 

@@ -11,7 +11,7 @@ export interface IInfoPanelProps {
     // 
     title:string;
     description:string;
-    severity:string;
+    severity:number;
     showPanel:boolean;
     toggle:any;
 }

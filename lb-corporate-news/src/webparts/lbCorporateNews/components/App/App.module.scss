@@ -15,23 +15,30 @@ $white: "[theme:white, default:#fff]";
 }
 .NewsItem{    
   
-  @include ms-Grid-col;
-  @include ms-lg3;
-  @include ms-md3;
-  width: 100%;
+  // @include ms-Grid-col;
+  @include ms-lg12;
+  @include ms-md12;
+  // width: 100%;
   height: 350px;
 }
 .FeaturedNewsItems{
-  // @include ms-Grid-row;
-  background-color:red;
+    @include ms-Grid-col;
+  
+    @include ms-lg9;
+    @include ms-md3;
+    @include ms-sm12;
+  // background-color:red;
 }
 .NonFeaturedNewsItemsContainer{
+    @include ms-Grid-col;
+    @include ms-lg3;
+    @include ms-md3;
+    @include ms-sm12;
+  // @include ms-Grid-col;
+  // @include ms-lg3;
+  // @include ms-md3;
   
-  @include ms-Grid-col;
-  @include ms-lg3;
-  @include ms-md3;
-  
-  width: 100%;
+  // width: 100%;
   height: 350px;
   overflow-y: auto;
 }

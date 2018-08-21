@@ -222,6 +222,20 @@ namespace SPOApp
         {
             switch (g.Branche)
             {
+                case "Retshjælp":
+                    return @"https://lbforsikring.sharepoint.com/sites/Skade/SiteAssets/ikoner/Retshjælp.png";
+                case "Gerningsmand":
+                    return @"https://lbforsikring.sharepoint.com/sites/Skade/SiteAssets/ikoner/Gerningsmand.png";
+                case "Hund":
+                    return @"https://lbforsikring.sharepoint.com/sites/Skade/SiteAssets/ikoner/Hund.png";
+                case "Sanering":
+                    return @"https://lbforsikring.sharepoint.com/sites/Skade/SiteAssets/ikoner/Sanering.png";
+                case "BPG":
+                    return @"https://lbforsikring.sharepoint.com/sites/Skade/SiteAssets/ikoner/BilskadePortal.png";
+                case "Skadeservice":
+                    return @"https://lbforsikring.sharepoint.com/sites/Skade/SiteAssets/ikoner/Skadeservice.png";
+                case "ScalePoint":
+                    return @"https://lbforsikring.sharepoint.com/sites/Skade/SiteAssets/ikoner/ScalePoint.png";
                 case "Ansvar":
                     return @"https://lbforsikring.sharepoint.com/sites/Skade/SiteAssets/ikoner/Ansvar.png";
                 case "Bil":
@@ -258,7 +272,7 @@ namespace SPOApp
                 ctx.ExecuteQuery();
                 item.Properties["ContentTypeId"] = newContentType.Id.StringValue;
                 item["ContentTypeId"] = newContentType.Id;
-                item["PageLayoutType"] = "Home";
+                item["PageLayoutType"] = "Article";
                 //item["BannerImageUrl"] = GetImageUrl(p);
                 item.Update();
 
@@ -299,6 +313,41 @@ namespace SPOApp
                 throw ex;
             }
         }
+        
+        public static void ChangePageLayoutType(ClientContext ctx, List<List<GenericManualStruct>> L)
+        {
+            foreach (List<GenericManualStruct> lstManual in L)
+            {
+                foreach (GenericManualStruct manual in lstManual)
+                {
+                    try
+                    {
+                        ClientSidePage clientPage = ClientSidePage.Load(ctx, manual.FileName);
+                        //Microsoft.SharePoint.Client.ContentType newContentType = ctx.Web.GetContentTypeByName("Skadehåndbog");
+                        //ctx.Load(newContentType);
+                        //ctx.ExecuteQuery();
+
+                        ListItem item = clientPage.PageListItem;
+                        ctx.Load(item);
+                        ctx.ExecuteQuery();
+                        item["PageLayoutType"] = "Article";
+                        item["BannerImageUrl"] = GetImageUrl(manual);
+
+                        item.Update();
+                        ctx.Load(item);
+                        ctx.ExecuteQuery();
+                        clientPage.Save();
+                        clientPage.Publish();
+                    }
+                    catch (Exception ex)
+                    {
+                        throw ex;
+                    }
+                }
+            }
+        }
+
+
     }
     class Program
     {
@@ -362,7 +411,8 @@ namespace SPOApp
 
         public static void FindObscureText(string content, string fileName)
         {
-            if (content.Contains("false,false,1") ||
+            
+                    if (content.Contains("false,false,1") ||
                 content.Contains("<p>a</p>") ||
                 content.Contains("<p>v</p>") ||
                 content.Contains("[TODO]") ||
@@ -394,8 +444,13 @@ namespace SPOApp
 
         static void Main(string[] args)
         {
+            Console.WriteLine("##########   Vælg feature  ##########");
+            Console.WriteLine("[1] - Create Modern Pages");
+            Console.WriteLine("[2] - Check for obscure content");
+            Console.WriteLine("[3] - TODO");
+            string InputFromScreen_FEATURE = Console.ReadLine();
             Console.WriteLine("Skriv hvilken 'Branche' Der skal migreres");
-            string InputFromScreen = Console.ReadLine();
+            string InputFromScreen_BRANCHE = Console.ReadLine();
             Console.WriteLine(DateTime.Now.ToShortTimeString());
             string targetSiteUrl = "https://lbforsikring.sharepoint.com/sites/skade";
             ClientContext ctx = SPOUtility.Authenticate(targetSiteUrl, "admnicd@lb.dk", "MandM5555");
@@ -443,13 +498,414 @@ namespace SPOApp
 
             string newFilenamePrefix = string.Empty;
             lstCreateModernPagesLog.Add("Filnavn;Gruppe;Undergruppe;Branche;Status");
+
+            //MigrationEngine.ChangePageLayoutType(ctx, L);
+            switch (InputFromScreen_FEATURE)
+            {
+                case "1":
+                    newFilenamePrefix = CreatemodernPagesFeature(InputFromScreen_BRANCHE, ctx, L, newFilenamePrefix);
+                    System.IO.File.WriteAllLines(@"C:\Git\LBIntranet\SPOApp\SPOApp\SPOApp\importfiles\CreateModernPagesLog\log_" + InputFromScreen_BRANCHE + ".csv", lstCreateModernPagesLog.ToArray(), Encoding.UTF8);
+                    break;
+                case "2":
+                    break;
+                default:
+                    break;
+            }
+            
+
+            
+            Console.WriteLine(DateTime.Now.ToShortTimeString());
+            Console.ReadLine();
+            return;
+
+            #region Old stuff
+
+            //string logFileName = "";
+            //string errorFileName = "";
+
+
+
+            //System.Diagnostics.Debugger.Launch();
+
+            //Console.WriteLine("Check for links in WikiFields [W]");
+            //Console.WriteLine("Create Modern Pages [M]");
+            //Console.WriteLine("Repair Modern Pages [R]");
+            //Console.WriteLine("Publish All Pages [P]");
+            //var input = Console.ReadLine();
+
+            //if (input.ToLower().Equals("m"))
+            //{
+            //    try
+            //    {
+            //        StartCreatingModernPages(false);
+            //    }
+            //    catch (Exception ex)
+            //    {
+
+            //        Console.WriteLine(ex);
+            //    }
+
+            //    Console.WriteLine("Done....");
+            //    Console.ReadLine();
+
+            //}
+            //if (input.ToLower().Equals("r"))
+            //{
+            //    try
+            //    {
+            //        StartCreatingModernPages(true);
+            //    }
+            //    catch (Exception ex)
+            //    {
+
+            //        Console.WriteLine(ex);
+            //    }
+
+            //    Console.WriteLine("Done....");
+            //    Console.ReadLine();
+
+            //}
+            //else if (input.ToLower().Equals("w"))
+            //{
+            //    Console.WriteLine("Båd [1]");
+            //    Console.WriteLine("Beredskab [2]");
+            //    Console.WriteLine("Byg [3]");
+            //    Console.WriteLine("Ansvar [4]");
+            //    Console.WriteLine("Hund [5]");
+            //    Console.WriteLine("Gerningsmand [6]");
+            //    Console.WriteLine("Ejerskifte [7]");
+            //    Console.WriteLine("Erhverv [8]");
+            //    Console.WriteLine("Lønsikring Individuel [9]");
+            //    Console.WriteLine("Retshjælp [10]");
+            //    Console.WriteLine("ScalePoint [11]");
+            //    Console.WriteLine("Lønsikring Kollektiv [12]");
+            //    Console.WriteLine("Personskade [13]");
+            //    Console.WriteLine("Regres [14]");
+            //    Console.WriteLine("Skybrud [15]");
+            //    Console.WriteLine("Storskade [16]");
+            //    Console.WriteLine("Rejse [17]");
+            //    Console.WriteLine("Indbo [18]");
+            //    Console.WriteLine("Bil [19]");
+            //    string choice = Console.ReadLine();
+
+            //    Console.WriteLine("Find obscure and empty content  ex. 'false,1,1' and '<p>a</p>' and '<p>v</p>' string [1]");
+            //    Console.WriteLine("Output links to screen[2]");
+            //    Console.WriteLine("Migrate links [3]");
+            //    string featureToRun = Console.ReadLine();
+            //    ParsingFeature parsingFeature;
+
+
+            //    string branchLibraryName = "";
+            //    string documentLibrarySearchString = "";
+            //    string manualTaxDisplayname = "";
+
+            //    #region REGION Choose branch
+            //    if (choice == "1")
+            //    {
+            //        //ctName = "BaadManual";
+            //        branchLibraryName = "baad";
+            //        documentLibrarySearchString = "skade/hb/baad/delte";
+            //    }
+            //    else if (choice == "2")
+            //    {
+            //        //ctName = "BeredskabManual";
+            //        branchLibraryName = "Beredskab";
+            //        documentLibrarySearchString = "skade/hb/besk/delte";
+            //    }
+            //    else if (choice == "3")
+            //    {
+            //        manualTaxDisplayname = "Bygning";
+            //        //ctName = "BygningManual";
+            //        branchLibraryName = "Byg";
+            //        documentLibrarySearchString = "skade/hb/byg/delte";
+            //    }
+            //    else if (choice == "4")
+            //    {
+            //        //ctName = "AnsvarManual";
+            //        branchLibraryName = "Ansvar";
+            //        documentLibrarySearchString = "skade/hb/ansvarny/delte";
+            //    }
+            //    else if (choice == "5")
+            //    {
+            //        //ctName = "HundManual";
+            //        branchLibraryName = "Hund";
+            //        documentLibrarySearchString = "skade/hb/hund/delte";
+            //    }
+            //    else if (choice == "6")
+            //    {
+            //        //ctName = "GerningsmandManual";
+            //        branchLibraryName = "Gerningsmand";
+            //        documentLibrarySearchString = "skade/hb/gerningsmand/delte";
+
+            //    }
+            //    else if (choice == "7")
+            //    {
+            //        //ctName = "EjerskifteManual";
+            //        branchLibraryName = "Ejerskifte";
+            //        documentLibrarySearchString = "skade/hb/ejerskifte/delte";
+
+            //    }
+            //    else if (choice == "8")
+            //    {
+            //        //ctName = "ErhvervManual";
+            //        branchLibraryName = "Erhverv";
+            //        documentLibrarySearchString = "skade/hb/erhv/delte";
+            //    }
+            //    else if (choice == "9")
+            //    {
+            //        //ctName = "LønsikringIndividuelManual";
+            //        branchLibraryName = "LoensikringIndividuel";
+            //        documentLibrarySearchString = "skade/hb/lønsikring/delte";
+            //    }
+            //    else if (choice == "10")
+            //    {
+            //        manualTaxDisplayname = "Retshjælp";
+            //        //ctName = "RetshjælpManual";
+            //        branchLibraryName = "Retshjlp";
+            //        documentLibrarySearchString = "skade/hb/retshj/delte";
+            //    }
+            //    else if (choice == "11")
+            //    {
+            //        //ctName = "ScalePointManual";
+            //        branchLibraryName = "ScalePoint";
+            //        documentLibrarySearchString = "skade/hb/sp/delte";
+            //    }
+            //    else if (choice == "12")
+            //    {
+            //        //ctName = "LønsikringKollektivManual";
+            //        branchLibraryName = "LoensikringKollektiv";
+            //        documentLibrarySearchString = "skade/hb/lønsikringkollektiv/delte";
+            //    }
+            //    else if (choice == "13")
+            //    {
+            //        //ctName = "PersonskadeManual";
+            //        manualTaxDisplayname = "Personskade";
+            //        branchLibraryName = "Personskade";
+            //        documentLibrarySearchString = "skade/hb/person/delte";
+            //    }
+            //    else if (choice == "14")
+            //    {
+            //        //ctName = "RegresManual";
+            //        branchLibraryName = "Regres";
+            //        documentLibrarySearchString = "skade/hb/reg/delte";
+            //    }
+            //    else if (choice == "15")
+            //    {
+            //        //ctName = "SkybrudsManual";
+            //        branchLibraryName = "Skybrudsmanual";
+            //        documentLibrarySearchString = "skade/hb/SkybrudsManual/delte";
+            //    }
+            //    else if (choice == "16")
+            //    {
+            //        //ctName = "StorskadeManual";
+            //        branchLibraryName = "Storskade";
+            //        documentLibrarySearchString = "skade/hb/storskade/delte";
+            //    }
+            //    else if (choice == "17")
+            //    {
+            //        manualTaxDisplayname = "Rejse";
+            //        //ctName = "StorskadeManual";
+            //        branchLibraryName = "Rejse";
+            //        documentLibrarySearchString = "skade/hb/rejse/delte";
+            //    }
+            //    else if (choice == "18")
+            //    {
+            //        manualTaxDisplayname = "Indbo";
+            //        //ctName = "StorskadeManual";
+            //        branchLibraryName = "Indbo";
+            //        documentLibrarySearchString = "skade/hb/indbo/delte";
+            //    }
+            //    else if (choice == "19")
+            //    {
+            //        manualTaxDisplayname = "Bil";
+            //        //ctName = "StorskadeManual";
+            //        branchLibraryName = "Bil";
+            //        documentLibrarySearchString = "skade/hb/bil/delte";
+            //    }
+            //    #endregion
+
+
+            //    //string targetSiteUrl = "https://lbforsikring.sharepoint.com/sites/skade";
+            //    //ClientContext ctx = SPOUtility.Authenticate(targetSiteUrl, "admnicd@lb.dk", "MandM5555");
+
+            //    if (featureToRun == "1")
+            //    {
+            //        logFileName = branchLibraryName + "_CheckForObscurity.txt";
+            //        errorFileName = branchLibraryName + "_CheckForObscurityERROR.txt";
+            //        parsingFeature = ParsingFeature.CheckForObscurity;
+            //    }
+            //    else if (featureToRun == "2")
+            //    {
+            //        errorFileName = branchLibraryName + "_OutputLinksToScreenERROR.txt";
+            //        logFileName = branchLibraryName + "_OutputLinksToScreen.txt";
+            //        parsingFeature = ParsingFeature.OutputLinksToScreen;
+            //    }
+            //    else if (featureToRun == "3")
+            //    {
+            //        errorFileName = branchLibraryName + "_MigrateLinksERROR.txt";
+            //        logFileName = branchLibraryName + "_MigrateLinksLOG.txt";
+            //        parsingFeature = ParsingFeature.MigrateLinks;
+            //    }
+            //    else
+            //    {
+            //        parsingFeature = ParsingFeature.UnknownFeature;
+            //    }
+
+            //    string sitePagesLibrary = "Webstedssider";
+            //    var fileName = "";
+            //    ListItemCollection collListItem = LinksUtility.GetManualsFromSitePages(ctx, sitePagesLibrary, manualTaxDisplayname);
+
+            //    if (parsingFeature == ParsingFeature.MigrateLinks)
+            //    {
+            //        List<FileWithLinks> files = GetFilesWithLinks();
+
+            //        List<FileWithLinks> orderedFiles = files.OrderBy(o => o.FileName).ToList();
+            //        int i = 0;
+            //        foreach (var file in orderedFiles)
+            //        {
+            //            i++;
+            //            Console.WriteLine("Processing " + i + " of " + orderedFiles.Count);
+            //            // Handle only the files with these 'CoincidenceFilePrefix' in order to keep track of the migration stages.
+            //            if (!string.IsNullOrEmpty(file.FileName)
+            //                && (file.CoincidenceFilePrefix.Equals("Indbo") ||
+            //                    file.CoincidenceFilePrefix.Equals("Bygning") ||
+            //                    file.CoincidenceFilePrefix.Equals("Bil") ||
+            //                    file.CoincidenceFilePrefix.Equals("Rejse")
+            //                    )
+            //            )
+            //            {
+            //                try
+            //                {
+            //                    string tmpFileNameFromLink = Uri.UnescapeDataString(file.OriginalLink);
+            //                    bool coincidenceInLink;
+            //                    // Coincidence in filenames
+            //                    if (IsPageCoincidence(tmpFileNameFromLink.Substring(tmpFileNameFromLink.LastIndexOf('/') + 1)) != null)
+            //                    {
+            //                        coincidenceInLink = true;
+            //                    }
+            //                    else
+            //                    {
+            //                        coincidenceInLink = false;
+            //                    }
+            //                    EditCurrentLink(ctx, file, coincidenceInLink);
+            //                }
+            //                catch (Exception ex)
+            //                {
+            //                    Console.ForegroundColor = ConsoleColor.Red;
+            //                    Console.WriteLine("----------------------------------------------");
+            //                    Console.WriteLine(file.FileName);
+            //                    Console.WriteLine("----------------------------------------------");
+            //                    Console.ForegroundColor = ConsoleColor.Yellow;
+            //                    Console.WriteLine("----------------------------------------------");
+            //                    Console.WriteLine(ex.Message);
+            //                    Console.WriteLine("----------------------------------------------");
+            //                    Console.ForegroundColor = ConsoleColor.White;
+            //                }
+
+            //            }
+
+            //        }
+            //    }
+            //    else
+            //    {
+            //        lstOutputLinksInPages.Add("FileName;OriginalHyperLink;NewHyperLink;CoincidencePrefix");
+            //        foreach (ListItem item in collListItem)
+            //        {
+            //            fileName = item["FileRef"].ToString();
+            //            fileName = fileName.Substring(fileName.LastIndexOf('/') + 1);
+            //            try
+            //            {
+            //                ClientSidePage P = ClientSidePage.Load(ctx, fileName);
+
+            //                foreach (CanvasSection section in P.Sections)
+            //                {
+            //                    foreach (CanvasControl control in section.Controls)
+            //                    {
+            //                        if (control.Type.Name == "ClientSideText")
+            //                        {
+            //                            ClientSideText t = (ClientSideText)control;
+            //                            if (parsingFeature == ParsingFeature.CheckForObscurity)
+            //                            {
+            //                                FindObscureText(t.Text, fileName);
+
+            //                            }
+            //                            else if (parsingFeature == ParsingFeature.OutputLinksToScreen)
+            //                            {
+            //                                try
+            //                                {
+            //                                    OutputLinksToScreen(fileName, t.Text, branchLibraryName, documentLibrarySearchString);
+            //                                }
+            //                                catch (Exception ex)
+            //                                {
+
+            //                                    lstError.Add(fileName + ";" + ex.Message + ";OutputLinksToScreen");
+            //                                }
+
+            //                            }
+            //                            else if (parsingFeature == ParsingFeature.MigrateLinks)
+            //                            {
+
+            //                                //var res = LinksUtility.TraverseHyperLinks(fileName, t.Text, branchLibraryName, documentLibrarySearchString);
+            //                                //t.Text = res;
+            //                                //P.Save();
+            //                                //P.Publish();
+            //                            }
+            //                        }
+            //                    }
+            //                }
+            //            }
+            //            catch (Exception ex)
+            //            {
+            //                Console.ForegroundColor = ConsoleColor.Red;
+            //                Console.WriteLine(ex.Message);
+            //                Console.ForegroundColor = ConsoleColor.White;
+            //                lstError.Add(fileName + ";" + ex.Message + ";OutputLinksToScreen");
+            //            }
+
+            //        }
+            //    }
+            //}
+            //else if (input.ToLower().Equals("p"))
+            //{
+
+            //    SPOUtility.CheckInAllDocuments(ctx, "Webstedssider");
+            //}
+
+            ////System.IO.File.WriteAllLines(@"C:\Git\LBIntranet\SPOApp\SPOApp\SPOApp\logfiles\" + logFileName, lstLog.ToArray());
+
+            //System.IO.File.WriteAllLines(OUTPUT_LINKS_IN_PAGES_FILEPATH + logFileName, lstOutputLinksInPages.ToArray());
+            //System.IO.File.WriteAllLines(OBSCURITIES_IN_FILES_FILEPATH + logFileName, lstLog.ToArray());
+
+            ////System.IO.File.WriteAllLines(@"C:\Git\LBIntranet\SPOApp\SPOApp\SPOApp\logfiles\" + errorFileName, lstError.ToArray());
+            ////ORG LinksUtility.CheckForLinks(ctx, sitePagesLibrary, ctName, featureToRun);
+
+
+            ////LinksUtility.CheckForLinks(ctx, sitePagesLibrary, parsingFeature ,documentLibrarySearchString,branchLibraryName,manualTaxDisplayname);
+
+            //Console.WriteLine("Done searching for links");
+            //Console.ReadLine(); 
+            #endregion
+        }
+
+        private static string CreatemodernPagesFeature(string InputFromScreen_BRANCHE, ClientContext ctx, List<List<GenericManualStruct>> L, string newFilenamePrefix)
+        {
             foreach (List<GenericManualStruct> lstManual in L)
             {
 
                 foreach (GenericManualStruct manual in lstManual)
                 {
-                    if (manual.Branche.Equals(InputFromScreen))
+                    //InputFromScreen_BRANCHE
+                    if (manual.Branche.Equals("Personskade") ||
+                        manual.Branche.Equals("Regres")||
+                        manual.Branche.Equals("Retshjælp") ||
+                        manual.Branche.Equals("Gerningsmand") ||
+                        manual.Branche.Equals("Hund") ||
+                        manual.Branche.Equals("Sanering") ||
+                        manual.Branche.Equals("BPG") ||
+                        manual.Branche.Equals("Skadeservice") ||
+                        manual.Branche.Equals("ScalePoint"))
                     {
+
                         if (MigrationEngine.IsPageCoincidence(manual, L))
                         {
                             newFilenamePrefix = manual.Branche;
@@ -465,7 +921,7 @@ namespace SPOApp
                                                         manual.Branche,
                                                         "Success"));
                         }
-                        catch (Exception ex )
+                        catch (Exception ex)
                         {
 
                             lstCreateModernPagesLog.Add(string.Format("{0};{1};{2};{3};{4}",
@@ -485,375 +941,10 @@ namespace SPOApp
                 }
 
             }
-            System.IO.File.WriteAllLines(@"C:\Git\LBIntranet\SPOApp\SPOApp\SPOApp\importfiles\CreateModernPagesLog\log_"+InputFromScreen+".csv", lstCreateModernPagesLog.ToArray(),Encoding.UTF8);
-            Console.WriteLine(DateTime.Now.ToShortTimeString());
-            Console.ReadLine();
-            return;
-            string logFileName = "";
-            string errorFileName = "";
 
-
-
-            System.Diagnostics.Debugger.Launch();
-
-            Console.WriteLine("Check for links in WikiFields [W]");
-            Console.WriteLine("Create Modern Pages [M]");
-            Console.WriteLine("Repair Modern Pages [R]");
-            Console.WriteLine("Publish All Pages [P]");
-            var input = Console.ReadLine();
-
-            if (input.ToLower().Equals("m"))
-            {
-                try
-                {
-                    StartCreatingModernPages(false);
-                }
-                catch (Exception ex)
-                {
-
-                    Console.WriteLine(ex);
-                }
-
-                Console.WriteLine("Done....");
-                Console.ReadLine();
-
-            }
-            if (input.ToLower().Equals("r"))
-            {
-                try
-                {
-                    StartCreatingModernPages(true);
-                }
-                catch (Exception ex)
-                {
-
-                    Console.WriteLine(ex);
-                }
-
-                Console.WriteLine("Done....");
-                Console.ReadLine();
-
-            }
-            else if (input.ToLower().Equals("w"))
-            {
-                Console.WriteLine("Båd [1]");
-                Console.WriteLine("Beredskab [2]");
-                Console.WriteLine("Byg [3]");
-                Console.WriteLine("Ansvar [4]");
-                Console.WriteLine("Hund [5]");
-                Console.WriteLine("Gerningsmand [6]");
-                Console.WriteLine("Ejerskifte [7]");
-                Console.WriteLine("Erhverv [8]");
-                Console.WriteLine("Lønsikring Individuel [9]");
-                Console.WriteLine("Retshjælp [10]");
-                Console.WriteLine("ScalePoint [11]");
-                Console.WriteLine("Lønsikring Kollektiv [12]");
-                Console.WriteLine("Personskade [13]");
-                Console.WriteLine("Regres [14]");
-                Console.WriteLine("Skybrud [15]");
-                Console.WriteLine("Storskade [16]");
-                Console.WriteLine("Rejse [17]");
-                Console.WriteLine("Indbo [18]");
-                Console.WriteLine("Bil [19]");
-                string choice = Console.ReadLine();
-
-                Console.WriteLine("Find obscure and empty content  ex. 'false,1,1' and '<p>a</p>' and '<p>v</p>' string [1]");
-                Console.WriteLine("Output links to screen[2]");
-                Console.WriteLine("Migrate links [3]");
-                string featureToRun = Console.ReadLine();
-                ParsingFeature parsingFeature;
-
-
-                string branchLibraryName = "";
-                string documentLibrarySearchString = "";
-                string manualTaxDisplayname = "";
-
-                #region REGION Choose branch
-                if (choice == "1")
-                {
-                    //ctName = "BaadManual";
-                    branchLibraryName = "baad";
-                    documentLibrarySearchString = "skade/hb/baad/delte";
-                }
-                else if (choice == "2")
-                {
-                    //ctName = "BeredskabManual";
-                    branchLibraryName = "Beredskab";
-                    documentLibrarySearchString = "skade/hb/besk/delte";
-                }
-                else if (choice == "3")
-                {
-                    manualTaxDisplayname = "Bygning";
-                    //ctName = "BygningManual";
-                    branchLibraryName = "Byg";
-                    documentLibrarySearchString = "skade/hb/byg/delte";
-                }
-                else if (choice == "4")
-                {
-                    //ctName = "AnsvarManual";
-                    branchLibraryName = "Ansvar";
-                    documentLibrarySearchString = "skade/hb/ansvarny/delte";
-                }
-                else if (choice == "5")
-                {
-                    //ctName = "HundManual";
-                    branchLibraryName = "Hund";
-                    documentLibrarySearchString = "skade/hb/hund/delte";
-                }
-                else if (choice == "6")
-                {
-                    //ctName = "GerningsmandManual";
-                    branchLibraryName = "Gerningsmand";
-                    documentLibrarySearchString = "skade/hb/gerningsmand/delte";
-
-                }
-                else if (choice == "7")
-                {
-                    //ctName = "EjerskifteManual";
-                    branchLibraryName = "Ejerskifte";
-                    documentLibrarySearchString = "skade/hb/ejerskifte/delte";
-
-                }
-                else if (choice == "8")
-                {
-                    //ctName = "ErhvervManual";
-                    branchLibraryName = "Erhverv";
-                    documentLibrarySearchString = "skade/hb/erhv/delte";
-                }
-                else if (choice == "9")
-                {
-                    //ctName = "LønsikringIndividuelManual";
-                    branchLibraryName = "LoensikringIndividuel";
-                    documentLibrarySearchString = "skade/hb/lønsikring/delte";
-                }
-                else if (choice == "10")
-                {
-                    manualTaxDisplayname = "Retshjælp";
-                    //ctName = "RetshjælpManual";
-                    branchLibraryName = "Retshjlp";
-                    documentLibrarySearchString = "skade/hb/retshj/delte";
-                }
-                else if (choice == "11")
-                {
-                    //ctName = "ScalePointManual";
-                    branchLibraryName = "ScalePoint";
-                    documentLibrarySearchString = "skade/hb/sp/delte";
-                }
-                else if (choice == "12")
-                {
-                    //ctName = "LønsikringKollektivManual";
-                    branchLibraryName = "LoensikringKollektiv";
-                    documentLibrarySearchString = "skade/hb/lønsikringkollektiv/delte";
-                }
-                else if (choice == "13")
-                {
-                    //ctName = "PersonskadeManual";
-                    manualTaxDisplayname = "Personskade";
-                    branchLibraryName = "Personskade";
-                    documentLibrarySearchString = "skade/hb/person/delte";
-                }
-                else if (choice == "14")
-                {
-                    //ctName = "RegresManual";
-                    branchLibraryName = "Regres";
-                    documentLibrarySearchString = "skade/hb/reg/delte";
-                }
-                else if (choice == "15")
-                {
-                    //ctName = "SkybrudsManual";
-                    branchLibraryName = "Skybrudsmanual";
-                    documentLibrarySearchString = "skade/hb/SkybrudsManual/delte";
-                }
-                else if (choice == "16")
-                {
-                    //ctName = "StorskadeManual";
-                    branchLibraryName = "Storskade";
-                    documentLibrarySearchString = "skade/hb/storskade/delte";
-                }
-                else if (choice == "17")
-                {
-                    manualTaxDisplayname = "Rejse";
-                    //ctName = "StorskadeManual";
-                    branchLibraryName = "Rejse";
-                    documentLibrarySearchString = "skade/hb/rejse/delte";
-                }
-                else if (choice == "18")
-                {
-                    manualTaxDisplayname = "Indbo";
-                    //ctName = "StorskadeManual";
-                    branchLibraryName = "Indbo";
-                    documentLibrarySearchString = "skade/hb/indbo/delte";
-                }
-                else if (choice == "19")
-                {
-                    manualTaxDisplayname = "Bil";
-                    //ctName = "StorskadeManual";
-                    branchLibraryName = "Bil";
-                    documentLibrarySearchString = "skade/hb/bil/delte";
-                }
-                #endregion
-
-
-                //string targetSiteUrl = "https://lbforsikring.sharepoint.com/sites/skade";
-                //ClientContext ctx = SPOUtility.Authenticate(targetSiteUrl, "admnicd@lb.dk", "MandM5555");
-
-                if (featureToRun == "1")
-                {
-                    logFileName = branchLibraryName + "_CheckForObscurity.txt";
-                    errorFileName = branchLibraryName + "_CheckForObscurityERROR.txt";
-                    parsingFeature = ParsingFeature.CheckForObscurity;
-                }
-                else if (featureToRun == "2")
-                {
-                    errorFileName = branchLibraryName + "_OutputLinksToScreenERROR.txt";
-                    logFileName = branchLibraryName + "_OutputLinksToScreen.txt";
-                    parsingFeature = ParsingFeature.OutputLinksToScreen;
-                }
-                else if (featureToRun == "3")
-                {
-                    errorFileName = branchLibraryName + "_MigrateLinksERROR.txt";
-                    logFileName = branchLibraryName + "_MigrateLinksLOG.txt";
-                    parsingFeature = ParsingFeature.MigrateLinks;
-                }
-                else
-                {
-                    parsingFeature = ParsingFeature.UnknownFeature;
-                }
-
-                string sitePagesLibrary = "Webstedssider";
-                var fileName = "";
-                ListItemCollection collListItem = LinksUtility.GetManualsFromSitePages(ctx, sitePagesLibrary, manualTaxDisplayname);
-
-                if (parsingFeature == ParsingFeature.MigrateLinks)
-                {
-                    List<FileWithLinks> files = GetFilesWithLinks();
-
-                    List<FileWithLinks> orderedFiles = files.OrderBy(o => o.FileName).ToList();
-                    int i = 0;
-                    foreach (var file in orderedFiles)
-                    {
-                        i++;
-                        Console.WriteLine("Processing " + i + " of " + orderedFiles.Count);
-                        // Handle only the files with these 'CoincidenceFilePrefix' in order to keep track of the migration stages.
-                        if (!string.IsNullOrEmpty(file.FileName)
-                            && (file.CoincidenceFilePrefix.Equals("Indbo") ||
-                                file.CoincidenceFilePrefix.Equals("Bygning") ||
-                                file.CoincidenceFilePrefix.Equals("Bil") ||
-                                file.CoincidenceFilePrefix.Equals("Rejse")
-                                )
-                        )
-                        {
-                            try
-                            {
-                                string tmpFileNameFromLink = Uri.UnescapeDataString(file.OriginalLink);
-                                bool coincidenceInLink;
-                                // Coincidence in filenames
-                                if (IsPageCoincidence(tmpFileNameFromLink.Substring(tmpFileNameFromLink.LastIndexOf('/') + 1)) != null)
-                                {
-                                    coincidenceInLink = true;
-                                }
-                                else
-                                {
-                                    coincidenceInLink = false;
-                                }
-                                EditCurrentLink(ctx, file, coincidenceInLink);
-                            }
-                            catch (Exception ex)
-                            {
-                                Console.ForegroundColor = ConsoleColor.Red;
-                                Console.WriteLine("----------------------------------------------");
-                                Console.WriteLine(file.FileName);
-                                Console.WriteLine("----------------------------------------------");
-                                Console.ForegroundColor = ConsoleColor.Yellow;
-                                Console.WriteLine("----------------------------------------------");
-                                Console.WriteLine(ex.Message);
-                                Console.WriteLine("----------------------------------------------");
-                                Console.ForegroundColor = ConsoleColor.White;
-                            }
-
-                        }
-
-                    }
-                }
-                else
-                {
-                    lstOutputLinksInPages.Add("FileName;OriginalHyperLink;NewHyperLink;CoincidencePrefix");
-                    foreach (ListItem item in collListItem)
-                    {
-                        fileName = item["FileRef"].ToString();
-                        fileName = fileName.Substring(fileName.LastIndexOf('/') + 1);
-                        try
-                        {
-                            ClientSidePage P = ClientSidePage.Load(ctx, fileName);
-
-                            foreach (CanvasSection section in P.Sections)
-                            {
-                                foreach (CanvasControl control in section.Controls)
-                                {
-                                    if (control.Type.Name == "ClientSideText")
-                                    {
-                                        ClientSideText t = (ClientSideText)control;
-                                        if (parsingFeature == ParsingFeature.CheckForObscurity)
-                                        {
-                                            FindObscureText(t.Text, fileName);
-
-                                        }
-                                        else if (parsingFeature == ParsingFeature.OutputLinksToScreen)
-                                        {
-                                            try
-                                            {
-                                                OutputLinksToScreen(fileName, t.Text, branchLibraryName, documentLibrarySearchString);
-                                            }
-                                            catch (Exception ex)
-                                            {
-
-                                                lstError.Add(fileName + ";" + ex.Message + ";OutputLinksToScreen");
-                                            }
-
-                                        }
-                                        else if (parsingFeature == ParsingFeature.MigrateLinks)
-                                        {
-
-                                            //var res = LinksUtility.TraverseHyperLinks(fileName, t.Text, branchLibraryName, documentLibrarySearchString);
-                                            //t.Text = res;
-                                            //P.Save();
-                                            //P.Publish();
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                        catch (Exception ex)
-                        {
-                            Console.ForegroundColor = ConsoleColor.Red;
-                            Console.WriteLine(ex.Message);
-                            Console.ForegroundColor = ConsoleColor.White;
-                            lstError.Add(fileName + ";" + ex.Message + ";OutputLinksToScreen");
-                        }
-
-                    }
-                }
-            }
-            else if (input.ToLower().Equals("p"))
-            {
-
-                SPOUtility.CheckInAllDocuments(ctx, "Webstedssider");
-            }
-
-            //System.IO.File.WriteAllLines(@"C:\Git\LBIntranet\SPOApp\SPOApp\SPOApp\logfiles\" + logFileName, lstLog.ToArray());
-
-            System.IO.File.WriteAllLines(OUTPUT_LINKS_IN_PAGES_FILEPATH + logFileName, lstOutputLinksInPages.ToArray());
-            System.IO.File.WriteAllLines(OBSCURITIES_IN_FILES_FILEPATH + logFileName, lstLog.ToArray());
-
-            //System.IO.File.WriteAllLines(@"C:\Git\LBIntranet\SPOApp\SPOApp\SPOApp\logfiles\" + errorFileName, lstError.ToArray());
-            //ORG LinksUtility.CheckForLinks(ctx, sitePagesLibrary, ctName, featureToRun);
-
-
-            //LinksUtility.CheckForLinks(ctx, sitePagesLibrary, parsingFeature ,documentLibrarySearchString,branchLibraryName,manualTaxDisplayname);
-
-            Console.WriteLine("Done searching for links");
-            Console.ReadLine();
+            return newFilenamePrefix;
         }
+
 
         private static void EditCurrentLink(ClientContext ctx, FileWithLinks file, bool linkToCoincidenceFile)
         {
@@ -911,178 +1002,12 @@ namespace SPOApp
 
         }
 
-
-
-        //private static void devCreateModernPage(ClientContext context)
-        //{
-
-        //    ClientSidePage page = context.Web.AddClientSidePage("dev.aspx", true);
-        //    page.PageTitle = "My Title";
-        //    page.Save();
-
-        //    page.AddSection(CanvasSectionTemplate.TwoColumn, 1);
-        //    page.Save();
-        //    CanvasSection section = page.Sections[0];
-
-        //    ClientSideWebPart imageWebPart = page.InstantiateDefaultWebPart(DefaultClientSideWebParts.Image);
-        //    //imageWebPart.Properties["siteId"] = "c827cb03-d059-4956-83d0-cd60e02e3b41";
-        //    //imageWebPart.Properties["webId"] = "9fafd7c0-e8c3-4a3c-9e87-4232c481ca26";
-        //    //imageWebPart.Properties["listId"] = "78d1b1ac-7590-49e7-b812-55f37c018c4b";
-        //    //imageWebPart.Properties["uniqueId"] = "3C27A419-66D0-4C36-BF24-BD6147719052";
-        //    //imageWebPart.Properties["imgWidth"] = 1002;
-        //    //imageWebPart.Properties["imgHeight"] = 469;
-        //    imageWebPart.Properties["imageSourceType"] = 2;
-        //    imageWebPart.Properties["imageSource"] = @"\sites\Skade\SiteAssets\ikoner\hund.png";
-        //    page.AddControl(imageWebPart, section.Columns[1], 0);
-        //    page.Save();
-
-        //    ClientSideText t = new ClientSideText() { Text = "Hund kiks" };
-        //    page.AddControl(t, section.Columns[0], 0);
-
-        //    page.Save();
-        //    page.Publish();
+        private void ChangePageLayoutType(ClientContext ctx)
+        { }
 
 
 
-        //}
-
-
-
-        /// <summary>
-        /// ORG
-        /// </summary>
-        //private static void StartCreatingModernPages()
-        //{
-
-        //    string sourceLibraryName = "";
-        //    string targetLibraryName = "SitePages";
-        //    targetLibraryName = "Webstedssider";
-
-
-        //    string targetSiteUrl = "https://lbforsikring.sharepoint.com/sites/skade";
-
-        //    ClientContext ctx = SPOUtility.Authenticate(targetSiteUrl, "admnicd@lb.dk", "MandM5555");
-
-
-        //    GenericConfiguration g;
-        //    g.ContentTypeName = "";
-        //    g.SourceLibrary = "";
-
-        //    Console.WriteLine("Vælg branch:");
-        //    Console.WriteLine("Bygning [1]");
-        //    Console.WriteLine("Ansvar [2]");
-        //    Console.WriteLine("Hund [3]");
-        //    Console.WriteLine("Ejerskifte [4]");
-        //    Console.WriteLine("Gerningsmand[5]");
-        //    Console.WriteLine("Erhverv[6]");
-        //    Console.WriteLine("Lønsikring Individuel[7]");
-        //    Console.WriteLine("Lønsikring Kollektiv[8]");
-        //    Console.WriteLine("Indbo[9]");
-        //    Console.WriteLine("Personskade[10]");
-        //    Console.WriteLine("Regres[11]");
-        //    Console.WriteLine("Retshjælp[12]");
-        //    Console.WriteLine("ScalePoint[13]");
-        //    Console.WriteLine("Generel Skadepolitik[14]");
-        //    Console.WriteLine("Skybrud[15]");
-        //    Console.WriteLine("Storskade[16]");
-        //    Console.WriteLine("Rejse[17]");
-
-
-        //    string branch = Console.ReadLine();
-        //    if (branch == "1")
-        //    {
-        //        g.ContentTypeName = "BygningManual";
-        //        g.SourceLibrary = "Bygwebsider";
-        //    }
-        //    else if (branch == "2")
-        //    {
-        //        g.ContentTypeName = "AnsvarManual";
-        //        g.SourceLibrary = "Ansvarwebsider";
-        //    }
-        //    else if (branch == "3")
-        //    {
-        //        g.ContentTypeName = "HundManual";
-        //        g.SourceLibrary = "Hundwebsider";
-        //    }
-        //    else if (branch == "4")
-        //    {
-        //        g.ContentTypeName = "EjerskifteManual";
-        //        g.SourceLibrary = "Ejerskiftewebsider";
-        //    }
-        //    else if (branch == "5")
-        //    {
-        //        g.ContentTypeName = "GerningsmandManual";
-        //        g.SourceLibrary = "Gerningsmandwebsider";
-        //    }
-        //    else if (branch == "6")
-        //    {
-        //        g.ContentTypeName = "ErhvervManual";
-        //        g.SourceLibrary = "Erhvervwebsider";
-        //    }
-        //    else if (branch == "7")
-        //    {
-        //        g.ContentTypeName = "LønsikringIndividuelManual";
-        //        g.SourceLibrary = "LoensikringIndividuelWebsider";
-        //    }
-        //    else if (branch == "8")
-        //    {
-        //        g.ContentTypeName = "LønsikringKollektivManual";
-        //        g.SourceLibrary = "loensikringKollektivWebsider";
-        //    }
-        //    else if (branch == "9")
-        //    {
-        //        g.ContentTypeName = "IndboManual";
-        //        g.SourceLibrary = "indboWebsider";
-        //    }
-        //    else if (branch == "10")
-        //    {
-        //        g.ContentTypeName = "PersonskadeManual";
-        //        g.SourceLibrary = "PersonskadeWebsider";
-        //    }
-        //    else if (branch == "11")
-        //    {
-        //        g.ContentTypeName = "RegresManual";
-        //        g.SourceLibrary = "RegresWebsider";
-        //    }
-        //    else if (branch == "12")
-        //    {
-        //        g.ContentTypeName = "RetshjælpManual";
-        //        g.SourceLibrary = "RetshjaelpWebsider";
-        //    }
-        //    else if (branch == "13")
-        //    {
-        //        g.ContentTypeName = "ScalePointManual";
-        //        g.SourceLibrary = "ScalePointWebsider";
-        //    }
-        //    else if (branch == "14")
-        //    {
-        //        g.ContentTypeName = "GenerelSkadepolitikManual";
-        //        g.SourceLibrary = "GenerelSkadepolitikWebsider";
-        //    }
-        //    else if (branch == "15")
-        //    {
-        //        g.ContentTypeName = "SkybrudsManual";
-        //        g.SourceLibrary = "SkybrudsManualWebsider";
-        //    }
-        //    else if (branch == "16")
-        //    {
-        //        g.ContentTypeName = "StorskadeManual";
-        //        g.SourceLibrary = "StorskadeWebsider";
-        //    }
-        //    else if (branch == "17")
-        //    {
-        //        g.ContentTypeName = "RejseManual";
-        //        g.SourceLibrary = "RejseWebsider";
-        //    }
-
-
-        //    List<GenericManualProperies> manuals = GenericManual.GetSourceFiles(ctx, g);
-        //    GenericManual.CreateModernSitePages(ctx, manuals, g);
-
-
-        //}
-
-
+        #region More old stuff
 
         private static void StartCreatingModernPages(bool? repair)
         {
@@ -1254,15 +1179,6 @@ namespace SPOApp
 
 
             List<GenericManualProperies> manuals;
-            //if (repair == true)
-            //{
-            //    manuals = GenericManual.GetSourceFilesForRepair(ctx, g);
-            //}
-            //else
-            //{
-            //    manuals = GenericManual.GetSourceFiles(ctx, g);
-            //}
-
             manuals = GenericManual.GetSourceFilesFromCSV(string.Format(importFile, manualTaxFieldValue));
 
 
@@ -1364,6 +1280,7 @@ namespace SPOApp
         }
 
 
+        #endregion
 
     }
 }

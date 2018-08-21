@@ -16,13 +16,40 @@ $white: "[theme:white, default:#fff]";
   color: $white;
   padding: 5px;
 }
-// .ms-MessageBar-innerText{
-//   width: 100%;
-// }
+
 .MyMessageBar i{
   float:right;
 }
 .MyMessageBar:hover{
   cursor: pointer;
   background-color:rgba(192, 0, 0, 0.7)
+}
+
+.Alert{
+  // width: 100%;
+  background-color: #C00000;
+  color: $white;
+  padding: 5px;
+}
+.Alert i{
+  float:right;
+}
+.Alert:hover{
+  cursor: pointer;
+  background-color:rgba(192, 0, 0, 0.7)
+}
+
+.Warning{
+  // width: 100%;
+  
+  background-color:rgba(235, 180, 32, 1);
+  color: $white;
+  padding: 5px;
+}
+.Warning i{
+  float:right;
+}
+.Warning:hover{
+  cursor: pointer;
+  background-color:rgba(235, 180, 32, 0.7);
 }
