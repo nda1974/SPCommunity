@@ -1,0 +1,31 @@
+@import '~@microsoft/sp-office-ui-fabric-core/dist/sass/SPFabricCore.scss';
+// .PrimaryNewsItem{
+//   @include ms-Grid-col;
+//   @include ms-sm12;
+//   @include ms-md6;
+//   @include ms-lg6
+// }
+.Item {
+  @include ms-Grid-col;
+  // max-width: 194px;
+  // width:271px;
+    // margin: 0px auto;
+    // box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2), 0 25px 50px 0 rgba(0, 0, 0, 0.1);
+    // border-style: solid;
+  
+}
+.ItemInfo {
+  @include ms-font-l;
+  @include ms-fontWeight-semibold;
+}
+.ItemSender {
+  @include ms-fontSize-xs;
+  @include ms-fontWeight-light;
+  
+}
+.ImagePlaceholder img{
+  max-width: 271px;
+  max-height: 171px;
+  height: auto; 
+  width: auto; 
+}

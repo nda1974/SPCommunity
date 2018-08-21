@@ -1,0 +1,12 @@
+{
+  "$schema": "https://dev.office.com/json-schemas/spfx-build/package-solution.schema.json",
+  "solution": {
+    "name": "lb-corporate-news-alternative-client-side-solution",
+    "id": "678da5fa-f9fa-4200-9ee0-0a990b328002",
+    "version": "1.0.0.0",
+    "includeClientSideAssets": true
+  },
+  "paths": {
+    "zippedPackage": "solution/lb-corporate-news-alternative.sppkg"
+  }
+}

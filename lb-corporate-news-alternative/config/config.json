@@ -1,0 +1,18 @@
+{
+  "$schema": "https://dev.office.com/json-schemas/spfx-build/config.2.0.schema.json",
+  "version": "2.0",
+  "bundles": {
+    "corporate-news-alternative-web-part": {
+      "components": [
+        {
+          "entrypoint": "./lib/webparts/corporateNewsAlternative/CorporateNewsAlternativeWebPart.js",
+          "manifest": "./src/webparts/corporateNewsAlternative/CorporateNewsAlternativeWebPart.manifest.json"
+        }
+      ]
+    }
+  },
+  "externals": {},
+  "localizedResources": {
+    "CorporateNewsAlternativeWebPartStrings": "lib/webparts/corporateNewsAlternative/loc/{locale}.js"
+  }
+}

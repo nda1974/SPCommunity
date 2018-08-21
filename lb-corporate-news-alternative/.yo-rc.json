@@ -1,0 +1,8 @@
+{
+  "@microsoft/generator-sharepoint": {
+    "version": "1.4.1",
+    "libraryName": "lb-corporate-news-alternative",
+    "libraryId": "678da5fa-f9fa-4200-9ee0-0a990b328002",
+    "environment": "spo"
+  }
+}
