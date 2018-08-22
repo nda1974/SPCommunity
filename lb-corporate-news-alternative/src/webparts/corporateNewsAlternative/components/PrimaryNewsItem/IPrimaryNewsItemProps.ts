@@ -4,4 +4,5 @@ export interface IPrimaryNewsItemProps {
   documentDescription: string;
   previewImageUrl:string;
   sender:string;
+  fileRef:string;
 }

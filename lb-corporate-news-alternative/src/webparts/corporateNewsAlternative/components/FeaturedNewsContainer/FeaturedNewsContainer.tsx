@@ -11,15 +11,29 @@ export default class FeaturedNewsContainer extends React.Component<IFeaturedNews
   
 
 public render(): React.ReactElement<IFeaturedNewsContainerProps> {
-  
+  let counter :number=0;
     return (
-          <div className='ms-Grid-col'>
+          <div className={styles.FeaturedNewsContainer}>
             {this.props.featuredNewsList.map((item)=>{
-              return (
-                <div className='ms-Grid-row'>
-                <NewsItem documentTitle={item.Title} previewImageUrl='https://lbforsikring.sharepoint.com/sites/Intra/SiteAssets/Nyheder/Acubiz.png?csf=1&e=Mw2owT' documentDescription={item.Teaser} sender=''/>
-                </div>
-              )
+              counter++;
+              
+              if (counter>1 && counter<5) {
+
+                return (
+                  <div className='ms-Grid-row'>
+                    
+                    <NewsItem documentTitle={item.Title}  previewImageUrl={item.LBNyhedsbillede.Url} documentDescription={item.Teaser} sender={item.Afsender} priority={2} fileRef={item.fileRef}/>
+                  </div>
+                )
+              }
+              if (counter>4){
+                return (
+                  <div className='ms-Grid-row' >
+                    <NewsItem documentTitle={item.Title}  previewImageUrl={item.LBNyhedsbillede.Url} documentDescription={item.Teaser} sender={item.Afsender} priority={3} fileRef={item.fileRef}/>
+                  </div>
+                )
+              }
+              
             })}
           </div>
       

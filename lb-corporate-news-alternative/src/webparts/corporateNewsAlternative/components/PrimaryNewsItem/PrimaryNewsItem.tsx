@@ -32,7 +32,7 @@ public render(): React.ReactElement<IPrimaryNewsItemProps> {
     return (
       
       <div className={styles.PrimaryNewsItem}>
-      
+        <Link href={this.props.fileRef}>
         <div>
           <div className="ImagePlaceholderContainer">
               <div className={styles.ImagePlaceholder}>
@@ -41,9 +41,9 @@ public render(): React.ReactElement<IPrimaryNewsItemProps> {
           </div>
 
           <div className={styles.ItemInfo}>
-            
+          <Link href={this.props.fileRef}>
               {this.props.documentTitle}
-              
+          </Link>
           </div>
             <div className={styles.ItemSender}>
               {this.props.sender}
@@ -52,7 +52,7 @@ public render(): React.ReactElement<IPrimaryNewsItemProps> {
               {this.props.documentDescription}
             </div>
           </div>
-          
+          </Link> 
         
           
         

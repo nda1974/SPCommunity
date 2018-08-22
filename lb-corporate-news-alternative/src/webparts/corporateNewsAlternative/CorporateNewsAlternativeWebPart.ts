@@ -9,11 +9,9 @@ import {
   IPropertyPaneDropdownOption
 } from '@microsoft/sp-webpart-base';
 
-import * as strings from 'CorporateNewsAlternativeWebPartStrings';
-import CorporateNewsAlternative from './components/CorporateNewsAlternative';
-import { ICorporateNewsAlternativeProps } from './components/ICorporateNewsAlternativeProps';
 import App from './components/App/App';
 import { IAppProps } from './components/App/IAppProps';
+import pnp from 'sp-pnp-js/lib/pnp';
 
 export interface ICorporateNewsAlternativeWebPartProps {
   description: string;
@@ -42,7 +40,32 @@ export default class CorporateNewsAlternativeWebPart extends BaseClientSideWebPa
   protected get dataVersion(): Version {
     return Version.parse('1.0');
   }
-
+  protected onPropertyPaneConfigurationStart(): void {
+    this.listsDropdownDisabled = !this.lists;
+ 
+    if (this.lists) {
+      return;
+    }
+ 
+    this.context.statusRenderer.displayLoadingIndicator(this.domElement, 'Vent venligst..');
+ 
+    let listOptions: IPropertyPaneDropdownOption[]=[];
+    listOptions.push({key:"",text:""})
+    pnp.sp.web.lists.getByTitle("NyhedsAfsendere")
+    .items
+    .select()
+    .get()
+    .then((items: any[]) => {
+      items.map((i)=>{
+        listOptions.push({key:i.Title,text:i.Title})
+      })
+          this.lists = listOptions;
+          this.listsDropdownDisabled = false;
+          this.context.propertyPane.refresh();
+          this.context.statusRenderer.clearLoadingIndicator(this.domElement);
+          this.render();
+    });
+  }
   protected getPropertyPaneConfiguration(): IPropertyPaneConfiguration {
     return {
       pages: [

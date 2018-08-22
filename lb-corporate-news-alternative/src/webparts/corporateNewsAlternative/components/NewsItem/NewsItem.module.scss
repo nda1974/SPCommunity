@@ -5,27 +5,64 @@
 //   @include ms-md6;
 //   @include ms-lg6
 // }
-.Item {
-  @include ms-Grid-col;
-  // max-width: 194px;
-  // width:271px;
-    // margin: 0px auto;
-    // box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2), 0 25px 50px 0 rgba(0, 0, 0, 0.1);
-    // border-style: solid;
-  
+.NewsItem {
+  @include ms-Grid-row;
+  border-bottom: 1px solid;
+  box-sizing: border-box;
+  border-bottom-color:  #eaeaea;
+  margin: 0px 0px 20px 0px ;
+  padding-bottom: 20px;
 }
-.ItemInfo {
-  @include ms-font-l;
+
+.ImageArea{
+  @include ms-Grid-col;
+    @include ms-sm12;
+    @include ms-md4;
+    @include ms-lg4;
+    width:  196px;
+    height: 112px;
+}
+.ImageArea img{
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+}
+.ContentArea{
+  @include ms-Grid-col;
+  @include ms-sm12;
+  @include ms-md8;
+  @include ms-lg8;
+}
+.ContentHeader{
+  @include ms-font-xl;
   @include ms-fontWeight-semibold;
 }
-.ItemSender {
-  @include ms-fontSize-xs;
+.ContentText{
+  @include ms-font-m;
   @include ms-fontWeight-light;
-  
 }
-.ImagePlaceholder img{
-  max-width: 271px;
-  max-height: 171px;
-  height: auto; 
-  width: auto; 
+.LowPriorityNews{
+  // @include ms-font-m;
+  // @include ms-fontWeight-light;
+  margin: 0px 0px 5px 0px;
+  //background-color: #5692b5;
+  color: #5692b5;
+  padding: 10px 0;
+  width: 100%;
+  font-size: 14px;
+  font-weight: 400;
+  margin-bottom: 2px;
+}
+// .LowPriorityNews button {
+//   color: #ffffff;
+//   padding-left: 5px;
+//   @include ms-font-m-plus;
+//   @include ms-fontWeight-regular;
+// }
+
+.LowPriorityNews button {
+  color: #5692b5;
+  padding-left: 5px;
+  @include ms-font-m-plus;
+  @include ms-fontWeight-regular;
 }

@@ -51,8 +51,8 @@ private fetchSharePointData(){
                   data.map((item)=>{
 
                             
-                    // if(filterAfsender.length>0 ){
-                    if(filterAfsender){
+                    if(filterAfsender.length>0 ){
+                    //if(filterAfsender){
                       if(item.Afsender){
                           item.Afsender.map((afsender)=>{
                             if(afsender.Title==filterAfsender){
@@ -123,14 +123,32 @@ public render(): React.ReactElement<IAppProps> {
                 counter++;
                 
                 if (counter==1) {
-                  return <PrimaryNewsItem documentTitle={item.Title} previewImageUrl='https://lbforsikring.sharepoint.com/sites/Intra/SiteAssets/Nyheder/Acubiz.png?csf=1&e=Mw2owT' documentDescription={item.Teaser} sender={this.getSenders(item)}/>
+                          return(
+                          <div>
+                            
+                              <PrimaryNewsItem documentTitle={item.Title} previewImageUrl={item.LBNyhedsbillede.Url} documentDescription={item.Teaser} sender={this.getSenders(item)} fileRef={item.FileRef}/>
+                              
+                            <FeaturedNewsContainer featuredNewsList={this.state.results} /> 
+                          </div>);
+                
+                }
+              })
+              
+            }
+            {/* {
+              
+              this.state.results.map((item)=>{
+                counter2++;
+                if (counter2>4 ) {
+                    return(<div className='ms-Grid-row'>{item.Title}</div>);
                 }
                 
                   
               })
               
-            }
-            <FeaturedNewsContainer featuredNewsList={this.state.results} /> 
+            } */}
+            
+            {/* <FeaturedNewsContainer featuredNewsList={this.state.results} />  */}
             
           
           

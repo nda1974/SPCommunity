@@ -20,12 +20,12 @@
 .ImagePlaceholder img{
     max-width: 100%;
 //   max-height: 171px;
-  height: auto; 
+  //height: auto; 
 //   width: auto; 
 }
 .PrimaryNewsItem{
     @include ms-Grid-col;
     @include ms-sm12;
     @include ms-md6;
-    @include ms-lg6
+    @include ms-lg6;
 }
