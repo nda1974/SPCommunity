@@ -1,0 +1,86 @@
+﻿**********************
+Windows PowerShell transcript start
+Start time: 20180826194611
+Username: LBNET\nicd
+RunAs User: LBNET\nicd
+Machine: W10-0021 (Microsoft Windows NT 10.0.15063.0)
+Host Application: C:\Windows\System32\WindowsPowerShell\v1.0\powershell_ise.exe C:\Git\LBIntranet\Powershell\MigratePages\DeleteFilesOfContentType\DeleteFilesOfContentType.ps1
+Process ID: 9992
+PSVersion: 5.1.15063.1266
+PSEdition: Desktop
+PSCompatibleVersions: 1.0, 2.0, 3.0, 4.0, 5.0, 5.1.15063.1266
+BuildVersion: 10.0.15063.1266
+CLRVersion: 4.0.30319.42000
+WSManStackVersion: 3.0
+PSRemotingProtocolVersion: 2.3
+SerializationVersion: 1.1.0.1
+**********************
+Transcript started, output file is .\Log_08262018194611.doc
+Get-Content : Cannot find path 'C:\Git\LBIntranet\Powershell\MigratePages\DeleteFilesOfContentType\Inputs.xml' because i
+t does not exist.
+At C:\Git\LBIntranet\Powershell\UploadFilesToSharePoint\UploadFilesToSPO.ps1:9 char:15
++ [xml]$xmlData=Get-Content ".\Inputs.xml"
++               ~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : ObjectNotFound: (C:\Git\LBIntran...Type\Inputs.xml:String) [Get-Content], ItemNotFoundExce
+ption
+    + FullyQualifiedErrorId : PathNotFound,Microsoft.PowerShell.Commands.GetContentCommand
+Get-Content : Cannot find path 'C:\Git\LBIntranet\Powershell\MigratePages\DeleteFilesOfContentType\Inputs.xml' because it does not exist.
+At C:\Git\LBIntranet\Powershell\UploadFilesToSharePoint\UploadFilesToSPO.ps1:9 char:15
++ [xml]$xmlData=Get-Content ".\Inputs.xml"
++               ~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : ObjectNotFound: (C:\Git\LBIntran...Type\Inputs.xml:String) [Get-Content], ItemNotFoundException
+    + FullyQualifiedErrorId : PathNotFound,Microsoft.PowerShell.Commands.GetContentCommand
+
+Initiating the script..................
+Get Credentials and connect to SP Online site:
+PS>TerminatingError(ConvertTo-SecureString): "Cannot bind argument to parameter 'String' because it is null."
+ConvertTo-SecureString : Cannot bind argument to parameter 'String' because it is null.
+At C:\Git\LBIntranet\Powershell\UploadFilesToSharePoint\UploadFilesToSPO.ps1:26 char:60
++ ... ecureStringPwd = ConvertTo-SecureString -AsPlainText $Password -Force
++                                                          ~~~~~~~~~
+    + CategoryInfo          : InvalidData: (:) [ConvertTo-SecureString], ParameterBindingValidationException
+    + FullyQualifiedErrorId : ParameterArgumentValidationErrorNullNotAllowed,Microsoft.PowerShell.Commands.ConvertToSecu
+reStringCommand
+ConvertTo-SecureString : Cannot bind argument to parameter 'String' because it is null.
+At C:\Git\LBIntranet\Powershell\UploadFilesToSharePoint\UploadFilesToSPO.ps1:26 char:60
++ ... ecureStringPwd = ConvertTo-SecureString -AsPlainText $Password -Force
++                                                          ~~~~~~~~~
+    + CategoryInfo          : InvalidData: (:) [ConvertTo-SecureString], ParameterBindingValidationException
+    + FullyQualifiedErrorId : ParameterArgumentValidationErrorNullNotAllowed,Microsoft.PowerShell.Commands.ConvertToSecureStringCommand
+
+>> TerminatingError(New-Object): "Exception calling ".ctor" with "2" argument(s): "Cannot process argument because the value of argument "userName" is not valid. Change the value of the "userName" argument and run the operation again.""
+New-Object : Exception calling ".ctor" with "2" argument(s): "Cannot process argument because the value of argument "use
+rName" is not valid. Change the value of the "userName" argument and run the operation again."
+At C:\Git\LBIntranet\Powershell\UploadFilesToSharePoint\UploadFilesToSPO.ps1:29 char:20
++ ... edentials = New-Object -TypeName System.Management.Automation.PSCrede ...
++                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidOperation: (:) [New-Object], MethodInvocationException
+    + FullyQualifiedErrorId : ConstructorInvokedThrowException,Microsoft.PowerShell.Commands.NewObjectCommand
+New-Object : Exception calling ".ctor" with "2" argument(s): "Cannot process argument because the value of argument "userName" is not valid. Change the value of the "userName" argument and run the operation again."
+At C:\Git\LBIntranet\Powershell\UploadFilesToSharePoint\UploadFilesToSPO.ps1:29 char:20
++ ... edentials = New-Object -TypeName System.Management.Automation.PSCrede ...
++                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidOperation: (:) [New-Object], MethodInvocationException
+    + FullyQualifiedErrorId : ConstructorInvokedThrowException,Microsoft.PowerShell.Commands.NewObjectCommand
+
+>> TerminatingError(Connect-PnPOnline): "Cannot bind argument to parameter 'Url' because it is null."
+Connect-PnPOnline : Cannot bind argument to parameter 'Url' because it is null.
+At C:\Git\LBIntranet\Powershell\UploadFilesToSharePoint\UploadFilesToSPO.ps1:32 char:28
++     Connect-PnPOnline –Url $siteURL –Credentials $credentials
++                            ~~~~~~~~
+    + CategoryInfo          : InvalidData: (:) [Connect-PnPOnline], ParameterBindingValidationException
+    + FullyQualifiedErrorId : ParameterArgumentValidationErrorNullNotAllowed,SharePointPnP.PowerShell.Commands.Base.Conn
+ectOnline
+Connect-PnPOnline : Cannot bind argument to parameter 'Url' because it is null.
+At C:\Git\LBIntranet\Powershell\UploadFilesToSharePoint\UploadFilesToSPO.ps1:32 char:28
++     Connect-PnPOnline –Url $siteURL –Credentials $credentials
++                            ~~~~~~~~
+    + CategoryInfo          : InvalidData: (:) [Connect-PnPOnline], ParameterBindingValidationException
+    + FullyQualifiedErrorId : ParameterArgumentValidationErrorNullNotAllowed,SharePointPnP.PowerShell.Commands.Base.ConnectOnline
+
+Upload files to SP Online site
+Completed!!!!
+**********************
+Windows PowerShell transcript end
+End time: 20180826194612
+**********************

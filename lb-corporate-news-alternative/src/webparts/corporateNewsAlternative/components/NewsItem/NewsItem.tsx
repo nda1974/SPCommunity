@@ -41,7 +41,7 @@ public render(): React.ReactElement<INewsItemProps> {
   if(this.props.priority<3){
     return (
       <div className={styles.NewsItem}>
-        {/* <Link href={this.props.fileRef}> */}
+        <Link href={this.props.fileRef}>
           <div className={styles.ImageArea}>
                 <img src={ this.props.previewImageUrl}/>
           </div>
@@ -50,7 +50,7 @@ public render(): React.ReactElement<INewsItemProps> {
               <div>{this.getSenders(this.props.sender)}</div>
               <div className={styles.ContentText}>{this.props.documentDescription}</div>
           </div>
-        {/* </Link> */}
+        </Link>
       </div>
     );
   }

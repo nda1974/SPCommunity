@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Security;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
 namespace SPOApp
@@ -205,10 +206,30 @@ namespace SPOApp
                     bool createSubTerm = true;
                     foreach (var item in tc)
                     {
+                        //Regex r = new Regex("^[^&]*&[^&]*");
+                        //r.IsMatch(item.Name);   // returns true
+
+                        //if (r)
+                        //{
+                        //    string oldString = item.Name.Replace("&", "-");
+                        //    string newStringString = subTerm.Replace("&", "-");
+                        //    if (newStringString.ToLower() == oldString.ToLower())
+                        //    {
+                        //        createSubTerm = false;
+                        //    }
+                        //}
+                        //else
+                        //{
+                        //    if (item.Name.ToLower() == subTerm.ToLower())
+                        //    {
+                        //        createSubTerm = false;
+                        //    }
+                        //}
                         if (item.Name.ToLower() == subTerm.ToLower())
                         {
                             createSubTerm = false;
                         }
+
                     }
                     if (createSubTerm == true)
                     {

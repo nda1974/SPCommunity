@@ -248,6 +248,180 @@ function GetFilePrefix{
     }
     return ''
 }
+
+
+
+function RunNewVersion 
+{
+    ################### Kør denne funktion når der skal genereres en ny coincidence fil ###############
+    #$coincidenceList=BuildCoincidenceList
+    ###################################################################################################
+    
+    $coincidenceInFilespages = Import-Csv -Path 'C:\Git\LBIntranet\SPOApp\SPOApp\SPOApp\importfiles\CoincidenceFile\coincidence.csv' -Encoding UTF8 -Delimiter ';'
+    $files=0;
+    $i=0;
+    $currentFileName='';
+    $branchSiteUrl='';
+    $importFileName='';
+    $coincidenceFilenamePrefix='';
+    
+    do
+    {
+        
+        Write-Host "Indtast branche eks. 'Indbo'"
+        Write-Host "----- Byg -----"
+        Write-Host "----- Ansvar -----"
+        Write-Host "----- Ejerskifte -----"
+        Write-Host "----- Erhverv -----"
+        Write-Host "----- Hund -----"
+        Write-Host "----- Retshjælp -----"
+        Write-Host "----- ScalePoint -----"
+        Write-Host "----- Regres -----"
+        Write-Host "----- Personskade -----"
+        Write-Host "----- Skybrudsmanual -----"
+        Write-Host "----- Storskade -----"
+        Write-Host "----- Indbo -----"
+        Write-Host "----- Rejse -----"
+        Write-Host "----- Bil -----"
+        
+        
+        $branch = Read-Host 
+
+
+        if($branch -eq 'Bygning')
+        {
+            $branchSiteUrl="http://intranet.lb.dk/Skade/hb/Byg/SitePages/";
+        }
+        elseif($branch -eq 'Ansvar')
+        {
+            $branchSiteUrl="http://intranet.lb.dk/Skade/hb/ansvarny/SitePages/";
+        }
+        elseif($branch -eq 'Ejerskifte')
+        {
+            $branchSiteUrl="http://intranet.lb.dk/Skade/hb/ejerskifte/SitePages/";
+        }
+        elseif($branch -eq 'Erhverv')
+        {
+            $branchSiteUrl="http://intranet.lb.dk/Skade/hb/erhv/SitePages/";
+        }
+        elseif($branch -eq 'Hund')
+        {
+            $branchSiteUrl="http://intranet.lb.dk/Skade/hb/hund/SitePages/";
+        }
+        elseif($branch -eq 'TODO')
+        {
+            $branchSiteUrl="http://intranet.lb.dk/Skade/hb/lønsikring/SitePages/";
+            $importFileName = 'C:\Git\LBIntranet\Powershell\MigratePages\ImportFiles\LønsikringIndividuelCSV.csv'
+        }
+    
+        elseif($branch -eq 'TODO')
+        {
+            $branchSiteUrl="http://intranet.lb.dk/Skade/hb/lønsikringkollektiv/SitePages/"
+            $importFileName = 'C:\Git\LBIntranet\Powershell\MigratePages\ImportFiles\LønsikringKollektivCSV.csv'
+        }
+        elseif($branch -eq 'Retshjhælp')
+        {
+            $branchSiteUrl="http://intranet.lb.dk/Skade/hb/retshj/SitePages/"
+        }
+        elseif($branch -eq 'ScalePoint')
+        {
+            $branchSiteUrl="http://intranet.lb.dk/Skade/hb/sp/SitePages/"
+        }
+        elseif($branch -eq 'Regres')
+        {
+            $branchSiteUrl="http://intranet.lb.dk/Skade/hb/reg/SitePages/"
+        }
+        elseif($branch -eq 'Personskade')
+        {
+            $branchSiteUrl="http://intranet.lb.dk/Skade/hb/Person/SitePages/"
+        }
+        elseif($branch -eq 'Skybrudmanual')
+        {
+            $importFileName = 'C:\Git\LBIntranet\Powershell\MigratePages\ImportFiles\SkybrudsmanualCSV.csv'
+        }
+        elseif($branch -eq 'Storskade')
+        {
+            $branchSiteUrl="http://intranet.lb.dk/Skade/hb/StorSkade/SitePages/"
+        }
+        elseif($branch -eq 'Indbo')
+        {
+            $branchSiteUrl="http://intranet.lb.dk/Skade/hb/indbo/SitePages/"
+        }   
+        elseif($branch -eq 'Rejse')
+        {
+            $branchSiteUrl="http://intranet.lb.dk/Skade/hb/rejseny/SitePages/"
+        }   
+        elseif($branch -eq 'Bil')
+        {
+            $branchSiteUrl="http://intranet.lb.dk/Skade/hb/bil/SitePages/"
+        }
+        elseif($branch -eq 'Beredskab')
+        {
+            $branchSiteUrl="http://intranet.lb.dk/Skade/hb/besk/SitePages/"
+        }   
+        else{
+            $branchSiteUrl=$null
+
+            Write-Host "Forkert branche : " $branch
+        }
+        
+    }
+    while (!$branchSiteUrl )
+
+   
+    #Læser csv filen på baggrund af input fra konsollen
+    
+    $importFileName = [string]::Format("C:\Git\LBIntranet\SPOApp\SPOApp\SPOApp\importfiles\CreateModernPagesLog\log_{0}{1}", $branch, ".csv") 
+    $files = Import-Csv -Path $importFileName -Encoding UTF8 -Delimiter ';' 
+    
+    $sw = [Diagnostics.Stopwatch]::StartNew()
+    $stuff = @();
+    $files |foreach-object {
+        
+        $i=$i+1;
+
+        Write-Host "Processing " $i " of " $files.count "- elapsed time: " $sw.Elapsed -ForegroundColor Yellow
+        Write-Host “Url :”  $currentFileName -ForegroundColor Yellow
+        Write-Host ""
+
+        try{
+                $sourceUrl= $branchSiteUrl + [uri]::EscapeDataString($_.OrignalFilnavn);
+                $sourceUrl= $branchSiteUrl + $_.OrignalFilnavn;
+                $targetUrl= "https://lbforsikring.sharepoint.com/sites/Skade/SitePages/" +  [uri]::EscapeDataString($_.NytFilnavn);
+                        
+                GetSourceFile -url $sourceUrl 
+                GetTargetFile -url $targetUrl 
+
+                $obj = new-object PSObject
+                $obj | add-member -membertype NoteProperty -name 'Filnavn' -value $_.Filnavn
+                $obj | add-member -membertype NoteProperty -name 'Gruppe' -value $_.Gruppe
+                $obj | add-member -membertype NoteProperty -name 'Undergruppe' -value $_.Undergruppe
+                $obj | add-member -membertype NoteProperty -name 'Branche' -value $_.Branche
+                $obj | add-member -membertype NoteProperty -name 'Status' -value 'Success'
+                $stuff += $obj            
+        }
+        catch{
+                Write-Host  $fileName " - "$($PSItem.ToString()) -ForegroundColor Red
+                $obj = new-object PSObject
+                $obj | add-member -membertype NoteProperty -name 'Filnavn' -value $_.Filnavn
+                $obj | add-member -membertype NoteProperty -name 'Gruppe' -value $_.Gruppe
+                $obj | add-member -membertype NoteProperty -name 'Undergruppe' -value $_.Undergruppe
+                $obj | add-member -membertype NoteProperty -name 'Branche' -value $_.Branche
+                $obj | add-member -membertype NoteProperty -name 'Error' -value $_.Branche
+                $stuff += $obj
+        }
+        
+    }
+    
+
+    
+
+
+
+
+
+    $stuff | export-csv "C:\Git\LBIntranet\SPOApp\SPOApp\SPOApp\importfiles\ContentMigration\content.csv" -notypeinformation -Encoding UTF8 -Delimiter ';'
+}
 function Run($startIndex)
 {
     ################### Kør denne funktion når der skal genereres en ny coincidence fil ###############
@@ -351,19 +525,24 @@ function Run($startIndex)
         elseif($branch -eq 'Bil')
         {
             $branchSiteUrl="http://intranet.lb.dk/Skade/hb/bil/SitePages/"
+        }
+        elseif($branch -eq 'Beredskab')
+        {
+            $branchSiteUrl="http://intranet.lb.dk/Skade/hb/besk/SitePages/"
         }   
         else{
             $branchSiteUrl=$null
 
             Write-Host "Forkert branche : " $branch
         }
-    }    
+    }   
     }
     while (!$branchSiteUrl )
 
    
     #Læser csv filen på baggrund af input fra konsollen
     $importFileName = [string]::Format("C:\Git\LBIntranet\SPOApp\SPOApp\SPOApp\importfiles\SharePoint2Excel\{0}{1}", $branch, ".csv") 
+    $importFileName = [string]::Format("C:\Git\LBIntranet\SPOApp\SPOApp\SPOApp\importfiles\CreateModernPagesLog\log_{0}{1}", $branch, ".csv") 
     $files = Import-Csv -Path $importFileName -Encoding UTF8 -Delimiter ';' 
     
     $sw = [Diagnostics.Stopwatch]::StartNew()
@@ -426,8 +605,8 @@ $sw = [Diagnostics.Stopwatch]::StartNew()
 $i=0;
 
 
-Run -startIndex $i
-
+#Run -startIndex $i
+RunNewVersion
 
 
 

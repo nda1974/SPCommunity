@@ -19,13 +19,15 @@ export default class FilterPanel extends React.Component<IFilterPanelProps, IFil
 }
 
   public render(): React.ReactElement<IFilterPanelProps> {
+    
     return (
         <div className={ styles.container }>
+        <div className={ styles.row }>
         {
-          this.props.filters.map((item)=>{
+          this.props.filters.sort((a,b)=>{return a.Label - b.Label}).map((item)=>{
             return(
-              <div className={ styles.row }>
-                <div className={ styles.column }> 
+              
+                <div className={ styles.refiners }> 
                 <DefaultButton
                                                 
                                                 data-automation-id='test'
@@ -35,10 +37,11 @@ export default class FilterPanel extends React.Component<IFilterPanelProps, IFil
                                                 /> 
                     
                 </div>
-              </div>
+              
             )
           })
         } 
+        </div>
         </div>
     );
   }

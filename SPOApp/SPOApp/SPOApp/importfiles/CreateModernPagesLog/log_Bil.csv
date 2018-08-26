@@ -1,2 +1,23 @@
-﻿Filnavn;Gruppe;Undergruppe;Branche;Status
-LB´s Motorkøretøjsdirektiv 2009-103-EC partnere.aspx;Udland;;Bil;Success
+﻿OrignalFilnavn;NytFilnavn;Gruppe;Undergruppe;Branche;Coincidence;Status
+Afdragsordninger henstand.aspx;Afdragsordninger henstand.aspx;Forretningsgange ;;Bil;False;Success
+Afsavnsaftale med politiet.aspx;Afsavnsaftale med politiet.aspx;Aftaler;;Bil;False;Success
+Ansvarsplacering mellem LB og udenlandsk modpart-selskab.aspx;Ansvarsplacering mellem LB og udenlandsk modpart-selskab.aspx;Udland;;Bil;False;Success
+Brand.aspx;BilBrand.aspx;Vilkårenes afsnit 3 - Kaskoforsikring;;Bil;True;Success
+Forsikringsdækning, når medlemmets bil bruges til Uber.aspx;Forsikringsdækning, når medlemmets bil bruges til Uber.aspx;Forretningsgange;;Bil;False;Success
+Fortrydelse.aspx;Fortrydelse.aspx;Vilkårenes afsnit 15 - Generelt for alle dækninger;;Bil;False;Success
+Identifikation med ny husaftale.aspx;Identifikation med ny husaftale.aspx;Vilkårenes afsnit 2 - Ansvarsforsikring;;Bil;False;Success
+Kap. 2 - aftalen.aspx;Kap. 2 - aftalen.aspx;Aftaler ;;Bil;False;Success
+Kvalitetssystemet.aspx;Kvalitetssystemet.aspx;Systemet;;Bil;False;Success
+Når skadelidte og skadevolder er forsikret i LBs selskaber.aspx;Når skadelidte og skadevolder er forsikret i LBs selskaber.aspx;Forretningsgange;;Bil;False;Success
+Opkrævning af selvrisiko.aspx;Opkrævning af selvrisiko.aspx;Systemet;;Bil;False;Success
+Personhjælp ved trafikuheld.aspx;Personhjælp ved trafikuheld.aspx;Vilkårenes afsnit 6 - Personhjælp ved trafikuheld;;Bil;False;Success
+Redning i udlandet.aspx;Redning i udlandet.aspx;Vilkårenes afsnit 9 - Redning i udlandet;;Bil;False;Success
+Redning og bevaring.aspx;Redning og bevaring.aspx;Vilkårenes afsnit 2 - Ansvarsforsikring;;Bil;False;Success
+Regler for brug af EDI regres.aspx;Regler for brug af EDI regres.aspx;Forretningsgange;;Bil;False;Success
+Regres og rykkere til modpart og andre.aspx;Regres og rykkere til modpart og andre.aspx;Forretningsgange;;Bil;False;Success
+Søgning på Autotaks systemet.aspx;Søgning på Autotaks systemet.aspx;Systemet;;Bil;False;Success
+Søgning på motorregister CRM og DMR.aspx;Søgning på motorregister CRM og DMR.aspx;Forretningsgange;;Bil;False;Success
+Taksatorrapport til forkert selskab.aspx;Taksatorrapport til forkert selskab.aspx;Taksering;;Bil;False;Success
+Taksering af modparts bil.aspx;Taksering af modparts bil.aspx;Taksering;;Bil;False;Success
+Vidner.aspx;Vidner.aspx;Aftaler;;Bil;False;Success
+Ændring og opsigelse.aspx;Ændring og opsigelse.aspx;Vilkårenes afsnit 15 - Generelt for alle dækninger;;Bil;False;Success

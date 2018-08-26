@@ -22,14 +22,14 @@ public render(): React.ReactElement<IFeaturedNewsContainerProps> {
                 return (
                   <div className='ms-Grid-row'>
                     
-                    <NewsItem documentTitle={item.Title}  previewImageUrl={item.LBNyhedsbillede.Url} documentDescription={item.Teaser} sender={item.Afsender} priority={2} fileRef={item.fileRef}/>
+                    <NewsItem documentTitle={item.Title}  previewImageUrl={item.LBNyhedsbillede.Url} documentDescription={item.Teaser} sender={item.Afsender} priority={2} fileRef={item.FileRef}/>
                   </div>
                 )
               }
               if (counter>4){
                 return (
                   <div className='ms-Grid-row' >
-                    <NewsItem documentTitle={item.Title}  previewImageUrl={item.LBNyhedsbillede.Url} documentDescription={item.Teaser} sender={item.Afsender} priority={3} fileRef={item.fileRef}/>
+                    <NewsItem documentTitle={item.Title}  previewImageUrl={item.LBNyhedsbillede.Url} documentDescription={item.Teaser} sender={item.Afsender} priority={3} fileRef={item.FileRef}/>
                   </div>
                 )
               }

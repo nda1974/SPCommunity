@@ -1,6 +1,6 @@
 @import '~@microsoft/sp-office-ui-fabric-core/dist/sass/SPFabricCore.scss';
 
-.FilterPanel {
+
   .container {
     max-width: 700px;
     margin: 0px auto;
@@ -20,6 +20,16 @@
     @include ms-xl8;
     @include ms-xlPush2;
     @include ms-lgPush1;
+    
+  }
+  .refiners {
+    // @include ms-Grid-col;
+    // @include ms-lg10;
+    // @include ms-xl8;
+    // @include ms-xlPush2;
+    // @include ms-lgPush1;
+    background-color: red;
+    display: inline;
   }
 
   .title {
@@ -71,4 +81,3 @@
       display: inline-block;
     }
   }
-}

@@ -1,0 +1,36 @@
+﻿OrignalFilnavn;NytFilnavn;Gruppe;Undergruppe;Branche;Coincidence;Status
+Påkørselskort.aspx;Påkørselskort.aspx;Ordbog;;Gerningsmand;False;Success
+Dom for handling, dom for krav og underskrevet forlig.aspx;Dom for handling, dom for krav og underskrevet forlig.aspx;Forældelsesfrister;;Gerningsmand;False;Success
+Diverse frister.aspx;Diverse frister.aspx;Frister i databasen;;Gerningsmand;False;Success
+Startside.aspx;GerningsmandStartside.aspx;;;Gerningsmand;True;Success
+Anklagemyndigheden.aspx;Anklagemyndigheden.aspx;Hvem, hvad og hvornår;;Gerningsmand;False;Success
+Politiet.aspx;Politiet.aspx;Hvem, hvad og hvornår;;Gerningsmand;False;Success
+Retten.aspx;Retten.aspx;Hvem, hvad og hvornår;;Gerningsmand;False;Success
+CPR.aspx;CPR.aspx;Diverse hjemmesider;;Gerningsmand;False;Success
+Domstol.aspx;Domstol.aspx;Diverse hjemmesider;;Gerningsmand;False;Success
+RKI.aspx;RKI.aspx;Diverse hjemmesider;;Gerningsmand;False;Success
+Renteberegning.aspx;Renteberegning.aspx;Diverse hjemmesider;;Gerningsmand;False;Success
+Psykisk syg.aspx;Psykisk syg.aspx;Hvilke sager;;Gerningsmand;False;Success
+Borgerservice.aspx;Borgerservice.aspx;Hvem, hvad og hvornår;;Gerningsmand;False;Success
+Kriminalforsorgen.aspx;Kriminalforsorgen.aspx;Hvem, hvad og hvornår;;Gerningsmand;False;Success
+Sikker post.aspx;GerningsmandSikker post.aspx;Forretningsgange;;Gerningsmand;True;Success
+Kontooplysninger.aspx;Kontooplysninger.aspx;Praktisk;;Gerningsmand;False;Success
+Skema.aspx;Skema.aspx;Fogedmøder;;Gerningsmand;False;Success
+Fysisk møde.aspx;Fysisk møde.aspx;Fogedmøder;;Gerningsmand;False;Success
+Telefonmøde.aspx;Telefonmøde.aspx;Fogedmøder;;Gerningsmand;False;Success
+Åben tilsigtelse.aspx;Åben tilsigtelse.aspx;Ordbog;;Gerningsmand;False;Success
+Tiltalefrafald.aspx;Tiltalefrafald.aspx;Ordbog;;Gerningsmand;False;Success
+Stadfæstelse.aspx;Stadfæstelse.aspx;Ordbog;;Gerningsmand;False;Success
+Bødeforlæg.aspx;Bødeforlæg.aspx;Ordbog;;Gerningsmand;False;Success
+Fogedsager.aspx;Fogedsager.aspx;Forretningsgange;;Gerningsmand;False;Success
+Almindelige sager.aspx;Almindelige sager.aspx;Forretningsgange;;Gerningsmand;False;Success
+Udtræk og statistik.aspx;Udtræk og statistik.aspx;Databasen;;Gerningsmand;False;Success
+Udfyldelse.aspx;Udfyldelse.aspx;Databasen;;Gerningsmand;False;Success
+Overdraget til økonomi.aspx;Overdraget til økonomi.aspx;Afdragsordninger;;Gerningsmand;False;Success
+Under 15 år.aspx;Under 15 år.aspx;Hvilke sager;;Gerningsmand;False;Success
+Underskrevet forlig ved politiet.aspx;Underskrevet forlig ved politiet.aspx;Hvilke sager;;Gerningsmand;False;Success
+Transporterklæring.aspx;Transporterklæring.aspx;Hvilke sager;;Gerningsmand;False;Success
+Dom for krav.aspx;Dom for krav.aspx;Hvilke sager;;Gerningsmand;False;Success
+Dom for handling.aspx;Dom for handling.aspx;Hvilke sager;;Gerningsmand;False;Success
+Almindelig regres.aspx;Almindelig regres.aspx;Hvilke sager;;Gerningsmand;False;Success
+Sådan bruges dette bibliotek.aspx;GerningsmandSådan bruges dette bibliotek.aspx;;;Gerningsmand;True;Success

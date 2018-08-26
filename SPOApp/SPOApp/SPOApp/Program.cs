@@ -22,15 +22,8 @@ namespace SPOApp
     /// http://sharepointfieldnotes.blogspot.dk/2013/06/sharepoint-2013-code-tips-setting.html
     /// https://github.com/SharePoint/PnP/blob/dev/Samples/Provisioning.ModernPages/Provisioning.ModernPages/Program.cs
     /// </summary>
+    #region STRUCTS
 
-
-    public enum ParsingFeature
-    {
-        CheckForObscurity = 1,
-        OutputLinksToScreen = 2,
-        MigrateLinks = 3,
-        UnknownFeature
-    }
     public struct SitePageProperies
     {
         public string ManualCategory;
@@ -38,101 +31,8 @@ namespace SPOApp
         public string FileName;
         public string Title;
     }
-    public struct BilSkadePortalGuideManualProperies
-    {
-        public string BilSkadePortalGuideCategory;
-        public string WikiContent;
-        public string FileName;
-        public string Title;
-    }
-    public struct AnsvarManualProperies
-    {
-        public string AnsvarCategory;
-        public string AnsvarArea;
-        public string WikiContent;
-        public string FileName;
-        public string Title;
-    }
-    public struct BaadManualProperies
-    {
-        public string BaadCategory;
-        public string BaadArea;
-        public string WikiContent;
-        public string FileName;
-        public string Title;
-    }
 
 
-    public struct BygningManualProperies
-    {
-        public string BygningCategory;
-        public string BygningArea;
-        public string WikiContent;
-        public string FileName;
-        public string Title;
-    }
-    public struct BeredskabManualProperies
-    {
-        public string WikiContent;
-        public string FileName;
-        public string Title;
-    }
-    public struct EnterpriseManualProperies
-    {
-        public string WikiContent;
-        public string FileName;
-        public string Title;
-    }
-
-    public struct BilManualProperies
-    {
-        public string BilCategory;
-        public string WikiContent;
-        public string FileName;
-        public string Title;
-    }
-    public struct EjerskifteManualProperies
-    {
-        public string EjerskifteCategory;
-        public string EjerskifteArea;
-        public string WikiContent;
-        public string FileName;
-        public string Title;
-    }
-    public struct ErhvervManualProperies
-    {
-        public string ErhvervCategory;
-        public string ErhvervArea;
-        public string WikiContent;
-        public string FileName;
-        public string Title;
-    }
-    public struct GerningsmandManualProperies
-    {
-        public string GerningsmandCategory;
-        public string WikiContent;
-        public string FileName;
-        public string Title;
-    }
-    public struct HundManualProperies
-    {
-        public string HundCategory;
-        public string WikiContent;
-        public string FileName;
-        public string Title;
-    }
-    public struct IndboManualProperies
-    {
-        public string IndboCategory;
-        public string IndboArea;
-        public string WikiContent;
-        public string FileName;
-        public string Title;
-        public string LBInfo;
-        public string LBTeaser;
-        public string LBKendelser;
-
-    }
 
     public struct GenericManualProperies
     {
@@ -164,6 +64,7 @@ namespace SPOApp
         public string CoincidenceFilePrefix;
     }
 
+    #endregion
 
 
     public static class MigrationEngine
@@ -199,7 +100,6 @@ namespace SPOApp
         }
         public static bool IsPageCoincidence(GenericManualStruct CurrentManual, List<List<GenericManualStruct>> ManualCollection)
         {
-            bool isCoincidenceInFilename = false;
             foreach (List<GenericManualStruct> lstManual in ManualCollection)
             {
                 foreach (GenericManualStruct manual in lstManual)
@@ -260,8 +160,6 @@ namespace SPOApp
         {
             try
             {
-
-
                 ClientSidePage page = ctx.Web.AddClientSidePage(fileNameMatchedAgainstCoicidence, true);
                 Microsoft.SharePoint.Client.ContentType newContentType = ctx.Web.GetContentTypeByName("Skadehåndbog");
                 ctx.Load(newContentType);
@@ -313,7 +211,7 @@ namespace SPOApp
                 throw ex;
             }
         }
-        
+
         public static void ChangePageLayoutType(ClientContext ctx, List<List<GenericManualStruct>> L)
         {
             foreach (List<GenericManualStruct> lstManual in L)
@@ -353,13 +251,16 @@ namespace SPOApp
     {
         private const string COINCIDENCE_IN_FILES_FILEPATH = @"C:\Git\LBIntranet\Powershell\MigratePages\CoincidenceFeature\CoincidenceOfFilenamesFiltered.csv";
         private const string LINKS_IN_PAGES_FILEPATH = @"C:\Git\LBIntranet\SPOApp\SPOApp\SPOApp\importfiles\LinkMigration\Indbo_LinksRepair.csv";
-        private const string OUTPUT_LINKS_IN_PAGES_FILEPATH = @"C:\Git\LBIntranet\SPOApp\SPOApp\SPOApp\logfiles\OutputLinks\";
-        private const string OBSCURITIES_IN_FILES_FILEPATH = @"C:\Git\LBIntranet\SPOApp\SPOApp\SPOApp\logfiles\CheckForObscurities\";
+
+        private const string LINKS_IN_CONTENT_LOG_FILEPATH = @"C:\Git\LBIntranet\SPOApp\SPOApp\SPOApp\logfiles\OutputLinksLOG\";
+        private const string VALIDATE_CONTENT_LOG_FILEPATH = @"C:\Git\LBIntranet\SPOApp\SPOApp\SPOApp\logfiles\ValidateContentResultLOG\";
 
         private const string SHAREPOINT_2_EXCEL_FILEPATH = @"C:\Git\LBIntranet\SPOApp\SPOApp\SPOApp\importfiles\SharePoint2Excel\";
-        private static List<string> lstCreateModernPagesLog = new List<string>();
+        private static List<string> lstCreateModernPagesLog;
+        private static List<string> lstLinksInContent = new List<string>();
         private static List<string> lstLog = new List<string>();
-        private static List<string> lstOutputLinksInPages = new List<string>();
+        private static List<string> lstValidateContent = new List<string>();
+
         private static List<string> lstError = new List<string>();
         public static string IsPageCoincidence(string fileName)
         {
@@ -386,44 +287,131 @@ namespace SPOApp
         }
 
 
-        public static List<FileWithLinks> GetFilesWithLinks()
+        //public static List<FileWithLinks> GetFilesWithLinks()
+        //{
+        //    List<FileWithLinks> resFiles = new List<FileWithLinks>();
+        //    using (var reader = new StreamReader(LINKS_IN_PAGES_FILEPATH, Encoding.UTF8))
+        //    {
+        //        while (!reader.EndOfStream)
+        //        {
+        //            var line = reader.ReadLine();
+        //            var values = line.Split(';');
+
+        //            FileWithLinks fwl;
+        //            fwl.FileName = values[0];
+        //            fwl.OriginalLink = values[1];
+        //            fwl.NewLink = values[2];
+        //            fwl.CoincidenceFilePrefix = values[3];
+        //            resFiles.Add(fwl);
+
+        //        }
+        //    }
+        //    return resFiles;
+
+        //}
+        public static void GetLinksInText(string input, string fileName, string branch)
         {
-            List<FileWithLinks> resFiles = new List<FileWithLinks>();
-            using (var reader = new StreamReader(LINKS_IN_PAGES_FILEPATH, Encoding.UTF8))
+            Regex regex = new Regex("href\\s*=\\s*(?:\"(?<1>[^\"]*)\"|(?<1>\\S+))", RegexOptions.IgnoreCase);
+            Match match;
+
+            for (match = regex.Match(input); match.Success; match = match.NextMatch())
             {
-                while (!reader.EndOfStream)
+                foreach (System.Text.RegularExpressions.Capture capture in match.Captures)
                 {
-                    var line = reader.ReadLine();
-                    var values = line.Split(';');
-
-                    FileWithLinks fwl;
-                    fwl.FileName = values[0];
-                    fwl.OriginalLink = values[1];
-                    fwl.NewLink = values[2];
-                    fwl.CoincidenceFilePrefix = values[3];
-                    resFiles.Add(fwl);
-
+                    //TODO to find inline img
                 }
             }
-            return resFiles;
+            Console.WriteLine("--------------------------------------------");
+
 
         }
-
-        public static void FindObscureText(string content, string fileName)
+        public static void ValidateContent(ClientContext ctx, string branch)
         {
-            
-                    if (content.Contains("false,false,1") ||
-                content.Contains("<p>a</p>") ||
-                content.Contains("<p>v</p>") ||
-                content.Contains("[TODO]") ||
-                content.Length < 50)
-            {
-                Console.ForegroundColor = ConsoleColor.Yellow;
+            lstValidateContent.Add("Filnavn;Gruppe;Undergruppe;Branche;Content");
+            lstLinksInContent.Add("Filnavn;Gruppe;Undergruppe;Branche;Content");
+            CamlQuery camlQuery = new CamlQuery();
+            string viewXml = string.Format(@"
+                    <View>
+                        <Query>
+                            <Where>
+                                <Eq>
+                                    <FieldRef Name='H_x00e5_ndbog' />
+                                    <Value Type='Text'>{0}</Value>
+                                </Eq>
+                            </Where>
+                        </Query>
+                    </View>", branch);
 
-                lstLog.Add(fileName + ";" + string.Empty);
-                Console.WriteLine(fileName);
-                Console.ForegroundColor = ConsoleColor.White;
+            camlQuery.ViewXml = viewXml;
+
+            var oList = ctx.Web.Lists.GetByTitle("Webstedssider");
+
+            ListItemCollection collListItem = oList.GetItems(camlQuery);
+            ctx.Load(collListItem);
+            ctx.ExecuteQuery();
+
+            List<string> pdfList = new List<string>();
+
+            foreach (ListItem item in collListItem)
+            {
+                ClientSidePage clientPage = ClientSidePage.Load(ctx, item["FileLeafRef"].ToString());
+                foreach (var section in clientPage.Sections)
+                {
+                    foreach (var control in section.Controls)
+                    {
+                        if (control.Type.Name == "ClientSideText")
+                        {
+                            ClientSideText t = (ClientSideText)control;
+                            if (t.Text.Contains("<p>a</p>") ||
+                                t.Text.Contains("<p>v</p>") ||
+                                t.Text.Contains("[TODO]") ||
+                                t.Text.Length < 10)
+                            {
+                                Console.ForegroundColor = ConsoleColor.Yellow;
+
+                                string strWriteLine = String.Format("{0};{1};{2};{3};{4}",
+                                                                    item["FileLeafRef"],
+                                                                    item["Gruppe"] != null ? item["Gruppe"].ToString() : "Gruppe",
+                                                                    item["Undergruppe"] != null ? item["Undergruppe"].ToString() : "Undergruppe",
+                                                                    branch,
+                                                                    t.Text
+                                                                    );
+                                lstValidateContent.Add(strWriteLine);
+
+                                Console.ForegroundColor = ConsoleColor.White;
+                            }
+                            if (t.Text.Contains(@"_layouts/images/pdf16.gif"))
+                            {
+                                pdfList.Add(item["FileLeafRef"].ToString());
+                            }
+
+                            Regex regex = new Regex("href\\s*=\\s*(?:\"(?<1>[^\"]*)\"|(?<1>\\S+))", RegexOptions.IgnoreCase);
+                            Match match;
+                            for (match = regex.Match(t.Text); match.Success; match = match.NextMatch())
+                            {
+                                foreach (System.Text.RegularExpressions.Capture capture in match.Captures)
+                                {
+                                    string strWriteLine = String.Format("{0};{1};{2};{3};{4}",
+                                                                    item["FileLeafRef"],
+                                                                    item["Gruppe"] != null ? item["Gruppe"].ToString() : "Gruppe",
+                                                                    item["Undergruppe"] != null ? item["Undergruppe"].ToString() : "Undergruppe",
+                                                                    branch,
+                                                                    capture
+                                                                    );
+
+                                    lstLinksInContent.Add(strWriteLine);
+                                }
+                            }
+                        }
+                    }
+                }
+
+
+                Console.WriteLine(clientPage.Controls);
             }
+
+            System.IO.File.WriteAllLines(VALIDATE_CONTENT_LOG_FILEPATH + branch + ".csv", lstValidateContent.ToArray(), Encoding.UTF8);
+            System.IO.File.WriteAllLines(LINKS_IN_CONTENT_LOG_FILEPATH + branch + ".csv", lstLinksInContent.ToArray(), Encoding.UTF8);
         }
         private static SecureString GetPassword()
         {
@@ -444,10 +432,14 @@ namespace SPOApp
 
         static void Main(string[] args)
         {
+            Branches objBranches = new Branches();
+
+
             Console.WriteLine("##########   Vælg feature  ##########");
             Console.WriteLine("[1] - Create Modern Pages");
             Console.WriteLine("[2] - Check for obscure content");
             Console.WriteLine("[3] - TODO");
+            Console.WriteLine("[4] - Repair Modern Pages");
             string InputFromScreen_FEATURE = Console.ReadLine();
             Console.WriteLine("Skriv hvilken 'Branche' Der skal migreres");
             string InputFromScreen_BRANCHE = Console.ReadLine();
@@ -456,25 +448,25 @@ namespace SPOApp
             ClientContext ctx = SPOUtility.Authenticate(targetSiteUrl, "admnicd@lb.dk", "MandM5555");
 
             List<List<GenericManualStruct>> L = new List<List<GenericManualStruct>>();
-            List<GenericManualStruct> lstAnsvar = MigrationEngine.GetSourceFilesFromCSV(SHAREPOINT_2_EXCEL_FILEPATH + "Ansvar.csv");
-            List<GenericManualStruct> lstBil = MigrationEngine.GetSourceFilesFromCSV(SHAREPOINT_2_EXCEL_FILEPATH + "Bil.csv");
-            List<GenericManualStruct> lstBPG = MigrationEngine.GetSourceFilesFromCSV(SHAREPOINT_2_EXCEL_FILEPATH + "BPG.csv");
-            List<GenericManualStruct> lstBygning = MigrationEngine.GetSourceFilesFromCSV(SHAREPOINT_2_EXCEL_FILEPATH + "Bygning.csv");
-            List<GenericManualStruct> lstGerningsmand = MigrationEngine.GetSourceFilesFromCSV(SHAREPOINT_2_EXCEL_FILEPATH + "Gerningsmand.csv");
-            List<GenericManualStruct> lstHund = MigrationEngine.GetSourceFilesFromCSV(SHAREPOINT_2_EXCEL_FILEPATH + "Hund.csv");
-            List<GenericManualStruct> lstIndbo = MigrationEngine.GetSourceFilesFromCSV(SHAREPOINT_2_EXCEL_FILEPATH + "Indbo.csv");
-            List<GenericManualStruct> lstPersonskade = MigrationEngine.GetSourceFilesFromCSV(SHAREPOINT_2_EXCEL_FILEPATH + "Personskade.csv");
-            List<GenericManualStruct> lstRegres = MigrationEngine.GetSourceFilesFromCSV(SHAREPOINT_2_EXCEL_FILEPATH + "Regres.csv");
-            List<GenericManualStruct> lstRejse = MigrationEngine.GetSourceFilesFromCSV(SHAREPOINT_2_EXCEL_FILEPATH + "Rejse.csv");
-            List<GenericManualStruct> lstRetshjælp = MigrationEngine.GetSourceFilesFromCSV(SHAREPOINT_2_EXCEL_FILEPATH + "Retshjælp.csv");
-            List<GenericManualStruct> lstSanering = MigrationEngine.GetSourceFilesFromCSV(SHAREPOINT_2_EXCEL_FILEPATH + "Sanering.csv");
-            List<GenericManualStruct> lstScalePoint = MigrationEngine.GetSourceFilesFromCSV(SHAREPOINT_2_EXCEL_FILEPATH + "ScalePoint.csv");
-            List<GenericManualStruct> lstSkadeservice = MigrationEngine.GetSourceFilesFromCSV(SHAREPOINT_2_EXCEL_FILEPATH + "Skadeservice.csv");
+            List<GenericManualStruct> lstAnsvar = MigrationEngine.GetSourceFilesFromCSV(SHAREPOINT_2_EXCEL_FILEPATH + objBranches.Ansvar + ".csv");
+            List<GenericManualStruct> lstBil = MigrationEngine.GetSourceFilesFromCSV(SHAREPOINT_2_EXCEL_FILEPATH + objBranches.Bil + ".csv");
+            List<GenericManualStruct> lstBPG = MigrationEngine.GetSourceFilesFromCSV(SHAREPOINT_2_EXCEL_FILEPATH + objBranches.BPG + ".csv");
+            List<GenericManualStruct> lstBygning = MigrationEngine.GetSourceFilesFromCSV(SHAREPOINT_2_EXCEL_FILEPATH + objBranches.Bygning + ".csv");
+            List<GenericManualStruct> lstGerningsmand = MigrationEngine.GetSourceFilesFromCSV(SHAREPOINT_2_EXCEL_FILEPATH + objBranches.Gerningsmand + ".csv");
+            List<GenericManualStruct> lstHund = MigrationEngine.GetSourceFilesFromCSV(SHAREPOINT_2_EXCEL_FILEPATH + objBranches.Hund + ".csv");
+            List<GenericManualStruct> lstIndbo = MigrationEngine.GetSourceFilesFromCSV(SHAREPOINT_2_EXCEL_FILEPATH + objBranches.Indbo + ".csv");
+            List<GenericManualStruct> lstPersonskade = MigrationEngine.GetSourceFilesFromCSV(SHAREPOINT_2_EXCEL_FILEPATH + objBranches.Personskade + ".csv");
+            List<GenericManualStruct> lstRegres = MigrationEngine.GetSourceFilesFromCSV(SHAREPOINT_2_EXCEL_FILEPATH + objBranches.Regres + ".csv");
+            List<GenericManualStruct> lstRejse = MigrationEngine.GetSourceFilesFromCSV(SHAREPOINT_2_EXCEL_FILEPATH + objBranches.Rejse + ".csv");
+            List<GenericManualStruct> lstRetshjælp = MigrationEngine.GetSourceFilesFromCSV(SHAREPOINT_2_EXCEL_FILEPATH + objBranches.Retshjælp + ".csv");
+            List<GenericManualStruct> lstSanering = MigrationEngine.GetSourceFilesFromCSV(SHAREPOINT_2_EXCEL_FILEPATH + objBranches.Sanering + ".csv");
+            List<GenericManualStruct> lstScalePoint = MigrationEngine.GetSourceFilesFromCSV(SHAREPOINT_2_EXCEL_FILEPATH + objBranches.ScalePoint + ".csv");
+            List<GenericManualStruct> lstSkadeservice = MigrationEngine.GetSourceFilesFromCSV(SHAREPOINT_2_EXCEL_FILEPATH + objBranches.Skadeservice + ".csv");
 
-            List<GenericManualStruct> lstSkybrudsmanual = MigrationEngine.GetSourceFilesFromCSV(SHAREPOINT_2_EXCEL_FILEPATH + "Skybrudsmanual.csv");
-            List<GenericManualStruct> lstBeredskab = MigrationEngine.GetSourceFilesFromCSV(SHAREPOINT_2_EXCEL_FILEPATH + "Beredskab.csv");
-            List<GenericManualStruct> lstStormmanual = MigrationEngine.GetSourceFilesFromCSV(SHAREPOINT_2_EXCEL_FILEPATH + "Stormmanual.csv");
-            List<GenericManualStruct> lstStorskade = MigrationEngine.GetSourceFilesFromCSV(SHAREPOINT_2_EXCEL_FILEPATH + "Storskade.csv");
+            List<GenericManualStruct> lstSkybrudsmanual = MigrationEngine.GetSourceFilesFromCSV(SHAREPOINT_2_EXCEL_FILEPATH + objBranches.Skybrudsmanual + ".csv");
+            List<GenericManualStruct> lstBeredskab = MigrationEngine.GetSourceFilesFromCSV(SHAREPOINT_2_EXCEL_FILEPATH + objBranches.Beredskab + ".csv");
+            List<GenericManualStruct> lstStormmanual = MigrationEngine.GetSourceFilesFromCSV(SHAREPOINT_2_EXCEL_FILEPATH + objBranches.Stormmanual + ".csv");
+            List<GenericManualStruct> lstStorskade = MigrationEngine.GetSourceFilesFromCSV(SHAREPOINT_2_EXCEL_FILEPATH + objBranches.Storskade + ".csv");
 
 
             L.Add(lstAnsvar);
@@ -497,23 +489,88 @@ namespace SPOApp
             L.Add(lstStorskade);
 
             string newFilenamePrefix = string.Empty;
-            lstCreateModernPagesLog.Add("Filnavn;Gruppe;Undergruppe;Branche;Status");
+            //lstCreateModernPagesLog.Add("Filnavn;Gruppe;Undergruppe;Branche;Status");
+
 
             //MigrationEngine.ChangePageLayoutType(ctx, L);
             switch (InputFromScreen_FEATURE)
             {
                 case "1":
-                    newFilenamePrefix = CreatemodernPagesFeature(InputFromScreen_BRANCHE, ctx, L, newFilenamePrefix);
-                    System.IO.File.WriteAllLines(@"C:\Git\LBIntranet\SPOApp\SPOApp\SPOApp\importfiles\CreateModernPagesLog\log_" + InputFromScreen_BRANCHE + ".csv", lstCreateModernPagesLog.ToArray(), Encoding.UTF8);
+
+                    //CreatemodernPagesFeature(InputFromScreen_BRANCHE, ctx, L, newFilenamePrefix);
+                    List<string> lstBranches = new List<string>() { objBranches.Ansvar,
+                                                                    objBranches.Beredskab,
+                                                                    objBranches.Bil,
+                                                                    objBranches.BPG,
+                                                                    objBranches.Bygning,
+                                                                    objBranches.Gerningsmand,
+                                                                    objBranches.Hund,
+                                                                    objBranches.Indbo,
+                                                                    objBranches.Personskade,
+                                                                    objBranches.Regres,
+                                                                    objBranches.Rejse,
+                                                                    objBranches.Retshjælp,
+                                                                    objBranches.Sanering,
+                                                                    objBranches.ScalePoint,
+                                                                    objBranches.Skadeservice,
+                                                                    objBranches.Skybrudsmanual,
+                                                                    objBranches.Stormmanual,
+                                                                    objBranches.Storskade};
+                    foreach (var branch in lstBranches)
+                    {
+                        lstCreateModernPagesLog = new List<string>();
+                        lstCreateModernPagesLog.Add("OrignalFilnavn;NytFilnavn;Gruppe;Undergruppe;Branche;Coincidence;Status");
+                        InputFromScreen_BRANCHE = branch;
+
+                        //CreatemodernPagesFeature(InputFromScreen_BRANCHE, ctx, L, newFilenamePrefix);
+                        CreatemodernPagesFeature(InputFromScreen_BRANCHE, ctx, L);
+
+                        System.IO.File.WriteAllLines(@"C:\Git\LBIntranet\SPOApp\SPOApp\SPOApp\importfiles\CreateModernPagesLog\log_" + InputFromScreen_BRANCHE + ".csv", lstCreateModernPagesLog.ToArray(), Encoding.UTF8);
+                        lstCreateModernPagesLog = null;
+                    }
+                    //System.IO.File.WriteAllLines(@"C:\Git\LBIntranet\SPOApp\SPOApp\SPOApp\importfiles\CreateModernPagesLog\log_" + InputFromScreen_BRANCHE + ".csv", lstCreateModernPagesLog.ToArray(), Encoding.UTF8);
                     break;
                 case "2":
+                    List<string> branches = new List<string>() { "Ansvar" };
+                    string fileName = "";
+                    foreach (var branch in branches)
+                    {
+                        //ValidateContent(ctx, branch);
+
+                        //fileName = VALIDATE_CONTENT_LOG_FILEPATH + branch + ".csv";
+                        //System.IO.File.WriteAllLines(fileName, lst.ToArray(), Encoding.UTF8);
+
+                        //fileName = VALIDATE_CONTENT_LOG_FILEPATH + branch + ".csv";
+                        //System.IO.File.WriteAllLines(fileName, lstLog.ToArray(), Encoding.UTF8);
+
+                    }
+
+                    ValidateContent(ctx, InputFromScreen_BRANCHE);
+                    fileName = VALIDATE_CONTENT_LOG_FILEPATH + InputFromScreen_BRANCHE + ".csv";
+                    System.IO.File.WriteAllLines(fileName, lstLog.ToArray(), Encoding.UTF8);
+
+
+
+
+                    break;
+                case "4":
+
+                    lstCreateModernPagesLog = new List<string>();
+                    lstCreateModernPagesLog.Add("OrignalFilnavn;NytFilnavn;Gruppe;Undergruppe;Branche;Coincidence;Status");
+
+                    CreatemodernPagesFeature(InputFromScreen_BRANCHE, ctx, L);
+
+                    System.IO.File.WriteAllLines(@"C:\Git\LBIntranet\SPOApp\SPOApp\SPOApp\importfiles\CreateModernPagesLog\log_Repair" + InputFromScreen_BRANCHE + ".csv", lstCreateModernPagesLog.ToArray(), Encoding.UTF8);
+                    lstCreateModernPagesLog = null;
+
+                    
                     break;
                 default:
                     break;
             }
-            
 
-            
+
+
             Console.WriteLine(DateTime.Now.ToShortTimeString());
             Console.ReadLine();
             return;
@@ -887,62 +944,69 @@ namespace SPOApp
             #endregion
         }
 
-        private static string CreatemodernPagesFeature(string InputFromScreen_BRANCHE, ClientContext ctx, List<List<GenericManualStruct>> L, string newFilenamePrefix)
+        private static void CreatemodernPagesFeature(string InputFromScreen_BRANCHE, ClientContext ctx, List<List<GenericManualStruct>> L)
         {
+            int counter = 0;
+            string modernPageFilename = "";
             foreach (List<GenericManualStruct> lstManual in L)
             {
 
                 foreach (GenericManualStruct manual in lstManual)
                 {
+                    
+                    
                     //InputFromScreen_BRANCHE
-                    if (manual.Branche.Equals("Personskade") ||
-                        manual.Branche.Equals("Regres")||
-                        manual.Branche.Equals("Retshjælp") ||
-                        manual.Branche.Equals("Gerningsmand") ||
-                        manual.Branche.Equals("Hund") ||
-                        manual.Branche.Equals("Sanering") ||
-                        manual.Branche.Equals("BPG") ||
-                        manual.Branche.Equals("Skadeservice") ||
-                        manual.Branche.Equals("ScalePoint"))
+                    //if (manual.Branche.Equals("Personskade") ||
+                    //    manual.Branche.Equals("Regres") ||
+                    //    manual.Branche.Equals("Retshjælp") ||
+                    //    manual.Branche.Equals("Gerningsmand") ||
+                    //    manual.Branche.Equals("Hund") ||
+                    //    manual.Branche.Equals("Sanering") ||
+                    //    manual.Branche.Equals("BPG") ||
+                    //    manual.Branche.Equals("Skadeservice") ||
+                    //    manual.Branche.Equals("ScalePoint"))
+                    if (manual.Branche.Equals(InputFromScreen_BRANCHE))
                     {
-
-                        if (MigrationEngine.IsPageCoincidence(manual, L))
-                        {
-                            newFilenamePrefix = manual.Branche;
-                        }
+                        Console.WriteLine("Creating " + counter + " of " + lstManual.Count + " Modern Pages");
+                        counter++;
+                        bool isCoincidenceInFilename = MigrationEngine.IsPageCoincidence(manual, L);
+                        //if (MigrationEngine.IsPageCoincidence(manual, L))
+                        //{
+                        //    newFilenamePrefix = manual.Branche;
+                        //}
 
                         try
                         {
-                            MigrationEngine.CreateNewModernPage(ctx, manual, newFilenamePrefix + manual.FileName);
-                            lstCreateModernPagesLog.Add(string.Format("{0};{1};{2};{3};{4}",
+                            modernPageFilename = isCoincidenceInFilename ? manual.Branche + manual.FileName : manual.FileName;
+
+                            MigrationEngine.CreateNewModernPage(ctx, manual, modernPageFilename);
+
+                            lstCreateModernPagesLog.Add(string.Format("{0};{1};{2};{3};{4};{5};{6}",
                                                         manual.FileName,
+                                                        modernPageFilename,
                                                         manual.Gruppe,
                                                         manual.UnderGruppe,
                                                         manual.Branche,
+                                                        isCoincidenceInFilename.ToString(),
                                                         "Success"));
                         }
                         catch (Exception ex)
                         {
 
-                            lstCreateModernPagesLog.Add(string.Format("{0};{1};{2};{3};{4}",
+                            lstCreateModernPagesLog.Add(string.Format("{0};{1};{2};{3};{4};{5};{6}",
                                                         manual.FileName,
+                                                        modernPageFilename,
                                                         manual.Gruppe,
                                                         manual.UnderGruppe,
                                                         manual.Branche,
+                                                        isCoincidenceInFilename.ToString(),
                                                         "Error"));
                         }
-                        finally
-                        {
-                            newFilenamePrefix = string.Empty;
-                        }
-
-
                     }
                 }
 
             }
 
-            return newFilenamePrefix;
         }
 
 
@@ -994,7 +1058,7 @@ namespace SPOApp
 
                 foreach (System.Text.RegularExpressions.Capture capture in match.Captures)
                 {
-                    lstOutputLinksInPages.Add(fileName + ";N/A;" + capture + ";N/A");
+                    lstLinksInContent.Add(fileName + ";N/A;" + capture + ";N/A");
                 }
             }
 

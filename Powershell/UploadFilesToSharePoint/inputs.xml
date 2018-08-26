@@ -1,0 +1,7 @@
+﻿<?xml version="1.0" encoding="utf-8"?>  
+<Inputs>  
+  <ConnectSPOnline SiteURL="https://lbforsikring.sharepoint.com/sites/nicd" UserName="sadmnicd@lbforsikring.onmicrosoft.com" Password="MandM1974"></ConnectSPOnline>  
+ <UploadFiles>  
+    <UploadFile SourceFolder=".\MyFiles" DestinationFolder="MyNotes" CreateFolder="no" FolderName=""></UploadFile>   
+  </UploadFiles>  
+</Inputs>  
