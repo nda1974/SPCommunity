@@ -47,7 +47,7 @@ export default class MyFavouritesTopBar extends React.Component<IMyFavouritesTop
             <div className={styles.ccTopBar}>
                 <PrimaryButton data-id="menuButton"
                     title="Vis mine favoritter"
-                    text="Mine favoritter"
+                    text="Mine favoritter!"
                     ariaLabel="Vis"
                     iconProps={{ iconName: "View" }}
                     className={styles.ccTopBarButton}

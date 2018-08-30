@@ -13,6 +13,6 @@
   },
   "externals": {},
   "localizedResources": {
-    "LbMyfavouritesExtensionApplicationCustomizerStrings": "lib/extensions/lbMyfavouritesExtension/loc/{locale}.js"
+    // "LbMyfavouritesExtensionApplicationCustomizerStrings": "lib/extensions/lbMyfavouritesExtension/loc/{locale}.js"
   }
 }

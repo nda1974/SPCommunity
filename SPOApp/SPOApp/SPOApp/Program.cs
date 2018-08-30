@@ -58,10 +58,27 @@ namespace SPOApp
     }
     public struct FileWithLinks
     {
+        /// <summary>
+        /// Navnet på den fil der bliver processeret
+        /// </summary>
         public string FileName;
+        /// <summary>
+        /// Link i indholdet på siden
+        /// </summary>
         public string OriginalLink;
+        /// <summary>
+        /// Navnet på den fil der linkes til
+        /// </summary>
+        public string FileInLink;
+        /// <summary>
+        /// Url pg destinations folderne
+        /// </summary>
         public string NewLink;
-        public string CoincidenceFilePrefix;
+        /// <summary>
+        /// Prefix til filen i tilfælde af navnesammenfald
+        /// </summary>
+        public string PreFix;
+
     }
 
     #endregion
@@ -260,7 +277,7 @@ namespace SPOApp
         private static List<string> lstLinksInContent = new List<string>();
         private static List<string> lstLog = new List<string>();
         private static List<string> lstValidateContent = new List<string>();
-
+        private static List<List<GenericManualStruct>> L = new List<List<GenericManualStruct>>();
         private static List<string> lstError = new List<string>();
         public static string IsPageCoincidence(string fileName)
         {
@@ -327,8 +344,9 @@ namespace SPOApp
         }
         public static void ValidateContent(ClientContext ctx, string branch)
         {
-            lstValidateContent.Add("Filnavn;Gruppe;Undergruppe;Branche;Content");
-            lstLinksInContent.Add("Filnavn;Gruppe;Undergruppe;Branche;Content");
+            lstValidateContent.Add("Filnavn;Gruppe;Undergruppe;Branche;Content;IsLinkCoincidence");
+            //lstLinksInContent.Add("Filnavn;Gruppe;Undergruppe;Branche;Content;IsLinkCoincidence");
+            lstLinksInContent.Add("Filnavn;Branche;Content;IsLinkCoincidence;FileInLink;NytLink;Prefix");
             CamlQuery camlQuery = new CamlQuery();
             string viewXml = string.Format(@"
                     <View>
@@ -391,15 +409,30 @@ namespace SPOApp
                             {
                                 foreach (System.Text.RegularExpressions.Capture capture in match.Captures)
                                 {
-                                    string strWriteLine = String.Format("{0};{1};{2};{3};{4}",
-                                                                    item["FileLeafRef"],
-                                                                    item["Gruppe"] != null ? item["Gruppe"].ToString() : "Gruppe",
-                                                                    item["Undergruppe"] != null ? item["Undergruppe"].ToString() : "Undergruppe",
-                                                                    branch,
-                                                                    capture
-                                                                    );
+                                    if (capture.Value.IndexOf(".aspx") > 0)
+                                    {
+                                        string s = capture.Value.Substring(0, capture.Value.IndexOf(".aspx"));
+                                        string ss = s.Substring(s.LastIndexOf('/') + 1) + ".aspx";
+                                        bool isCoincidenceInFilename = MigrationEngine.IsPageCoincidence(new GenericManualStruct
+                                        {
+                                            Branche = branch,
+                                            FileName = ss
+                                        }, L);
+                                        //lstLinksInContent.Add("Filnavn;Branche;Content;IsLinkCoincidence;FileInLink;NytLink;Prefix");
+                                        string strWriteLine = String.Format("{0};{1};{2};{3};{4};{5};{6}",
+                                                                        item["FileLeafRef"],
+                                                                        //item["Gruppe"] != null ? item["Gruppe"].ToString() : "Gruppe",
+                                                                        //item["Undergruppe"] != null ? item["Undergruppe"].ToString() : "Undergruppe",
+                                                                        branch,
+                                                                        capture,
+                                                                        isCoincidenceInFilename,
+                                                                        ss,
+                                                                        string.Empty,
+                                                                        string.Empty
+                                                                        );
 
-                                    lstLinksInContent.Add(strWriteLine);
+                                        lstLinksInContent.Add(strWriteLine);
+                                    }
                                 }
                             }
                         }
@@ -437,17 +470,17 @@ namespace SPOApp
 
             Console.WriteLine("##########   Vælg feature  ##########");
             Console.WriteLine("[1] - Create Modern Pages");
-            Console.WriteLine("[2] - Check for obscure content");
-            Console.WriteLine("[3] - TODO");
+            Console.WriteLine("[2] - Validate content");
+            Console.WriteLine("[3] - Migrate Links");
             Console.WriteLine("[4] - Repair Modern Pages");
             string InputFromScreen_FEATURE = Console.ReadLine();
-            Console.WriteLine("Skriv hvilken 'Branche' Der skal migreres");
+            Console.WriteLine("Vælg 'Branche' ");
             string InputFromScreen_BRANCHE = Console.ReadLine();
             Console.WriteLine(DateTime.Now.ToShortTimeString());
             string targetSiteUrl = "https://lbforsikring.sharepoint.com/sites/skade";
             ClientContext ctx = SPOUtility.Authenticate(targetSiteUrl, "admnicd@lb.dk", "MandM5555");
 
-            List<List<GenericManualStruct>> L = new List<List<GenericManualStruct>>();
+            
             List<GenericManualStruct> lstAnsvar = MigrationEngine.GetSourceFilesFromCSV(SHAREPOINT_2_EXCEL_FILEPATH + objBranches.Ansvar + ".csv");
             List<GenericManualStruct> lstBil = MigrationEngine.GetSourceFilesFromCSV(SHAREPOINT_2_EXCEL_FILEPATH + objBranches.Bil + ".csv");
             List<GenericManualStruct> lstBPG = MigrationEngine.GetSourceFilesFromCSV(SHAREPOINT_2_EXCEL_FILEPATH + objBranches.BPG + ".csv");
@@ -548,10 +581,31 @@ namespace SPOApp
                     ValidateContent(ctx, InputFromScreen_BRANCHE);
                     fileName = VALIDATE_CONTENT_LOG_FILEPATH + InputFromScreen_BRANCHE + ".csv";
                     System.IO.File.WriteAllLines(fileName, lstLog.ToArray(), Encoding.UTF8);
+                    break;
+                case "3":
+                    //List<string> files = new List<string>();
+                    string filePath = string.Format(@"C:\Git\LBIntranet\SPOApp\SPOApp\SPOApp\logfiles\OutputLinksLOG\" +InputFromScreen_BRANCHE + "Ready.csv");
+                    FileWithLinks fileWithLink;
+                    int counter = 0;
+                    using (var reader = new StreamReader(filePath))
+                    {
+                        while (!reader.EndOfStream)
+                        {
 
-
-
-
+                            var line = reader.ReadLine();
+                            string [] words = line.Split(';');
+                            fileWithLink.FileName= words[0];
+                            fileWithLink.OriginalLink = words[2];
+                            fileWithLink.FileInLink = words[4];
+                            fileWithLink.NewLink= words[5];
+                            fileWithLink.PreFix= words[6];
+                            if (counter>0)
+                            {
+                                EditCurrentLink(ctx, fileWithLink);
+                            }
+                            counter++;
+                        }
+                    }
                     break;
                 case "4":
 
@@ -1009,11 +1063,11 @@ namespace SPOApp
 
         }
 
+        #region More old stuff
 
-        private static void EditCurrentLink(ClientContext ctx, FileWithLinks file, bool linkToCoincidenceFile)
+        private static void EditCurrentLink(ClientContext ctx, FileWithLinks file)
         {
-            string filePrefix = "";
-            string tmpFileNameFromLink = "";
+            
             ClientSidePage P = ClientSidePage.Load(ctx, file.FileName);
             foreach (CanvasSection section in P.Sections)
             {
@@ -1022,24 +1076,58 @@ namespace SPOApp
                     if (control.Type.Name == "ClientSideText")
                     {
                         ClientSideText t = (ClientSideText)control;
+                        StringBuilder sb = new StringBuilder(t.Text);
                         string s = t.Text;
 
                         //Replace link
-                        string newPageText = Uri.UnescapeDataString(t.Text).Replace(Uri.UnescapeDataString(file.OriginalLink), Uri.UnescapeDataString("https://lbforsikring.sharepoint.com/sites/Skade" + file.NewLink));
+                        //string newPageText = Uri.UnescapeDataString(t.Text).Replace(Uri.UnescapeDataString(file.OriginalLink), Uri.UnescapeDataString("https://lbforsikring.sharepoint.com/" + file.NewLink));
 
-                        //Replace filename
-                        if (linkToCoincidenceFile)
+                        //Regex regex = new Regex("href\\s*=\\s*(?:\"(?<1>[^\"]*)\"|(?<1>\\S+))", RegexOptions.IgnoreCase);
+                        //Regex regex = new Regex("href\\s*=\\s*(?:[\"'](?<1>[^\"']*)[\"']|(?<1>\\S+))", RegexOptions.IgnoreCase);
+
+
+
+                        //string rep = string.Format("href =\\\"[^\"]+\"|href=\"[^\"]+\"","");
+                        //Regex regex = new Regex("href=\\\"[^\"]+\\\"|href=\"[^\"]+\"", RegexOptions.IgnoreCase);
+
+
+                        //Regex regex = new Regex("href=\\\"[^\"]+\"|href=\"[^\"]+\"", RegexOptions.IgnoreCase);
+
+                        
+                        string megaboss = string.Format("href={0}{1}", "\\[^\"]+\\","\"|href=\"[^\"]+\"");
+                        Regex regex = new Regex(megaboss, RegexOptions.IgnoreCase);
+                        // href=\\"[^"]+\\"|href="[^"]+" 
+                        Match match = regex.Match(t.Text);
+
+                        for (match = regex.Match(t.Text); match.Success; match = match.NextMatch())
                         {
-                            tmpFileNameFromLink = Uri.UnescapeDataString(file.OriginalLink);
-                            filePrefix = IsPageCoincidence(tmpFileNameFromLink.Substring(tmpFileNameFromLink.LastIndexOf('/') + 1));
-                            newPageText.Replace(tmpFileNameFromLink, filePrefix + tmpFileNameFromLink);
+                            foreach (System.Text.RegularExpressions.Capture capture in match.Captures)
+                            {
+                                if (capture.Value.Contains(file.FileInLink))
+                                {
+                                    string newHRef = string.Format("href='{0}{1}{2}'", file.NewLink, file.PreFix, file.FileName);
+                                    s = s.Replace(capture.Value, newHRef);
+                                    sb.Replace(capture.Value, newHRef);
+                                    //Console.WriteLine(s);
+                                    Console.WriteLine(s);
+                                }
+                            }
                         }
 
-                        t.Text = newPageText;
-                        P.Save();
-                        P.Publish();
-                        filePrefix = "";
-                        tmpFileNameFromLink = "";
+
+                                //Replace filename
+                                // Forhen var det et parameter i funktionen
+                                //if (linkToCoincidenceFile)
+                                //{
+                                //    tmpFileNameFromLink = Uri.UnescapeDataString(file.OriginalLink);
+                                //    filePrefix = IsPageCoincidence(tmpFileNameFromLink.Substring(tmpFileNameFromLink.LastIndexOf('/') + 1));
+                                //    newPageText.Replace(tmpFileNameFromLink, filePrefix + tmpFileNameFromLink);
+                                //}
+
+                                t.Text = sb.ToString();
+                        //P.Save();
+                        //P.Publish();
+                        
                     }
                 }
             }
@@ -1071,7 +1159,6 @@ namespace SPOApp
 
 
 
-        #region More old stuff
 
         private static void StartCreatingModernPages(bool? repair)
         {
