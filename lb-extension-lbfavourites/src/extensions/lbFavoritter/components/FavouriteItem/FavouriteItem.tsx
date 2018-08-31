@@ -59,7 +59,7 @@ export default class FavouriteItem extends React.Component<IFavouriteItemProps,I
                 </div>)
                 }
 
-    private async UpdateFavouriteItem():Promise<void>{
+    private async UpdateFavouriteItem():Promise<any>{
         await this.props.callBackUpdateFavouriteItem(this.props.item);
     }
 
