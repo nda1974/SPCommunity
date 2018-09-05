@@ -426,8 +426,9 @@ function RunNewVersion
 
 
 
-
-    $stuff | export-csv "C:\Git\LBIntranet\SPOApp\SPOApp\SPOApp\importfiles\ContentMigration\'+$branch+'content.csv" -notypeinformation -Encoding UTF8 -Delimiter ';'
+    
+    $logFileName = [string]::Format("C:\Git\LBIntranet\SPOApp\SPOApp\SPOApp\importfiles\ContentMigration\log_{0}{1}", $branch, ".csv") 
+    $stuff | export-csv $logFileName -notypeinformation -Encoding UTF8 -Delimiter ';'
 }
 
 #----------------- Start -----------------#
