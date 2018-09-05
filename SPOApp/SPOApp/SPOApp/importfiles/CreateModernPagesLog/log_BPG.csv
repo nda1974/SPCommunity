@@ -45,7 +45,7 @@ Opret krav.aspx;Opret krav.aspx;Økonomi ;;BPG;False;Success
 Guide til ny hjemmeside.aspx;Guide til ny hjemmeside.aspx;Hjemmeside og Mit XX;;BPG;False;Success
 Medlem kan ikke anmelde skade på Mit XX på ægtefælles police.aspx;Medlem kan ikke anmelde skade på Mit XX på ægtefælles police.aspx;Hjemmeside og Mit XX;;BPG;False;Success
 Topdesk (Servicedesk).aspx;Topdesk (Servicedesk).aspx;Topdesk (Servicedesk);;BPG;False;Success
-Glasskader.aspx;Glasskader.aspx;Glasskader;;BPG;False;Success
+Glasskader.aspx;BPGGlasskader.aspx;Glasskader;;BPG;True;Success
 Forsikringsforespørgsel hos DFIM på udenlandsk modpart.aspx;Forsikringsforespørgsel hos DFIM på udenlandsk modpart.aspx;Udland;;BPG;False;Success
 Valg af Bilskade rolle i Trio.aspx;Valg af Bilskade rolle i Trio.aspx;Lync og Trio;;BPG;False;Success
 Leasing og moms.aspx;Leasing og moms.aspx;Økonomi;;BPG;False;Success

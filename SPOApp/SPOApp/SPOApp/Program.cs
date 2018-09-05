@@ -553,7 +553,7 @@ namespace SPOApp
                     {
                         lstCreateModernPagesLog = new List<string>();
                         lstCreateModernPagesLog.Add("OrignalFilnavn;NytFilnavn;Gruppe;Undergruppe;Branche;Coincidence;Status");
-                        InputFromScreen_BRANCHE = branch;
+                        //InputFromScreen_BRANCHE = branch;
 
                         //CreatemodernPagesFeature(InputFromScreen_BRANCHE, ctx, L, newFilenamePrefix);
                         CreatemodernPagesFeature(InputFromScreen_BRANCHE, ctx, L);
