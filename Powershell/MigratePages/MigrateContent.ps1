@@ -454,6 +454,7 @@ function Run($startIndex)
         Write-Host "----- Indbo -----"
         Write-Host "----- Rejse -----"
         Write-Host "----- Bil -----"
+        Write-Host "----- BPG -----"
         
         
         $branch = Read-Host 
@@ -530,6 +531,11 @@ function Run($startIndex)
         {
             $branchSiteUrl="http://intranet.lb.dk/Skade/hb/besk/SitePages/"
         }   
+        elseif($branch -eq 'BPG')
+        {
+            $branchSiteUrl="http://intranet.lb.dk/Skade/hb/BPG/SitePages"
+        }   
+        
         else{
             $branchSiteUrl=$null
 
