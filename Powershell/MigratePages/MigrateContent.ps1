@@ -420,7 +420,7 @@ function RunNewVersion
 
 
 
-    $stuff | export-csv "C:\Git\LBIntranet\SPOApp\SPOApp\SPOApp\importfiles\ContentMigration\content.csv" -notypeinformation -Encoding UTF8 -Delimiter ';'
+    $stuff | export-csv "C:\Git\LBIntranet\SPOApp\SPOApp\SPOApp\importfiles\ContentMigration\'+$branch+'content.csv" -notypeinformation -Encoding UTF8 -Delimiter ';'
 }
 function Run($startIndex)
 {
@@ -428,7 +428,7 @@ function Run($startIndex)
     #$coincidenceList=BuildCoincidenceList
     ###################################################################################################
     
-    $coincidenceInFilespages = Import-Csv -Path 'C:\Git\LBIntranet\SPOApp\SPOApp\SPOApp\importfiles\CoincidenceFile\coincidence.csv' -Encoding UTF8 -Delimiter ';'
+    $coincidenceInFilespages = Import-Csv -Path 'C:\Git\LBIntranet\SPOApp\SPOApp\SPOApp\importfiles\CoincidenceFile\'+$branch+'coincidence.csv' -Encoding UTF8 -Delimiter ';'
     $files=0;
     $i=0;
     $currentFileName='';
