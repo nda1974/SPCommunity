@@ -51,6 +51,7 @@ export default class FavouritesPanel extends React.Component<IFavouritesPanelPro
 
         // this.UpdateFavouritePanel=this.UpdateFavouritePanel.bind(this);
         this.UpdateFavouritePanel = this.UpdateFavouritePanel.bind(this);
+        this._deleteFavourite=this._deleteFavourite.bind(this);
 
     }
 
@@ -59,14 +60,17 @@ export default class FavouritesPanel extends React.Component<IFavouritesPanelPro
         return (<div>
             <Panel isOpen={this.props.showPanel}
                 type={PanelType.smallFixedNear}
-                headerText="Mine favoritter"
-                headerClassName={`ms-font-xl ${styles.ccPanelHeader}`}
+                // headerText="Mine favoritter"
+                className={styles.ccPanelMain} 
                 isLightDismiss={true}
             >
+            
+            <div className={styles.ccPanelHeader} >Mine favoritter</div>
                 {
                     this.props.favourites.sort((a, b) => { return Number(b.IsMandatory) - Number(a.IsMandatory) }).map((item) => {
                         return (
                             <div>
+                                {/* <FavouriteItem item={item} callBackUpdateFavouriteItem={this.UpdateFavouritePanel} /> */}
                                 <FavouriteItem item={item} callBackUpdateFavouriteItem={this.UpdateFavouritePanel} />
                             </div>
                         )
@@ -77,7 +81,7 @@ export default class FavouritesPanel extends React.Component<IFavouritesPanelPro
     }
 
     public async  UpdateFavouritePanel(item: IFavouriteItem): Promise<void> {
-        if (item.IsMandatory == false) {
+        if (item.IsMandatory == false && item.IsDistributed ==true)  {
             const itemResponse = await pnp.sp.web.lists.getByTitle(MANDATORY_FAVOURITES_LIST_NAME).items.getById(item.Id).get();
             let unfollowersIDs: number[] = [];
             if (itemResponse.UnFollowersId) {
@@ -93,8 +97,13 @@ export default class FavouritesPanel extends React.Component<IFavouritesPanelPro
             }).then(
                 await this.props.callbackRefreshFavourites()
             );
-        } else {
+        } 
+        else{
+            if(item.IsDistributed==false) {
+                this._deleteFavourite(item);
+            }
         }
+        
     }
 
     // public async UpdateFavouritePanel(favouriteItem: IFavouriteItem):Promise<void>{
@@ -114,15 +123,15 @@ export default class FavouritesPanel extends React.Component<IFavouritesPanelPro
     //     // await this.props.callbackRefreshFavourites(favouriteItem);
     // }
 
-    // public async _deleteFavourite(favouriteItem: IFavouriteItem): Promise<boolean> {
-    //     return pnp.sp.web.lists.getByTitle(FAVOURITES_LIST_NAME).items.getById(favouriteItem.Id).delete()
-    //     .then(async (): Promise<boolean> => {
-    //         await this.props.callbackRefreshFavourites(favouriteItem);
-    //         return true;
-    //     }, (error: any): boolean => {
-    //         return false;
-    //     });
-    // }
+    public async _deleteFavourite(favouriteItem: IFavouriteItem): Promise<boolean> {
+        return pnp.sp.web.lists.getByTitle(FAVOURITES_LIST_NAME).items.getById(favouriteItem.Id).delete()
+        .then(async (): Promise<boolean> => {
+            await this.props.callbackRefreshFavourites(favouriteItem);
+            return true;
+        }, (error: any): boolean => {
+            return false;
+        });
+    }
 
     // public async _updateFavourite(favouriteItem: IFavouriteItem): Promise<boolean> {
     //     return pnp.sp.web.lists.getByTitle(FAVOURITES_LIST_NAME).items.getById(favouriteItem.Id).update({

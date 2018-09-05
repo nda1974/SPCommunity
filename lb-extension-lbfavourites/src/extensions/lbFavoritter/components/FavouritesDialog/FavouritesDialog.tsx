@@ -54,10 +54,7 @@ export default class FavouritesDialog extends React.Component<IFavouritesDialogP
     }
 
 private async toggleDialog(createNewItem:boolean):Promise<void>{
-    // if (createNewItem) {
-    //     let status: JSX.Element = <Spinner size={SpinnerSize.large} label="Opretter favorit"  />;
-    //     this.setState({status:status});    
-    // }
+    
     try {
         await this.props.callbackHandleDialogClick(createNewItem,this.state.itemInContext);    
         
@@ -130,16 +127,7 @@ private _setTitle(value: string): void {
     private _hideDialog(): void {
         this.setState({ showDialog: false });
     }
-    private async _deleteFavourite(): Promise<void> {
-
-        // let status: JSX.Element = <Spinner size={SpinnerSize.small} />;
-        // let disableButtons: boolean = true;
-        // this.setState({ ...this.state, status, disableButtons });
-        // await this.props.deleteFavourite(this.props.displayItem.Id);
-        // status = <span></span>;
-        // disableButtons = false;
-        // this.setState({ ...this.state, status, disableButtons });
-    }
+    
     private _saveMyFavourite(): void {
         this.toggleDialog(true);
     }
@@ -156,17 +144,7 @@ private _setTitle(value: string): void {
         this.setState({ ...this.state, itemInContext});
         this.toggleDialog(false);
     }
-    private _editFavourite(): void {
-        // let status: JSX.Element = <Spinner size={SpinnerSize.small} />;
-        // let disableButtons: boolean = true;
-        // this.setState({ ...this.state, status, disableButtons });
-
-        // this.props.editFavoutite(this.props.displayItem);
-
-        // status = <span></span>;
-        // disableButtons = false;
-        // this.setState({ ...this.state, status, disableButtons });
-    }
+    
 
 
 

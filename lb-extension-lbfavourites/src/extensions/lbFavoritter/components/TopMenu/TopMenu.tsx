@@ -104,24 +104,6 @@ export default class TopMenu extends React.Component<ITopBarProps, ITopBarState>
 
     private async filterFavourites(myFavouritesCollection: IFavouriteItem[], LBFavouritesCollection: IFavouriteItem[]): Promise<IFavouriteItem[]> {
         let returnlist: IFavouriteItem[] = [];
-        // const obj= await LBFavouritesCollection.map(async(favourite)=>{
-        //     if (favourite.LBAudience) {
-        //         const isCurrentUserMemberOfGroupResponse:any= await this.CheckIfUserBelongsToGroup(favourite.LBAudience,this.state.currentUser.Email)
-        //         const isCurrentUserMemberOfGroup = await isCurrentUserMemberOfGroupResponse;
-        //             if (isCurrentUserMemberOfGroup) {
-        //                 if (isCurrentUserMemberOfGroup.length>0) {
-        //                     // myFavouritesCollection.push(favourite);
-        //                     returnlist.push(favourite);
-        //                 }
-        //             }
-        //         // favourite.LBAudience.map(async(group)=>{
-        //         // })
-        //     }
-        //     else{
-        //         // myFavouritesCollection.push(favourite);
-        //         returnlist.push(favourite);
-        //     }
-        // })
 
         for (let favouriteIndex = 0; favouriteIndex < LBFavouritesCollection.length; favouriteIndex++) {
             const favourite = LBFavouritesCollection[favouriteIndex];
@@ -141,12 +123,12 @@ export default class TopMenu extends React.Component<ITopBarProps, ITopBarState>
             }
 
         }
-        
+        for (let myFavouritesIndex = 0; myFavouritesIndex < myFavouritesCollection.length; myFavouritesIndex++) {
+            const element = myFavouritesCollection[myFavouritesIndex];
+            returnlist.push(element);
+            
+        }
         return returnlist;
-        
-
-
-
     }
     /// ********************* Dialog functions ********************* ///
 
@@ -165,8 +147,8 @@ export default class TopMenu extends React.Component<ITopBarProps, ITopBarState>
         this.setState({ ...this.state, showDialog, itemInContext });
     }
     public async handleBar(itemInContext: IFavouriteItem): Promise<void> {
-        console.log(itemInContext)
-        this._getAllFavourites();
+        // console.log(itemInContext)
+        this._showPanel();
     }
     // This is a callback function that triggers when the 'Gem' button on the favouriteDialog component is clicked
     public async handleDialogClick(createNewItem: boolean, itemInContext: IFavouriteItem): Promise<void> {
@@ -180,6 +162,7 @@ export default class TopMenu extends React.Component<ITopBarProps, ITopBarState>
 
             if (createNewItem) {
                 let isSuccess: boolean = await this.saveFavourite(itemInContext);
+                
             }
 
         }
@@ -253,61 +236,7 @@ export default class TopMenu extends React.Component<ITopBarProps, ITopBarState>
     }
 
 
-    public async _getAllFavourites(): Promise<void> {
-        let status: JSX.Element = <span></span>;
-        this.setState({ ...this.state, status });
-
-        // const myFavouriteItems: IFavouriteItem[] = await this._getPersonalFavourites(this.state.currentUser.Id);
-        // const LBFavouriteItems: IFavouriteItem[] = await this._getMandatoryFavourites();
-        // const favourites = [...LBFavouriteItems,...myFavouriteItems];
-        // const filteredFavouriteItems: IFavouriteItem[]=[];
-        // let isUserMemberInGroup:any={};
-
-        // for (const favourite in favourites) {
-        //     if (favourite.IsMandatory) {
-        //         const element = object[key];
-
-        //     }
-        // }
-
-        // await Promise.all(
-        //     favourites.map(async (favourite)=>{
-        //         if (favourite.IsMandatory) {
-        //             if (favourite.LBAudience) {
-        //                 favourite.LBAudience.forEach(async gruppe => {
-        //                     isUserMemberInGroup = await this.Test(gruppe.Title,this.state.currentUser.Email)
-        //                     console.log(gruppe)
-        //                 });
-        //             }
-        //         }
-        //     })    
-        // )
-
-
-        // favourites.map((favourite)=>{
-        //     if (favourite.IsMandatory) {
-        //         if (favourite.LBAudience) {
-        //             favourite.LBAudience.forEach(gruppe => {
-        //                 isUserMemberInGroup = this.CheckIfUserBelongsToGroup(gruppe.Title,this.state.currentUser.Email)
-        //                 if (isUserMemberInGroup) {
-
-        //                 }
-        //                 console.log(gruppe)
-        //             });
-        //         }
-        //     }
-        // })
-        // status = <span></span>;
-        // this.setState({...this.state, favourites},this._setShowPanelState );
-        // this.setState({ favourites:spread },this._setShowPanelState);
-
-
-    }
-
-    // public async IsUserGroupMember(groupName:string,email:string):Promise<any>
-    // {
-    //     return await this.CheckIfUserBelongsToGroup(groupName,email);
-    // }
+    
     public async _getMandatoryFavourites(): Promise<IFavouriteItem[]> {
         let returnItems: IFavouriteItem[] = [];
 
@@ -337,7 +266,7 @@ export default class TopMenu extends React.Component<ITopBarProps, ITopBarState>
     private CreateFavoriteItemObject(favourite: any, IsPersonalFavourite: boolean): IFavouriteItem {
         return {
             Id: favourite.Id,
-            IsDistributed: true,
+            IsDistributed: IsPersonalFavourite==true?false:true,
             IsMandatory: favourite.Mandatory,
             IsPersonal: IsPersonalFavourite,
             ItemUrl: favourite.ItemUrl,
@@ -372,8 +301,6 @@ export default class TopMenu extends React.Component<ITopBarProps, ITopBarState>
                 Log.error(LOG_SOURCE, error);
                 return [];
             });
-
-
     }
 
     private _getUserObject(): Promise<any> {

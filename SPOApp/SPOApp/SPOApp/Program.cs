@@ -480,7 +480,7 @@ namespace SPOApp
             string targetSiteUrl = "https://lbforsikring.sharepoint.com/sites/skade";
             ClientContext ctx = SPOUtility.Authenticate(targetSiteUrl, "admnicd@lb.dk", "MandM5555");
 
-            
+
             List<GenericManualStruct> lstAnsvar = MigrationEngine.GetSourceFilesFromCSV(SHAREPOINT_2_EXCEL_FILEPATH + objBranches.Ansvar + ".csv");
             List<GenericManualStruct> lstBil = MigrationEngine.GetSourceFilesFromCSV(SHAREPOINT_2_EXCEL_FILEPATH + objBranches.Bil + ".csv");
             List<GenericManualStruct> lstBPG = MigrationEngine.GetSourceFilesFromCSV(SHAREPOINT_2_EXCEL_FILEPATH + objBranches.BPG + ".csv");
@@ -584,7 +584,7 @@ namespace SPOApp
                     break;
                 case "3":
                     //List<string> files = new List<string>();
-                    string filePath = string.Format(@"C:\Git\LBIntranet\SPOApp\SPOApp\SPOApp\logfiles\OutputLinksLOG\" +InputFromScreen_BRANCHE + "Ready.csv");
+                    string filePath = string.Format(@"C:\Git\LBIntranet\SPOApp\SPOApp\SPOApp\logfiles\OutputLinksLOG\" + InputFromScreen_BRANCHE + "Ready.csv");
                     FileWithLinks fileWithLink;
                     int counter = 0;
                     using (var reader = new StreamReader(filePath))
@@ -593,13 +593,13 @@ namespace SPOApp
                         {
 
                             var line = reader.ReadLine();
-                            string [] words = line.Split(';');
-                            fileWithLink.FileName= words[0];
+                            string[] words = line.Split(';');
+                            fileWithLink.FileName = words[0];
                             fileWithLink.OriginalLink = words[2];
                             fileWithLink.FileInLink = words[4];
-                            fileWithLink.NewLink= words[5];
-                            fileWithLink.PreFix= words[6];
-                            if (counter>0)
+                            fileWithLink.NewLink = words[5];
+                            fileWithLink.PreFix = words[6];
+                            if (counter > 0)
                             {
                                 EditCurrentLink(ctx, fileWithLink);
                             }
@@ -617,7 +617,7 @@ namespace SPOApp
                     System.IO.File.WriteAllLines(@"C:\Git\LBIntranet\SPOApp\SPOApp\SPOApp\importfiles\CreateModernPagesLog\log_Repair" + InputFromScreen_BRANCHE + ".csv", lstCreateModernPagesLog.ToArray(), Encoding.UTF8);
                     lstCreateModernPagesLog = null;
 
-                    
+
                     break;
                 default:
                     break;
@@ -1007,8 +1007,8 @@ namespace SPOApp
 
                 foreach (GenericManualStruct manual in lstManual)
                 {
-                    
-                    
+
+
                     //InputFromScreen_BRANCHE
                     //if (manual.Branche.Equals("Personskade") ||
                     //    manual.Branche.Equals("Regres") ||
@@ -1067,69 +1067,91 @@ namespace SPOApp
 
         private static void EditCurrentLink(ClientContext ctx, FileWithLinks file)
         {
-            
-            ClientSidePage P = ClientSidePage.Load(ctx, file.FileName);
-            foreach (CanvasSection section in P.Sections)
+            try
             {
-                foreach (CanvasControl control in section.Controls)
+                ClientSidePage P = ClientSidePage.Load(ctx, file.FileName);
+                foreach (CanvasSection section in P.Sections)
                 {
-                    if (control.Type.Name == "ClientSideText")
+                    foreach (CanvasControl control in section.Controls)
                     {
-                        ClientSideText t = (ClientSideText)control;
-                        StringBuilder sb = new StringBuilder(t.Text);
-                        string s = t.Text;
-
-                        //Replace link
-                        //string newPageText = Uri.UnescapeDataString(t.Text).Replace(Uri.UnescapeDataString(file.OriginalLink), Uri.UnescapeDataString("https://lbforsikring.sharepoint.com/" + file.NewLink));
-
-                        //Regex regex = new Regex("href\\s*=\\s*(?:\"(?<1>[^\"]*)\"|(?<1>\\S+))", RegexOptions.IgnoreCase);
-                        //Regex regex = new Regex("href\\s*=\\s*(?:[\"'](?<1>[^\"']*)[\"']|(?<1>\\S+))", RegexOptions.IgnoreCase);
-
-
-
-                        //string rep = string.Format("href =\\\"[^\"]+\"|href=\"[^\"]+\"","");
-                        //Regex regex = new Regex("href=\\\"[^\"]+\\\"|href=\"[^\"]+\"", RegexOptions.IgnoreCase);
-
-
-                        //Regex regex = new Regex("href=\\\"[^\"]+\"|href=\"[^\"]+\"", RegexOptions.IgnoreCase);
-
-                        
-                        string megaboss = string.Format("href={0}{1}", "\\[^\"]+\\","\"|href=\"[^\"]+\"");
-                        Regex regex = new Regex(megaboss, RegexOptions.IgnoreCase);
-                        // href=\\"[^"]+\\"|href="[^"]+" 
-                        Match match = regex.Match(t.Text);
-
-                        for (match = regex.Match(t.Text); match.Success; match = match.NextMatch())
+                        if (control.Type.Name == "ClientSideText")
                         {
-                            foreach (System.Text.RegularExpressions.Capture capture in match.Captures)
+                            ClientSideText t = (ClientSideText)control;
+                            StringBuilder sb = new StringBuilder(t.Text);
+                            string s = t.Text;
+
+                            //Replace link
+                            //string newPageText = Uri.UnescapeDataString(t.Text).Replace(Uri.UnescapeDataString(file.OriginalLink), Uri.UnescapeDataString("https://lbforsikring.sharepoint.com/" + file.NewLink));
+
+                            Regex regex = new Regex("href\\s*=\\s*(?:[\"'](?<1>[^\"']*)[\"']|(?<1>\\S+))", RegexOptions.IgnoreCase);
+                            //string rep = string.Format("href =\\\"[^\"]+\"|href=\"[^\"]+\"","");
+                            //Regex regex = new Regex("href=\\\"[^\"]+\\\"|href=\"[^\"]+\"", RegexOptions.IgnoreCase);
+                            //Regex regex = new Regex("href=\\\"[^\"]+\"|href=\"[^\"]+\"", RegexOptions.IgnoreCase);
+                            //string megaboss = string.Format("href={0}{1}", "\\[^\"]+\\", "\"|href=\"[^\"]+\"");
+                            //megaboss = string.Format("href={0}{1}", "\\[^\"]+\\", "\"|href=\"[^\"]+\"/g");
+                            //Regex regex = new Regex(megaboss, RegexOptions.IgnoreCase);
+                            // href=\\"[^"]+\\"|href="[^"]+" 
+
+
+                            //regex = new Regex(@"<a .*>", RegexOptions.IgnoreCase);
+
+                            var matchesX = regex.Matches(t.Text);
+
+                            foreach (Match matchX in matchesX)
                             {
-                                if (capture.Value.Contains(file.FileInLink))
+                                var test = matchX;
+                                if (test.Value.Contains(file.FileInLink))
                                 {
-                                    string newHRef = string.Format("href='{0}{1}{2}'", file.NewLink, file.PreFix, file.FileName);
-                                    s = s.Replace(capture.Value, newHRef);
-                                    sb.Replace(capture.Value, newHRef);
-                                    //Console.WriteLine(s);
-                                    Console.WriteLine(s);
+                                    string newHRef = string.Format("href='{0}{1}{2}'", file.NewLink, file.PreFix, file.FileInLink);
+                                    s = s.Replace(test.Value, newHRef);
+                                    sb.Replace(test.Value, newHRef);
+                                    Console.ForegroundColor = ConsoleColor.Yellow;
+                                    Console.WriteLine("NEW LINK : " + newHRef);
+                                    Console.ForegroundColor = ConsoleColor.White;
                                 }
                             }
+
+
+                            //Match match = regex.Match("@"+t.Text);
+
+                            //for (match = regex.Match(t.Text); match.Success; match = match.NextMatch())
+                            //{
+                            //    foreach (System.Text.RegularExpressions.Capture capture in match.Captures)
+                            //    {
+                            //        if (capture.Value.Contains(file.FileInLink))
+                            //        {
+                            //            string newHRef = string.Format("href='{0}{1}{2}'", file.NewLink, file.PreFix, file.FileName);
+                            //            s = s.Replace(capture.Value, newHRef);
+                            //            sb.Replace(capture.Value, newHRef);
+                            //            //Console.WriteLine(s);
+                            //            Console.WriteLine(s);
+                            //        }
+                            //    }
+                            //}
+
+
+                            //Replace filename
+                            // Forhen var det et parameter i funktionen
+                            //if (linkToCoincidenceFile)
+                            //{
+                            //    tmpFileNameFromLink = Uri.UnescapeDataString(file.OriginalLink);
+                            //    filePrefix = IsPageCoincidence(tmpFileNameFromLink.Substring(tmpFileNameFromLink.LastIndexOf('/') + 1));
+                            //    newPageText.Replace(tmpFileNameFromLink, filePrefix + tmpFileNameFromLink);
+                            //}
+
+                            t.Text = sb.ToString();
+                            P.Save();
+                            P.Publish();
+
                         }
-
-
-                                //Replace filename
-                                // Forhen var det et parameter i funktionen
-                                //if (linkToCoincidenceFile)
-                                //{
-                                //    tmpFileNameFromLink = Uri.UnescapeDataString(file.OriginalLink);
-                                //    filePrefix = IsPageCoincidence(tmpFileNameFromLink.Substring(tmpFileNameFromLink.LastIndexOf('/') + 1));
-                                //    newPageText.Replace(tmpFileNameFromLink, filePrefix + tmpFileNameFromLink);
-                                //}
-
-                                t.Text = sb.ToString();
-                        //P.Save();
-                        //P.Publish();
-                        
                     }
                 }
+            }
+            catch (Exception ex)
+            {
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.WriteLine(file.FileName);
+                Console.ForegroundColor = ConsoleColor.White;
             }
         }
 

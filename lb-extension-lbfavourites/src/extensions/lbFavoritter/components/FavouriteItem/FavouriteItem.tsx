@@ -36,26 +36,21 @@ export default class FavouriteItem extends React.Component<IFavouriteItemProps,I
 
     public render(): React.ReactElement<IFavouriteItemProps> {
         return ( <div>
-                    <div>
-                            <div className={`ms-Grid-col ms-sm10 ms-md10 ms-lg10`}>
+                    <div className={styles.ccitemCell} >
+                            <div className={styles.ccitemCellContent }>
                                 <Link href={this.props.item.ItemUrl} className={styles.ccRow}>
-                                    <span className={`ms-font-l`}>{this.props.item.Title}</span>
+                                    <span >{this.props.item.Title}</span>
                                 </Link>
-                                
-                            </div>
-                            {
+                                {
                                 this.props.item.IsMandatory==false?  
-                                <div className={`ms-Grid-col ms-sm2 ms-md2 ms-lg2`}>
-                                    <div className={styles.iconsContainer}>
-                                        {/* <Icon title="Rediger" iconName={'Edit'} className={styles.iconPrimaryColor} onClick={this._editFavourite.bind(this)}   /> */}
+                                    // <div className={styles.iconsContainer}>
                                         <Icon title="Slet" iconName={'Delete'} className={styles.iconWarningColor}  onClick={this.UpdateFavouriteItem}/>
-                                    </div>
-                                </div>
+                                    // </div>
                                 :null
                                 }
+                                
+                            </div>
                         </div>
-
-
                 </div>)
                 }
 
