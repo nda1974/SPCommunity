@@ -1,5 +1,3 @@
 ﻿OrignalFilnavn;NytFilnavn;Gruppe;Undergruppe;Branche;Coincidence;Status
-Vedrørende skade på hund under leg.aspx;Vedrørende skade på hund under leg.aspx;Ankenævnskendelser og Domme ;Tngskade ;Ansvar;False;Success
-Informationssøgning.aspx;AnsvarInformationssøgning.aspx;Behandling af ansvarsskader;;Ansvar;True;Success
-Hund er årsag til bilulykke.aspx;Hund er årsag til bilulykke.aspx;Hundeansvar;;Ansvar;False;Success
-Egne skadesager forvoldt af børn.aspx;Egne skadesager forvoldt af børn.aspx;Skade forvoldt af børn;;Ansvar;False;Success
+Skade på lejer.aspx;Skade på lejer.aspx;Husejeransvar;Personskade;Ansvar;False;Success
+Skader forvoldt med droner.aspx;Skader forvoldt med droner.aspx;Færdselsskader og motoransvar;;Ansvar;False;Success
