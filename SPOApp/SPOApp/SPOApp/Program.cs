@@ -398,7 +398,7 @@ namespace SPOApp
 
                                 Console.ForegroundColor = ConsoleColor.White;
                             }
-                            if (t.Text.Contains(@"_layouts/images/pdf16.gif"))
+                            if (t.Text.Contains(@"images/pdf16.gif"))
                             {
                                 pdfList.Add(item["FileLeafRef"].ToString());
                             }

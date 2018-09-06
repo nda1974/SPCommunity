@@ -51,7 +51,7 @@ function GetSourceFile($url)
     try {
             $IE.Visible=$true
             $IE.fullscreen = $true;
-            Write-Host  'Navigating to : ' $url
+            
             $IE.navigate2($url)
             
             $IE = ConnectIExplorer -HWND $HWND -ShowPage $true 
@@ -77,7 +77,7 @@ function GetSourceFile($url)
             
             do {
                 if ( $IE.ReadyState -eq 4 ) {
-
+                    Write-Host  'Successfully loaded source : ' $url -ForegroundColor Green
                     $sourceDocument=$IE.Document;
                     $sourceDiv=$sourceDocument.IHTMLDocument3_getElementById('layoutsTable');
                     $s = $sourceDiv.innerHTML 
@@ -92,10 +92,11 @@ function GetSourceFile($url)
             
     }
     catch {
-        $ErrorMessage = $_.Exception.Message
-        $FailedItem = $_.Exception.ItemName
-       
-        Write-Host 'State : ' $IE.ReadyState
+        
+        
+        Write-Host  'Fail to load source : ' $url -ForegroundColor Red
+        Write-Host $_.Exception.Message -ForegroundColor Red
+        
     }
     finally{
         $IE = ConnectIExplorer -HWND $HWND -ShowPage $false
@@ -131,6 +132,7 @@ function GetTargetFile($url)
             $exitFlag =$false
                 do {
                     if ( $IE2.ReadyState -eq 4 ) {
+                    Write-Host 'Succecfully loaded target : ' $url -ForegroundColor Green
     
                         $targetDocument=$IE2.Document;
                         $btnEdit=$targetDocument.IHTMLDocument3_getElementsByTagName('button')| Where-Object {$_.name -eq 'Rediger'}
@@ -167,6 +169,7 @@ function GetTargetFile($url)
         
             Write-Host $PSItem.Exception.Message -ForegroundColor Yellow
             Write-Host $PSItem.Exception.InnerException -ForegroundColor Yellow
+            Write-Host 'Fail to load target : ' $url -ForegroundColor Red
             
         }
         finally {
