@@ -92,7 +92,10 @@ function GetSourceFile($url)
             
     }
     catch {
-        
+        $ErrorMessage = $_.Exception.Message
+        $FailedItem = $_.Exception.ItemName
+       
+        Write-Host 'State : ' $IE.ReadyState
     }
     finally{
         $IE = ConnectIExplorer -HWND $HWND -ShowPage $false
@@ -161,8 +164,9 @@ function GetTargetFile($url)
                 } until ( $exitFlag )
         }
         catch {
-            Write-Output $PSItem.Exception.Message
-            Write-Output $PSItem.Exception.InnerException
+        
+            Write-Output $PSItem.Exception.Message -ForegroundColor Yellow
+            Write-Output $PSItem.Exception.InnerException -ForegroundColor Yellow
             
         }
         finally {
