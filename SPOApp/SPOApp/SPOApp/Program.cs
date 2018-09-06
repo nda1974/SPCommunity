@@ -531,24 +531,25 @@ namespace SPOApp
                 case "1":
 
                     //CreatemodernPagesFeature(InputFromScreen_BRANCHE, ctx, L, newFilenamePrefix);
-                    List<string> lstBranches = new List<string>() { objBranches.Ansvar,
-                                                                    objBranches.Beredskab,
-                                                                    objBranches.Bil,
-                                                                    objBranches.BPG,
-                                                                    objBranches.Bygning,
-                                                                    objBranches.Gerningsmand,
-                                                                    objBranches.Hund,
-                                                                    objBranches.Indbo,
-                                                                    objBranches.Personskade,
-                                                                    objBranches.Regres,
-                                                                    objBranches.Rejse,
-                                                                    objBranches.Retshjælp,
-                                                                    objBranches.Sanering,
-                                                                    objBranches.ScalePoint,
-                                                                    objBranches.Skadeservice,
-                                                                    objBranches.Skybrudsmanual,
-                                                                    objBranches.Stormmanual,
-                                                                    objBranches.Storskade};
+                    //List<string> lstBranches = new List<string>() { objBranches.Ansvar,
+                    //                                                objBranches.Beredskab,
+                    //                                                objBranches.Bil,
+                    //                                                objBranches.BPG,
+                    //                                                objBranches.Bygning,
+                    //                                                objBranches.Gerningsmand,
+                    //                                                objBranches.Hund,
+                    //                                                objBranches.Indbo,
+                    //                                                objBranches.Personskade,
+                    //                                                objBranches.Regres,
+                    //                                                objBranches.Rejse,
+                    //                                                objBranches.Retshjælp,
+                    //                                                objBranches.Sanering,
+                    //                                                objBranches.ScalePoint,
+                    //                                                objBranches.Skadeservice,
+                    //                                                objBranches.Skybrudsmanual,
+                    //                                                objBranches.Stormmanual,
+                    //                                                objBranches.Storskade};
+                    List<string> lstBranches = new List<string>() { objBranches.Personskade};
                     foreach (var branch in lstBranches)
                     {
                         lstCreateModernPagesLog = new List<string>();
@@ -556,6 +557,7 @@ namespace SPOApp
                         //InputFromScreen_BRANCHE = branch;
 
                         //CreatemodernPagesFeature(InputFromScreen_BRANCHE, ctx, L, newFilenamePrefix);
+                        
                         CreatemodernPagesFeature(InputFromScreen_BRANCHE, ctx, L);
 
                         System.IO.File.WriteAllLines(@"C:\Git\LBIntranet\SPOApp\SPOApp\SPOApp\importfiles\CreateModernPagesLog\log_" + InputFromScreen_BRANCHE + ".csv", lstCreateModernPagesLog.ToArray(), Encoding.UTF8);
@@ -1021,8 +1023,9 @@ namespace SPOApp
                     //    manual.Branche.Equals("ScalePoint"))
                     if (manual.Branche.Equals(InputFromScreen_BRANCHE))
                     {
-                        Console.WriteLine("Creating " + counter + " of " + lstManual.Count + " Modern Pages");
                         counter++;
+                        Console.WriteLine("Creating " + counter + " of " + lstManual.Count + " Modern Pages");
+                        
                         bool isCoincidenceInFilename = MigrationEngine.IsPageCoincidence(manual, L);
                         //if (MigrationEngine.IsPageCoincidence(manual, L))
                         //{
