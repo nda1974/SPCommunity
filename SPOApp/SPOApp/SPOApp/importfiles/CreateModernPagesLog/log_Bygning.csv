@@ -1,331 +1,331 @@
 ﻿OrignalFilnavn;NytFilnavn;Gruppe;Undergruppe;Branche;Coincidence;Status
-Startside.aspx;BygningStartside.aspx;;;Bygning;True;Success
-Hvem er sikret.aspx;Hvem er sikret.aspx;Afsnit 1.B: Hvem er sikret;Hvem er sikret;Bygning;False;Success
-Hvor dækker forsikringen.aspx;Hvor dækker forsikringen.aspx;Afsnit 1.C: Hvor dækkes;Hvor dækker forsikringen;Bygning;False;Success
-Udhuse, redskabsskure, drivhuse mm - antal m2.aspx;Udhuse, redskabsskure, drivhuse mm - antal m2.aspx;Afsnit 1.G.a: Ejendommens bygninger;Forsikrede genstande;Bygning;False;Success
-Drivhuse - Sokler.aspx;Drivhuse - Sokler.aspx;Afsnit 1.G.a: Ejendommens bygninger;Forsikrede genstande;Bygning;False;Success
-Nedgravede svømmebasssiner.aspx;Nedgravede svømmebasssiner.aspx;Afsnit 1.G.a: Ejendommens bygninger;Forsikrede genstande;Bygning;False;Success
-Nedstøbte hegn og stakitter.aspx;Nedstøbte hegn og stakitter.aspx;Afsnit 1.G.a: Ejendommens bygninger;Forsikrede genstande;Bygning;False;Success
-træterrasse - veranda.aspx;træterrasse - veranda.aspx;Afsnit 1.G.a: Ejendommens bygninger;Forsikrede genstande;Bygning;False;Success
-Legehuse.aspx;Legehuse.aspx;Afsnit 1.G.a: Ejendommens bygninger;Forsikrede genstande;Bygning;False;Success
-Legetårne.aspx;Legetårne.aspx;Afsnit 1.G.a: Ejendommens bygninger;Forsikrede genstande;Bygning;False;Success
-Glaspavillon, havehus, lysthus, orangeri.aspx;Glaspavillon, havehus, lysthus, orangeri.aspx;Afsnit 1.G.a: Ejendommens bygninger;Forsikrede genstande;Bygning;False;Success
-Overdækninger på terrasser, til brænde, havemøbler, barnevogne mm.aspx;Overdækninger på terrasser, til brænde, havemøbler, barnevogne mm.aspx;Afsnit 1.G.a: Ejendommens bygninger;Forsikrede genstande;Bygning;False;Success
-Spabad.aspx;BygningSpabad.aspx;Afsnit 1.G.b: Glas og Sanitet;Forsikrede genstande;Bygning;True;Success
-Vask i køkken, bryggers mm.aspx;BygningVask i køkken, bryggers mm.aspx;Afsnit 1.G.b: Glas og Sanitet ;Forsikrede genstande;Bygning;True;Success
-El ledninger.aspx;El ledninger.aspx;Afsnit 1.G.c: Kabler og rør;Forsikrede genstande;Bygning;False;Success
-Fjernvarmerør.aspx;Fjernvarmerør.aspx;Afsnit 1.G.c: Kabler og rør;Forsikrede genstande;Bygning;False;Success
-Telefon- og antennekabler.aspx;Telefon- og antennekabler.aspx;Afsnit 1.G.c: Kabler og rør;Forsikrede genstande;Bygning;False;Success
-Jordvarmeanlæg.aspx;Jordvarmeanlæg.aspx;Afsnit 1.G.c: Kabler og rør;Forsikrede genstande;Bygning;False;Success
-Vandledninger til nedgravede svømmebassiner.aspx;Vandledninger til nedgravede svømmebassiner.aspx;Afsnit 1.G.c: Kabler og rør;Forsikrede genstande;Bygning;False;Success
-Stophane.aspx;Stophane.aspx;Afsnit 1.G.c: Kabler og rør;Forsikrede genstande;Bygning;False;Success
-Vacuumventil.aspx;Vacuumventil.aspx;Afsnit 1.G.c: Kabler og rør;Forsikrede genstande;Bygning;False;Success
-Brønde.aspx;Brønde.aspx;Afsnit 1.G.c: Kabler og rør;Forsikrede genstande;Bygning;False;Success
-Fællesledning.aspx;Fællesledning.aspx;Afsnit 1.G.c: Kabler og rør;Forsikrede genstande;Bygning;False;Success
-Udendørs vandhane og kabler til havelamper.aspx;Udendørs vandhane og kabler til havelamper.aspx;Afsnit 1.G.c: Kabler og rør;Forsikrede genstande;Bygning;False;Success
-Fritstående radiator.aspx;Fritstående radiator.aspx;Afsnit 1.G.d: Bygningstilbehør;Forsikrede genstande;Bygning;False;Success
-Gulvbelægning i kælder.aspx;Gulvbelægning i kælder.aspx;Afsnit 1.G.d: Bygningstilbehør;Forsikrede genstande;Bygning;False;Success
-Gyngestativer.aspx;Gyngestativer.aspx;Afsnit 1.G.d: Bygningstilbehør;Forsikrede genstande;Bygning;False;Success
-Postkasser.aspx;BygningPostkasser.aspx;Afsnit 1.G.d: Bygningstilbehør;Forsikrede genstande;Bygning;True;Success
-Hårde hvidevare.aspx;Hårde hvidevare.aspx;Afsnit 1.G.d: Bygningstilbehør;Forsikrede genstande;Bygning;False;Success
-Solvarmeanlæg.aspx;Solvarmeanlæg.aspx;Afsnit 1.G.d: Bygningstilbehør;Forsikrede genstande;Bygning;False;Success
-Tyverialarm.aspx;BygningTyverialarm.aspx;Afsnit 1.G.d: Bygningstilbehør;Forsikrede genstande;Bygning;True;Success
-Udendørs køkken.aspx;Udendørs køkken.aspx;Afsnit 1.G.d: Bygningstilbehør;Forsikrede genstande;Bygning;False;Success
-Udendørs spabade.aspx;Udendørs spabade.aspx;Afsnit 1.G.d: Bygningstilbehør;Forsikrede genstande;Bygning;False;Success
-Radioamatørantenne.aspx;Radioamatørantenne.aspx;Afsnit 1.G.d: Bygningstilbehør;Forsikrede genstande;Bygning;False;Success
-Nyindkøbt bygningstilbehør - ikke fastmonteret.aspx;Nyindkøbt bygningstilbehør - ikke fastmonteret.aspx;Afsnit 1.G.d: Bygningstilbehør;Forsikrede genstande;Bygning;False;Success
-Eswa strålevarmeloft.aspx;Eswa strålevarmeloft.aspx;Afsnit 1.G.d: Bygningstilbehør;Forsikrede genstande;Bygning;False;Success
-Indbygget kaffemaskine.aspx;Indbygget kaffemaskine.aspx;Afsnit 1.G.d: Bygningstilbehør;Forsikrede genstande;Bygning;False;Success
-Solcelleanlæg.aspx;BygningSolcelleanlæg.aspx;Afsnit 1.G.d: Bygningstilbehør;Forsikrede genstande;Bygning;True;Success
-Stiger og stilladser.aspx;Stiger og stilladser.aspx;Afsnit 1.G.d: Bygningstilbehør;Forsikrede genstande;Bygning;False;Success
-Bade- og bådebroer.aspx;Bade- og bådebroer.aspx;Afsnit 1.G.d: Bygningstilbehør;Forsikrede genstande;Bygning;False;Success
-Olietanke.aspx;Olietanke.aspx;Afsnit 1.G.d: Bygningstilbehør;Forsikrede genstande;Bygning;False;Success
-Laminatgulve og Linoleumsgulve.aspx;Laminatgulve og Linoleumsgulve.aspx;Afsnit 1.G.d: Bygningstilbehør ;Forsikrede genstande;Bygning;False;Success
-Onduline tage.aspx;Onduline tage.aspx;Afsnit 1.G.d: Bygningstilbehør ;Forsikrede genstande;Bygning;False;Success
-Emhætte.aspx;BygningEmhætte.aspx;Afsnit 1.G.d: Bygningstilbehør ;Forsikrede genstande;Bygning;True;Success
-Kunstnerisk udsmykning.aspx;Kunstnerisk udsmykning.aspx;Afsnit 1.G.f: Kunstnerisk udsmykning;Forsikrede genstande;Bygning;False;Success
-Følgeskade på haveanlæg.aspx;Følgeskade på haveanlæg.aspx;Afsnit 1.G.g: Haveanlæg;Forsikrede genstande;Bygning;False;Success
-Træer.aspx;Træer.aspx;Afsnit 1.G.g: Haveanlæg;Forsikrede genstande;Bygning;False;Success
-Skjulte rør og kabler.aspx;Skjulte rør og kabler.aspx;Afsnit 10: skjulte rør og kabler;Afsnit 10: Skjulte rør og kabler;Bygning;False;Success
-Reemaljering af gulvafløb.aspx;Reemaljering af gulvafløb.aspx;Afsnit 10: skjulte rør og kabler;;Bygning;False;Success
-Multiseal.aspx;Multiseal.aspx;Afsnit 10: skjulte rør og kabler ;;Bygning;False;Success
-Råd og Svamp.aspx;Råd og Svamp.aspx;Afsnit 11: Råd og Svamp;Afsnit 11: Råd og Svamp;Bygning;False;Success
-Ægte hussvamp i murværk.aspx;Ægte hussvamp i murværk.aspx;Afsnit 11: Råd og Svamp;Afsnit 11: Råd og Svamp;Bygning;False;Success
-Insekter.aspx;Insekter.aspx;Afsnit 12: Insekter;Insekter;Bygning;False;Success
-Brand.aspx;BygningBrand.aspx;Afsnit 2: Brand, lynnedslag og eksplosion mv.;Afsnit 2: Brand, lynnedslag og eksplosion m.v.;Bygning;True;Success
-Svideskade.aspx;Svideskade.aspx;Afsnit 2: Brand, lynnedslag og eksplosion mv.;Afsnit 2: Brand, Lynnedslg og eksplosion m.v.;Bygning;False;Success
-Pludselig tilsodning.aspx;Pludselig tilsodning.aspx;Afsnit 2: Brand, lynnedslag og eksplosion mv.;Afsnit 2: Brand, Lynnedslag og eksplosion m.v.;Bygning;False;Success
-Lyn.aspx;Lyn.aspx;Afsnit 2: Brand, lynnedslag og eksplosion mv.;Afsnit 2: Brand, lynnedslag og eksplosion m.v.;Bygning;False;Success
-Eksplosion.aspx;Eksplosion.aspx;Afsnit 2: Brand, lynnedslag og eksplosion mv.;Afsnit 2: Brand, lynnedslag og eksplosion m.v.;Bygning;False;Success
-El-skade.aspx;El-skade.aspx;Afsnit 3: El-skade;Kolonne 3: El-skade;Bygning;False;Success
-Tyveri.aspx;Tyveri.aspx;Afsnit 4: Tyveri og hærværk;Afsnit 4.: tyveri - hærværk;Bygning;False;Success
-Hærværk.aspx;Hærværk.aspx;Afsnit 4: Tyveri og hærværk;Afsnit 4: tyveri og hærværk;Bygning;False;Success
-Tyveri begået mens boligen var udlånt eller udlejet - Boligbyt.aspx;Tyveri begået mens boligen var udlånt eller udlejet - Boligbyt.aspx;Afsnit 4: Tyveri og hærværk ;Afsnit 4: Tyveri og hærværk ;Bygning;False;Success
-Udstrømning af væsker.aspx;Udstrømning af væsker.aspx;Afsnit 5: Udstrømning af væsker (vandskade) og frostsprængning af rør;Afsnit 5. Udstrømning af væsker (vandskade) og frostsprængning af rør;Bygning;False;Success
-Frostsprængning.aspx;Frostsprængning.aspx;Afsnit 5: Udstrømning af væsker (vandskade) og frostsprængning af rør;Kolonne 5. Udstrømning af væsker (vandskade) og frostsprængning af rør;Bygning;False;Success
-Opstigning af grund-og kloakvand.aspx;Opstigning af grund-og kloakvand.aspx;Afsnit 5: Udstrømning af væsker (vandskade) og frostsprængning af rør;Afsnit 5: Udstrømning af væsker (vandskade) og Frostsprængning af rør;Bygning;False;Success
-Frostsprængning i sommerhuse.aspx;Frostsprængning i sommerhuse.aspx;Afsnit 5: Udstrømning af væsker (vandskade) og frostsprængning af rør;Afsnit 5 Udstrømning af væsker (vandskade) og frostsprængning af rør;Bygning;False;Success
-Brud på naboers stikledninger.aspx;Brud på naboers stikledninger.aspx;Afsnit 5: Udstrømning af væsker (vandskade) og frostsprængning af rør;Afsnit 5: Udstrømning af væsker (vandskade) og Frostsprængning af rør;Bygning;False;Success
-Frostsprængning af rør i uopvarmede loft og skunkrum samt hulmure og krybekældre.aspx;Frostsprængning af rør i uopvarmede loft og skunkrum samt hulmure og krybekældre.aspx;Afsnit 5: Udstrømning af væsker (vandskade) og frostsprængning af rør ;Afsnit 5: Udstrømning af væsker (vandskade) og frostsprængning af rør ;Bygning;False;Success
-Udgifter til optøning af rør.aspx;Udgifter til optøning af rør.aspx;Afsnit 5: Udstrømning af væsker (vandskade) og frostsprængning af rør ;Afsnit 5: Udstrømning af væsker (vandskade) og frostsprængning af rør ;Bygning;False;Success
-Storm.aspx;Storm.aspx;Afsnit 6: Storm - voldsomt sky- og tøbrud - snetryk;Afsnit 6: Storm - voldsomt sky-og tøbrud - snetryk;Bygning;False;Success
-Skybrud.aspx;BygningSkybrud.aspx;Afsnit 6: Storm - voldsomt sky- og tøbrud - snetryk;Afsnit 6: Storm - voldsomt sky- og tøbrud - snetryk;Bygning;True;Success
-Tøbrud.aspx;BygningTøbrud.aspx;Afsnit 6: Storm - voldsomt sky- og tøbrud - snetryk;Kolonne 6: Storm - voldsomt sky- og tøbrud - snetryk;Bygning;True;Success
-Snetryk.aspx;Snetryk.aspx;Afsnit 6: Storm - voldsomt sky- og tøbrud - snetryk;Afsnit 6: Storm - voldsomt sky-og tøbrud - snetryk;Bygning;False;Success
-Snefygning.aspx;Snefygning.aspx;Afsnit 6: Storm - voldsomt sky- og tøbrud - snetryk;Afsnit 6: Storm - voldsomt sky- og tøbrud - snetryk;Bygning;False;Success
-Skade på bygninger under opførelse, om- eller tilbygning.aspx;Skade på bygninger under opførelse, om- eller tilbygning.aspx;Afsnit 6: Storm - voldsomt sky- og tøbrud - snetryk;voldsomt sky- og tøbrud - snetryk;Bygning;False;Success
-Vandindtrængning som følge af stormskader.aspx;Vandindtrængning som følge af stormskader.aspx;Afsnit 6: Storm - voldsomt sky- og tøbrud - snetryk;Afsnit 6: Storm - voldsomt sky- og tøbrud - snetryk;Bygning;False;Success
-Manglende fundering.aspx;Manglende fundering.aspx;Afsnit 6: Storm - voldsomt sky- og tøbrud - snetryk ;Afsnit 6: Storm - voldsomt sky- og tøbrud - snetryk;Bygning;False;Success
-Muret eller støbt sokkel eller sokkelsten.aspx;Muret eller støbt sokkel eller sokkelsten.aspx;Afsnit 6: Storm - voldsomt sky- og tøbrud - snetryk ;Afsnit 6: Storm - voldsomt sky- og tøbrud - snetryk;Bygning;False;Success
-Pludselig skade.aspx;Pludselig skade.aspx;Afsnit 7: Pludselig skade;Afsnit 7: Pludselig skade;Bygning;False;Success
-Tørkogning - Sodskader.aspx;Tørkogning - Sodskader.aspx;Afsnit 7: Pludselig skade;Afsnit 7: Pludselig skade;Bygning;False;Success
-Asbestslam - asbeststøv.aspx;BygningAsbestslam - asbeststøv.aspx;Afsnit 7: Pludselig skade;Afsnit 7: Pludselig skade;Bygning;True;Success
-Blæseskader - markiser - åbne vinduer og døre.aspx;Blæseskader - markiser - åbne vinduer og døre.aspx;Afsnit 7: Pludselig skade;Afsnit 7: Pludselig skade;Bygning;False;Success
-Markiser - Kraftig regn.aspx;Markiser - Kraftig regn.aspx;Afsnit 7: Pludselig skade;Afsnit 7: pludselig skade;Bygning;False;Success
-Psykisk syge - pluselige skader - hærværk.aspx;Psykisk syge - pluselige skader - hærværk.aspx;Afsnit 7: Pludselig skade;;Bygning;False;Success
-Glas og Sanitet.aspx;Glas og Sanitet.aspx;Afsnit 8: Glas og sanitet;Afsnit 8: Glas og sanitet;Bygning;False;Success
-Ridser, afspringning af fliser samt punktering sket ved indbrud, storm, voldstomt tø- eller skybrud og snetryk.aspx;Ridser, afspringning af fliser samt punktering sket ved indbrud, storm, voldstomt tø- eller skybrud og snetryk.aspx;Afsnit 8: Glas og sanitet;;Bygning;False;Success
-Brud på sanitet.aspx;Brud på sanitet.aspx;Afsnit 8: Glas og sanitet ;;Bygning;False;Success
-Stikledninger.aspx;Stikledninger.aspx;Afsnit 9: Stikledninger;Afsnit 9: Stikledninger;Bygning;False;Success
-Ankenævnskendelse identifikation.aspx;Ankenævnskendelse identifikation.aspx;Ankenævnskendelse;Alle dækninger;Bygning;False;Success
-Ankenævnskendelse blivende plads.aspx;Ankenævnskendelse blivende plads.aspx;Ankenævnskendelse;Afsnit 4. Tyveri - hærværk;Bygning;False;Success
-Ankenævnskendelse udstrømning af væsker.aspx;Ankenævnskendelse udstrømning af væsker.aspx;Ankenævnskendelse;Kolonne 5. Udstrømning af væsker (vandskade) og frostsprængning af rør;Bygning;False;Success
-Ankenævnskendelse manglende vedligeholdelse.aspx;Ankenævnskendelse manglende vedligeholdelse.aspx;Ankenævnskendelse;Afsnit 6: Storm - voldsomt sky- og tøbrud - snetryk, Afsnit 7: Pludselig skade, Afsnit 11: Råd/Svamp, Afsnit 12: Insekter;Bygning;False;Success
-Ankenævnskendelse fællesledning.aspx;Ankenævnskendelse fællesledning.aspx;Ankenævnskendelse;Afsnit 9: Stikledninger;Bygning;False;Success
-Ankenævnskendelse spabad.aspx;Ankenævnskendelse spabad.aspx;Ankenævnskendelse;Afsnit 1.G.b: Glas og sanitet;Bygning;False;Success
-Ankenævnskendelse el-drevne genstande.aspx;Ankenævnskendelse el-drevne genstande.aspx;Ankenævnskendelse;Afsnit 3: El-skade;Bygning;False;Success
-Ankenævnskendelse hærværk.aspx;Ankenævnskendelse hærværk.aspx;Ankenævnskendelse;Afsnit 4: Tyveri og hærværk;Bygning;False;Success
-Ankenævnskendelse stige.aspx;Ankenævnskendelse stige.aspx;Ankenævnskendelse;Afsnit 1.G.d: Bygningstilbehør;Bygning;False;Success
-Ankenævnskendelse stillads.aspx;Ankenævnskendelse stillads.aspx;Ankenævnskendelse;Afsnit 1.G.d: Bygningstilbehør;Bygning;False;Success
-Ankenævnskendelse - større maskiner.aspx;Ankenævnskendelse - større maskiner.aspx;Ankenævnskendelse;Afsnit 7: Pludselig skade;Bygning;False;Success
-Ankenævnskendelse - damp.aspx;Ankenævnskendelse - damp.aspx;Ankenævnskendelse;Afsnit 7: Pludselig skade;Bygning;False;Success
-Ankenævnskendelse grundvandssænkning.aspx;Ankenævnskendelse grundvandssænkning.aspx;Ankenævnskendelse;Afsnit 7: Pludselig skade;Bygning;False;Success
-Ankenævnskendelse ombygning.aspx;Ankenævnskendelse ombygning.aspx;Ankenævnskendelse;Afsnit 7: Pludselig skade;Bygning;False;Success
-Ankenævnskendelse spild af væsker.aspx;Ankenævnskendelse spild af væsker.aspx;Ankenævnskendelse;Afsnit 7: Pludselig skade;Bygning;False;Success
-Ankenævnskendelse faldskader.aspx;Ankenævnskendelse faldskader.aspx;Ankenævnskendelse;Afsnit 7: Pludselig skade;Bygning;False;Success
-Ankenævnskendelse dyr.aspx;Ankenævnskendelse dyr.aspx;Ankenævnskendelse;Afsnit 7: Pludselig skade;Bygning;False;Success
-Ankenævnskendelse grov uagtsomhed - stikledning.aspx;Ankenævnskendelse grov uagtsomhed - stikledning.aspx;Ankenævnskendelse;Afsnit 9. Stikledninger;Bygning;False;Success
-Ankenævnskendelse renovering.aspx;Ankenævnskendelse renovering.aspx;Ankenævnskendelse;Alle dækninger;Bygning;False;Success
-Ankenævnskendelse skjulte rør.aspx;Ankenævnskendelse skjulte rør.aspx;Ankenævnskendelse;Afsnit 10: Skjulte rør og kabler;Bygning;False;Success
-Ankenævnskendelse grov uagtsomhed - brand.aspx;Ankenævnskendelse grov uagtsomhed - brand.aspx;Ankenævnskendelse ;Afsnit 2: Brand, lynnedslag og eksplosion m.v.;Bygning;False;Success
-Ankenævnskendelse synligt rør.aspx;Ankenævnskendelse synligt rør.aspx;Ankenævnskendelse;Afsnit 10: Skjulte rør og kabler;Bygning;False;Success
-Ankenævnskendelse stikledning - i brønd.aspx;Ankenævnskendelse stikledning - i brønd.aspx;Ankenævnskendelse;Afsnit 9: Stikledninger;Bygning;False;Success
-Ankenævnskendelse stikledning - gulvafløb.aspx;Ankenævnskendelse stikledning - gulvafløb.aspx;Ankenævnskendelse;Afsnit 9: Stikledninger;Bygning;False;Success
-Ankenævnskendelse stikledning - stophane.aspx;Ankenævnskendelse stikledning - stophane.aspx;Ankenævnskendelse;Afsnit 9: Stikledninger;Bygning;False;Success
-Ankenævnskendelse stikledning - død ledning.aspx;Ankenævnskendelse stikledning - død ledning.aspx;Ankenævnskendelse;Afsnit 9: Stikledninger;Bygning;False;Success
-Ankenævnskendelse Lovliggørelse.aspx;Ankenævnskendelse Lovliggørelse.aspx;Ankenævnskendelse;Alle dækninger;Bygning;False;Success
-Ankenævnskendelse Fritstående radiator.aspx;Ankenævnskendelse Fritstående radiator.aspx;Ankenævnskendelse ;Afsnit 1.G.d: Bygningstilbehør. Afsnit 4: Tyveri og hærværk;Bygning;False;Success
-Ankenævnskendelse havebassin.aspx;Ankenævnskendelse havebassin.aspx;Ankenævnskendelse;Afsnit 1.G.g: Haveanlæg;Bygning;False;Success
-Ankenævnskendelse tilsodning fra olielampe.aspx;Ankenævnskendelse tilsodning fra olielampe.aspx;Ankenævnskendelse;Afsnit 2: Brand, lynnedslag og eksplosion m.v.;Bygning;False;Success
-Ankenævnskendelse åben ild i gryde.aspx;Ankenævnskendelse åben ild i gryde.aspx;Ankenævnskendelse;Afsnit 2: Brand, lynnedslag og eksplosion m.v;Bygning;False;Success
-Ankenævnskendelse frostsprængning.aspx;Ankenævnskendelse frostsprængning.aspx;Ankenævnskendelse;Afsnit 5: Udstrømning af væsker (vandskade) og frostsprængning af rør;Bygning;False;Success
-Ankenævnskendelse skybrud.aspx;Ankenævnskendelse skybrud.aspx;Ankenævnskendelse;Afsnit 6: Storm - voldsomt sky-og tøbrud - snetryk;Bygning;False;Success
-Ankenævnskendelse kosmetisk skade.aspx;Ankenævnskendelse kosmetisk skade.aspx;Ankenævnskendelse;Alle dækninger;Bygning;False;Success
-Ankenævnskendelse regres mod byggesagkyndig.aspx;Ankenævnskendelse regres mod byggesagkyndig.aspx;Ankenævnskendelse ;Afsnit 11: Råd og Svamp og Afsnit 12: Insekter;Bygning;False;Success
-Ankenævnskendelse svamp i stråtag.aspx;Ankenævnskendelse svamp i stråtag.aspx;Ankenævnskendelse;Afsnit 11: Råd og Svamp;Bygning;False;Success
-Ankenævnskendelse Advokatbistand - Arkitektbistand.aspx;Ankenævnskendelse Advokatbistand - Arkitektbistand.aspx;Ankenævnskendelse;Advokatbistand - Arkitektbistand;Bygning;False;Success
-Ankenævnskendelse anvendte materialer dyrere end de beskadigede.aspx;Ankenævnskendelse anvendte materialer dyrere end de beskadigede.aspx;Ankenævnskendelse;Erstatningens størrelse - FAL 39 og Afsnit 1.H: Nyværdi i vilkårene;Bygning;False;Success
-Ankenævnskendelse dokumentation.aspx;Ankenævnskendelse dokumentation.aspx;Ankenævnskendelse ;Dokumentation;Bygning;False;Success
-Ankenævnskendelse reklamation.aspx;Ankenævnskendelse reklamation.aspx;Ankenævnskendelse;Alle dækninger;Bygning;False;Success
-Ankenævnskendelse vandafgift.aspx;Ankenævnskendelse vandafgift.aspx;Ankenævnskendelse;Afsnit 4: Tyveri og hærværk - følgeskade;Bygning;False;Success
-Ankenævnskendelse vådrumssikring - vådrumsmembran.aspx;Ankenævnskendelse vådrumssikring - vådrumsmembran.aspx;Ankenævnskendelse;Afsnit 9: Stikledninger og 10 Skjulte rør og Kabler;Bygning;False;Success
-Ankenævnskendelse skimmelsvamp.aspx;Ankenævnskendelse skimmelsvamp.aspx;Ankenævnskendelse;Afsnit 11: Råd og Svamp;Bygning;False;Success
-Ankenævnskendelse kunstnerisk udsmykning.aspx;Ankenævnskendelse kunstnerisk udsmykning.aspx;Ankenævnskendelse ;Række f: Kunstnerisk udsmykning;Bygning;False;Success
-Dom vedrørende dagsværdierstatning for sommerhus.aspx;Dom vedrørende dagsværdierstatning for sommerhus.aspx;Ankenævnskendelse;Afskrivning - sommerhusvilkår;Bygning;False;Success
-Ankenævnskendelse følgeskade efter brand.aspx;Ankenævnskendelse følgeskade efter brand.aspx;Ankenævnskendelse;Brand;Bygning;False;Success
-Ankenævnskendelse forbehold og opsigelser.aspx;Ankenævnskendelse forbehold og opsigelser.aspx;Ankenævnskendelse;Alle dækninger;Bygning;False;Success
-Ankenævnskendelse svamp i flagstang.aspx;Ankenævnskendelse svamp i flagstang.aspx;Ankenævnskendelse;Afsnit 11: Råd ogSvamp;Bygning;False;Success
-Ankenævnskendelse konkurrerende skadeårsager.aspx;Ankenævnskendelse konkurrerende skadeårsager.aspx;Ankenævnskendelse;Alle dækninger;Bygning;False;Success
-Ankenævnskendelse daglig brug, ridser, skrammer.aspx;Ankenævnskendelse daglig brug, ridser, skrammer.aspx;Ankenævnskendelse;Afsnit 7: Pludselig skade;Bygning;False;Success
-Opstigning af grund- og kloakvand.aspx;BygningOpstigning af grund- og kloakvand.aspx;Ankenævnskendelse;Afsnit 5: Udstrømning af væsker (vandskade) og Frostsprængning af rør;Bygning;True;Success
-Ankenævnskendelse dækning på forsikringsstedet.aspx;Ankenævnskendelse dækning på forsikringsstedet.aspx;Ankenævnskendelse;Afsnit 9: Stikledninger;Bygning;False;Success
-Ankenævnskendelse fareforøgelse.aspx;Ankenævnskendelse fareforøgelse.aspx;Ankenævnskendelse;Alle dækninger;Bygning;False;Success
-Ankenævnskendelse - sætning og tæring.aspx;Ankenævnskendelse - sætning og tæring.aspx;Ankenævnskendelse;Afsnit 7 Pludselig skade;Bygning;False;Success
-Ankenævnskendelse - vaskemaskine vælter.aspx;Ankenævnskendelse - vaskemaskine vælter.aspx;Ankenævnskendelse;Afsnit 7. Pludselig skade;Bygning;False;Success
-Ankenævnskendelse bygningstilbehør.aspx;Ankenævnskendelse bygningstilbehør.aspx;Ankenævnskendelse;Alle dækninger;Bygning;False;Success
-Ankenævnskendelse eget arbejde.aspx;Ankenævnskendelse eget arbejde.aspx;Ankenævnskendelse ;Alle dækninger;Bygning;False;Success
-Ankenævnskendelse bygninger.aspx;Ankenævnskendelse bygninger.aspx;Ankenævnskendelse;;Bygning;False;Success
-Ankenævnskendelser vedrørende manglende vedligeholdelse i forbindelse med stormskader.aspx;Ankenævnskendelser vedrørende manglende vedligeholdelse i forbindelse med stormskader.aspx;Ankenævnskendelse;Vilkårenes afsnit 6. Storm;Bygning;False;Success
-Ankenævnskendelse - beholder falder ned fra væg.aspx;Ankenævnskendelse - beholder falder ned fra væg.aspx;Ankenævnskendelse;Afsnit 7: Pludselig skade;Bygning;False;Success
-Ankenævnskendelser vedrørende vandindtræning under storm.aspx;Ankenævnskendelser vedrørende vandindtræning under storm.aspx;Ankenævnskendelse;Afsnit 6: Storm - voldsomt sky- og tøbrud - snetryk;Bygning;False;Success
-Ankenævnskendelse vedrørende tøbrud.aspx;Ankenævnskendelse vedrørende tøbrud.aspx;Ankenævnskendelse ;Afsnit 6: Storm - voldsomt sky-og tøbrud - snetryk;Bygning;False;Success
-Ankenævnskendelse genhusning.aspx;Ankenævnskendelse genhusning.aspx;Ankenævnskendelse;;Bygning;False;Success
-Ankenævnskendelse frifindelse i straffesag betyder ikke nødvendigvis forsikringsdækning.aspx;Ankenævnskendelse frifindelse i straffesag betyder ikke nødvendigvis forsikringsdækning.aspx;Ankenævnskendelse;;Bygning;False;Success
-Ankenævnskendelse det tidsmæssige krav i pludselig skade dækningen.aspx;Ankenævnskendelse det tidsmæssige krav i pludselig skade dækningen.aspx;Ankenævnskendelse;Afsnit 7: Pludselig skade;Bygning;False;Success
-Behandling af glas og kummeskader.aspx;Behandling af glas og kummeskader.aspx;Erstatningsopgørelse;Kolonne 8. Glas og sanitet;Bygning;False;Success
-Erstatning ved om- eller tilbygning.aspx;Erstatning ved om- eller tilbygning.aspx;Erstatningsopgørelse;Afsnit 4: Tyveri - hærværk, Afsnit 5: Udstrømning af væsker (vandskade] og frostsprængning af rør, Afsnit 7: pludselig skade, Afsnit 8: Glas og sanitet;Bygning;False;Success
-Erstatning for glas i ovn og keramiske kogeplader.aspx;Erstatning for glas i ovn og keramiske kogeplader.aspx;Erstatningsopgørelse;Afsnit 8: Glas og sanitet;Bygning;False;Success
-Erstatning ved identifikation.aspx;Erstatning ved identifikation.aspx;Erstatningsopgørelse ;Alle dækninger;Bygning;False;Success
-Erstatning ved mangelfuld vedligeholdelse.aspx;Erstatning ved mangelfuld vedligeholdelse.aspx;Erstatningsopgørelse;Afsnit 4: Tyveri - hærværk, Afsnit 6: Storm - voldsomt sky- og tøbrud - snetryk, Afsnit 7: Pludselig skade, Afsnit 11: Råd/svamp, Afsnit 12: Insekter;Bygning;False;Success
-Erstatning for jordvarmeledninger.aspx;Erstatning for jordvarmeledninger.aspx;Erstatningsopgørelse;Stikledninger;Bygning;False;Success
-Erstatning for postkasse.aspx;Erstatning for postkasse.aspx;Erstatningsopgørelse;Alle dækninger;Bygning;False;Success
-Erstatning i forbindelse med skilsmisse eller samlivsophør.aspx;Erstatning i forbindelse med skilsmisse eller samlivsophør.aspx;Erstatningsopgørelse;Skilsmisse/samlivsophør;Bygning;False;Success
-Erstatning ved følger efter byggefejl, fejlkonstruktion, underdimensionering mv.aspx;Erstatning ved følger efter byggefejl, fejlkonstruktion, underdimensionering mv.aspx;Erstatningsopgørelse;Afsnit 3: El-skade, Afsnit 6: Storm - voldsomt sky- og tøbrud - snetryk, Afsnit 7: Pludselig skade, 11: Råd/svamp;Bygning;False;Success
-Erstatning for el-forbrug.aspx;Erstatning for el-forbrug.aspx;Erstatningsopgørelse;Affugter;Bygning;False;Success
-Erstatning for skimmelsvamp.aspx;Erstatning for skimmelsvamp.aspx;Erstatningsopgørelse;Afsnit 2: Brand, lynnedslag og eksplosion, Afsnit 3: El-skade, Afsnit 5: Udstrømning af væsker (vandskade] og frostsprængning, Afsnit 6: Storm-voldsomt sky-og tøbrud - snetryk, Afsnit 7: Pludselig skade, Afsnit 9: Stikledninger, Afsniit 10: skjulte rør;Bygning;False;Success
-Forældelse.aspx;BygningForældelse.aspx;Erstatningsopgørelse;Alle dækninger;Bygning;True;Success
-Regres.aspx;BygningRegres.aspx;Erstatningsopgørelse;Alle dækninger;Bygning;True;Success
-Behandling af indbrudsskader og hærværksskader.aspx;Behandling af indbrudsskader og hærværksskader.aspx;Erstatningsopgørelse;Tyveri og hærværk;Bygning;False;Success
-Behandling af stormskade.aspx;Behandling af stormskade.aspx;Erstatningsopgørelse;Storm ;Bygning;False;Success
-Behandling af brud på vand- og kloakstikledninger.aspx;Behandling af brud på vand- og kloakstikledninger.aspx;Erstatningsopgørelse;Stikledninger;Bygning;False;Success
-Behandling af brud på el-stikledninger.aspx;Behandling af brud på el-stikledninger.aspx;Erstatningsopgørelse;Stikledninger;Bygning;False;Success
-Erstatning for undersøgelsesudgift ved rørskader.aspx;Erstatning for undersøgelsesudgift ved rørskader.aspx;Erstatningsopgørelse;Stikledninger - rør og kabler;Bygning;False;Success
-Behandling af brud på skjulte rør og kabler.aspx;Behandling af brud på skjulte rør og kabler.aspx;Erstatningsopgørelse;Afsnit: 10: Skjulte rør og kabler;Bygning;False;Success
-Erstatning for Stikledninger - rør og kabler.aspx;Erstatning for Stikledninger - rør og kabler.aspx;Erstatningsopgørelse;Afsnit 9: Stikledninger;Bygning;False;Success
-Dødsbo.aspx;Dødsbo.aspx;Erstatningsopgørelse;Alle dækninger;Bygning;False;Success
-dobbeltforsikringsaftalen.aspx;dobbeltforsikringsaftalen.aspx;Erstatningsopgørelse;Alle dækninger;Bygning;False;Success
-Fordelingsvejledningen.aspx;BygningFordelingsvejledningen.aspx;Erstatningsopgørelse;Alle dækninger;Bygning;True;Success
-sikkerhedsforskrift.aspx;sikkerhedsforskrift.aspx;Erstatningsopgørelse;Sikkerhedsforskrift § 51;Bygning;False;Success
-Regres ved vibrationsskader - sætningsskader i murværk.aspx;Regres ved vibrationsskader - sætningsskader i murværk.aspx;Erstatningsopgørelse;Regres ved vibrationsskader/sætningsskader;Bygning;False;Success
-FAL § 52 og 53.aspx;FAL § 52 og 53.aspx;Erstatningsopgørelse;Alle dækninger;Bygning;False;Success
-regres overfor kommunen.aspx;regres overfor kommunen.aspx;Erstatningsopgørelse;Afsnit 6: Storm - voldsomt sky- og tøbrud - snetryk;Bygning;False;Success
-Kosmetisk skade.aspx;Kosmetisk skade.aspx;Erstatningsopgørelse;Alle dækninger;Bygning;False;Success
-Afsnit 4+ udvidet dækning for tyveri af og hærværk på byggematerialer.aspx;Afsnit 4+ udvidet dækning for tyveri af og hærværk på byggematerialer.aspx;Erstatningsopgørelse;Byggematerialer ;Bygning;False;Success
-Fal § 18.aspx;Fal § 18.aspx;Erstatningsopgørelse;Alle dækninger;Bygning;False;Success
-Husplus Afsnit 1.I.aspx;Husplus Afsnit 1.I.aspx;Erstatningsopgørelse ;Kosmetisk skade;Bygning;False;Success
-Behandling af råd- og svampeskader.aspx;Behandling af råd- og svampeskader.aspx;Erstatningsopgørelse;Afsnit 11: Råd og Svamp;Bygning;False;Success
-tilbud.aspx;tilbud.aspx;Erstatningsopgørelse;Tilbud på reparation;Bygning;False;Success
-Remaljeringsselskab.aspx;Remaljeringsselskab.aspx;Erstatningsopgørelse;Afsnit 8: Glas og Sanitet, Afsnit 9: Stikledninger, Afsnit 10: Skjulte rør og kabler;Bygning;False;Success
-Følgeskade.aspx;Følgeskade.aspx;Erstatningsopgørelse;Alle dækninger;Bygning;False;Success
-redning.aspx;redning.aspx;Erstatningsopgørelse ;Alle dækninger;Bygning;False;Success
-flytning.aspx;flytning.aspx;Erstatningsopgørelse;Alle dækninger;Bygning;False;Success
-huslejetab.aspx;huslejetab.aspx;Erstatningsopgørelse;Alle dækninger;Bygning;False;Success
-Selvrisiko.aspx;BygningSelvrisiko.aspx;Erstatningsopgørelse;Afsnit 11: Råd og Svamp;Bygning;True;Success
-Indeksregulerede selvrisikobeløb.aspx;Indeksregulerede selvrisikobeløb.aspx;Erstatningsopgørelse;Indeksregulerede selvriskobeløb;Bygning;False;Success
-afskrivning.aspx;afskrivning.aspx;Erstatningsopgørelse;Alle dækninger;Bygning;False;Success
-Behandling af snetryksskader.aspx;Behandling af snetryksskader.aspx;Erstatningsopgørelse;Afsnit 6: Storm - voldsomt sky- og tøbrud - snetryk;Bygning;False;Success
-Behandling af frostsprængning.aspx;Behandling af frostsprængning.aspx;Erstatningsopgørelse;Afsnit 5: Udstrømning af væsker (Vandskade) og frostsprængning af rør;Bygning;False;Success
-økonomisk tab.aspx;økonomisk tab.aspx;Erstatningsopgørelse;Økonomisk tab;Bygning;False;Success
-Behandling af tøbrudsskader.aspx;Behandling af tøbrudsskader.aspx;Erstatningsopgørelse;Afsnit 6: Storm - voldsomt sky- og tøbrud - snetryk;Bygning;False;Success
-påregnelig eller opstår ved dagligt brug.aspx;påregnelig eller opstår ved dagligt brug.aspx;Erstatningsopgørelse ;Afsnit 7: Pludselig skade;Bygning;False;Success
-forvoldt af dyr.aspx;forvoldt af dyr.aspx;Erstatningsopgørelse;Afsnit 7: Pludselig skade;Bygning;False;Success
-over et tidsrum.aspx;over et tidsrum.aspx;Erstatningsopgørelse ;Afsnit 7: Pludselig skade;Bygning;False;Success
-Advokatbistand.aspx;Advokatbistand.aspx;Erstatningsopgørelse;Alle dækninger - større skader;Bygning;False;Success
-Arkitektbistand.aspx;Arkitektbistand.aspx;Erstatningsopgørelse ;Alle dækninger;Bygning;False;Success
-Fal § 22.aspx;Fal § 22.aspx;Erstatningsopgørelse;Alle dækninger ;Bygning;False;Success
-FAL § 21.aspx;FAL § 21.aspx;Erstatningsopgørelse;Alle dækninger;Bygning;False;Success
-FAL § 39.aspx;FAL § 39.aspx;Erstatningsopgørelse;Alle dækninger;Bygning;False;Success
-FAL § 32.aspx;FAL § 32.aspx;Erstatningsopgørelse ;Advokatbistand/arkitektbistand;Bygning;False;Success
-Omfangskoder for rør og kabler på policen.aspx;Omfangskoder for rør og kabler på policen.aspx;Erstatningsopgørelse;Afsnit 9: Stikledninger og Afsnit 10: Skjulte rør og kabler;Bygning;False;Success
-Medlem ønsker at benytte egen håndværker efter sp-besøg.aspx;Medlem ønsker at benytte egen håndværker efter sp-besøg.aspx;Erstatningsopgørelse;Sager hvor sp-håndværker benyttes;Bygning;False;Success
-Kontanterstatning.aspx;BygningKontanterstatning.aspx;Erstatningsopgørelse ;Alle dækninger;Bygning;True;Success
-Regres - Forældrehæftelse.aspx;BygningRegres - Forældrehæftelse.aspx;Erstatningsopgørelse;Alle dækninger;Bygning;True;Success
-Regres ved produktansvar.aspx;Regres ved produktansvar.aspx;Erstatningsopgørelse;Alle dækninger;Bygning;False;Success
-Eget arbejde.aspx;BygningEget arbejde.aspx;Erstatningsopgørelse;Alle dækninger;Bygning;True;Success
-Bevaringsværdige - fredede ejendommen.aspx;Bevaringsværdige - fredede ejendommen.aspx;Erstatningsopgørelse ;Alle dækninger;Bygning;False;Success
-Hvornår kan grov uagtsomhed gøres gældende.aspx;Hvornår kan grov uagtsomhed gøres gældende.aspx;Erstatningsopgørelse;Alle dækninger;Bygning;False;Success
-Havetraktor.aspx;Havetraktor.aspx;Erstatningsopgørelse;Fritidshusforsikringen;Bygning;False;Success
-Huslejetab, ansvar og retshjælp.aspx;Huslejetab, ansvar og retshjælp.aspx;Erstatningsopgørelse;Huslejetab, ansvar og retshjælp;Bygning;False;Success
-Oprydning efter en dækningsberettigende skade i andres haver.aspx;Oprydning efter en dækningsberettigende skade i andres haver.aspx;Erstatningsopgørelse;Afsnit 2: Brand, lynnedslag og eksplosion og Afsnit 6: Storm - voldsomt sky- og tøbrud - snetryk;Bygning;False;Success
-Reklamation.aspx;Reklamation.aspx;Erstatningsopgørelse;Alle dækninger;Bygning;False;Success
-Renter.aspx;Renter.aspx;Erstatningsopgørelse;Alle dækninger;Bygning;False;Success
-FAL § 24.aspx;FAL § 24.aspx;Erstatningsopgørelse;Alle dækninger;Bygning;False;Success
-Renoveringsordning - tilskudsordninger.aspx;Renoveringsordning - tilskudsordninger.aspx;Erstatningsopgørelse;Alle dækninger;Bygning;False;Success
-Rykkergebyr.aspx;Rykkergebyr.aspx;Erstatningsopgørelse ;Alle dækninger ;Bygning;False;Success
-reparationsoverslag.aspx;reparationsoverslag.aspx;Erstatningsopgørelse;Alle dækninger;Bygning;False;Success
-Hvornår kan en skade afvises.aspx;Hvornår kan en skade afvises.aspx;Erstatningsopgørelse;Alle dækninger;Bygning;False;Success
-Besigtigelsesrapport i forbindelse med tegning af forsikringen.aspx;Besigtigelsesrapport i forbindelse med tegning af forsikringen.aspx;Erstatningsopgørelse;Alle dækninger;Bygning;False;Success
-Betaling af regninger.aspx;Betaling af regninger.aspx;Erstatningsopgørelse;Alle dækninger;Bygning;False;Success
-Bedre dækning.aspx;Bedre dækning.aspx;Erstatningsopgørelse;Alle dækninger;Bygning;False;Success
-Byggeskadeforsikring.aspx;Byggeskadeforsikring.aspx;Erstatningsopgørelse;Skade på boliger, der er under 10 år gamle;Bygning;False;Success
-Ejerskifte.aspx;Ejerskifte.aspx;Erstatningsopgørelse ;Afsnit 9: stikledninger og Afsnit 10: skjulte rør og kabler;Bygning;False;Success
-Dækning på både Ejerskifte- og Husforsikring.aspx;Dækning på både Ejerskifte- og Husforsikring.aspx;Erstatningsopgørelse ;Alle dækninger;Bygning;False;Success
-Kulanceerstatninger.aspx;Kulanceerstatninger.aspx;Erstatningsopgørelse;alle dækninger;Bygning;False;Success
-Breve.aspx;Breve.aspx;Erstatningsopgørelse;Alle skadesager;Bygning;False;Success
-Både.aspx;Både.aspx;Erstatningsopgørelse;Sommerhusforsikring ;Bygning;False;Success
-Scannde bilag på policen.aspx;Scannde bilag på policen.aspx;Erstatningsopgørelse;Alle dækninger;Bygning;False;Success
-Udlejningsforsikring.aspx;Udlejningsforsikring.aspx;Erstatningsopgørelse;Sommerhusforsikringen;Bygning;False;Success
-Præmiebetaling.aspx;Præmiebetaling.aspx;Erstatningsopgørelse;Sommerhusforsikring;Bygning;False;Success
-policeinformation.aspx;policeinformation.aspx;Erstatningsopgørelse ;alle skadesager;Bygning;False;Success
-Havemøbler.aspx;Havemøbler.aspx;Erstatningsopgørelse;Sommerhusforsikring;Bygning;False;Success
-Betaling af indboskade på Husforsikringen.aspx;Betaling af indboskade på Husforsikringen.aspx;Erstatningsopgørelse;Alle dækninger;Bygning;False;Success
-Dækning af udgifter til vores samarbejdspartnere.aspx;Dækning af udgifter til vores samarbejdspartnere.aspx;Erstatningsopgørelse ;Alle dækninger;Bygning;False;Success
-Hvem skal kontanterstatning udbetales til.aspx;Hvem skal kontanterstatning udbetales til.aspx;Erstatningsopgørelse;Alle dækninger;Bygning;False;Success
-Behandling af sager hvor der indgår PCB-holdige produkter og PCB-holdigt affald.aspx;Behandling af sager hvor der indgår PCB-holdige produkter og PCB-holdigt affald.aspx;Erstatningsopgørelse;Alle skadesager;Bygning;False;Success
-Genlevering af bygningstilbehør gennem Sp-løsøre-systemet.aspx;Genlevering af bygningstilbehør gennem Sp-løsøre-systemet.aspx;Erstatningsopgørelse;Alle skadesager;Bygning;False;Success
-Dækning af udgifter til at finde afdækkede brønddæksler.aspx;Dækning af udgifter til at finde afdækkede brønddæksler.aspx;Erstatningsopgørelse;Afsnit 9: Stikledninger;Bygning;False;Success
-stråtag.aspx;stråtag.aspx;Erstatningsopgørelse;Afsnit 6: Storm - voldsomt sky- og tøbrud - snetryk;Bygning;False;Success
-Skade forvoldt af flyvende trampoliner og andre løse genstande.aspx;Skade forvoldt af flyvende trampoliner og andre løse genstande.aspx;Erstatningsopgørelse;Afsnit 6: Storm - voldsomt sky- og tøbrud - snetryk;Bygning;False;Success
-1 eller 2 selvrisikobeløb.aspx;1 eller 2 selvrisikobeløb.aspx;Erstatningsopgørelse;Alle dækninger;Bygning;False;Success
-Priskatalog.aspx;Priskatalog.aspx;Erstatningsopgørelse;Alle dækninger;Bygning;False;Success
-Fareforøgelse.aspx;BygningFareforøgelse.aspx;Erstatningsopgørelse;Alle dækninger;Bygning;True;Success
-Lovliggørelse.aspx;Lovliggørelse.aspx;Erstatningsopgørelse;Alle dækninger;Bygning;False;Success
-Behandling af bolighjælpsdækningen.aspx;Behandling af bolighjælpsdækningen.aspx;Erstatningsopgørelse;Bolighjælp;Bygning;False;Success
-Hvordan foretager vi afskrivning.aspx;Hvordan foretager vi afskrivning.aspx;Erstatningsopgørelse;Alle dækninger;Bygning;False;Success
-Tidligere forsikringsvilkår.aspx;Tidligere forsikringsvilkår.aspx;Erstatningsopgørelse;Alle dækninger;Bygning;False;Success
-Kontanterstatning der anvendes til andet formål.aspx;Kontanterstatning der anvendes til andet formål.aspx;Erstatningsopgørelse;Alle dækninger;Bygning;False;Success
-Selvrisiko ved brud på flere rørstrækninger.aspx;Selvrisiko ved brud på flere rørstrækninger.aspx;Erstatningsopgørelse;Afsnit 9: Stikledninger;Bygning;False;Success
-Erstatning for glas i drivhuse.aspx;Erstatning for glas i drivhuse.aspx;Erstatningsopgørelse;Afsnit 1.G.a Ejendommens bygningerog 1.G.e Bygninger, hegn og stakitter;Bygning;False;Success
-Organisk materiale.aspx;Organisk materiale.aspx;Erstatningsopgørelse;Skybrud - Vilkårenes afsnit 6. Storm - voldsomt sky- og tøbrud - snetryk;Bygning;False;Success
-Oprydning af genstande i medlems have, efter en dækningsberettigende skade hos medlems nabo.aspx;Oprydning af genstande i medlems have, efter en dækningsberettigende skade hos medlems nabo.aspx;Erstatningsopgørelse;Afsnit 6: Storm - voldsomt sky- og tøbrud - snetryk;Bygning;False;Success
-Forældelsesreglerne vist i forskellige eksempler.aspx;BygningForældelsesreglerne vist i forskellige eksempler.aspx;Erstatningsopgørelse;Alle dækninger;Bygning;True;Success
-Pro-rata erstatning.aspx;Pro-rata erstatning.aspx;Erstatningsopgørelse;;Bygning;False;Success
-Informationssøgning.aspx;BygningInformationssøgning.aspx;Erstatningsopgørelse;Alle skader;Bygning;True;Success
-Dækning af særligt privat indbo og elektriskeapparater i henhold til sommerhusvilkårene.aspx;Dækning af særligt privat indbo og elektriskeapparater i henhold til sommerhusvilkårene.aspx;Erstatningsopgørelse;Sommerhusvilkårenes afsnit 1.F: Hvilke ting dækker forsikringen skader på, afsnit 4: Indbrudstyveri, røveri og overfald på forsikringsstedet, 5: Simpelt tyveri og hærværk og 9: Pludselig skader;Bygning;False;Success
-Oprydning efter stormskadede træer.aspx;Oprydning efter stormskadede træer.aspx;Erstatningsopgørelse;Husvilkårenes afsnit 6. Storm - Voldsomt sky- og tøbrud - Snetryk og Husvilkårenes afsnit 14. Udvidet dækning for haveanlæg ;Bygning;False;Success
-Vandudgift.aspx;Vandudgift.aspx;Erstatningsopgørelse;Husvilkårenes afsnit 1.G.a og 1.G.g;Bygning;False;Success
-Erstatning for træer og buske.aspx;Erstatning for træer og buske.aspx;Erstatningsopgørelse;;Bygning;False;Success
-Undersøgelsesudgifter når skaden er dækningsberettigende.aspx;Undersøgelsesudgifter når skaden er dækningsberettigende.aspx;Erstatningsopgørelse;Alle dækninger;Bygning;False;Success
-Opgørelse til dagsværdi.aspx;Opgørelse til dagsværdi.aspx;Erstatningsopgørelse;Genstande af organisk materiale;Bygning;False;Success
-Selvrisiko og summer.aspx;Selvrisiko og summer.aspx;Erstatningsopgørelse;;Bygning;False;Success
-Tab af vand og olie.aspx;Tab af vand og olie.aspx;Erstatningsopgørelse;Afsnit 5: Udstrømning af væsker (vandskade) og frostsprængning af rør, Afsnit 9: Stikledninger og afsnit 10: Skjulte rør og kabler;Bygning;False;Success
-Skade forvoldt af håndværker.aspx;Skade forvoldt af håndværker.aspx;Erstatningsopgørelse;Alle skader;Bygning;False;Success
-Hvordan opgøres erstatningens størrelse for vandforbrug.aspx;Hvordan opgøres erstatningens størrelse for vandforbrug.aspx;Erstatningsopgørelse;Afsnit 5: Udstrømning af væsker (vandskade) - Afsnit 9: Stikledninger - Afsnit 10: Skjulte rør og kabler;Bygning;False;Success
-Hvordan opgøres erstatningens størrelse for tab af olie.aspx;Hvordan opgøres erstatningens størrelse for tab af olie.aspx;Erstatningsopgørelse;Afsnit 5: Udstrømning af væsker (vandskade) - Afsnit 9: Stikledninger - Afsnit 10: Skjulte rør og kabler;Bygning;False;Success
-Vejledning for hvilket el-arbejde privat personer må udføre.aspx;Vejledning for hvilket el-arbejde privat personer må udføre.aspx;Erstatningsopgørelse;Alle skader;Bygning;False;Success
-Værdiforringelseserstatning.aspx;Værdiforringelseserstatning.aspx;Erstatningsopgørelse;;Bygning;False;Success
-Restværdi.aspx;Restværdi.aspx;Erstatningsopgørelse;;Bygning;False;Success
-forbeholdsbrev.aspx;forbeholdsbrev.aspx;Forretningsgang;Alle dækninger;Bygning;False;Success
-Vejret.aspx;Vejret.aspx;Forretningsgang;Afsnit 6: Storm - voldsomt sky- og tøbrud - snetryk;Bygning;False;Success
-Stormflodsskader.aspx;BygningStormflodsskader.aspx;Forretningsgang;Afsnit 6: Storm - voldsomt sky- og tøbrud - snetryk;Bygning;True;Success
-Statistikkode.aspx;Statistikkode.aspx;Forretningsgang;Alle dækninger;Bygning;False;Success
-AB 92.aspx;AB 92.aspx;Forretningsgang;Regressager;Bygning;False;Success
-Medlemsjura.aspx;Medlemsjura.aspx;Forretningsgang;Alle dækninger;Bygning;False;Success
-fortryder sp-håndværker.aspx;fortryder sp-håndværker.aspx;Forretningsgang;Sager der behandles af sp-håndværker;Bygning;False;Success
-Taksator på sp-sager.aspx;Taksator på sp-sager.aspx;Forretningsgang;Sager der behandles af sp-håndværker;Bygning;False;Success
-dagbog.aspx;dagbog.aspx;Forretningsgang;Alle dækninger;Bygning;False;Success
-Falck bolighjælp.aspx;Falck bolighjælp.aspx;Forretningsgang;Træfældning, Fygesne, vand i boligen, skadedyr, istapper, løse tagsten, sne på taget, løbet tør for olie, rådgivning;Bygning;False;Success
-tilstandsrapport.aspx;tilstandsrapport.aspx;Forretningsgang;Oftest afsnit 9: stikledninger, Afsnit 10: Skjulte rør og kabler, Afsnit 11: Råd og svamp, Afsnit 12: Insekter;Bygning;False;Success
-taksator.aspx;taksator.aspx;Forretningsgang;Sager der behandles af taksator;Bygning;False;Success
-Sp-håndværker afviser skade.aspx;Sp-håndværker afviser skade.aspx;Forretningsgang;Sager der behandles af sp-håndværker ;Bygning;False;Success
-Hvornår sp-håndværker.aspx;Hvornår sp-håndværker.aspx;Forretningsgang;Sager der behandles af sp-håndværker;Bygning;False;Success
-Forløbet for en sp-sag.aspx;Forløbet for en sp-sag.aspx;Forretningsgang;Sager der behandles af Sp-håndværker;Bygning;False;Success
-Skader der udbedres af sp-håndværker.aspx;Skader der udbedres af sp-håndværker.aspx;Forretningsgang;Sager der behandles af sp-håndværker;Bygning;False;Success
-Sp-håndværker er i tvivl om dækning.aspx;Sp-håndværker er i tvivl om dækning.aspx;Forretningsgang;Sager der behandles af sp-håndværker;Bygning;False;Success
-Skadeår.aspx;Skadeår.aspx;Forretningsgang;Alle dækninger;Bygning;False;Success
-reserve.aspx;reserve.aspx;Forretningsgang;Alle dækninger ;Bygning;False;Success
-Skader på over 1 mio kr.aspx;Skader på over 1 mio kr.aspx;Forretningsgang;Alle dækninger;Bygning;False;Success
-Indberetning af renter.aspx;Indberetning af renter.aspx;Forretningsgang;Alle dækninger;Bygning;False;Success
-Beregning af renter.aspx;Beregning af renter.aspx;Forretningsgang;Alle dækninger;Bygning;False;Success
-Klage over afgørelse - Procedure.aspx;Klage over afgørelse - Procedure.aspx;Forretningsgang;Alle skadesager;Bygning;False;Success
-Olieforurening.aspx;Olieforurening.aspx;Forretningsgang;Olieforurening;Bygning;False;Success
-Oplysning om forsikringsforhold.aspx;Oplysning om forsikringsforhold.aspx;Forretningsgang;Alle forsikringforhold;Bygning;False;Success
-personrelaterede sager.aspx;personrelaterede sager.aspx;Forretningsgang;Alle skadesager;Bygning;False;Success
-Post til andre selskaber.aspx;Post til andre selskaber.aspx;Forretningsgang;Alle skadesager;Bygning;False;Success
-Udbetaling til håndværkere.aspx;Udbetaling til håndværkere.aspx;Forretningsgang;Alle skadesager;Bygning;False;Success
-Incassosager.aspx;BygningIncassosager.aspx;Forretningsgang;Alle skadesager;Bygning;True;Success
-Postnummerfordeling - skadeservicefirmaer.aspx;Postnummerfordeling - skadeservicefirmaer.aspx;Forretningsgang;Postnummerfordeling - skadeservicefirmaer;Bygning;False;Success
-Aktindsigt.aspx;BygningAktindsigt.aspx;Forretningsgang;Alle dækninger;Bygning;True;Success
-Selskabets e-mail anbefalinger.aspx;Selskabets e-mail anbefalinger.aspx;Forretningsgang;Alle skadesager;Bygning;False;Success
-Anmeldelsesfrister.aspx;Anmeldelsesfrister.aspx;Forretningsgang;Stikledninger, Skjulte rør, råd/svamp og insekter;Bygning;False;Success
-Rykkerprocedure.aspx;Rykkerprocedure.aspx;Forretningsgang;Alle dækninger;Bygning;False;Success
-Besvarelse af klagesager.aspx;Besvarelse af klagesager.aspx;Forretningsgang;Alle skadesager;Bygning;False;Success
-Medarbejdersager.aspx;BygningMedarbejdersager.aspx;Forretningsgang;Alle skadesager;Bygning;True;Success
-Hus Plus dækninger.aspx;Hus Plus dækninger.aspx;Forretningsgang;Alle dækninger ;Bygning;False;Success
-Statistikkode 400 - Redning og bevaring.aspx;Statistikkode 400 - Redning og bevaring.aspx;Forretningsgang;Alle dækninger;Bygning;False;Success
-MgO-plader.aspx;MgO-plader.aspx;Forretningsgang;Alle skader;Bygning;False;Success
-Udhusbygninger der er undtaget fra forsikringsdækning.aspx;Udhusbygninger der er undtaget fra forsikringsdækning.aspx;Forretningsgang;Afsnit 2: Brand, lynnedslag og eksplosion mv.;Bygning;False;Success
-Glasdækning - ridsede ruder.aspx;BygningGlasdækning - ridsede ruder.aspx;Forretningsgang;Husvilkårenes afsnit 8: Glas og sanitet og Sommerhusvilkårenes afsnit 16: Glas og sanitet ;Bygning;True;Success
-Afregning til sp-håndværkere og Housecenter.aspx;Afregning til sp-håndværkere og Housecenter.aspx;Forretningsgang;Sager der behandles af sp-håndværker;Bygning;False;Success
-Afsnit 6 + Udvidet vanddækning.aspx;Afsnit 6 + Udvidet vanddækning.aspx;Husvilkårenes plusdækninger;Udvidet vanddækning;Bygning;False;Success
-Husplus afsnit 9+ udvidet dækning for brønde og stikledninger.aspx;Husplus afsnit 9+ udvidet dækning for brønde og stikledninger.aspx;Husvilkårenes plusdækninger;Udvidet dækning for brønde og stikledninger;Bygning;False;Success
-Husplus afsnit 13. Skadedyr.aspx;Husplus afsnit 13. Skadedyr.aspx;Husvilkårenes plusdækninger;Skader på grund af pindsvin, slanger, fugle, flagermus samt mår, rotter, mus og andre gnavere;Bygning;False;Success
-Husplus afsnit 14 Udvidet dækning for haveanlæg.aspx;Husplus afsnit 14 Udvidet dækning for haveanlæg.aspx;Husvilkårenes plusdækninger;Afsnit 1.G.g: Haveanlæg og Afsnit 4: Tyveri og Hærværk, Afsnit 6: Storm og Afsnit 7: Pludselig skade;Bygning;False;Success
-Husplus afsnit 3+ Udvidet dækning for funktionsfejl på elektriske apparater.aspx;Husplus afsnit 3+ Udvidet dækning for funktionsfejl på elektriske apparater.aspx;Husvilkårenes plusdækninger;Funktionsfejl i faste elektriske installationer;Bygning;False;Success
-HusPlus udvidet vanddækning forhold som medfører, at udbedring af årsagen til skaden ikke lader sig gøre.aspx;HusPlus udvidet vanddækning forhold som medfører, at udbedring af årsagen til skaden ikke lader sig gøre.aspx;Husvilkårenes plusdækninger;Hus Plus - afsnit 6+ udvidet vanddækning - udbedring af årsagen til skaden;Bygning;False;Success
-Udsivning af vand fra frostsprængt synligt rør.aspx;Udsivning af vand fra frostsprængt synligt rør.aspx;Husvilkårenes plusdækninger;Hus Plus - Afsnit 6+ Udvidet vanddækning - frostsprængning af rør;Bygning;False;Success
-Vandforbrug.aspx;Vandforbrug.aspx;Husvilkårenes plusdækninger;Vilkårenes afsnit 5: Udstrømning af væsker (Vandskade) - Vilkårenes afsnit 9: Stikledninger - Vilkårenes afsnit 10: Skjulte rør og kabler ;Bygning;False;Success
-Hvem kan tegne Husplus dækning.aspx;Hvem kan tegne Husplus dækning.aspx;Husvilkårenes plusdækninger ;;Bygning;False;Success
-Afdækning ved udvidet vanddækning.aspx;Afdækning ved udvidet vanddækning.aspx;Husvilkårenes plusdækninger ;Afdækning ved udvidet vanddækning;Bygning;False;Success
-Husplus - Kosmetiske skader.aspx;Husplus - Kosmetiske skader.aspx;Husvilkårenes plusdækninger ;;Bygning;False;Success
-Tegninger af bygninger og bygningsdele.aspx;Tegninger af bygninger og bygningsdele.aspx;Oversigter og tegninger af bygninger og delene heri;Alle dækninger;Bygning;False;Success
+Startside.aspx;BygningStartside.aspx;;;Bygning;True;Error
+Hvem er sikret.aspx;Hvem er sikret.aspx;Afsnit 1.B: Hvem er sikret;Hvem er sikret;Bygning;False;Error
+Hvor dækker forsikringen.aspx;Hvor dækker forsikringen.aspx;Afsnit 1.C: Hvor dækkes;Hvor dækker forsikringen;Bygning;False;Error
+Udhuse, redskabsskure, drivhuse mm - antal m2.aspx;Udhuse, redskabsskure, drivhuse mm - antal m2.aspx;Afsnit 1.G.a: Ejendommens bygninger;Forsikrede genstande;Bygning;False;Error
+Drivhuse - Sokler.aspx;Drivhuse - Sokler.aspx;Afsnit 1.G.a: Ejendommens bygninger;Forsikrede genstande;Bygning;False;Error
+Nedgravede svømmebasssiner.aspx;Nedgravede svømmebasssiner.aspx;Afsnit 1.G.a: Ejendommens bygninger;Forsikrede genstande;Bygning;False;Error
+Nedstøbte hegn og stakitter.aspx;Nedstøbte hegn og stakitter.aspx;Afsnit 1.G.a: Ejendommens bygninger;Forsikrede genstande;Bygning;False;Error
+træterrasse - veranda.aspx;træterrasse - veranda.aspx;Afsnit 1.G.a: Ejendommens bygninger;Forsikrede genstande;Bygning;False;Error
+Legehuse.aspx;Legehuse.aspx;Afsnit 1.G.a: Ejendommens bygninger;Forsikrede genstande;Bygning;False;Error
+Legetårne.aspx;Legetårne.aspx;Afsnit 1.G.a: Ejendommens bygninger;Forsikrede genstande;Bygning;False;Error
+Glaspavillon, havehus, lysthus, orangeri.aspx;Glaspavillon, havehus, lysthus, orangeri.aspx;Afsnit 1.G.a: Ejendommens bygninger;Forsikrede genstande;Bygning;False;Error
+Overdækninger på terrasser, til brænde, havemøbler, barnevogne mm.aspx;Overdækninger på terrasser, til brænde, havemøbler, barnevogne mm.aspx;Afsnit 1.G.a: Ejendommens bygninger;Forsikrede genstande;Bygning;False;Error
+Spabad.aspx;BygningSpabad.aspx;Afsnit 1.G.b: Glas og Sanitet;Forsikrede genstande;Bygning;True;Error
+Vask i køkken, bryggers mm.aspx;BygningVask i køkken, bryggers mm.aspx;Afsnit 1.G.b: Glas og Sanitet ;Forsikrede genstande;Bygning;True;Error
+El ledninger.aspx;El ledninger.aspx;Afsnit 1.G.c: Kabler og rør;Forsikrede genstande;Bygning;False;Error
+Fjernvarmerør.aspx;Fjernvarmerør.aspx;Afsnit 1.G.c: Kabler og rør;Forsikrede genstande;Bygning;False;Error
+Telefon- og antennekabler.aspx;Telefon- og antennekabler.aspx;Afsnit 1.G.c: Kabler og rør;Forsikrede genstande;Bygning;False;Error
+Jordvarmeanlæg.aspx;Jordvarmeanlæg.aspx;Afsnit 1.G.c: Kabler og rør;Forsikrede genstande;Bygning;False;Error
+Vandledninger til nedgravede svømmebassiner.aspx;Vandledninger til nedgravede svømmebassiner.aspx;Afsnit 1.G.c: Kabler og rør;Forsikrede genstande;Bygning;False;Error
+Stophane.aspx;Stophane.aspx;Afsnit 1.G.c: Kabler og rør;Forsikrede genstande;Bygning;False;Error
+Vacuumventil.aspx;Vacuumventil.aspx;Afsnit 1.G.c: Kabler og rør;Forsikrede genstande;Bygning;False;Error
+Brønde.aspx;Brønde.aspx;Afsnit 1.G.c: Kabler og rør;Forsikrede genstande;Bygning;False;Error
+Fællesledning.aspx;Fællesledning.aspx;Afsnit 1.G.c: Kabler og rør;Forsikrede genstande;Bygning;False;Error
+Udendørs vandhane og kabler til havelamper.aspx;Udendørs vandhane og kabler til havelamper.aspx;Afsnit 1.G.c: Kabler og rør;Forsikrede genstande;Bygning;False;Error
+Fritstående radiator.aspx;Fritstående radiator.aspx;Afsnit 1.G.d: Bygningstilbehør;Forsikrede genstande;Bygning;False;Error
+Gulvbelægning i kælder.aspx;Gulvbelægning i kælder.aspx;Afsnit 1.G.d: Bygningstilbehør;Forsikrede genstande;Bygning;False;Error
+Gyngestativer.aspx;Gyngestativer.aspx;Afsnit 1.G.d: Bygningstilbehør;Forsikrede genstande;Bygning;False;Error
+Postkasser.aspx;BygningPostkasser.aspx;Afsnit 1.G.d: Bygningstilbehør;Forsikrede genstande;Bygning;True;Error
+Hårde hvidevare.aspx;Hårde hvidevare.aspx;Afsnit 1.G.d: Bygningstilbehør;Forsikrede genstande;Bygning;False;Error
+Solvarmeanlæg.aspx;Solvarmeanlæg.aspx;Afsnit 1.G.d: Bygningstilbehør;Forsikrede genstande;Bygning;False;Error
+Tyverialarm.aspx;BygningTyverialarm.aspx;Afsnit 1.G.d: Bygningstilbehør;Forsikrede genstande;Bygning;True;Error
+Udendørs køkken.aspx;Udendørs køkken.aspx;Afsnit 1.G.d: Bygningstilbehør;Forsikrede genstande;Bygning;False;Error
+Udendørs spabade.aspx;Udendørs spabade.aspx;Afsnit 1.G.d: Bygningstilbehør;Forsikrede genstande;Bygning;False;Error
+Radioamatørantenne.aspx;Radioamatørantenne.aspx;Afsnit 1.G.d: Bygningstilbehør;Forsikrede genstande;Bygning;False;Error
+Nyindkøbt bygningstilbehør - ikke fastmonteret.aspx;Nyindkøbt bygningstilbehør - ikke fastmonteret.aspx;Afsnit 1.G.d: Bygningstilbehør;Forsikrede genstande;Bygning;False;Error
+Eswa strålevarmeloft.aspx;Eswa strålevarmeloft.aspx;Afsnit 1.G.d: Bygningstilbehør;Forsikrede genstande;Bygning;False;Error
+Indbygget kaffemaskine.aspx;Indbygget kaffemaskine.aspx;Afsnit 1.G.d: Bygningstilbehør;Forsikrede genstande;Bygning;False;Error
+Solcelleanlæg.aspx;BygningSolcelleanlæg.aspx;Afsnit 1.G.d: Bygningstilbehør;Forsikrede genstande;Bygning;True;Error
+Stiger og stilladser.aspx;Stiger og stilladser.aspx;Afsnit 1.G.d: Bygningstilbehør;Forsikrede genstande;Bygning;False;Error
+Bade- og bådebroer.aspx;Bade- og bådebroer.aspx;Afsnit 1.G.d: Bygningstilbehør;Forsikrede genstande;Bygning;False;Error
+Olietanke.aspx;Olietanke.aspx;Afsnit 1.G.d: Bygningstilbehør;Forsikrede genstande;Bygning;False;Error
+Laminatgulve og Linoleumsgulve.aspx;Laminatgulve og Linoleumsgulve.aspx;Afsnit 1.G.d: Bygningstilbehør ;Forsikrede genstande;Bygning;False;Error
+Onduline tage.aspx;Onduline tage.aspx;Afsnit 1.G.d: Bygningstilbehør ;Forsikrede genstande;Bygning;False;Error
+Emhætte.aspx;BygningEmhætte.aspx;Afsnit 1.G.d: Bygningstilbehør ;Forsikrede genstande;Bygning;True;Error
+Kunstnerisk udsmykning.aspx;Kunstnerisk udsmykning.aspx;Afsnit 1.G.f: Kunstnerisk udsmykning;Forsikrede genstande;Bygning;False;Error
+Følgeskade på haveanlæg.aspx;Følgeskade på haveanlæg.aspx;Afsnit 1.G.g: Haveanlæg;Forsikrede genstande;Bygning;False;Error
+Træer.aspx;Træer.aspx;Afsnit 1.G.g: Haveanlæg;Forsikrede genstande;Bygning;False;Error
+Skjulte rør og kabler.aspx;Skjulte rør og kabler.aspx;Afsnit 10: skjulte rør og kabler;Afsnit 10: Skjulte rør og kabler;Bygning;False;Error
+Reemaljering af gulvafløb.aspx;Reemaljering af gulvafløb.aspx;Afsnit 10: skjulte rør og kabler;;Bygning;False;Error
+Multiseal.aspx;Multiseal.aspx;Afsnit 10: skjulte rør og kabler ;;Bygning;False;Error
+Råd og Svamp.aspx;Råd og Svamp.aspx;Afsnit 11: Råd og Svamp;Afsnit 11: Råd og Svamp;Bygning;False;Error
+Ægte hussvamp i murværk.aspx;Ægte hussvamp i murværk.aspx;Afsnit 11: Råd og Svamp;Afsnit 11: Råd og Svamp;Bygning;False;Error
+Insekter.aspx;Insekter.aspx;Afsnit 12: Insekter;Insekter;Bygning;False;Error
+Brand.aspx;BygningBrand.aspx;Afsnit 2: Brand, lynnedslag og eksplosion mv.;Afsnit 2: Brand, lynnedslag og eksplosion m.v.;Bygning;True;Error
+Svideskade.aspx;Svideskade.aspx;Afsnit 2: Brand, lynnedslag og eksplosion mv.;Afsnit 2: Brand, Lynnedslg og eksplosion m.v.;Bygning;False;Error
+Pludselig tilsodning.aspx;Pludselig tilsodning.aspx;Afsnit 2: Brand, lynnedslag og eksplosion mv.;Afsnit 2: Brand, Lynnedslag og eksplosion m.v.;Bygning;False;Error
+Lyn.aspx;Lyn.aspx;Afsnit 2: Brand, lynnedslag og eksplosion mv.;Afsnit 2: Brand, lynnedslag og eksplosion m.v.;Bygning;False;Error
+Eksplosion.aspx;Eksplosion.aspx;Afsnit 2: Brand, lynnedslag og eksplosion mv.;Afsnit 2: Brand, lynnedslag og eksplosion m.v.;Bygning;False;Error
+El-skade.aspx;El-skade.aspx;Afsnit 3: El-skade;Kolonne 3: El-skade;Bygning;False;Error
+Tyveri.aspx;Tyveri.aspx;Afsnit 4: Tyveri og hærværk;Afsnit 4.: tyveri - hærværk;Bygning;False;Error
+Hærværk.aspx;Hærværk.aspx;Afsnit 4: Tyveri og hærværk;Afsnit 4: tyveri og hærværk;Bygning;False;Error
+Tyveri begået mens boligen var udlånt eller udlejet - Boligbyt.aspx;Tyveri begået mens boligen var udlånt eller udlejet - Boligbyt.aspx;Afsnit 4: Tyveri og hærværk ;Afsnit 4: Tyveri og hærværk ;Bygning;False;Error
+Udstrømning af væsker.aspx;Udstrømning af væsker.aspx;Afsnit 5: Udstrømning af væsker (vandskade) og frostsprængning af rør;Afsnit 5. Udstrømning af væsker (vandskade) og frostsprængning af rør;Bygning;False;Error
+Frostsprængning.aspx;Frostsprængning.aspx;Afsnit 5: Udstrømning af væsker (vandskade) og frostsprængning af rør;Kolonne 5. Udstrømning af væsker (vandskade) og frostsprængning af rør;Bygning;False;Error
+Opstigning af grund-og kloakvand.aspx;Opstigning af grund-og kloakvand.aspx;Afsnit 5: Udstrømning af væsker (vandskade) og frostsprængning af rør;Afsnit 5: Udstrømning af væsker (vandskade) og Frostsprængning af rør;Bygning;False;Error
+Frostsprængning i sommerhuse.aspx;Frostsprængning i sommerhuse.aspx;Afsnit 5: Udstrømning af væsker (vandskade) og frostsprængning af rør;Afsnit 5 Udstrømning af væsker (vandskade) og frostsprængning af rør;Bygning;False;Error
+Brud på naboers stikledninger.aspx;Brud på naboers stikledninger.aspx;Afsnit 5: Udstrømning af væsker (vandskade) og frostsprængning af rør;Afsnit 5: Udstrømning af væsker (vandskade) og Frostsprængning af rør;Bygning;False;Error
+Frostsprængning af rør i uopvarmede loft og skunkrum samt hulmure og krybekældre.aspx;Frostsprængning af rør i uopvarmede loft og skunkrum samt hulmure og krybekældre.aspx;Afsnit 5: Udstrømning af væsker (vandskade) og frostsprængning af rør ;Afsnit 5: Udstrømning af væsker (vandskade) og frostsprængning af rør ;Bygning;False;Error
+Udgifter til optøning af rør.aspx;Udgifter til optøning af rør.aspx;Afsnit 5: Udstrømning af væsker (vandskade) og frostsprængning af rør ;Afsnit 5: Udstrømning af væsker (vandskade) og frostsprængning af rør ;Bygning;False;Error
+Storm.aspx;Storm.aspx;Afsnit 6: Storm - voldsomt sky- og tøbrud - snetryk;Afsnit 6: Storm - voldsomt sky-og tøbrud - snetryk;Bygning;False;Error
+Skybrud.aspx;BygningSkybrud.aspx;Afsnit 6: Storm - voldsomt sky- og tøbrud - snetryk;Afsnit 6: Storm - voldsomt sky- og tøbrud - snetryk;Bygning;True;Error
+Tøbrud.aspx;BygningTøbrud.aspx;Afsnit 6: Storm - voldsomt sky- og tøbrud - snetryk;Kolonne 6: Storm - voldsomt sky- og tøbrud - snetryk;Bygning;True;Error
+Snetryk.aspx;Snetryk.aspx;Afsnit 6: Storm - voldsomt sky- og tøbrud - snetryk;Afsnit 6: Storm - voldsomt sky-og tøbrud - snetryk;Bygning;False;Error
+Snefygning.aspx;Snefygning.aspx;Afsnit 6: Storm - voldsomt sky- og tøbrud - snetryk;Afsnit 6: Storm - voldsomt sky- og tøbrud - snetryk;Bygning;False;Error
+Skade på bygninger under opførelse, om- eller tilbygning.aspx;Skade på bygninger under opførelse, om- eller tilbygning.aspx;Afsnit 6: Storm - voldsomt sky- og tøbrud - snetryk;voldsomt sky- og tøbrud - snetryk;Bygning;False;Error
+Vandindtrængning som følge af stormskader.aspx;Vandindtrængning som følge af stormskader.aspx;Afsnit 6: Storm - voldsomt sky- og tøbrud - snetryk;Afsnit 6: Storm - voldsomt sky- og tøbrud - snetryk;Bygning;False;Error
+Manglende fundering.aspx;Manglende fundering.aspx;Afsnit 6: Storm - voldsomt sky- og tøbrud - snetryk ;Afsnit 6: Storm - voldsomt sky- og tøbrud - snetryk;Bygning;False;Error
+Muret eller støbt sokkel eller sokkelsten.aspx;Muret eller støbt sokkel eller sokkelsten.aspx;Afsnit 6: Storm - voldsomt sky- og tøbrud - snetryk ;Afsnit 6: Storm - voldsomt sky- og tøbrud - snetryk;Bygning;False;Error
+Pludselig skade.aspx;Pludselig skade.aspx;Afsnit 7: Pludselig skade;Afsnit 7: Pludselig skade;Bygning;False;Error
+Tørkogning - Sodskader.aspx;Tørkogning - Sodskader.aspx;Afsnit 7: Pludselig skade;Afsnit 7: Pludselig skade;Bygning;False;Error
+Asbestslam - asbeststøv.aspx;BygningAsbestslam - asbeststøv.aspx;Afsnit 7: Pludselig skade;Afsnit 7: Pludselig skade;Bygning;True;Error
+Blæseskader - markiser - åbne vinduer og døre.aspx;Blæseskader - markiser - åbne vinduer og døre.aspx;Afsnit 7: Pludselig skade;Afsnit 7: Pludselig skade;Bygning;False;Error
+Markiser - Kraftig regn.aspx;Markiser - Kraftig regn.aspx;Afsnit 7: Pludselig skade;Afsnit 7: pludselig skade;Bygning;False;Error
+Psykisk syge - pluselige skader - hærværk.aspx;Psykisk syge - pluselige skader - hærværk.aspx;Afsnit 7: Pludselig skade;;Bygning;False;Error
+Glas og Sanitet.aspx;Glas og Sanitet.aspx;Afsnit 8: Glas og sanitet;Afsnit 8: Glas og sanitet;Bygning;False;Error
+Ridser, afspringning af fliser samt punktering sket ved indbrud, storm, voldstomt tø- eller skybrud og snetryk.aspx;Ridser, afspringning af fliser samt punktering sket ved indbrud, storm, voldstomt tø- eller skybrud og snetryk.aspx;Afsnit 8: Glas og sanitet;;Bygning;False;Error
+Brud på sanitet.aspx;Brud på sanitet.aspx;Afsnit 8: Glas og sanitet ;;Bygning;False;Error
+Stikledninger.aspx;Stikledninger.aspx;Afsnit 9: Stikledninger;Afsnit 9: Stikledninger;Bygning;False;Error
+Ankenævnskendelse identifikation.aspx;Ankenævnskendelse identifikation.aspx;Ankenævnskendelse;Alle dækninger;Bygning;False;Error
+Ankenævnskendelse blivende plads.aspx;Ankenævnskendelse blivende plads.aspx;Ankenævnskendelse;Afsnit 4. Tyveri - hærværk;Bygning;False;Error
+Ankenævnskendelse udstrømning af væsker.aspx;Ankenævnskendelse udstrømning af væsker.aspx;Ankenævnskendelse;Kolonne 5. Udstrømning af væsker (vandskade) og frostsprængning af rør;Bygning;False;Error
+Ankenævnskendelse manglende vedligeholdelse.aspx;Ankenævnskendelse manglende vedligeholdelse.aspx;Ankenævnskendelse;Afsnit 6: Storm - voldsomt sky- og tøbrud - snetryk, Afsnit 7: Pludselig skade, Afsnit 11: Råd/Svamp, Afsnit 12: Insekter;Bygning;False;Error
+Ankenævnskendelse fællesledning.aspx;Ankenævnskendelse fællesledning.aspx;Ankenævnskendelse;Afsnit 9: Stikledninger;Bygning;False;Error
+Ankenævnskendelse spabad.aspx;Ankenævnskendelse spabad.aspx;Ankenævnskendelse;Afsnit 1.G.b: Glas og sanitet;Bygning;False;Error
+Ankenævnskendelse el-drevne genstande.aspx;Ankenævnskendelse el-drevne genstande.aspx;Ankenævnskendelse;Afsnit 3: El-skade;Bygning;False;Error
+Ankenævnskendelse hærværk.aspx;Ankenævnskendelse hærværk.aspx;Ankenævnskendelse;Afsnit 4: Tyveri og hærværk;Bygning;False;Error
+Ankenævnskendelse stige.aspx;Ankenævnskendelse stige.aspx;Ankenævnskendelse;Afsnit 1.G.d: Bygningstilbehør;Bygning;False;Error
+Ankenævnskendelse stillads.aspx;Ankenævnskendelse stillads.aspx;Ankenævnskendelse;Afsnit 1.G.d: Bygningstilbehør;Bygning;False;Error
+Ankenævnskendelse - større maskiner.aspx;Ankenævnskendelse - større maskiner.aspx;Ankenævnskendelse;Afsnit 7: Pludselig skade;Bygning;False;Error
+Ankenævnskendelse - damp.aspx;Ankenævnskendelse - damp.aspx;Ankenævnskendelse;Afsnit 7: Pludselig skade;Bygning;False;Error
+Ankenævnskendelse grundvandssænkning.aspx;Ankenævnskendelse grundvandssænkning.aspx;Ankenævnskendelse;Afsnit 7: Pludselig skade;Bygning;False;Error
+Ankenævnskendelse ombygning.aspx;Ankenævnskendelse ombygning.aspx;Ankenævnskendelse;Afsnit 7: Pludselig skade;Bygning;False;Error
+Ankenævnskendelse spild af væsker.aspx;Ankenævnskendelse spild af væsker.aspx;Ankenævnskendelse;Afsnit 7: Pludselig skade;Bygning;False;Error
+Ankenævnskendelse faldskader.aspx;Ankenævnskendelse faldskader.aspx;Ankenævnskendelse;Afsnit 7: Pludselig skade;Bygning;False;Error
+Ankenævnskendelse dyr.aspx;Ankenævnskendelse dyr.aspx;Ankenævnskendelse;Afsnit 7: Pludselig skade;Bygning;False;Error
+Ankenævnskendelse grov uagtsomhed - stikledning.aspx;Ankenævnskendelse grov uagtsomhed - stikledning.aspx;Ankenævnskendelse;Afsnit 9. Stikledninger;Bygning;False;Error
+Ankenævnskendelse renovering.aspx;Ankenævnskendelse renovering.aspx;Ankenævnskendelse;Alle dækninger;Bygning;False;Error
+Ankenævnskendelse skjulte rør.aspx;Ankenævnskendelse skjulte rør.aspx;Ankenævnskendelse;Afsnit 10: Skjulte rør og kabler;Bygning;False;Error
+Ankenævnskendelse grov uagtsomhed - brand.aspx;Ankenævnskendelse grov uagtsomhed - brand.aspx;Ankenævnskendelse ;Afsnit 2: Brand, lynnedslag og eksplosion m.v.;Bygning;False;Error
+Ankenævnskendelse synligt rør.aspx;Ankenævnskendelse synligt rør.aspx;Ankenævnskendelse;Afsnit 10: Skjulte rør og kabler;Bygning;False;Error
+Ankenævnskendelse stikledning - i brønd.aspx;Ankenævnskendelse stikledning - i brønd.aspx;Ankenævnskendelse;Afsnit 9: Stikledninger;Bygning;False;Error
+Ankenævnskendelse stikledning - gulvafløb.aspx;Ankenævnskendelse stikledning - gulvafløb.aspx;Ankenævnskendelse;Afsnit 9: Stikledninger;Bygning;False;Error
+Ankenævnskendelse stikledning - stophane.aspx;Ankenævnskendelse stikledning - stophane.aspx;Ankenævnskendelse;Afsnit 9: Stikledninger;Bygning;False;Error
+Ankenævnskendelse stikledning - død ledning.aspx;Ankenævnskendelse stikledning - død ledning.aspx;Ankenævnskendelse;Afsnit 9: Stikledninger;Bygning;False;Error
+Ankenævnskendelse Lovliggørelse.aspx;Ankenævnskendelse Lovliggørelse.aspx;Ankenævnskendelse;Alle dækninger;Bygning;False;Error
+Ankenævnskendelse Fritstående radiator.aspx;Ankenævnskendelse Fritstående radiator.aspx;Ankenævnskendelse ;Afsnit 1.G.d: Bygningstilbehør. Afsnit 4: Tyveri og hærværk;Bygning;False;Error
+Ankenævnskendelse havebassin.aspx;Ankenævnskendelse havebassin.aspx;Ankenævnskendelse;Afsnit 1.G.g: Haveanlæg;Bygning;False;Error
+Ankenævnskendelse tilsodning fra olielampe.aspx;Ankenævnskendelse tilsodning fra olielampe.aspx;Ankenævnskendelse;Afsnit 2: Brand, lynnedslag og eksplosion m.v.;Bygning;False;Error
+Ankenævnskendelse åben ild i gryde.aspx;Ankenævnskendelse åben ild i gryde.aspx;Ankenævnskendelse;Afsnit 2: Brand, lynnedslag og eksplosion m.v;Bygning;False;Error
+Ankenævnskendelse frostsprængning.aspx;Ankenævnskendelse frostsprængning.aspx;Ankenævnskendelse;Afsnit 5: Udstrømning af væsker (vandskade) og frostsprængning af rør;Bygning;False;Error
+Ankenævnskendelse skybrud.aspx;Ankenævnskendelse skybrud.aspx;Ankenævnskendelse;Afsnit 6: Storm - voldsomt sky-og tøbrud - snetryk;Bygning;False;Error
+Ankenævnskendelse kosmetisk skade.aspx;Ankenævnskendelse kosmetisk skade.aspx;Ankenævnskendelse;Alle dækninger;Bygning;False;Error
+Ankenævnskendelse regres mod byggesagkyndig.aspx;Ankenævnskendelse regres mod byggesagkyndig.aspx;Ankenævnskendelse ;Afsnit 11: Råd og Svamp og Afsnit 12: Insekter;Bygning;False;Error
+Ankenævnskendelse svamp i stråtag.aspx;Ankenævnskendelse svamp i stråtag.aspx;Ankenævnskendelse;Afsnit 11: Råd og Svamp;Bygning;False;Error
+Ankenævnskendelse Advokatbistand - Arkitektbistand.aspx;Ankenævnskendelse Advokatbistand - Arkitektbistand.aspx;Ankenævnskendelse;Advokatbistand - Arkitektbistand;Bygning;False;Error
+Ankenævnskendelse anvendte materialer dyrere end de beskadigede.aspx;Ankenævnskendelse anvendte materialer dyrere end de beskadigede.aspx;Ankenævnskendelse;Erstatningens størrelse - FAL 39 og Afsnit 1.H: Nyværdi i vilkårene;Bygning;False;Error
+Ankenævnskendelse dokumentation.aspx;Ankenævnskendelse dokumentation.aspx;Ankenævnskendelse ;Dokumentation;Bygning;False;Error
+Ankenævnskendelse reklamation.aspx;Ankenævnskendelse reklamation.aspx;Ankenævnskendelse;Alle dækninger;Bygning;False;Error
+Ankenævnskendelse vandafgift.aspx;Ankenævnskendelse vandafgift.aspx;Ankenævnskendelse;Afsnit 4: Tyveri og hærværk - følgeskade;Bygning;False;Error
+Ankenævnskendelse vådrumssikring - vådrumsmembran.aspx;Ankenævnskendelse vådrumssikring - vådrumsmembran.aspx;Ankenævnskendelse;Afsnit 9: Stikledninger og 10 Skjulte rør og Kabler;Bygning;False;Error
+Ankenævnskendelse skimmelsvamp.aspx;Ankenævnskendelse skimmelsvamp.aspx;Ankenævnskendelse;Afsnit 11: Råd og Svamp;Bygning;False;Error
+Ankenævnskendelse kunstnerisk udsmykning.aspx;Ankenævnskendelse kunstnerisk udsmykning.aspx;Ankenævnskendelse ;Række f: Kunstnerisk udsmykning;Bygning;False;Error
+Dom vedrørende dagsværdierstatning for sommerhus.aspx;Dom vedrørende dagsværdierstatning for sommerhus.aspx;Ankenævnskendelse;Afskrivning - sommerhusvilkår;Bygning;False;Error
+Ankenævnskendelse følgeskade efter brand.aspx;Ankenævnskendelse følgeskade efter brand.aspx;Ankenævnskendelse;Brand;Bygning;False;Error
+Ankenævnskendelse forbehold og opsigelser.aspx;Ankenævnskendelse forbehold og opsigelser.aspx;Ankenævnskendelse;Alle dækninger;Bygning;False;Error
+Ankenævnskendelse svamp i flagstang.aspx;Ankenævnskendelse svamp i flagstang.aspx;Ankenævnskendelse;Afsnit 11: Råd ogSvamp;Bygning;False;Error
+Ankenævnskendelse konkurrerende skadeårsager.aspx;Ankenævnskendelse konkurrerende skadeårsager.aspx;Ankenævnskendelse;Alle dækninger;Bygning;False;Error
+Ankenævnskendelse daglig brug, ridser, skrammer.aspx;Ankenævnskendelse daglig brug, ridser, skrammer.aspx;Ankenævnskendelse;Afsnit 7: Pludselig skade;Bygning;False;Error
+Opstigning af grund- og kloakvand.aspx;BygningOpstigning af grund- og kloakvand.aspx;Ankenævnskendelse;Afsnit 5: Udstrømning af væsker (vandskade) og Frostsprængning af rør;Bygning;True;Error
+Ankenævnskendelse dækning på forsikringsstedet.aspx;Ankenævnskendelse dækning på forsikringsstedet.aspx;Ankenævnskendelse;Afsnit 9: Stikledninger;Bygning;False;Error
+Ankenævnskendelse fareforøgelse.aspx;Ankenævnskendelse fareforøgelse.aspx;Ankenævnskendelse;Alle dækninger;Bygning;False;Error
+Ankenævnskendelse - sætning og tæring.aspx;Ankenævnskendelse - sætning og tæring.aspx;Ankenævnskendelse;Afsnit 7 Pludselig skade;Bygning;False;Error
+Ankenævnskendelse - vaskemaskine vælter.aspx;Ankenævnskendelse - vaskemaskine vælter.aspx;Ankenævnskendelse;Afsnit 7. Pludselig skade;Bygning;False;Error
+Ankenævnskendelse bygningstilbehør.aspx;Ankenævnskendelse bygningstilbehør.aspx;Ankenævnskendelse;Alle dækninger;Bygning;False;Error
+Ankenævnskendelse eget arbejde.aspx;Ankenævnskendelse eget arbejde.aspx;Ankenævnskendelse ;Alle dækninger;Bygning;False;Error
+Ankenævnskendelse bygninger.aspx;Ankenævnskendelse bygninger.aspx;Ankenævnskendelse;;Bygning;False;Error
+Ankenævnskendelser vedrørende manglende vedligeholdelse i forbindelse med stormskader.aspx;Ankenævnskendelser vedrørende manglende vedligeholdelse i forbindelse med stormskader.aspx;Ankenævnskendelse;Vilkårenes afsnit 6. Storm;Bygning;False;Error
+Ankenævnskendelse - beholder falder ned fra væg.aspx;Ankenævnskendelse - beholder falder ned fra væg.aspx;Ankenævnskendelse;Afsnit 7: Pludselig skade;Bygning;False;Error
+Ankenævnskendelser vedrørende vandindtræning under storm.aspx;Ankenævnskendelser vedrørende vandindtræning under storm.aspx;Ankenævnskendelse;Afsnit 6: Storm - voldsomt sky- og tøbrud - snetryk;Bygning;False;Error
+Ankenævnskendelse vedrørende tøbrud.aspx;Ankenævnskendelse vedrørende tøbrud.aspx;Ankenævnskendelse ;Afsnit 6: Storm - voldsomt sky-og tøbrud - snetryk;Bygning;False;Error
+Ankenævnskendelse genhusning.aspx;Ankenævnskendelse genhusning.aspx;Ankenævnskendelse;;Bygning;False;Error
+Ankenævnskendelse frifindelse i straffesag betyder ikke nødvendigvis forsikringsdækning.aspx;Ankenævnskendelse frifindelse i straffesag betyder ikke nødvendigvis forsikringsdækning.aspx;Ankenævnskendelse;;Bygning;False;Error
+Ankenævnskendelse det tidsmæssige krav i pludselig skade dækningen.aspx;Ankenævnskendelse det tidsmæssige krav i pludselig skade dækningen.aspx;Ankenævnskendelse;Afsnit 7: Pludselig skade;Bygning;False;Error
+Behandling af glas og kummeskader.aspx;Behandling af glas og kummeskader.aspx;Erstatningsopgørelse;Kolonne 8. Glas og sanitet;Bygning;False;Error
+Erstatning ved om- eller tilbygning.aspx;Erstatning ved om- eller tilbygning.aspx;Erstatningsopgørelse;Afsnit 4: Tyveri - hærværk, Afsnit 5: Udstrømning af væsker (vandskade] og frostsprængning af rør, Afsnit 7: pludselig skade, Afsnit 8: Glas og sanitet;Bygning;False;Error
+Erstatning for glas i ovn og keramiske kogeplader.aspx;Erstatning for glas i ovn og keramiske kogeplader.aspx;Erstatningsopgørelse;Afsnit 8: Glas og sanitet;Bygning;False;Error
+Erstatning ved identifikation.aspx;Erstatning ved identifikation.aspx;Erstatningsopgørelse ;Alle dækninger;Bygning;False;Error
+Erstatning ved mangelfuld vedligeholdelse.aspx;Erstatning ved mangelfuld vedligeholdelse.aspx;Erstatningsopgørelse;Afsnit 4: Tyveri - hærværk, Afsnit 6: Storm - voldsomt sky- og tøbrud - snetryk, Afsnit 7: Pludselig skade, Afsnit 11: Råd/svamp, Afsnit 12: Insekter;Bygning;False;Error
+Erstatning for jordvarmeledninger.aspx;Erstatning for jordvarmeledninger.aspx;Erstatningsopgørelse;Stikledninger;Bygning;False;Error
+Erstatning for postkasse.aspx;Erstatning for postkasse.aspx;Erstatningsopgørelse;Alle dækninger;Bygning;False;Error
+Erstatning i forbindelse med skilsmisse eller samlivsophør.aspx;Erstatning i forbindelse med skilsmisse eller samlivsophør.aspx;Erstatningsopgørelse;Skilsmisse/samlivsophør;Bygning;False;Error
+Erstatning ved følger efter byggefejl, fejlkonstruktion, underdimensionering mv.aspx;Erstatning ved følger efter byggefejl, fejlkonstruktion, underdimensionering mv.aspx;Erstatningsopgørelse;Afsnit 3: El-skade, Afsnit 6: Storm - voldsomt sky- og tøbrud - snetryk, Afsnit 7: Pludselig skade, 11: Råd/svamp;Bygning;False;Error
+Erstatning for el-forbrug.aspx;Erstatning for el-forbrug.aspx;Erstatningsopgørelse;Affugter;Bygning;False;Error
+Erstatning for skimmelsvamp.aspx;Erstatning for skimmelsvamp.aspx;Erstatningsopgørelse;Afsnit 2: Brand, lynnedslag og eksplosion, Afsnit 3: El-skade, Afsnit 5: Udstrømning af væsker (vandskade] og frostsprængning, Afsnit 6: Storm-voldsomt sky-og tøbrud - snetryk, Afsnit 7: Pludselig skade, Afsnit 9: Stikledninger, Afsniit 10: skjulte rør;Bygning;False;Error
+Forældelse.aspx;BygningForældelse.aspx;Erstatningsopgørelse;Alle dækninger;Bygning;True;Error
+Regres.aspx;BygningRegres.aspx;Erstatningsopgørelse;Alle dækninger;Bygning;True;Error
+Behandling af indbrudsskader og hærværksskader.aspx;Behandling af indbrudsskader og hærværksskader.aspx;Erstatningsopgørelse;Tyveri og hærværk;Bygning;False;Error
+Behandling af stormskade.aspx;Behandling af stormskade.aspx;Erstatningsopgørelse;Storm ;Bygning;False;Error
+Behandling af brud på vand- og kloakstikledninger.aspx;Behandling af brud på vand- og kloakstikledninger.aspx;Erstatningsopgørelse;Stikledninger;Bygning;False;Error
+Behandling af brud på el-stikledninger.aspx;Behandling af brud på el-stikledninger.aspx;Erstatningsopgørelse;Stikledninger;Bygning;False;Error
+Erstatning for undersøgelsesudgift ved rørskader.aspx;Erstatning for undersøgelsesudgift ved rørskader.aspx;Erstatningsopgørelse;Stikledninger - rør og kabler;Bygning;False;Error
+Behandling af brud på skjulte rør og kabler.aspx;Behandling af brud på skjulte rør og kabler.aspx;Erstatningsopgørelse;Afsnit: 10: Skjulte rør og kabler;Bygning;False;Error
+Erstatning for Stikledninger - rør og kabler.aspx;Erstatning for Stikledninger - rør og kabler.aspx;Erstatningsopgørelse;Afsnit 9: Stikledninger;Bygning;False;Error
+Dødsbo.aspx;Dødsbo.aspx;Erstatningsopgørelse;Alle dækninger;Bygning;False;Error
+dobbeltforsikringsaftalen.aspx;dobbeltforsikringsaftalen.aspx;Erstatningsopgørelse;Alle dækninger;Bygning;False;Error
+Fordelingsvejledningen.aspx;BygningFordelingsvejledningen.aspx;Erstatningsopgørelse;Alle dækninger;Bygning;True;Error
+sikkerhedsforskrift.aspx;sikkerhedsforskrift.aspx;Erstatningsopgørelse;Sikkerhedsforskrift § 51;Bygning;False;Error
+Regres ved vibrationsskader - sætningsskader i murværk.aspx;Regres ved vibrationsskader - sætningsskader i murværk.aspx;Erstatningsopgørelse;Regres ved vibrationsskader/sætningsskader;Bygning;False;Error
+FAL § 52 og 53.aspx;FAL § 52 og 53.aspx;Erstatningsopgørelse;Alle dækninger;Bygning;False;Error
+regres overfor kommunen.aspx;regres overfor kommunen.aspx;Erstatningsopgørelse;Afsnit 6: Storm - voldsomt sky- og tøbrud - snetryk;Bygning;False;Error
+Kosmetisk skade.aspx;Kosmetisk skade.aspx;Erstatningsopgørelse;Alle dækninger;Bygning;False;Error
+Afsnit 4+ udvidet dækning for tyveri af og hærværk på byggematerialer.aspx;Afsnit 4+ udvidet dækning for tyveri af og hærværk på byggematerialer.aspx;Erstatningsopgørelse;Byggematerialer ;Bygning;False;Error
+Fal § 18.aspx;Fal § 18.aspx;Erstatningsopgørelse;Alle dækninger;Bygning;False;Error
+Husplus Afsnit 1.I.aspx;Husplus Afsnit 1.I.aspx;Erstatningsopgørelse ;Kosmetisk skade;Bygning;False;Error
+Behandling af råd- og svampeskader.aspx;Behandling af råd- og svampeskader.aspx;Erstatningsopgørelse;Afsnit 11: Råd og Svamp;Bygning;False;Error
+tilbud.aspx;tilbud.aspx;Erstatningsopgørelse;Tilbud på reparation;Bygning;False;Error
+Remaljeringsselskab.aspx;Remaljeringsselskab.aspx;Erstatningsopgørelse;Afsnit 8: Glas og Sanitet, Afsnit 9: Stikledninger, Afsnit 10: Skjulte rør og kabler;Bygning;False;Error
+Følgeskade.aspx;Følgeskade.aspx;Erstatningsopgørelse;Alle dækninger;Bygning;False;Error
+redning.aspx;redning.aspx;Erstatningsopgørelse ;Alle dækninger;Bygning;False;Error
+flytning.aspx;flytning.aspx;Erstatningsopgørelse;Alle dækninger;Bygning;False;Error
+huslejetab.aspx;huslejetab.aspx;Erstatningsopgørelse;Alle dækninger;Bygning;False;Error
+Selvrisiko.aspx;BygningSelvrisiko.aspx;Erstatningsopgørelse;Afsnit 11: Råd og Svamp;Bygning;True;Error
+Indeksregulerede selvrisikobeløb.aspx;Indeksregulerede selvrisikobeløb.aspx;Erstatningsopgørelse;Indeksregulerede selvriskobeløb;Bygning;False;Error
+afskrivning.aspx;afskrivning.aspx;Erstatningsopgørelse;Alle dækninger;Bygning;False;Error
+Behandling af snetryksskader.aspx;Behandling af snetryksskader.aspx;Erstatningsopgørelse;Afsnit 6: Storm - voldsomt sky- og tøbrud - snetryk;Bygning;False;Error
+Behandling af frostsprængning.aspx;Behandling af frostsprængning.aspx;Erstatningsopgørelse;Afsnit 5: Udstrømning af væsker (Vandskade) og frostsprængning af rør;Bygning;False;Error
+økonomisk tab.aspx;økonomisk tab.aspx;Erstatningsopgørelse;Økonomisk tab;Bygning;False;Error
+Behandling af tøbrudsskader.aspx;Behandling af tøbrudsskader.aspx;Erstatningsopgørelse;Afsnit 6: Storm - voldsomt sky- og tøbrud - snetryk;Bygning;False;Error
+påregnelig eller opstår ved dagligt brug.aspx;påregnelig eller opstår ved dagligt brug.aspx;Erstatningsopgørelse ;Afsnit 7: Pludselig skade;Bygning;False;Error
+forvoldt af dyr.aspx;forvoldt af dyr.aspx;Erstatningsopgørelse;Afsnit 7: Pludselig skade;Bygning;False;Error
+over et tidsrum.aspx;over et tidsrum.aspx;Erstatningsopgørelse ;Afsnit 7: Pludselig skade;Bygning;False;Error
+Advokatbistand.aspx;Advokatbistand.aspx;Erstatningsopgørelse;Alle dækninger - større skader;Bygning;False;Error
+Arkitektbistand.aspx;Arkitektbistand.aspx;Erstatningsopgørelse ;Alle dækninger;Bygning;False;Error
+Fal § 22.aspx;Fal § 22.aspx;Erstatningsopgørelse;Alle dækninger ;Bygning;False;Error
+FAL § 21.aspx;FAL § 21.aspx;Erstatningsopgørelse;Alle dækninger;Bygning;False;Error
+FAL § 39.aspx;FAL § 39.aspx;Erstatningsopgørelse;Alle dækninger;Bygning;False;Error
+FAL § 32.aspx;FAL § 32.aspx;Erstatningsopgørelse ;Advokatbistand/arkitektbistand;Bygning;False;Error
+Omfangskoder for rør og kabler på policen.aspx;Omfangskoder for rør og kabler på policen.aspx;Erstatningsopgørelse;Afsnit 9: Stikledninger og Afsnit 10: Skjulte rør og kabler;Bygning;False;Error
+Medlem ønsker at benytte egen håndværker efter sp-besøg.aspx;Medlem ønsker at benytte egen håndværker efter sp-besøg.aspx;Erstatningsopgørelse;Sager hvor sp-håndværker benyttes;Bygning;False;Error
+Kontanterstatning.aspx;BygningKontanterstatning.aspx;Erstatningsopgørelse ;Alle dækninger;Bygning;True;Error
+Regres - Forældrehæftelse.aspx;BygningRegres - Forældrehæftelse.aspx;Erstatningsopgørelse;Alle dækninger;Bygning;True;Error
+Regres ved produktansvar.aspx;Regres ved produktansvar.aspx;Erstatningsopgørelse;Alle dækninger;Bygning;False;Error
+Eget arbejde.aspx;BygningEget arbejde.aspx;Erstatningsopgørelse;Alle dækninger;Bygning;True;Error
+Bevaringsværdige - fredede ejendommen.aspx;Bevaringsværdige - fredede ejendommen.aspx;Erstatningsopgørelse ;Alle dækninger;Bygning;False;Error
+Hvornår kan grov uagtsomhed gøres gældende.aspx;Hvornår kan grov uagtsomhed gøres gældende.aspx;Erstatningsopgørelse;Alle dækninger;Bygning;False;Error
+Havetraktor.aspx;Havetraktor.aspx;Erstatningsopgørelse;Fritidshusforsikringen;Bygning;False;Error
+Huslejetab, ansvar og retshjælp.aspx;Huslejetab, ansvar og retshjælp.aspx;Erstatningsopgørelse;Huslejetab, ansvar og retshjælp;Bygning;False;Error
+Oprydning efter en dækningsberettigende skade i andres haver.aspx;Oprydning efter en dækningsberettigende skade i andres haver.aspx;Erstatningsopgørelse;Afsnit 2: Brand, lynnedslag og eksplosion og Afsnit 6: Storm - voldsomt sky- og tøbrud - snetryk;Bygning;False;Error
+Reklamation.aspx;Reklamation.aspx;Erstatningsopgørelse;Alle dækninger;Bygning;False;Error
+Renter.aspx;Renter.aspx;Erstatningsopgørelse;Alle dækninger;Bygning;False;Error
+FAL § 24.aspx;FAL § 24.aspx;Erstatningsopgørelse;Alle dækninger;Bygning;False;Error
+Renoveringsordning - tilskudsordninger.aspx;Renoveringsordning - tilskudsordninger.aspx;Erstatningsopgørelse;Alle dækninger;Bygning;False;Error
+Rykkergebyr.aspx;Rykkergebyr.aspx;Erstatningsopgørelse ;Alle dækninger ;Bygning;False;Error
+reparationsoverslag.aspx;reparationsoverslag.aspx;Erstatningsopgørelse;Alle dækninger;Bygning;False;Error
+Hvornår kan en skade afvises.aspx;Hvornår kan en skade afvises.aspx;Erstatningsopgørelse;Alle dækninger;Bygning;False;Error
+Besigtigelsesrapport i forbindelse med tegning af forsikringen.aspx;Besigtigelsesrapport i forbindelse med tegning af forsikringen.aspx;Erstatningsopgørelse;Alle dækninger;Bygning;False;Error
+Betaling af regninger.aspx;Betaling af regninger.aspx;Erstatningsopgørelse;Alle dækninger;Bygning;False;Error
+Bedre dækning.aspx;Bedre dækning.aspx;Erstatningsopgørelse;Alle dækninger;Bygning;False;Error
+Byggeskadeforsikring.aspx;Byggeskadeforsikring.aspx;Erstatningsopgørelse;Skade på boliger, der er under 10 år gamle;Bygning;False;Error
+Ejerskifte.aspx;Ejerskifte.aspx;Erstatningsopgørelse ;Afsnit 9: stikledninger og Afsnit 10: skjulte rør og kabler;Bygning;False;Error
+Dækning på både Ejerskifte- og Husforsikring.aspx;Dækning på både Ejerskifte- og Husforsikring.aspx;Erstatningsopgørelse ;Alle dækninger;Bygning;False;Error
+Kulanceerstatninger.aspx;Kulanceerstatninger.aspx;Erstatningsopgørelse;alle dækninger;Bygning;False;Error
+Breve.aspx;Breve.aspx;Erstatningsopgørelse;Alle skadesager;Bygning;False;Error
+Både.aspx;Både.aspx;Erstatningsopgørelse;Sommerhusforsikring ;Bygning;False;Error
+Scannde bilag på policen.aspx;Scannde bilag på policen.aspx;Erstatningsopgørelse;Alle dækninger;Bygning;False;Error
+Udlejningsforsikring.aspx;Udlejningsforsikring.aspx;Erstatningsopgørelse;Sommerhusforsikringen;Bygning;False;Error
+Præmiebetaling.aspx;Præmiebetaling.aspx;Erstatningsopgørelse;Sommerhusforsikring;Bygning;False;Error
+policeinformation.aspx;policeinformation.aspx;Erstatningsopgørelse ;alle skadesager;Bygning;False;Error
+Havemøbler.aspx;Havemøbler.aspx;Erstatningsopgørelse;Sommerhusforsikring;Bygning;False;Error
+Betaling af indboskade på Husforsikringen.aspx;Betaling af indboskade på Husforsikringen.aspx;Erstatningsopgørelse;Alle dækninger;Bygning;False;Error
+Dækning af udgifter til vores samarbejdspartnere.aspx;Dækning af udgifter til vores samarbejdspartnere.aspx;Erstatningsopgørelse ;Alle dækninger;Bygning;False;Error
+Hvem skal kontanterstatning udbetales til.aspx;Hvem skal kontanterstatning udbetales til.aspx;Erstatningsopgørelse;Alle dækninger;Bygning;False;Error
+Behandling af sager hvor der indgår PCB-holdige produkter og PCB-holdigt affald.aspx;Behandling af sager hvor der indgår PCB-holdige produkter og PCB-holdigt affald.aspx;Erstatningsopgørelse;Alle skadesager;Bygning;False;Error
+Genlevering af bygningstilbehør gennem Sp-løsøre-systemet.aspx;Genlevering af bygningstilbehør gennem Sp-løsøre-systemet.aspx;Erstatningsopgørelse;Alle skadesager;Bygning;False;Error
+Dækning af udgifter til at finde afdækkede brønddæksler.aspx;Dækning af udgifter til at finde afdækkede brønddæksler.aspx;Erstatningsopgørelse;Afsnit 9: Stikledninger;Bygning;False;Error
+stråtag.aspx;stråtag.aspx;Erstatningsopgørelse;Afsnit 6: Storm - voldsomt sky- og tøbrud - snetryk;Bygning;False;Error
+Skade forvoldt af flyvende trampoliner og andre løse genstande.aspx;Skade forvoldt af flyvende trampoliner og andre løse genstande.aspx;Erstatningsopgørelse;Afsnit 6: Storm - voldsomt sky- og tøbrud - snetryk;Bygning;False;Error
+1 eller 2 selvrisikobeløb.aspx;1 eller 2 selvrisikobeløb.aspx;Erstatningsopgørelse;Alle dækninger;Bygning;False;Error
+Priskatalog.aspx;Priskatalog.aspx;Erstatningsopgørelse;Alle dækninger;Bygning;False;Error
+Fareforøgelse.aspx;BygningFareforøgelse.aspx;Erstatningsopgørelse;Alle dækninger;Bygning;True;Error
+Lovliggørelse.aspx;Lovliggørelse.aspx;Erstatningsopgørelse;Alle dækninger;Bygning;False;Error
+Behandling af bolighjælpsdækningen.aspx;Behandling af bolighjælpsdækningen.aspx;Erstatningsopgørelse;Bolighjælp;Bygning;False;Error
+Hvordan foretager vi afskrivning.aspx;Hvordan foretager vi afskrivning.aspx;Erstatningsopgørelse;Alle dækninger;Bygning;False;Error
+Tidligere forsikringsvilkår.aspx;Tidligere forsikringsvilkår.aspx;Erstatningsopgørelse;Alle dækninger;Bygning;False;Error
+Kontanterstatning der anvendes til andet formål.aspx;Kontanterstatning der anvendes til andet formål.aspx;Erstatningsopgørelse;Alle dækninger;Bygning;False;Error
+Selvrisiko ved brud på flere rørstrækninger.aspx;Selvrisiko ved brud på flere rørstrækninger.aspx;Erstatningsopgørelse;Afsnit 9: Stikledninger;Bygning;False;Error
+Erstatning for glas i drivhuse.aspx;Erstatning for glas i drivhuse.aspx;Erstatningsopgørelse;Afsnit 1.G.a Ejendommens bygningerog 1.G.e Bygninger, hegn og stakitter;Bygning;False;Error
+Organisk materiale.aspx;Organisk materiale.aspx;Erstatningsopgørelse;Skybrud - Vilkårenes afsnit 6. Storm - voldsomt sky- og tøbrud - snetryk;Bygning;False;Error
+Oprydning af genstande i medlems have, efter en dækningsberettigende skade hos medlems nabo.aspx;Oprydning af genstande i medlems have, efter en dækningsberettigende skade hos medlems nabo.aspx;Erstatningsopgørelse;Afsnit 6: Storm - voldsomt sky- og tøbrud - snetryk;Bygning;False;Error
+Forældelsesreglerne vist i forskellige eksempler.aspx;BygningForældelsesreglerne vist i forskellige eksempler.aspx;Erstatningsopgørelse;Alle dækninger;Bygning;True;Error
+Pro-rata erstatning.aspx;Pro-rata erstatning.aspx;Erstatningsopgørelse;;Bygning;False;Error
+Informationssøgning.aspx;BygningInformationssøgning.aspx;Erstatningsopgørelse;Alle skader;Bygning;True;Error
+Dækning af særligt privat indbo og elektriskeapparater i henhold til sommerhusvilkårene.aspx;Dækning af særligt privat indbo og elektriskeapparater i henhold til sommerhusvilkårene.aspx;Erstatningsopgørelse;Sommerhusvilkårenes afsnit 1.F: Hvilke ting dækker forsikringen skader på, afsnit 4: Indbrudstyveri, røveri og overfald på forsikringsstedet, 5: Simpelt tyveri og hærværk og 9: Pludselig skader;Bygning;False;Error
+Oprydning efter stormskadede træer.aspx;Oprydning efter stormskadede træer.aspx;Erstatningsopgørelse;Husvilkårenes afsnit 6. Storm - Voldsomt sky- og tøbrud - Snetryk og Husvilkårenes afsnit 14. Udvidet dækning for haveanlæg ;Bygning;False;Error
+Vandudgift.aspx;Vandudgift.aspx;Erstatningsopgørelse;Husvilkårenes afsnit 1.G.a og 1.G.g;Bygning;False;Error
+Erstatning for træer og buske.aspx;Erstatning for træer og buske.aspx;Erstatningsopgørelse;;Bygning;False;Error
+Undersøgelsesudgifter når skaden er dækningsberettigende.aspx;Undersøgelsesudgifter når skaden er dækningsberettigende.aspx;Erstatningsopgørelse;Alle dækninger;Bygning;False;Error
+Opgørelse til dagsværdi.aspx;Opgørelse til dagsværdi.aspx;Erstatningsopgørelse;Genstande af organisk materiale;Bygning;False;Error
+Selvrisiko og summer.aspx;Selvrisiko og summer.aspx;Erstatningsopgørelse;;Bygning;False;Error
+Tab af vand og olie.aspx;Tab af vand og olie.aspx;Erstatningsopgørelse;Afsnit 5: Udstrømning af væsker (vandskade) og frostsprængning af rør, Afsnit 9: Stikledninger og afsnit 10: Skjulte rør og kabler;Bygning;False;Error
+Skade forvoldt af håndværker.aspx;Skade forvoldt af håndværker.aspx;Erstatningsopgørelse;Alle skader;Bygning;False;Error
+Hvordan opgøres erstatningens størrelse for vandforbrug.aspx;Hvordan opgøres erstatningens størrelse for vandforbrug.aspx;Erstatningsopgørelse;Afsnit 5: Udstrømning af væsker (vandskade) - Afsnit 9: Stikledninger - Afsnit 10: Skjulte rør og kabler;Bygning;False;Error
+Hvordan opgøres erstatningens størrelse for tab af olie.aspx;Hvordan opgøres erstatningens størrelse for tab af olie.aspx;Erstatningsopgørelse;Afsnit 5: Udstrømning af væsker (vandskade) - Afsnit 9: Stikledninger - Afsnit 10: Skjulte rør og kabler;Bygning;False;Error
+Vejledning for hvilket el-arbejde privat personer må udføre.aspx;Vejledning for hvilket el-arbejde privat personer må udføre.aspx;Erstatningsopgørelse;Alle skader;Bygning;False;Error
+Værdiforringelseserstatning.aspx;Værdiforringelseserstatning.aspx;Erstatningsopgørelse;;Bygning;False;Error
+Restværdi.aspx;Restværdi.aspx;Erstatningsopgørelse;;Bygning;False;Error
+forbeholdsbrev.aspx;forbeholdsbrev.aspx;Forretningsgang;Alle dækninger;Bygning;False;Error
+Vejret.aspx;Vejret.aspx;Forretningsgang;Afsnit 6: Storm - voldsomt sky- og tøbrud - snetryk;Bygning;False;Error
+Stormflodsskader.aspx;BygningStormflodsskader.aspx;Forretningsgang;Afsnit 6: Storm - voldsomt sky- og tøbrud - snetryk;Bygning;True;Error
+Statistikkode.aspx;Statistikkode.aspx;Forretningsgang;Alle dækninger;Bygning;False;Error
+AB 92.aspx;AB 92.aspx;Forretningsgang;Regressager;Bygning;False;Error
+Medlemsjura.aspx;Medlemsjura.aspx;Forretningsgang;Alle dækninger;Bygning;False;Error
+fortryder sp-håndværker.aspx;fortryder sp-håndværker.aspx;Forretningsgang;Sager der behandles af sp-håndværker;Bygning;False;Error
+Taksator på sp-sager.aspx;Taksator på sp-sager.aspx;Forretningsgang;Sager der behandles af sp-håndværker;Bygning;False;Error
+dagbog.aspx;dagbog.aspx;Forretningsgang;Alle dækninger;Bygning;False;Error
+Falck bolighjælp.aspx;Falck bolighjælp.aspx;Forretningsgang;Træfældning, Fygesne, vand i boligen, skadedyr, istapper, løse tagsten, sne på taget, løbet tør for olie, rådgivning;Bygning;False;Error
+tilstandsrapport.aspx;tilstandsrapport.aspx;Forretningsgang;Oftest afsnit 9: stikledninger, Afsnit 10: Skjulte rør og kabler, Afsnit 11: Råd og svamp, Afsnit 12: Insekter;Bygning;False;Error
+taksator.aspx;taksator.aspx;Forretningsgang;Sager der behandles af taksator;Bygning;False;Error
+Sp-håndværker afviser skade.aspx;Sp-håndværker afviser skade.aspx;Forretningsgang;Sager der behandles af sp-håndværker ;Bygning;False;Error
+Hvornår sp-håndværker.aspx;Hvornår sp-håndværker.aspx;Forretningsgang;Sager der behandles af sp-håndværker;Bygning;False;Error
+Forløbet for en sp-sag.aspx;Forløbet for en sp-sag.aspx;Forretningsgang;Sager der behandles af Sp-håndværker;Bygning;False;Error
+Skader der udbedres af sp-håndværker.aspx;Skader der udbedres af sp-håndværker.aspx;Forretningsgang;Sager der behandles af sp-håndværker;Bygning;False;Error
+Sp-håndværker er i tvivl om dækning.aspx;Sp-håndværker er i tvivl om dækning.aspx;Forretningsgang;Sager der behandles af sp-håndværker;Bygning;False;Error
+Skadeår.aspx;Skadeår.aspx;Forretningsgang;Alle dækninger;Bygning;False;Error
+reserve.aspx;reserve.aspx;Forretningsgang;Alle dækninger ;Bygning;False;Error
+Skader på over 1 mio kr.aspx;Skader på over 1 mio kr.aspx;Forretningsgang;Alle dækninger;Bygning;False;Error
+Indberetning af renter.aspx;Indberetning af renter.aspx;Forretningsgang;Alle dækninger;Bygning;False;Error
+Beregning af renter.aspx;Beregning af renter.aspx;Forretningsgang;Alle dækninger;Bygning;False;Error
+Klage over afgørelse - Procedure.aspx;Klage over afgørelse - Procedure.aspx;Forretningsgang;Alle skadesager;Bygning;False;Error
+Olieforurening.aspx;Olieforurening.aspx;Forretningsgang;Olieforurening;Bygning;False;Error
+Oplysning om forsikringsforhold.aspx;Oplysning om forsikringsforhold.aspx;Forretningsgang;Alle forsikringforhold;Bygning;False;Error
+personrelaterede sager.aspx;personrelaterede sager.aspx;Forretningsgang;Alle skadesager;Bygning;False;Error
+Post til andre selskaber.aspx;Post til andre selskaber.aspx;Forretningsgang;Alle skadesager;Bygning;False;Error
+Udbetaling til håndværkere.aspx;Udbetaling til håndværkere.aspx;Forretningsgang;Alle skadesager;Bygning;False;Error
+Incassosager.aspx;BygningIncassosager.aspx;Forretningsgang;Alle skadesager;Bygning;True;Error
+Postnummerfordeling - skadeservicefirmaer.aspx;Postnummerfordeling - skadeservicefirmaer.aspx;Forretningsgang;Postnummerfordeling - skadeservicefirmaer;Bygning;False;Error
+Aktindsigt.aspx;BygningAktindsigt.aspx;Forretningsgang;Alle dækninger;Bygning;True;Error
+Selskabets e-mail anbefalinger.aspx;Selskabets e-mail anbefalinger.aspx;Forretningsgang;Alle skadesager;Bygning;False;Error
+Anmeldelsesfrister.aspx;Anmeldelsesfrister.aspx;Forretningsgang;Stikledninger, Skjulte rør, råd/svamp og insekter;Bygning;False;Error
+Rykkerprocedure.aspx;Rykkerprocedure.aspx;Forretningsgang;Alle dækninger;Bygning;False;Error
+Besvarelse af klagesager.aspx;BygningBesvarelse af klagesager.aspx;Forretningsgang;Alle skadesager;Bygning;True;Error
+Medarbejdersager.aspx;BygningMedarbejdersager.aspx;Forretningsgang;Alle skadesager;Bygning;True;Error
+Hus Plus dækninger.aspx;Hus Plus dækninger.aspx;Forretningsgang;Alle dækninger ;Bygning;False;Error
+Statistikkode 400 - Redning og bevaring.aspx;Statistikkode 400 - Redning og bevaring.aspx;Forretningsgang;Alle dækninger;Bygning;False;Error
+MgO-plader.aspx;MgO-plader.aspx;Forretningsgang;Alle skader;Bygning;False;Error
+Udhusbygninger der er undtaget fra forsikringsdækning.aspx;Udhusbygninger der er undtaget fra forsikringsdækning.aspx;Forretningsgang;Afsnit 2: Brand, lynnedslag og eksplosion mv.;Bygning;False;Error
+Glasdækning - ridsede ruder.aspx;BygningGlasdækning - ridsede ruder.aspx;Forretningsgang;Husvilkårenes afsnit 8: Glas og sanitet og Sommerhusvilkårenes afsnit 16: Glas og sanitet ;Bygning;True;Error
+Afregning til sp-håndværkere og Housecenter.aspx;Afregning til sp-håndværkere og Housecenter.aspx;Forretningsgang;Sager der behandles af sp-håndværker;Bygning;False;Error
+Afsnit 6 + Udvidet vanddækning.aspx;Afsnit 6 + Udvidet vanddækning.aspx;Husvilkårenes plusdækninger;Udvidet vanddækning;Bygning;False;Error
+Husplus afsnit 9+ udvidet dækning for brønde og stikledninger.aspx;Husplus afsnit 9+ udvidet dækning for brønde og stikledninger.aspx;Husvilkårenes plusdækninger;Udvidet dækning for brønde og stikledninger;Bygning;False;Error
+Husplus afsnit 13. Skadedyr.aspx;Husplus afsnit 13. Skadedyr.aspx;Husvilkårenes plusdækninger;Skader på grund af pindsvin, slanger, fugle, flagermus samt mår, rotter, mus og andre gnavere;Bygning;False;Error
+Husplus afsnit 14 Udvidet dækning for haveanlæg.aspx;Husplus afsnit 14 Udvidet dækning for haveanlæg.aspx;Husvilkårenes plusdækninger;Afsnit 1.G.g: Haveanlæg og Afsnit 4: Tyveri og Hærværk, Afsnit 6: Storm og Afsnit 7: Pludselig skade;Bygning;False;Error
+Husplus afsnit 3+ Udvidet dækning for funktionsfejl på elektriske apparater.aspx;Husplus afsnit 3+ Udvidet dækning for funktionsfejl på elektriske apparater.aspx;Husvilkårenes plusdækninger;Funktionsfejl i faste elektriske installationer;Bygning;False;Error
+HusPlus udvidet vanddækning forhold som medfører, at udbedring af årsagen til skaden ikke lader sig gøre.aspx;HusPlus udvidet vanddækning forhold som medfører, at udbedring af årsagen til skaden ikke lader sig gøre.aspx;Husvilkårenes plusdækninger;Hus Plus - afsnit 6+ udvidet vanddækning - udbedring af årsagen til skaden;Bygning;False;Error
+Udsivning af vand fra frostsprængt synligt rør.aspx;Udsivning af vand fra frostsprængt synligt rør.aspx;Husvilkårenes plusdækninger;Hus Plus - Afsnit 6+ Udvidet vanddækning - frostsprængning af rør;Bygning;False;Error
+Vandforbrug.aspx;Vandforbrug.aspx;Husvilkårenes plusdækninger;Vilkårenes afsnit 5: Udstrømning af væsker (Vandskade) - Vilkårenes afsnit 9: Stikledninger - Vilkårenes afsnit 10: Skjulte rør og kabler ;Bygning;False;Error
+Hvem kan tegne Husplus dækning.aspx;Hvem kan tegne Husplus dækning.aspx;Husvilkårenes plusdækninger ;;Bygning;False;Error
+Afdækning ved udvidet vanddækning.aspx;Afdækning ved udvidet vanddækning.aspx;Husvilkårenes plusdækninger ;Afdækning ved udvidet vanddækning;Bygning;False;Error
+Husplus - Kosmetiske skader.aspx;Husplus - Kosmetiske skader.aspx;Husvilkårenes plusdækninger ;;Bygning;False;Error
+Tegninger af bygninger og bygningsdele.aspx;Tegninger af bygninger og bygningsdele.aspx;Oversigter og tegninger af bygninger og delene heri;Alle dækninger;Bygning;False;Error

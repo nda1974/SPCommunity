@@ -51,6 +51,7 @@ function GetSourceFile($url)
     try {
             $IE.Visible=$true
             $IE.fullscreen = $true;
+            Write-Host  'Navigating to : ' $url
             $IE.navigate2($url)
             
             $IE = ConnectIExplorer -HWND $HWND -ShowPage $true 
@@ -60,7 +61,6 @@ function GetSourceFile($url)
             $ticker = 0;
             while( $IE.Busy){
                     $ticker=$ticker+1000
-                    Write-Host  $ticker 'Millisec'
                     Start-Sleep -Milliseconds 1000
                     }
             
