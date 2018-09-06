@@ -126,7 +126,7 @@ function GetTargetFile($url)
         
             $IE2 = ConnectIExplorer -HWND $HWND -ShowPage $true
             $IE2.Visible=$true
-            $IE2.fullscreen = $true;
+            #$IE2.fullscreen = $true;
             #$IE2 = ConnectIExplorer -HWND $HWND -ShowPage $false
             $exitFlag =$false
                 do {
@@ -165,8 +165,8 @@ function GetTargetFile($url)
         }
         catch {
         
-            Write-Output $PSItem.Exception.Message -ForegroundColor Yellow
-            Write-Output $PSItem.Exception.InnerException -ForegroundColor Yellow
+            Write-Host $PSItem.Exception.Message -ForegroundColor Yellow
+            Write-Host $PSItem.Exception.InnerException -ForegroundColor Yellow
             
         }
         finally {
