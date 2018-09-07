@@ -1,0 +1,18 @@
+{
+  "$schema": "https://dev.office.com/json-schemas/spfx-build/config.2.0.schema.json",
+  "version": "2.0",
+  "bundles": {
+    "quality-control-questionaire-web-part": {
+      "components": [
+        {
+          "entrypoint": "./lib/webparts/qualityControlQuestionaire/QualityControlQuestionaireWebPart.js",
+          "manifest": "./src/webparts/qualityControlQuestionaire/QualityControlQuestionaireWebPart.manifest.json"
+        }
+      ]
+    }
+  },
+  "externals": {},
+  "localizedResources": {
+    "QualityControlQuestionaireWebPartStrings": "lib/webparts/qualityControlQuestionaire/loc/{locale}.js"
+  }
+}

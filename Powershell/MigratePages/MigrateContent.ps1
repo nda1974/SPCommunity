@@ -409,7 +409,7 @@ function RunNewVersion
                 GetTargetFile -url $targetUrl 
 
                 $obj = new-object PSObject
-                $obj | add-member -membertype NoteProperty -name 'Filnavn' -value $_.Filnavn
+                $obj | add-member -membertype NoteProperty -name 'Filnavn' -value $_.NytFilnavn
                 $obj | add-member -membertype NoteProperty -name 'Gruppe' -value $_.Gruppe
                 $obj | add-member -membertype NoteProperty -name 'Undergruppe' -value $_.Undergruppe
                 $obj | add-member -membertype NoteProperty -name 'Branche' -value $_.Branche
@@ -419,7 +419,7 @@ function RunNewVersion
         catch{
                 Write-Host  $fileName " - "$($PSItem.ToString()) -ForegroundColor Red
                 $obj = new-object PSObject
-                $obj | add-member -membertype NoteProperty -name 'Filnavn' -value $_.Filnavn
+                $obj | add-member -membertype NoteProperty -name 'Filnavn' -value $_.NytFilnavn
                 $obj | add-member -membertype NoteProperty -name 'Gruppe' -value $_.Gruppe
                 $obj | add-member -membertype NoteProperty -name 'Undergruppe' -value $_.Undergruppe
                 $obj | add-member -membertype NoteProperty -name 'Branche' -value $_.Branche

@@ -1,0 +1,12 @@
+{
+  "$schema": "https://dev.office.com/json-schemas/spfx-build/package-solution.schema.json",
+  "solution": {
+    "name": "quality-control-questionaire-client-side-solution",
+    "id": "c32a0f49-c3e1-44cf-86fd-6a5ee96a6e76",
+    "version": "1.0.0.0",
+    "includeClientSideAssets": true
+  },
+  "paths": {
+    "zippedPackage": "solution/quality-control-questionaire.sppkg"
+  }
+}
