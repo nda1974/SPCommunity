@@ -549,7 +549,7 @@ namespace SPOApp
                     //                                                objBranches.Skybrudsmanual,
                     //                                                objBranches.Stormmanual,
                     //                                                objBranches.Storskade};
-                    List<string> lstBranches = new List<string>() { objBranches.Personskade};
+                    List<string> lstBranches = new List<string>() { objBranches.Bygning };
                     foreach (var branch in lstBranches)
                     {
                         lstCreateModernPagesLog = new List<string>();
