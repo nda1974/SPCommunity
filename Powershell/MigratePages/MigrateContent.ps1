@@ -96,6 +96,7 @@ function GetSourceFile($url)
         
         Write-Host  'Fail to load source : ' $url -ForegroundColor Red
         Write-Host $_.Exception.Message -ForegroundColor Red
+        throw $_.Exception
         
     }
     finally{
@@ -170,6 +171,7 @@ function GetTargetFile($url)
             Write-Host $PSItem.Exception.Message -ForegroundColor Yellow
             Write-Host $PSItem.Exception.InnerException -ForegroundColor Yellow
             Write-Host 'Fail to load target : ' $url -ForegroundColor Red
+            throw $_.Exception
             
         }
         finally {
