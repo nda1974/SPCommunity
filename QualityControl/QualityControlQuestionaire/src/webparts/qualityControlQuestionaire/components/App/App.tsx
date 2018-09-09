@@ -3,12 +3,17 @@ import styles from '././QualityControlQuestionaire.module.scss';
 import { IAppProps } from './IAppProps';
 import { escape } from '@microsoft/sp-lodash-subset';
 import pnp, { setup, Web, ItemAddResult } from "sp-pnp-js";
-export default class App extends React.Component<IAppProps, {}> {
+import { IAppState } from './IAppState';
+import QuestionItem from '../QuestionItem/QuestionItem';
+export default class App extends React.Component<IAppProps, IAppState> {
 
 
     constructor(props: IAppProps) {
         super(props);
-        
+        this.state = {
+            items:[]=[]
+        }
+
         setup({
             sp: {
                 headers: {
@@ -18,37 +23,37 @@ export default class App extends React.Component<IAppProps, {}> {
             },
             
         });
-        this._getQuestionaires();
+        
+        
+        this._getQuestionaires()
+        
     }
-    public async _getQuestionaires(): Promise<void[]> {
+    public async _getQuestionaires(): Promise<void> {
         let returnItems: any[] = [];
 
-        return await pnp.sp.web.lists.getByTitle('QualityControl-10Sagsgennemgang')
+        const itemsResponse= await pnp.sp.web.lists.getByTitle('QualityControl-10Sagsgennemgang')
             .items
+            .filter("Title eq '1'")
             .get()
-            .then((data: any[]) => {
+            .then((data: any) => {
                 console.log(data)
-                return data;  
+                // const itemsData: any[] = await data;
+                this.setState({items:data})
             }
 
             )
+            
     }
     public render(): React.ReactElement<IAppProps> {
-    return (
+        return (
         <div className={ styles.qualityControlQuestionaire }>
         <div className={ styles.container }>
             <div className={ styles.row }>
-            <div className={ styles.column }>
-                <span className={ styles.title }>Welcome to SharePoint!</span>
-                <p className={ styles.subTitle }>Customize SharePoint experiences using Web Parts.</p>
-                <p className={ styles.description }>{escape(this.props.description)}</p>
-                <a href="https://aka.ms/spfx" className={ styles.button }>
-                <span className={ styles.label }>Learn more</span>
-                </a>
-            </div>
+            <QuestionItem description='asdf' question={this.state.items.length>0?this.state.items[0]:null}/>
             </div>
         </div>
         </div>
     );
+    
     }
 }

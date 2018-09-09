@@ -10,12 +10,19 @@ import {
 import * as strings from 'QualityControlQuestionaireWebPartStrings';
 import { IAppProps } from './components/App/IAppProps';
 import App from './components/App/App';
+import { setup } from 'sp-pnp-js/lib/pnp';
 
 export interface IQualityControlQuestionaireWebPartProps {
-  description: string;
+  description:string;
 }
 
 export default class QualityControlQuestionaireWebPart extends BaseClientSideWebPart<IQualityControlQuestionaireWebPartProps> {
+  
+  
+
+
+
+
 
   public render(): void {
     const element: React.ReactElement<IAppProps > = React.createElement(
