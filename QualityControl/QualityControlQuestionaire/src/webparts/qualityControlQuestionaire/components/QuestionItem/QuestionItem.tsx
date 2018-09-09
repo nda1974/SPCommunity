@@ -10,10 +10,10 @@ export default class QuestionItem extends React.Component<IQuestionItemProps,IQu
     constructor(props: IQuestionItemProps,state:IQuestionItemState) {
         super(props);
         this.state={
-            answer:''
+            answerToQuestion:''
         }
-        // this.test=this.test.bind(this);
-        this.handleTitle=this.handleTitle.bind(this);
+        this.test=this.test.bind(this);
+        
     }
     public render(): React.ReactElement<IQuestionItemProps> {
         return (
@@ -22,7 +22,7 @@ export default class QuestionItem extends React.Component<IQuestionItemProps,IQu
             Answer: 
             <div>
             
-            <TextField label="Standard" multiline rows={4} value={this.state.answer}  onChange={this.test} />
+            <TextField label="Standard" multiline rows={4} value={this.state.answerToQuestion}  onChanged={ e => {this.setState({answerToQuestion: e});} } />
             
             <DefaultButton
             data-automation-id="test"
@@ -37,12 +37,8 @@ export default class QuestionItem extends React.Component<IQuestionItemProps,IQu
     
     }
     private test(event):void{
-        alert(event.value);
-    }
-    private handleTitle(value: any): void {
-        return this.setState({
-          answer: value
-        });
-      }
+        alert(this.state.answerToQuestion);
+    }   
+    
        
 }

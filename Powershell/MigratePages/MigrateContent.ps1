@@ -373,7 +373,11 @@ function RunNewVersion
         } 
         elseif($branch -eq 'BPG')
         {
-            $branchSiteUrl="http://intranet.lb.dk/Skade/hb/BPG/SitePages"
+            $branchSiteUrl="http://intranet.lb.dk/Skade/hb/BPG/SitePages/"
+        }
+        elseif($branch -eq 'Gerningsmand')
+        {
+            $branchSiteUrl="http://intranet.lb.dk/Skade/hb/gerningsmand/SitePages/"
         }  
         else{
             $branchSiteUrl=$null
