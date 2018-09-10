@@ -379,6 +379,10 @@ function RunNewVersion
         {
             $branchSiteUrl="http://intranet.lb.dk/Skade/hb/gerningsmand/SitePages/"
         }  
+        elseif($branch -eq 'Sanering')
+        {
+            $branchSiteUrl="http://intranet.lb.dk/Skade/hb/sanering/SitePages/"
+        }  
         else{
             $branchSiteUrl=$null
 
