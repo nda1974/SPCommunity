@@ -30,17 +30,17 @@ export default class App extends React.Component<IAppProps, IAppState> {
         
         this._getQuestionaires=this._getQuestionaires.bind(this);
         this.test=this.test.bind(this);
-        // this.test();
+        this.test();
                 
                 
         
     }
     private async test():Promise<void>{
-        const t:any = await this._getQuestionaires
+        const t:any = await this._getQuestionaires();
         const tt:any = await t;
         console.log(t)
         console.log(tt)
-        //this.setState({items:tt})
+        this.setState({items:tt[0]})
     }
     public async _getQuestionaires(): Promise<any> {
         return await pnp.sp.web.lists.getByTitle('QualityControl-10Sagsgennemgang')
@@ -59,7 +59,8 @@ export default class App extends React.Component<IAppProps, IAppState> {
         this.test;
         return (
         <div className={ styles.qualityControlQuestionaire }>
-            <QuestionItem description='asdf' question={this.state.items.length>0?this.state.items[0]:null}/>
+            {/* <QuestionItem description='asdf' question={this.state.items.length>0?this.state.items[0]:null}/> */}
+            <QuestionItem description='asdf' question={this.state.items}/>
         </div>
     );
     

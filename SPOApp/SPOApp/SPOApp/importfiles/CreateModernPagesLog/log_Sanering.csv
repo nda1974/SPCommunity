@@ -8,7 +8,7 @@ Forbehold.aspx;Forbehold.aspx;Husforsikring;;Sanering;False;Success
 Sanering og Skade.aspx;Sanering og Skade.aspx;Sanering og Skadeafdelingerne;;Sanering;False;Success
 Sådan bruges dette bibliotek.aspx;SaneringSådan bruges dette bibliotek.aspx;Test;;Sanering;True;Success
 Spiritus og promillekørsel.aspx;Spiritus og promillekørsel.aspx;Bilforsikring;;Sanering;False;Success
-Børnebiler.aspx;Børnebiler.aspx;Bilforsikring;;Sanering;False;Success
+Børnebiler.aspx;SaneringBørnebiler.aspx;Bilforsikring;;Sanering;True;Success
 Formålet med Sanering.aspx;Formålet med Sanering.aspx;Formålet med Sanering;;Sanering;False;Success
 Startside.aspx;SaneringStartside.aspx;;;Sanering;True;Success
 Saneringsafdeling.aspx;Saneringsafdeling.aspx;Kopi af Gl. Saneringshåndbog;;Sanering;False;Success

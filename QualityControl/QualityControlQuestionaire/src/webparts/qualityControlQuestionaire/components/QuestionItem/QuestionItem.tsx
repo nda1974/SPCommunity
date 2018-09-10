@@ -27,8 +27,8 @@ export default class QuestionItem extends React.Component<IQuestionItemProps,IQu
             <div className={ styles.row }>
             {/* Question: {this.props.question!=null?this.props.question.Afdeling:''} */}
             Er dækningstilsagn ok?
-            
-
+                    
+            this.props.question
             <Toggle
                 defaultChecked={false}
                 label="Enabled and checked"
