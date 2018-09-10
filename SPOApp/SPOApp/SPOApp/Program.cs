@@ -551,7 +551,7 @@ namespace SPOApp
                     //                                                objBranches.Skybrudsmanual,
                     //                                                objBranches.Stormmanual,
                     //                                                objBranches.Storskade};
-                    List<string> lstBranches = new List<string>() { objBranches.ScalePoint };
+                    List<string> lstBranches = new List<string>() { objBranches.Skadeservice };
                     foreach (var branch in lstBranches)
                     {
                         lstCreateModernPagesLog = new List<string>();
