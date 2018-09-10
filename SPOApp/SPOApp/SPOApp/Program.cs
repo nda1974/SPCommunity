@@ -344,7 +344,8 @@ namespace SPOApp
         }
         public static void ValidateContent(ClientContext ctx, string branch)
         {
-            lstValidateContent.Add("Filnavn;Gruppe;Undergruppe;Branche;Content;IsLinkCoincidence");
+            lstValidateContent.Add("Filnavn;Content");
+            //lstValidateContent.Add("Filnavn;Gruppe;Undergruppe;Branche;Content");
             //lstLinksInContent.Add("Filnavn;Gruppe;Undergruppe;Branche;Content;IsLinkCoincidence");
             lstLinksInContent.Add("Filnavn;Branche;Content;IsLinkCoincidence;FileInLink;NytLink;Prefix");
             CamlQuery camlQuery = new CamlQuery();
@@ -387,11 +388,12 @@ namespace SPOApp
                             {
                                 Console.ForegroundColor = ConsoleColor.Yellow;
 
-                                string strWriteLine = String.Format("{0};{1};{2};{3};{4}",
+                                //string strWriteLine = String.Format("{0};{1};{2};{3};{4}",
+                                string strWriteLine = String.Format("{0};{1}",
                                                                     item["FileLeafRef"],
-                                                                    item["Gruppe"] != null ? item["Gruppe"].ToString() : "Gruppe",
-                                                                    item["Undergruppe"] != null ? item["Undergruppe"].ToString() : "Undergruppe",
-                                                                    branch,
+                                                                    //item["Gruppe"] != null ? item["Gruppe"].ToString() : "Gruppe",
+                                                                    //item["Undergruppe"] != null ? item["Undergruppe"].ToString() : "Undergruppe",
+                                                                    //branch,
                                                                     t.Text
                                                                     );
                                 lstValidateContent.Add(strWriteLine);
@@ -566,20 +568,20 @@ namespace SPOApp
                     //System.IO.File.WriteAllLines(@"C:\Git\LBIntranet\SPOApp\SPOApp\SPOApp\importfiles\CreateModernPagesLog\log_" + InputFromScreen_BRANCHE + ".csv", lstCreateModernPagesLog.ToArray(), Encoding.UTF8);
                     break;
                 case "2":
-                    List<string> branches = new List<string>() { "Ansvar" };
+                    //List<string> branches = new List<string>() { "Ansvar" };
+                    //string fileName = "";
+                    //foreach (var branch in branches)
+                    //{
+                    //    //ValidateContent(ctx, branch);
+
+                    //    //fileName = VALIDATE_CONTENT_LOG_FILEPATH + branch + ".csv";
+                    //    //System.IO.File.WriteAllLines(fileName, lst.ToArray(), Encoding.UTF8);
+
+                    //    //fileName = VALIDATE_CONTENT_LOG_FILEPATH + branch + ".csv";
+                    //    //System.IO.File.WriteAllLines(fileName, lstLog.ToArray(), Encoding.UTF8);
+
+                    //}
                     string fileName = "";
-                    foreach (var branch in branches)
-                    {
-                        //ValidateContent(ctx, branch);
-
-                        //fileName = VALIDATE_CONTENT_LOG_FILEPATH + branch + ".csv";
-                        //System.IO.File.WriteAllLines(fileName, lst.ToArray(), Encoding.UTF8);
-
-                        //fileName = VALIDATE_CONTENT_LOG_FILEPATH + branch + ".csv";
-                        //System.IO.File.WriteAllLines(fileName, lstLog.ToArray(), Encoding.UTF8);
-
-                    }
-
                     ValidateContent(ctx, InputFromScreen_BRANCHE);
                     fileName = VALIDATE_CONTENT_LOG_FILEPATH + InputFromScreen_BRANCHE + ".csv";
                     System.IO.File.WriteAllLines(fileName, lstLog.ToArray(), Encoding.UTF8);
