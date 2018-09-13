@@ -386,6 +386,10 @@ function RunNewVersion
         elseif($branch -eq 'Skadeservice')
         {
             $branchSiteUrl="http://intranet.lb.dk/Skade/hb/Skadeservice/SitePages/"
+        }
+        elseif($branch -eq 'Båd')
+        {
+            $branchSiteUrl="http://intranet.lb.dk/Skade/hb/baad/SitePages/"
         }  
         else{
             $branchSiteUrl=$null
