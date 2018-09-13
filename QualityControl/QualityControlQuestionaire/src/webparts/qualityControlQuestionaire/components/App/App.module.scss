@@ -1,6 +1,4 @@
 @import '~@microsoft/sp-office-ui-fabric-core/dist/sass/SPFabricCore.scss';
-
-.App {
   .container {
     max-width: 700px;
     margin: 0px auto;
@@ -70,5 +68,11 @@
       vertical-align: top;
       display: inline-block;
     }
+    .descriptionTextFieldVisible{
+      visibility: visible;
+    }
+    .descriptionTextFieldHidden{
+      visibility: hidden;
+    }
   }
-}
+

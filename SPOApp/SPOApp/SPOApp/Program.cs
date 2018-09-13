@@ -169,6 +169,15 @@ namespace SPOApp
                     return @"https://lbforsikring.sharepoint.com/sites/Skade/SiteAssets/ikoner/regres.png";
                 case "Storskade":
                     return @"https://lbforsikring.sharepoint.com/sites/Skade/SiteAssets/ikoner/Storskade.png";
+                case "Skybrudsmanual":
+                    //TODO der er ingen ikoner endnu
+                    return @"https://lbforsikring.sharepoint.com/sites/Skade/SiteAssets/ikoner/Skybrudsmanual.png";
+                case "Stormflod":
+                    return @"https://lbforsikring.sharepoint.com/sites/Skade/SiteAssets/ikoner/Stormflod.png";
+                case "Stormmanual":
+                    return @"https://lbforsikring.sharepoint.com/sites/Skade/SiteAssets/ikoner/Stormflod.png";
+                case "Båd":
+                    return @"https://lbforsikring.sharepoint.com/sites/Skade/SiteAssets/ikoner/lystfartoj.png";
                 default:
                     return string.Empty;
             }
@@ -411,30 +420,52 @@ namespace SPOApp
                             {
                                 foreach (System.Text.RegularExpressions.Capture capture in match.Captures)
                                 {
-                                    if (capture.Value.IndexOf(".aspx") > 0)
+                                    //if (capture.Value.IndexOf(".aspx") > 0)
+                                    //{
+                                    //    string s = capture.Value.Substring(0, capture.Value.IndexOf(".aspx"));
+                                    //    string ss = s.Substring(s.LastIndexOf('/') + 1) + ".aspx";
+                                    //    bool isCoincidenceInFilename = MigrationEngine.IsPageCoincidence(new GenericManualStruct
+                                    //    {
+                                    //        Branche = branch,
+                                    //        FileName = ss
+                                    //    }, L);
+                                    //    //lstLinksInContent.Add("Filnavn;Branche;Content;IsLinkCoincidence;FileInLink;NytLink;Prefix");
+                                    //    string strWriteLine = String.Format("{0};{1};{2};{3};{4};{5};{6}",
+                                    //                                    item["FileLeafRef"],
+                                    //                                    //item["Gruppe"] != null ? item["Gruppe"].ToString() : "Gruppe",
+                                    //                                    //item["Undergruppe"] != null ? item["Undergruppe"].ToString() : "Undergruppe",
+                                    //                                    branch,
+                                    //                                    capture,
+                                    //                                    isCoincidenceInFilename,
+                                    //                                    ss,
+                                    //                                    string.Empty,
+                                    //                                    string.Empty
+                                    //                                    );
+
+                                    //    lstLinksInContent.Add(strWriteLine);
+                                    //}
+                                    if (capture.Value.IndexOf(".aspx") < 0)
                                     {
-                                        string s = capture.Value.Substring(0, capture.Value.IndexOf(".aspx"));
-                                        string ss = s.Substring(s.LastIndexOf('/') + 1) + ".aspx";
-                                        bool isCoincidenceInFilename = MigrationEngine.IsPageCoincidence(new GenericManualStruct
-                                        {
-                                            Branche = branch,
-                                            FileName = ss
-                                        }, L);
-                                        //lstLinksInContent.Add("Filnavn;Branche;Content;IsLinkCoincidence;FileInLink;NytLink;Prefix");
+                                        string postfixPosition2 = capture.Value.Substring(capture.Value.LastIndexOf('/') + 1);
+
+                                        string postfixPosition3 = postfixPosition2.Substring(0, postfixPosition2.Length - 1);
+                                        Console.WriteLine(postfixPosition3);
+
                                         string strWriteLine = String.Format("{0};{1};{2};{3};{4};{5};{6}",
                                                                         item["FileLeafRef"],
                                                                         //item["Gruppe"] != null ? item["Gruppe"].ToString() : "Gruppe",
                                                                         //item["Undergruppe"] != null ? item["Undergruppe"].ToString() : "Undergruppe",
                                                                         branch,
                                                                         capture,
-                                                                        isCoincidenceInFilename,
-                                                                        ss,
+                                                                        false,
+                                                                        postfixPosition3,
                                                                         string.Empty,
                                                                         string.Empty
                                                                         );
 
                                         lstLinksInContent.Add(strWriteLine);
                                     }
+
                                 }
                             }
                         }
@@ -442,7 +473,7 @@ namespace SPOApp
                 }
 
 
-                Console.WriteLine(clientPage.Controls);
+                //Console.WriteLine(clientPage.Controls);
             }
 
             System.IO.File.WriteAllLines(VALIDATE_CONTENT_LOG_FILEPATH + branch + ".csv", lstValidateContent.ToArray(), Encoding.UTF8);
@@ -502,6 +533,7 @@ namespace SPOApp
             List<GenericManualStruct> lstBeredskab = MigrationEngine.GetSourceFilesFromCSV(SHAREPOINT_2_EXCEL_FILEPATH + objBranches.Beredskab + ".csv");
             List<GenericManualStruct> lstStormmanual = MigrationEngine.GetSourceFilesFromCSV(SHAREPOINT_2_EXCEL_FILEPATH + objBranches.Stormmanual + ".csv");
             List<GenericManualStruct> lstStorskade = MigrationEngine.GetSourceFilesFromCSV(SHAREPOINT_2_EXCEL_FILEPATH + objBranches.Storskade + ".csv");
+            List<GenericManualStruct> lstBåd = MigrationEngine.GetSourceFilesFromCSV(SHAREPOINT_2_EXCEL_FILEPATH + objBranches.Båd + ".csv");
 
 
             L.Add(lstAnsvar);
@@ -522,6 +554,7 @@ namespace SPOApp
             L.Add(lstBeredskab);
             L.Add(lstStormmanual);
             L.Add(lstStorskade);
+            L.Add(lstBåd);
 
             string newFilenamePrefix = string.Empty;
             //lstCreateModernPagesLog.Add("Filnavn;Gruppe;Undergruppe;Branche;Status");
@@ -551,7 +584,7 @@ namespace SPOApp
                     //                                                objBranches.Skybrudsmanual,
                     //                                                objBranches.Stormmanual,
                     //                                                objBranches.Storskade};
-                    List<string> lstBranches = new List<string>() { objBranches.Skadeservice };
+                    List<string> lstBranches = new List<string>() { objBranches.Båd};
                     foreach (var branch in lstBranches)
                     {
                         lstCreateModernPagesLog = new List<string>();
@@ -588,7 +621,7 @@ namespace SPOApp
                     break;
                 case "3":
                     //List<string> files = new List<string>();
-                    string filePath = string.Format(@"C:\Git\LBIntranet\SPOApp\SPOApp\SPOApp\logfiles\OutputLinksLOG\" + InputFromScreen_BRANCHE + "Ready.csv");
+                    string filePath = string.Format(@"C:\Git\LBIntranet\SPOApp\SPOApp\SPOApp\logfiles\OutputLinksLOG\" + InputFromScreen_BRANCHE + "DocsReady.csv");
                     FileWithLinks fileWithLink;
                     int counter = 0;
                     using (var reader = new StreamReader(filePath))

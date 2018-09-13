@@ -1,8 +1,9 @@
 import * as React from 'react';
 import styles from '././QualityControlQuestionaire.module.scss';
 import { TextField } from 'office-ui-fabric-react/lib/TextField';
+import { Image, IImageProps, ImageFit } from 'office-ui-fabric-react/lib/Image';
 import { DefaultButton, IButtonProps } from 'office-ui-fabric-react/lib/Button';
-
+import { Icon } from 'office-ui-fabric-react/lib/Icon';
 import { IAppProps } from './IAppProps';
 import { escape } from '@microsoft/sp-lodash-subset';
 import pnp, { setup} from "sp-pnp-js";
@@ -40,12 +41,14 @@ export default class App extends React.Component<IAppProps, IAppState> {
         const tt:any = await t;
         console.log(t)
         console.log(tt)
-        this.setState({items:tt[0]})
+        this.setState({items:tt})
     }
     public async _getQuestionaires(): Promise<any> {
-        return await pnp.sp.web.lists.getByTitle('QualityControl-10Sagsgennemgang')
+        // Quality Control - Claims Handler Questions
+        // return await pnp.sp.web.lists.getByTitle('QualityControl-10Sagsgennemgang')
+        return await pnp.sp.web.lists.getById('ad5ea1c8-3321-4a16-bc06-39a3b03d9e20')
             .items
-            .filter("Title eq '1'")
+            .orderBy('Sortering')
             .get()
             .then((data: any) => {
                 console.log(data)
@@ -56,11 +59,43 @@ export default class App extends React.Component<IAppProps, IAppState> {
     }
 
     public render(): React.ReactElement<IAppProps> {
-        this.test;
         return (
         <div className={ styles.qualityControlQuestionaire }>
-            {/* <QuestionItem description='asdf' question={this.state.items.length>0?this.state.items[0]:null}/> */}
-            <QuestionItem description='asdf' question={this.state.items}/>
+             <div className={ styles.container }>
+                <div className={ styles.row }>
+                    Afdeling: 
+                </div>
+
+                <div className={ styles.row }>
+                    Udføres af: 
+                </div>
+
+                <div className={ styles.row }>
+                    Medarbejder i fokus:
+                </div>
+
+                <div className={ styles.row }>
+                    Skadenummer:
+                </div>
+
+                {this.state.items.map((item)=>{
+                    return <QuestionItem description='asdf' question={item} />
+                })}
+
+                <div>
+                    
+                </div>
+
+                <div className={ styles.row }>
+                    <DefaultButton
+                data-automation-id="test"
+                text="Gem"
+                // onClick={this.test}
+                />
+                </div>
+
+                
+            </div>
         </div>
     );
     

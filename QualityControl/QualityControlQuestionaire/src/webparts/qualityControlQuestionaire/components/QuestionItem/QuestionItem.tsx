@@ -1,19 +1,21 @@
 import * as React from 'react';
 import { TextField } from 'office-ui-fabric-react/lib/TextField';
 import { Toggle } from 'office-ui-fabric-react/lib/Toggle';
+import { Dropdown, IDropdown, DropdownMenuItemType, IDropdownOption } from 'office-ui-fabric-react/lib/Dropdown';
 import { DefaultButton, IButtonProps } from 'office-ui-fabric-react/lib/Button';
 import { IQuestionItemProps } from './IQuestionItemProps';
 import { IQuestionItemState } from './IQuestionItemState';
-import styles from '../QualityControlQuestionaire.module.scss'
+import styles from './QuestionItem.module.scss'
 
 export default class QuestionItem extends React.Component<IQuestionItemProps,IQuestionItemState> {
 
     constructor(props: IQuestionItemProps,state:IQuestionItemState) {
         super(props);
         this.state={
-            answerToQuestion:''
+            answerToQuestion:'',
+            showTextField:false
         }
-        this.test=this.test.bind(this);
+        this._toggleAnswer=this._toggleAnswer.bind(this);
         
     }
     public render(): React.ReactElement<IQuestionItemProps> {
@@ -21,37 +23,33 @@ export default class QuestionItem extends React.Component<IQuestionItemProps,IQu
         //     return;
         // }
         // const t =this.props.question.ErD_x00e6_kningstilsagnOK?this.props.question.ErD_x00e6_kningstilsagnOK:false;
+        
         return (
-            <div className={ styles.container }>
             
-            <div className={ styles.row }>
-            {/* Question: {this.props.question!=null?this.props.question.Afdeling:''} */}
-            Er dækningstilsagn ok?
-                    
-            this.props.question
+            
+            <div >
+            
             <Toggle
                 defaultChecked={false}
-                label="Enabled and checked"
-                onText="On"
-                offText="Off"
-                onFocus={() => console.log('onFocus called')}
-                onBlur={() => console.log('onBlur called')}
+                label={this.props.question.ControlQuestion}
+                onText="Ja"
+                offText="Nej"
+                onChanged={(checked)=>this._toggleAnswer(checked)}
+                
                 />
-            <TextField label="Standard" multiline rows={4} value={this.state.answerToQuestion}  onChanged={ e => {this.setState({answerToQuestion: e});} } />
+            
+            <TextField className={this.state.showTextField?styles.descriptionTextFieldVisible:styles.descriptionTextFieldHidden} label="Hvis nej så uddyb" multiline rows={4} value={this.state.answerToQuestion}  onChanged={ e => {this.setState({answerToQuestion: e});} } />
             
 
             </div>
-            <DefaultButton
-                data-automation-id="test"
-                text="Button"
-                onClick={this.test}
-                />
-        </div>
+            
+        
     );
 
     }
-    private test(event):void{
-        alert(this.state.answerToQuestion);
+    
+    private   _toggleAnswer(data):void{
+         this.setState({showTextField:data})
     }   
     
        
