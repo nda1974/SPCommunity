@@ -17,17 +17,13 @@ export interface IQualityControlQuestionaireWebPartProps {
 }
 
 export default class QualityControlQuestionaireWebPart extends BaseClientSideWebPart<IQualityControlQuestionaireWebPartProps> {
-  
-  
-
-
-
-
 
   public render(): void {
     const element: React.ReactElement<IAppProps > = React.createElement(
+      
       App,
       {
+        ctx:this.context,
         description: this.properties.description
       }
     );
@@ -51,7 +47,7 @@ export default class QualityControlQuestionaireWebPart extends BaseClientSideWeb
               groupName: strings.BasicGroupName,
               groupFields: [
                 PropertyPaneTextField('description', {
-                  label: strings.DescriptionFieldLabel
+                 label: strings.DescriptionFieldLabel
                 })
               ]
             }

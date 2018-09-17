@@ -1,4 +1,7 @@
+import { IAnswer } from "../../Interfaces/IAnswer";
+
 export interface IQuestionItemState {
-  answerToQuestion:string;
-  showTextField:boolean;
+  answerToQuestion:boolean;
+  answerToQuestionDescription:string;
+  hideTextField:boolean;
 }

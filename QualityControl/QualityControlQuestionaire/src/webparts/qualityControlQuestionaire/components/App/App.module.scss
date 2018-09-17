@@ -1,21 +1,49 @@
 @import '~@microsoft/sp-office-ui-fabric-core/dist/sass/SPFabricCore.scss';
-  .container {
+$themePrimary: '[theme:themePrimary, default:#000000]';
+$themeSecondary: '[theme:themeSecondary, default:#5692b5]';
+$themeTertiary: "[theme:themeTertiary, default:#69afe5]";
+$themeLight: "[theme:themeLight, default:#b3d6f2]";
+$themeAccent: "[theme:themeAccent, default:inherit]";
+$themeDark: "[theme:themeDark, default:#005a9e]";
+$themeDarkAlt: "[theme:themeDarkAlt, default:#106ebe]";
+$themeDarker: "[theme:themeDarker, default:#004578]";
+$neutralLighter: "[theme:neutralLighter, default:#fff]";
+$white: "[theme:white, default:#fff]";
+
+.container {
     max-width: 700px;
     margin: 0px auto;
-    box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2), 0 25px 50px 0 rgba(0, 0, 0, 0.1);
+    // box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2), 0 25px 50px 0 rgba(0, 0, 0, 0.1);
   }
 
   .row {
     @include ms-Grid-row;
     @include ms-fontColor-white;
-    background-color: $ms-color-themeDark;
+    @include ms-font-l;
+    background-color: $themeLight;
     padding: 20px;
+    &.header{
+      @include ms-font-xl;
+      @include ms-fontColor-white;
+      background-color: $themePrimary;
+    }
+    &.infoSection{
+      @include ms-font-l;
+      background-color: $themeLight;
+      color: $themePrimary;
+      &.column{
+        @include ms-Grid-col;
+        @include ms-lg6;
+        @include ms-xl6;
+        left:0px; 
+      }
+    }
   }
-
+  
   .column {
     @include ms-Grid-col;
-    @include ms-lg10;
-    @include ms-xl8;
+    @include ms-lg6;
+    @include ms-xl6;
     @include ms-xlPush2;
     @include ms-lgPush1;
   }
@@ -34,7 +62,17 @@
     @include ms-font-l;
     @include ms-fontColor-white;
   }
-
+  .question{
+    @include ms-Grid-row;
+    margin: 0px;
+    @include ms-font-l;
+  }
+  .descriptionTextFieldVisible{
+    display: block;
+  }
+  .descriptionTextFieldHidden{
+    display: none;
+  }
   .button {
     // Our button
     text-decoration: none;
@@ -68,11 +106,15 @@
       vertical-align: top;
       display: inline-block;
     }
-    .descriptionTextFieldVisible{
-      visibility: visible;
-    }
-    .descriptionTextFieldHidden{
-      visibility: hidden;
-    }
+    
   }
+
+
+  
+
+
+
+
+  
+
 

@@ -444,27 +444,45 @@ namespace SPOApp
 
                                     //    lstLinksInContent.Add(strWriteLine);
                                     //}
-                                    if (capture.Value.IndexOf(".aspx") < 0)
-                                    {
-                                        string postfixPosition2 = capture.Value.Substring(capture.Value.LastIndexOf('/') + 1);
+                                    //if (capture.Value.IndexOf(".aspx") < 0)
+                                    //{
+                                    //    string postfixPosition2 = capture.Value.Substring(capture.Value.LastIndexOf('/') + 1);
 
-                                        string postfixPosition3 = postfixPosition2.Substring(0, postfixPosition2.Length - 1);
-                                        Console.WriteLine(postfixPosition3);
+                                    //    string postfixPosition3 = postfixPosition2.Substring(0, postfixPosition2.Length - 1);
+                                    //    Console.WriteLine(postfixPosition3);
 
-                                        string strWriteLine = String.Format("{0};{1};{2};{3};{4};{5};{6}",
-                                                                        item["FileLeafRef"],
-                                                                        //item["Gruppe"] != null ? item["Gruppe"].ToString() : "Gruppe",
-                                                                        //item["Undergruppe"] != null ? item["Undergruppe"].ToString() : "Undergruppe",
-                                                                        branch,
-                                                                        capture,
-                                                                        false,
-                                                                        postfixPosition3,
-                                                                        string.Empty,
-                                                                        string.Empty
-                                                                        );
+                                    //    string strWriteLine = String.Format("{0};{1};{2};{3};{4};{5};{6}",
+                                    //                                    item["FileLeafRef"],
+                                    //                                    //item["Gruppe"] != null ? item["Gruppe"].ToString() : "Gruppe",
+                                    //                                    //item["Undergruppe"] != null ? item["Undergruppe"].ToString() : "Undergruppe",
+                                    //                                    branch,
+                                    //                                    capture,
+                                    //                                    false,
+                                    //                                    postfixPosition3,
+                                    //                                    string.Empty,
+                                    //                                    string.Empty
+                                    //                                    );
 
-                                        lstLinksInContent.Add(strWriteLine);
-                                    }
+                                    //    lstLinksInContent.Add(strWriteLine);
+                                    //}
+                                    string postfixPosition2 = capture.Value.Substring(capture.Value.LastIndexOf('/') + 1);
+
+                                    string postfixPosition3 = postfixPosition2.Substring(0, postfixPosition2.Length - 1);
+                                    Console.WriteLine(postfixPosition3);
+
+                                    string strWriteLine = String.Format("{0};{1};{2};{3};{4};{5};{6}",
+                                                                    item["FileLeafRef"],
+                                                                    //item["Gruppe"] != null ? item["Gruppe"].ToString() : "Gruppe",
+                                                                    //item["Undergruppe"] != null ? item["Undergruppe"].ToString() : "Undergruppe",
+                                                                    branch,
+                                                                    capture,
+                                                                    false,
+                                                                    postfixPosition3,
+                                                                    string.Empty,
+                                                                    string.Empty
+                                                                    );
+
+                                    lstLinksInContent.Add(strWriteLine);
 
                                 }
                             }
@@ -621,7 +639,7 @@ namespace SPOApp
                     break;
                 case "3":
                     //List<string> files = new List<string>();
-                    string filePath = string.Format(@"C:\Git\LBIntranet\SPOApp\SPOApp\SPOApp\logfiles\OutputLinksLOG\" + InputFromScreen_BRANCHE + "DocsReady.csv");
+                    string filePath = string.Format(@"C:\Git\LBIntranet\SPOApp\SPOApp\SPOApp\logfiles\OutputLinksLOG\" + InputFromScreen_BRANCHE + "Ready.csv");
                     FileWithLinks fileWithLink;
                     int counter = 0;
                     using (var reader = new StreamReader(filePath))

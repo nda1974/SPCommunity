@@ -1,0 +1,11 @@
+﻿PriviligedUser;PriviligedUserEmail;Department;Subdepartment;Fordeling;Employee;EmployeeEmail;ClaimID;BatchID
+Lea Frimand Byager;leby@lb.dk;Bilskade;Bådskade;30;Jacob Dueholm;jadu@lb.dk;Claim1;1
+Lea Frimand Byager;leby@lb.dk;Bilskade;Bådskade;30;Jacob Dueholm;jadu@lb.dk;Claim2;1
+Nicolai Danielsen;nicd@lb.dk;Bilskade;Bådskade;70;"Jacob Dueholm	jadu@lb.dk";jadu@lb.dk;Claim3;1
+Nicolai Danielsen;nicd@lb.dk;Bilskade;Bådskade;70;Luise Jørgensen;lujo@lb.dk;Claim4;1
+Nicolai Danielsen;nicd@lb.dk;Bilskade;Bådskade;70;Luise Jørgensen;lujo@lb.dk;Claim5;1
+Lea Frimand Byager;leby@lb.dk;Bilskade;Bådskade;30;Carsten Rasmussen;carr@lb.dk;Claim6;1
+Nicolai Danielsen;nicd@lb.dk;Bilskade;Bådskade;70;Mads Yhde;mayh@lb.dk;Claim7;1
+Nicolai Danielsen;nicd@lb.dk;Bilskade;Bådskade;70;Ole Jensen;olje@lb.dk;Claim8;1
+Nicolai Danielsen;nicd@lb.dk;Bilskade;Bådskade;70;Ole Jensen;olje@lb.dk;Claim9;1
+Nicolai Danielsen;nicd@lb.dk;Bilskade;Bådskade;70;Troels Nielsen;trni@lb.dk;Claim10;1

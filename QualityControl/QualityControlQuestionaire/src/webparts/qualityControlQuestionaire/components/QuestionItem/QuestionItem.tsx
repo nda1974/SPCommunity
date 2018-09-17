@@ -12,45 +12,47 @@ export default class QuestionItem extends React.Component<IQuestionItemProps,IQu
     constructor(props: IQuestionItemProps,state:IQuestionItemState) {
         super(props);
         this.state={
-            answerToQuestion:'',
-            showTextField:false
+            answerToQuestion:true,
+            answerToQuestionDescription:'',
+            hideTextField:true
         }
-        this._toggleAnswer=this._toggleAnswer.bind(this);
+        
         
     }
     public render(): React.ReactElement<IQuestionItemProps> {
-        // if (this.props.question == null) {
-        //     return;
-        // }
-        // const t =this.props.question.ErD_x00e6_kningstilsagnOK?this.props.question.ErD_x00e6_kningstilsagnOK:false;
-        
         return (
-            
-            
             <div >
-            
-            <Toggle
-                defaultChecked={false}
-                label={this.props.question.ControlQuestion}
-                onText="Ja"
-                offText="Nej"
-                onChanged={(checked)=>this._toggleAnswer(checked)}
+                <Toggle
+                    defaultChecked={true}
+                    label={this.props.question.ControlQuestion}
+                    onText="Ja"
+                    offText="Nej"
+                    onChanged={(checked)=>this._setAnswerState(checked)}
+                    // onChanged={(checked)=>this.setState({hideTextField:checked},this.test)}
+                    
+                    />
                 
-                />
-            
-            <TextField className={this.state.showTextField?styles.descriptionTextFieldVisible:styles.descriptionTextFieldHidden} label="Hvis nej så uddyb" multiline rows={4} value={this.state.answerToQuestion}  onChanged={ e => {this.setState({answerToQuestion: e});} } />
-            
-
+                <TextField  className={this.state.hideTextField?styles.descriptionTextFieldHidden:styles.descriptionTextFieldVisible} 
+                            label="Hvis nej så uddyb" 
+                            multiline rows={4} 
+                            value={this.state.answerToQuestionDescription}  
+                            // onChanged={ e => {this.setState({answerToQuestionDescription: e});} } />
+                            onChanged={ (e) => this._setAnswerDescriptionState(e)} />
             </div>
-            
-        
-    );
-
+        );
     }
     
-    private   _toggleAnswer(data):void{
-         this.setState({showTextField:data})
-    }   
-    
+    private _setAnswerState(isAnswerChecked:boolean):void{
+        if (isAnswerChecked) {
+            this.setState({answerToQuestionDescription:''})
+        }
+        this.setState({hideTextField:isAnswerChecked},
+            this.props.setParentAnswerState(isAnswerChecked));
+    }
+    private _setAnswerDescriptionState(description:string):void{
+        this.setState({answerToQuestionDescription:description},
+            this.props.setParentAnswerDescriptionState(description));
+    }
+
        
 }

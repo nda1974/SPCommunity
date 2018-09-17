@@ -1,5 +1,7 @@
-import { IQuestionaireItem } from "../../../../Interfaces/IQuestonaireItem";
+import { IQuestions } from "../../Interfaces/IQuestions";
+import { IAnswer } from "../../Interfaces/IAnswer";
 
 export interface IAppState {
-  items:IQuestionaireItem[];
+  questions:IQuestions;
+  answers:IAnswer;
 }
