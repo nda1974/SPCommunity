@@ -1,6 +1,7 @@
 export interface IQuestionItemProps {
-  description: string;
-  question:any;
+  
+  question:boolean;
+  questionDescription: string;
   setParentAnswerState:any;
-  setParentAnswerDescriptionState:any;
+  // setParentAnswerDescriptionState:any;
 }

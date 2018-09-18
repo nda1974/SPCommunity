@@ -27,6 +27,7 @@ namespace SPOApp
         string stormmanual;
         string storskade;
         string båd;
+        string individuelLønsikring;
 
         public Branches()
         {
@@ -49,6 +50,7 @@ namespace SPOApp
             this.stormmanual = "Stormmanual";
             this.storskade = "Storskade";
             this.båd = "Båd";
+            this.IndividuelLønsikring = "Individuel lønsikring";
         }
 
         public string Ansvar { get => ansvar; set => ansvar = value; }
@@ -70,5 +72,6 @@ namespace SPOApp
         public string Stormmanual { get => stormmanual; set => stormmanual = value; }
         public string Storskade { get => storskade; set => storskade = value; }
         public string Båd { get => båd; set => båd = value; }
+        public string IndividuelLønsikring { get => individuelLønsikring; set => individuelLønsikring = value; }
     }
 }

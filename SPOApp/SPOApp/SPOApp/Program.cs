@@ -552,6 +552,9 @@ namespace SPOApp
             List<GenericManualStruct> lstStormmanual = MigrationEngine.GetSourceFilesFromCSV(SHAREPOINT_2_EXCEL_FILEPATH + objBranches.Stormmanual + ".csv");
             List<GenericManualStruct> lstStorskade = MigrationEngine.GetSourceFilesFromCSV(SHAREPOINT_2_EXCEL_FILEPATH + objBranches.Storskade + ".csv");
             List<GenericManualStruct> lstBåd = MigrationEngine.GetSourceFilesFromCSV(SHAREPOINT_2_EXCEL_FILEPATH + objBranches.Båd + ".csv");
+            List<GenericManualStruct> lstIndividuelLønsikring = MigrationEngine.GetSourceFilesFromCSV(SHAREPOINT_2_EXCEL_FILEPATH + objBranches.IndividuelLønsikring + ".csv");
+
+
 
 
             L.Add(lstAnsvar);
@@ -573,6 +576,7 @@ namespace SPOApp
             L.Add(lstStormmanual);
             L.Add(lstStorskade);
             L.Add(lstBåd);
+            L.Add(lstIndividuelLønsikring);
 
             string newFilenamePrefix = string.Empty;
             //lstCreateModernPagesLog.Add("Filnavn;Gruppe;Undergruppe;Branche;Status");
@@ -601,8 +605,10 @@ namespace SPOApp
                     //                                                objBranches.Skadeservice,
                     //                                                objBranches.Skybrudsmanual,
                     //                                                objBranches.Stormmanual,
-                    //                                                objBranches.Storskade};
-                    List<string> lstBranches = new List<string>() { objBranches.Båd};
+                    //                                                objBranches.Båd,
+                    //                                                objBranches.Storskade,
+                    //                                                objBranches.IndividuelLønsikring};
+                    List<string> lstBranches = new List<string>() { objBranches.IndividuelLønsikring};
                     foreach (var branch in lstBranches)
                     {
                         lstCreateModernPagesLog = new List<string>();

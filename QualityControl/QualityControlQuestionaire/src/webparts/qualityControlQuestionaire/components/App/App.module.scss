@@ -66,6 +66,10 @@ $white: "[theme:white, default:#fff]";
     @include ms-Grid-row;
     margin: 0px;
     @include ms-font-l;
+    border-bottom-style: solid;
+    border-bottom-color: $themeLight;
+    border-bottom-width: 1px;
+    padding: 10px;
   }
   .descriptionTextFieldVisible{
     display: block;

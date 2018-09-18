@@ -11,6 +11,7 @@ import { IAnswer } from '../../Interfaces/IAnswer';
 import { IQuestions } from '../../Interfaces/IQuestions';
 import { IQCUser } from '../../Interfaces/IQCUser';
 import { IUserRoles } from '../../Interfaces/IUserRole';
+import QuestionItem from '../QuestionItem/QuestionItem';
 
 
 
@@ -268,7 +269,7 @@ export default class App extends React.Component<IAppProps, IAppState> {
             console.log(result)
         })
     }
-    private _handleToggle(ev: HTMLInputElement, value: any){
+    private _setStateFromChildComponent(){
         
         
     }
@@ -306,7 +307,8 @@ export default class App extends React.Component<IAppProps, IAppState> {
                             {this.state.answers.employeeInFocus.name}
                         </div>
                     </div>
-                        
+                    {/* <QuestionItem questionDescription={this.state.questions.Q1} question={true} setParentAnswerState={this._setStateFromChildComponent} />     */}
+                    
                     <div className={ styles.question}>
                         <Toggle
                         defaultChecked={true}
@@ -353,9 +355,104 @@ export default class App extends React.Component<IAppProps, IAppState> {
                                 value={itemInContext.answer2Description}  
                                 onChanged={(input)=>itemInContext.answer2Description=input}
                                 />
-                        </div>
+                    </div>
+
+                    <div className={ styles.question}>
+                            <Toggle
+                            defaultChecked={true}
+                            label={this.state.questions.Q3}
+                            onText="Ja"
+                            offText="Nej"
+                            onChanged={(answer3)=>{
+                                itemInContext.answer3=answer3;
+                                if(!answer3){
+                                    itemInContext.answer3Description ='';
+                                }
+                                this.setState({answers:itemInContext})
+                            }}
+                            />
+                        
+                            <TextField  
+                                className={this.state.answers.answer3?styles.descriptionTextFieldHidden:styles.descriptionTextFieldVisible} 
+                                label="Hvis nej så uddyb" 
+                                multiline rows={4} 
+                                value={itemInContext.answer3Description}  
+                                onChanged={(input)=>itemInContext.answer3Description=input}
+                                />
+                    </div>
+
+                    <div className={ styles.question}>
+                            <Toggle
+                            defaultChecked={true}
+                            label={this.state.questions.Q4}
+                            onText="Ja"
+                            offText="Nej"
+                            onChanged={(answer4)=>{
+                                itemInContext.answer4=answer4;
+                                if(!answer4){
+                                    itemInContext.answer4Description ='';
+                                }
+                                this.setState({answers:itemInContext})
+                            }}
+                            />
+                        
+                            <TextField  
+                                className={this.state.answers.answer4?styles.descriptionTextFieldHidden:styles.descriptionTextFieldVisible} 
+                                label="Hvis nej så uddyb" 
+                                multiline rows={4} 
+                                value={itemInContext.answer4Description}  
+                                onChanged={(input)=>itemInContext.answer4Description=input}
+                                />
+                    </div>
+                    <div className={ styles.question}>
+                            <Toggle
+                            defaultChecked={true}
+                            label={this.state.questions.Q5}
+                            onText="Ja"
+                            offText="Nej"
+                            onChanged={(answer5)=>{
+                                itemInContext.answer5=answer5;
+                                if(!answer5){
+                                    itemInContext.answer5Description ='';
+                                }
+                                this.setState({answers:itemInContext})
+                            }}
+                            />
+                        
+                            <TextField  
+                                className={this.state.answers.answer5?styles.descriptionTextFieldHidden:styles.descriptionTextFieldVisible} 
+                                label="Hvis nej så uddyb" 
+                                multiline rows={4} 
+                                value={itemInContext.answer5Description}  
+                                onChanged={(input)=>itemInContext.answer5Description=input}
+                                />
+                    </div>
+
+                    <div className={ styles.question}>
+                            <Toggle
+                            defaultChecked={true}
+                            label={this.state.questions.Q6}
+                            onText="Ja"
+                            offText="Nej"
+                            onChanged={(answer6)=>{
+                                itemInContext.answer6=answer6;
+                                if(!answer6){
+                                    itemInContext.answer6Description ='';
+                                }
+                                this.setState({answers:itemInContext})
+                            }}
+                            />
+                        
+                            <TextField  
+                                className={this.state.answers.answer6?styles.descriptionTextFieldHidden:styles.descriptionTextFieldVisible} 
+                                label="Hvis nej så uddyb" 
+                                multiline rows={4} 
+                                value={itemInContext.answer6Description}  
+                                onChanged={(input)=>itemInContext.answer6Description=input}
+                                />
+                    </div>
                 
-                    <div className={ styles.row }>
+                    <div >
                         <DefaultButton
                                 data-automation-id="test"
                                 text="Gem"
