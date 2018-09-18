@@ -281,30 +281,30 @@ export default class App extends React.Component<IAppProps, IAppState> {
                 <div className={[styles.row, styles.header].join(' ') }>
                     Quality Control - ClaimID: <b>{this.state.answers.claimID}</b>
                 </div>
-                    <div className={styles.row}>
-                        <div className={[ styles.infoSection,styles.column].join(' ') }>
-                            Afdeling:
-                        </div>
-                        <div className={[ styles.infoSection,styles.column].join(' ') }>
-                            {this.state.answers.department}
-                        </div>
-                    </div>
-
-                    <div className={styles.row}>
+                    {/* <div className={styles.row}>
                         <div className={[ styles.infoSection,styles.column].join(' ') }>
                             Udføres af:
                             </div>
                             <div className={[ styles.infoSection,styles.column].join(' ') }>
                             {this.state.answers.priviligedUser.name}
                         </div>
-                    </div>
+                    </div> */}
 
-                    <div className={styles.row}>                        
-                        <div className={[ styles.infoSection,styles.column].join(' ') }>
+                    <div className={[styles.row, styles.infoSection].join(' ') }>
+                        <div className={[ styles.column].join(' ') }>
                             Medarbejder i fokus:
                         </div>
-                        <div className={[ styles.infoSection,styles.column].join(' ') }>
+                        <div className={[ styles.column].join(' ') }>
                             {this.state.answers.employeeInFocus.name}
+                        </div>
+                    </div>
+
+                    <div className={[styles.row, styles.infoSection].join(' ') }>
+                        <div className={[ styles.infoSection,styles.column].join(' ') }>
+                            Afdeling:
+                        </div>
+                        <div className={[ styles.infoSection,styles.column].join(' ') }>
+                            {this.state.answers.department}
                         </div>
                     </div>
                     {/* <QuestionItem questionDescription={this.state.questions.Q1} question={true} setParentAnswerState={this._setStateFromChildComponent} />     */}

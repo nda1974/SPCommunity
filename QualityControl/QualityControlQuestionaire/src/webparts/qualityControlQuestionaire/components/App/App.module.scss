@@ -21,31 +21,34 @@ $white: "[theme:white, default:#fff]";
     @include ms-fontColor-white;
     @include ms-font-l;
     background-color: $themeLight;
-    padding: 20px;
+    
     &.header{
       @include ms-font-xl;
       @include ms-fontColor-white;
       background-color: $themePrimary;
+      padding: 20px;
     }
     &.infoSection{
       @include ms-font-l;
+      @include ms-fontColor-white;
       background-color: $themeLight;
-      color: $themePrimary;
-      &.column{
-        @include ms-Grid-col;
-        @include ms-lg6;
-        @include ms-xl6;
-        left:0px; 
-      }
+      padding: 10px;
+      // &.column{
+      //   @include ms-Grid-col;
+      //   @include ms-lg6;
+      //   @include ms-xl6;
+      //   left:0px; 
+      // }
     }
   }
-  
+      
   .column {
     @include ms-Grid-col;
     @include ms-lg6;
     @include ms-xl6;
-    @include ms-xlPush2;
-    @include ms-lgPush1;
+    // @include ms-xlPush2;
+    // @include ms-lgPush1;
+    left:0px; 
   }
 
   .title {
@@ -67,7 +70,7 @@ $white: "[theme:white, default:#fff]";
     margin: 0px;
     @include ms-font-l;
     border-bottom-style: solid;
-    border-bottom-color: $themeLight;
+    border-bottom-color: $themePrimary;
     border-bottom-width: 1px;
     padding: 10px;
   }

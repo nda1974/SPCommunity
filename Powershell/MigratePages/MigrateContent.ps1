@@ -390,6 +390,10 @@ function RunNewVersion
         elseif($branch -eq 'Båd')
         {
             $branchSiteUrl="http://intranet.lb.dk/Skade/hb/baad/SitePages/"
+        }
+        elseif($branch -eq 'Individuel lønsikring')
+        {
+            $branchSiteUrl="http://intranet.lb.dk/Skade/hb/lønsikring/SitePages/"
         }  
         else{
             $branchSiteUrl=$null
