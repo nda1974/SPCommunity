@@ -26,7 +26,7 @@ param
                                           "BatchID" = $_.BatchID;
                                           "PriviligedUser"=$_.PriviligedUserEmail;
                                           "EmployeeInFocus"=$_.EmployeeEmail;
-                                          "ClaimsNumber"=$_.ClaimID;
+                                          "ClaimID"=$_.ClaimID;
                                           "Department"=$_.Department;  }
 }
 #region Variables 

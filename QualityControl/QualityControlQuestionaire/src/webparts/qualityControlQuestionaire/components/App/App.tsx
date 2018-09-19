@@ -3,7 +3,9 @@ import styles from './App.module.scss';
 import {  UrlQueryParameterCollection } from '@microsoft/sp-core-library';
 import { TextField } from 'office-ui-fabric-react/lib/TextField';
 import { Toggle } from 'office-ui-fabric-react/lib/Toggle';
+
 import { DefaultButton, IButtonProps } from 'office-ui-fabric-react/lib/Button';
+import { ChoiceGroup, IChoiceGroupOption } from 'office-ui-fabric-react/lib/ChoiceGroup';
 import { IAppProps } from './IAppProps';
 import pnp, { setup} from "sp-pnp-js";
 import { IAppState } from './IAppState';
@@ -12,7 +14,8 @@ import { IQuestions } from '../../Interfaces/IQuestions';
 import { IQCUser } from '../../Interfaces/IQCUser';
 import { IUserRoles } from '../../Interfaces/IUserRole';
 import QuestionItem from '../QuestionItem/QuestionItem';
-
+import { Icon } from 'office-ui-fabric-react/lib/Icon';
+import { IconButton } from 'office-ui-fabric-react/lib/Button';
 
 
 let employeeInFocus:IQCUser={
@@ -42,8 +45,7 @@ let itemInContext: IAnswer = {
     answer4Description:'',
     answer5:true,
     answer5Description:'',
-    answer6:true,
-    answer6Description:''
+    answer6:0
 };
 //https://lbforsikring.sharepoint.com/sites/Skade/Lists/Quality%20Control%20%20Claims%20Handler%20Questions/
 const QUESTIONS_LIST_ID = 'ad5ea1c8-3321-4a16-bc06-39a3b03d9e20';
@@ -84,8 +86,7 @@ export default class App extends React.Component<IAppProps, IAppState> {
                 answer4Description:'',
                 answer5:true,
                 answer5Description:'',
-                answer6:true,
-                answer6Description:''
+                answer6:0
             }
         }
 
@@ -105,6 +106,7 @@ export default class App extends React.Component<IAppProps, IAppState> {
         this._onBtnClick=this._onBtnClick.bind(this);
         this.test=this.test.bind(this);
         // this.saveAnswer=this.saveAnswer.bind(this);
+        this._onChange=this._onChange.bind(this);
         this._updateAnswers=this._updateAnswers.bind(this);
         // this._getPeoplePickerItems();
         this.test();
@@ -140,9 +142,48 @@ export default class App extends React.Component<IAppProps, IAppState> {
         );
         
     }
-    
+    //https://github.com/pnp/pnpjs/issues/196#issuecomment-410908170
     public _onBtnClick():void{
         this.setState({answers:itemInContext},this._updateAnswers);
+
+
+
+        // pnp.sp.web
+        // .getFolderByServerRelativeUrl('/sites/NICD/Delte%20dokumenter')
+        // .files
+        // .add('test.docx', '123', true)
+        // .then(f => f.file.getItem())
+        // .then(item => {
+        //     return item.update({
+        //     Title: 'A Title'
+        //     });
+        // })
+        // .then(console.log)
+        // .catch(console.error);
+        // var templateUrl:string='/sites/NICD/Delte%20dokumenter/Forms/Template/QCTemplate.dotx'
+        var templateUrl:string='/sites/Skade/Delte%20dokumenter/Forms/QC Report/QCTemplate.dotx'
+        // var templateUrl:string='/sites/Skade/Dokumenter/Forms/QC Report/QCTemplate.dotx'
+        // var templateUrl:string='/sites/Skade/Delte%20dokumenter/nicd.docx'
+        var name:string='QCTemplate.dotx'
+        var url:string='/sites/Skade/Delte%20dokumenter'
+        
+        // pnp.sp.web.getFolderByServerRelativeUrl(url).files.add('nicdTest.docx',).then(
+        //     ({file})=>{
+        //         return file.getItem();
+        //     }
+        // ).then(item=>{
+        //     return item.validateUpdateListItem([{FieldName:'Title',FieldValue:'Yahoo'},{FieldName:'ContentType',FieldValue:'QC Report'}])
+        // })
+        pnp.sp.web.getFileByServerRelativeUrl(templateUrl).getBuffer().then((templateData:ArrayBuffer)=>{
+            console.log(templateData);
+            pnp.sp.web.getFolderByServerRelativeUrl(url).files.add('nicdTest.docx',templateData).then(
+                ({file})=>{
+                    return file.getItem();
+                }
+            ).then(item=>{
+                return item.validateUpdateListItem([{FieldName:'Title',FieldValue:'Yahoo'}])
+            })
+        })
         
     }
     
@@ -184,7 +225,14 @@ export default class App extends React.Component<IAppProps, IAppState> {
             Answer1:itemInContext.answer1,
             Answer1Description:itemInContext.answer1Description,
             Answer2:itemInContext.answer2,
-            Answer2Description:itemInContext.answer2Description
+            Answer2Description:itemInContext.answer2Description,
+            Answer3:itemInContext.answer3,
+            Answer3Description:itemInContext.answer3Description,
+            Answer4:itemInContext.answer4,
+            Answer4Description:itemInContext.answer4Description,
+            Answer5:itemInContext.answer5,
+            Answer5Description:itemInContext.answer5Description,
+            Answer6:itemInContext.answer6
         }).then(r => {
             
             // this result will have two properties "data" and "item"
@@ -210,13 +258,13 @@ export default class App extends React.Component<IAppProps, IAppState> {
         // return await pnp.sp.web.lists.getByTitle('QualityControl-10Sagsgennemgang')
         await pnp.sp.web.lists.getById(ANSWERS_LIST_ID)
             .items
-            .filter("BatchID eq '" + batchID + "' and ClaimsNumber eq '" + claimsID +"'")
+            .filter("BatchID eq '" + batchID + "' and ClaimID eq '" + claimsID +"'")
             // .filter("ClaimsNumber eq '" + claimsID +"'")
             .get()
             .then(async (data: any) => {
                 itemInContext.listItemId= data[0].ID;
                 itemInContext.department= data[0].Department;
-                itemInContext.claimID= data[0].ClaimsNumber;
+                itemInContext.claimID= data[0].ClaimID;
                 itemInContext.priviligedUser= data[0].PriviligedUserId;
                 itemInContext.employeeInFocus=data[0].EmployeeInFocusId;
                 
@@ -269,9 +317,8 @@ export default class App extends React.Component<IAppProps, IAppState> {
             console.log(result)
         })
     }
-    private _setStateFromChildComponent(){
-        
-        
+    private _setRemark(choice:number):any{
+        alert(choice);
     }
     public render(): React.ReactElement<IAppProps> {
         return (
@@ -428,30 +475,33 @@ export default class App extends React.Component<IAppProps, IAppState> {
                                 />
                     </div>
 
-                    <div className={ styles.question}>
-                            <Toggle
-                            defaultChecked={true}
-                            label={this.state.questions.Q6}
-                            onText="Ja"
-                            offText="Nej"
-                            onChanged={(answer6)=>{
-                                itemInContext.answer6=answer6;
-                                if(!answer6){
-                                    itemInContext.answer6Description ='';
-                                }
-                                this.setState({answers:itemInContext})
-                            }}
-                            />
-                        
-                            <TextField  
-                                className={this.state.answers.answer6?styles.descriptionTextFieldHidden:styles.descriptionTextFieldVisible} 
-                                label="Hvis nej så uddyb" 
-                                multiline rows={4} 
-                                value={itemInContext.answer6Description}  
-                                onChanged={(input)=>itemInContext.answer6Description=input}
-                                />
+                    <div>
+        <ChoiceGroup
+          defaultSelectedKey="B"
+          options={[
+            {
+              key: 'Blue',
+              text: 'Blå',
+              'data-automation-id': 'auto1'
+            } as IChoiceGroupOption,
+            {
+              key: 'Yellow',
+              text: 'Gul'
+            },
+            {
+              key: 'Green',
+              text: 'Grøn'
+            }
+        ]}
+          onChange={this._onChange}
+          
+          label={this.state.questions.Q6}
+        />
+      </div>
+                   
+                   
                     </div>
-                
+
                     <div >
                         <DefaultButton
                                 data-automation-id="test"
@@ -460,8 +510,24 @@ export default class App extends React.Component<IAppProps, IAppState> {
                                 />
                     </div>
             </div>
-        </div>
+        
     );
     
     }
+    private _onChange = (ev: React.FormEvent<HTMLInputElement>, option: any): void => {
+        switch (option.key) {
+            case 'Green':
+            itemInContext.answer6=1;        
+                break;
+            case 'Blue':
+            itemInContext.answer6=2;        
+                break;
+            case 'Yellow':
+            itemInContext.answer6=2;        
+                break;
+            default:
+                break;
+        }
+        this.setState({answers:itemInContext})
+      };
 }

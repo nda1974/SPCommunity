@@ -178,6 +178,8 @@ namespace SPOApp
                     return @"https://lbforsikring.sharepoint.com/sites/Skade/SiteAssets/ikoner/Stormflod.png";
                 case "Båd":
                     return @"https://lbforsikring.sharepoint.com/sites/Skade/SiteAssets/ikoner/lystfartoj.png";
+                case "Individuel lønsikring":
+                    return @"https://lbforsikring.sharepoint.com/sites/Skade/SiteAssets/ikoner/lønsikring.png";
                 default:
                     return string.Empty;
             }

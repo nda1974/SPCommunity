@@ -17,6 +17,5 @@ export interface IAnswer {
   answer4Description?: string,
   answer5?: boolean,
   answer5Description?: string,
-  answer6?: boolean,
-  answer6Description?: string
+  answer6?: number
 }

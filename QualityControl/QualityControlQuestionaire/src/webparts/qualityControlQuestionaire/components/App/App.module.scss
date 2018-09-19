@@ -15,7 +15,18 @@ $white: "[theme:white, default:#fff]";
     margin: 0px auto;
     // box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2), 0 25px 50px 0 rgba(0, 0, 0, 0.1);
   }
-
+  .myYellow{
+      @include ms-fontSize-su;
+      color:yellow
+  }
+  .myBlue{
+    @include ms-fontSize-su;
+    color: blue
+}
+.myGreen{
+  @include ms-fontSize-su;
+  color:green;
+}
   .row {
     @include ms-Grid-row;
     @include ms-fontColor-white;
@@ -50,6 +61,7 @@ $white: "[theme:white, default:#fff]";
     // @include ms-lgPush1;
     left:0px; 
   }
+  
 
   .title {
     @include ms-font-xl;
@@ -74,6 +86,12 @@ $white: "[theme:white, default:#fff]";
     border-bottom-width: 1px;
     padding: 10px;
   }
+  .rowRemarks {
+    @include ms-Grid-row;
+    margin: 0px;
+    
+  }
+  
   .descriptionTextFieldVisible{
     display: block;
   }
