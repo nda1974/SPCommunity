@@ -7,15 +7,12 @@ import { Toggle } from 'office-ui-fabric-react/lib/Toggle';
 import { DefaultButton, IButtonProps } from 'office-ui-fabric-react/lib/Button';
 import { ChoiceGroup, IChoiceGroupOption } from 'office-ui-fabric-react/lib/ChoiceGroup';
 import { IAppProps } from './IAppProps';
-import pnp, { setup} from "sp-pnp-js";
+import pnp, { setup, ItemAddResult} from "sp-pnp-js";
 import { IAppState } from './IAppState';
 import { IAnswer } from '../../Interfaces/IAnswer';
 import { IQuestions } from '../../Interfaces/IQuestions';
 import { IQCUser } from '../../Interfaces/IQCUser';
 import { IUserRoles } from '../../Interfaces/IUserRole';
-import QuestionItem from '../QuestionItem/QuestionItem';
-import { Icon } from 'office-ui-fabric-react/lib/Icon';
-import { IconButton } from 'office-ui-fabric-react/lib/Button';
 
 
 let employeeInFocus:IQCUser={
@@ -174,16 +171,22 @@ export default class App extends React.Component<IAppProps, IAppState> {
         // ).then(item=>{
         //     return item.validateUpdateListItem([{FieldName:'Title',FieldValue:'Yahoo'},{FieldName:'ContentType',FieldValue:'QC Report'}])
         // })
-        pnp.sp.web.getFileByServerRelativeUrl(templateUrl).getBuffer().then((templateData:ArrayBuffer)=>{
-            console.log(templateData);
-            pnp.sp.web.getFolderByServerRelativeUrl(url).files.add('nicdTest.docx',templateData).then(
-                ({file})=>{
-                    return file.getItem();
-                }
-            ).then(item=>{
-                return item.validateUpdateListItem([{FieldName:'Title',FieldValue:'Yahoo'}])
-            })
-        })
+        pnp.sp.web.lists.getById("f3754b52-e1f1-4eff-9928-2a5c7fcdbd5f").items.add({
+            Title: "AAATest 1"
+            // ContentTypeId: "0x0101008CAB1FBB09339B46B6B2AB09FA24F36E"
+        }).then((iar: ItemAddResult) => {
+            console.log(iar);
+        });;
+        // pnp.sp.web.getFileByServerRelativeUrl(templateUrl).getBuffer().then((templateData:ArrayBuffer)=>{
+        //     console.log(templateData);
+        //     pnp.sp.web.getFolderByServerRelativeUrl(url).files.add('nicdTest.docx',templateData).then(
+        //         ({file})=>{
+        //             return file.getItem();
+        //         }
+        //     ).then(item=>{
+        //         return item.validateUpdateListItem([{FieldName:'Title',FieldValue:'Yahoo'}])
+        //     })
+        // })
         
     }
     
@@ -272,7 +275,7 @@ export default class App extends React.Component<IAppProps, IAppState> {
                 // console.log(a)
                 // var user = await a.then((res)=>{return res});
                 // console.log(user)
-                this.setState({answers:itemInContext})
+                this.setState({answers:itemInContext});
                 
                 
                 await this._getPriviligedUser(data[0].PriviligedUserId);
@@ -462,7 +465,7 @@ export default class App extends React.Component<IAppProps, IAppState> {
                                 if(!answer5){
                                     itemInContext.answer5Description ='';
                                 }
-                                this.setState({answers:itemInContext})
+                                this.setState({answers:itemInContext});
                             }}
                             />
                         
@@ -529,5 +532,5 @@ export default class App extends React.Component<IAppProps, IAppState> {
                 break;
         }
         this.setState({answers:itemInContext})
-      };
+      }
 }

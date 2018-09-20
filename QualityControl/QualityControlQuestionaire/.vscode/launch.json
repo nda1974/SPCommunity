@@ -21,7 +21,7 @@
       ]
     },
     {
-      "name": "Hosted workbench",
+      "name": "SharePoint Online",
       "type": "chrome",
       "request": "launch",
       "url": "https://lbforsikring.sharepoint.com/sites/skade/_layouts/workbench.aspx",
@@ -34,8 +34,8 @@
         "webpack:///../../../../../../src/*": "${webRoot}/src/*"
       },
       "runtimeArgs": [
-        "--remote-debugging-port=9222",
-        "-incognito"
+        "--remote-debugging-port=9222"
+        // ,"-incognito"
         
       ]
     }
