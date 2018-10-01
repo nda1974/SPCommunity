@@ -180,6 +180,8 @@ namespace SPOApp
                     return @"https://lbforsikring.sharepoint.com/sites/Skade/SiteAssets/ikoner/lystfartoj.png";
                 case "Individuel lønsikring":
                     return @"https://lbforsikring.sharepoint.com/sites/Skade/SiteAssets/ikoner/lønsikring.png";
+                case "Kollektiv lønsikring":
+                    return @"https://lbforsikring.sharepoint.com/sites/Skade/SiteAssets/ikoner/lønsikring.png";
                 default:
                     return string.Empty;
             }
@@ -555,6 +557,7 @@ namespace SPOApp
             List<GenericManualStruct> lstStorskade = MigrationEngine.GetSourceFilesFromCSV(SHAREPOINT_2_EXCEL_FILEPATH + objBranches.Storskade + ".csv");
             List<GenericManualStruct> lstBåd = MigrationEngine.GetSourceFilesFromCSV(SHAREPOINT_2_EXCEL_FILEPATH + objBranches.Båd + ".csv");
             List<GenericManualStruct> lstIndividuelLønsikring = MigrationEngine.GetSourceFilesFromCSV(SHAREPOINT_2_EXCEL_FILEPATH + objBranches.IndividuelLønsikring + ".csv");
+            List<GenericManualStruct> lstKollektivLønsikring = MigrationEngine.GetSourceFilesFromCSV(SHAREPOINT_2_EXCEL_FILEPATH + objBranches.KollektivLønsikring + ".csv");
 
 
 
@@ -579,6 +582,7 @@ namespace SPOApp
             L.Add(lstStorskade);
             L.Add(lstBåd);
             L.Add(lstIndividuelLønsikring);
+            L.Add(lstKollektivLønsikring);
 
             string newFilenamePrefix = string.Empty;
             //lstCreateModernPagesLog.Add("Filnavn;Gruppe;Undergruppe;Branche;Status");
@@ -610,7 +614,7 @@ namespace SPOApp
                     //                                                objBranches.Båd,
                     //                                                objBranches.Storskade,
                     //                                                objBranches.IndividuelLønsikring};
-                    List<string> lstBranches = new List<string>() { objBranches.IndividuelLønsikring};
+                    List<string> lstBranches = new List<string>() { objBranches.KollektivLønsikring};
                     foreach (var branch in lstBranches)
                     {
                         lstCreateModernPagesLog = new List<string>();
