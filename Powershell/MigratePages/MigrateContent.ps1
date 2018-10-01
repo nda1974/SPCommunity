@@ -394,6 +394,10 @@ function RunNewVersion
         elseif($branch -eq 'Individuel lønsikring')
         {
             $branchSiteUrl="http://intranet.lb.dk/Skade/hb/lønsikring/SitePages/"
+        }
+        elseif($branch -eq 'Kollektiv lønsikring')
+        {
+            $branchSiteUrl="http://intranet.lb.dk/Skade/hb/lønsikringkollektiv/"
         }  
         else{
             $branchSiteUrl=$null
