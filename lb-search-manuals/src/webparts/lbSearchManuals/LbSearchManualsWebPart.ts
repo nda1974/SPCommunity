@@ -54,11 +54,32 @@ export default class LbSearchManualsWebPart extends BaseClientSideWebPart<ILbSea
               groupFields: [
                 PropertyPaneChoiceGroup('manualType',{
                   label:'Vælg type',
-                  options:[{ key: 'Baad', text: 'Båd'}, 
-                       { key: 'Bil', text: 'Bil' }, 
-                       { key: 'Indbo', text: 'Indbo' },
-                       { key: 'Rejse', text: 'Rejse' },
-                       { key: 'Hund', text: 'Hund' } 
+                  options:[
+                      { key: 'Ansvar', text: 'Ansvar' },
+                      { key: 'Bil', text: 'Bil' },
+                      { key: 'Beredskab', text: 'Beredskab' },
+                      { key: 'Bygning', text: 'Bygning' },
+                      { key: 'Baad', text: 'Båd'}, 
+                      { key: 'Ejerskifte', text: 'Ejerskifte' }, 
+                      { key: 'Erhverv', text: 'Erhverv' }, 
+                      { key: 'Generel skadepolitik', text: 'Generel skadepolitik' }, 
+                      { key: 'Gerningsmand', text: 'Gerningsmand' },
+                      { key: 'Hund', text: 'Hund' },
+                      { key: 'Indbo', text: 'Indbo' },
+                      { key: 'LønsikringIndividuel', text: 'Lønsikring - individuel' },
+                      { key: 'LønsikringKollektiv', text: 'Lønsikring - kollektiv' },
+                      { key: 'Personskade', text: 'Personskade' },
+                      { key: 'Regres', text: 'Regres' },
+                      { key: 'Rejse', text: 'Rejse' },
+                      { key: 'Retshjælp', text: 'Retshjælp' },
+                      { key: 'Sanering', text: 'Sanering' },
+                      { key: 'ScalePoint', text: 'ScalePoint' },
+                      { key: 'Skadeservice', text: 'Skadeservice' },
+                      { key: 'Skybrudsmanual', text: 'Skybrudsmanual' },
+                      { key: 'Stormflod', text: 'Stormflod' },
+                      { key: 'Stormmanual', text: 'Stormmanual' },
+                      { key: 'Storskade', text: 'Storskade' },
+                      { key: 'Ulykkeskade', text: 'Ulykkeskade' }
                   ]
                 }),
                 PropertyPaneTextField('searchUrl',{
