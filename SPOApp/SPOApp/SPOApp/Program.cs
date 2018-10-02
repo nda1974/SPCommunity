@@ -182,6 +182,8 @@ namespace SPOApp
                     return @"https://lbforsikring.sharepoint.com/sites/Skade/SiteAssets/ikoner/lønsikring.png";
                 case "Kollektiv lønsikring":
                     return @"https://lbforsikring.sharepoint.com/sites/Skade/SiteAssets/ikoner/lønsikring.png";
+                case "Ejerskifte":
+                    return @"https://lbforsikring.sharepoint.com/sites/Skade/SiteAssets/ikoner/fårhus.png";
                 default:
                     return string.Empty;
             }
@@ -558,6 +560,7 @@ namespace SPOApp
             List<GenericManualStruct> lstBåd = MigrationEngine.GetSourceFilesFromCSV(SHAREPOINT_2_EXCEL_FILEPATH + objBranches.Båd + ".csv");
             List<GenericManualStruct> lstIndividuelLønsikring = MigrationEngine.GetSourceFilesFromCSV(SHAREPOINT_2_EXCEL_FILEPATH + objBranches.IndividuelLønsikring + ".csv");
             List<GenericManualStruct> lstKollektivLønsikring = MigrationEngine.GetSourceFilesFromCSV(SHAREPOINT_2_EXCEL_FILEPATH + objBranches.KollektivLønsikring + ".csv");
+            List<GenericManualStruct> lstEjerskifte = MigrationEngine.GetSourceFilesFromCSV(SHAREPOINT_2_EXCEL_FILEPATH + objBranches.Ejerskifte+ ".csv");
 
 
 
@@ -583,6 +586,7 @@ namespace SPOApp
             L.Add(lstBåd);
             L.Add(lstIndividuelLønsikring);
             L.Add(lstKollektivLønsikring);
+            L.Add(lstEjerskifte);
 
             string newFilenamePrefix = string.Empty;
             //lstCreateModernPagesLog.Add("Filnavn;Gruppe;Undergruppe;Branche;Status");
@@ -614,7 +618,7 @@ namespace SPOApp
                     //                                                objBranches.Båd,
                     //                                                objBranches.Storskade,
                     //                                                objBranches.IndividuelLønsikring};
-                    List<string> lstBranches = new List<string>() { objBranches.KollektivLønsikring};
+                    List<string> lstBranches = new List<string>() { objBranches.Ejerskifte};
                     foreach (var branch in lstBranches)
                     {
                         lstCreateModernPagesLog = new List<string>();

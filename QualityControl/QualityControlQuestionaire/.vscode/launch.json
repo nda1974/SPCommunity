@@ -24,7 +24,7 @@
       "name": "SharePoint Online",
       "type": "chrome",
       "request": "launch",
-      "url": "https://lbforsikring.sharepoint.com/sites/skade/_layouts/workbench.aspx",
+      "url": "https://lbforsikring.sharepoint.com/sites/skade/_layouts/workbench.aspx?ClaimID=Claim1&BatchID=1",
       "webRoot": "${workspaceRoot}",
       "sourceMaps": true,
       "sourceMapPathOverrides": {
