@@ -170,8 +170,7 @@ namespace SPOApp
                 case "Storskade":
                     return @"https://lbforsikring.sharepoint.com/sites/Skade/SiteAssets/ikoner/Storskade.png";
                 case "Skybrudsmanual":
-                    //TODO der er ingen ikoner endnu
-                    return @"https://lbforsikring.sharepoint.com/sites/Skade/SiteAssets/ikoner/Skybrudsmanual.png";
+                    return @"https://lbforsikring.sharepoint.com/sites/Skade/SiteAssets/ikoner/Skybrud.png";
                 case "Stormflod":
                     return @"https://lbforsikring.sharepoint.com/sites/Skade/SiteAssets/ikoner/Stormflod.png";
                 case "Stormmanual":
@@ -618,7 +617,7 @@ namespace SPOApp
                     //                                                objBranches.Båd,
                     //                                                objBranches.Storskade,
                     //                                                objBranches.IndividuelLønsikring};
-                    List<string> lstBranches = new List<string>() { objBranches.Ejerskifte};
+                    List<string> lstBranches = new List<string>() { objBranches.Skybrudsmanual};
                     foreach (var branch in lstBranches)
                     {
                         lstCreateModernPagesLog = new List<string>();

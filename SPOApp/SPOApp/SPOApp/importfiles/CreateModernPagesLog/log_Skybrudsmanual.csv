@@ -1,5 +1,5 @@
 ﻿OrignalFilnavn;NytFilnavn;Gruppe;Undergruppe;Branche;Coincidence;Status
-A conto udbetalinger.aspx;A conto udbetalinger.aspx;Redning og bevaring og akutte tiltag;;Skybrudsmanual;False;Error
+A conto udbetalinger.aspx;A conto udbetalinger.aspx;Redning og bevaring og akutte tiltag;;Skybrudsmanual;False;Success
 Affugtning.aspx;Affugtning.aspx;Redning og bevaring og akutte tiltag;Akutte tiltag;Skybrudsmanual;False;Success
 Afskrivning.aspx;SkybrudsmanualAfskrivning.aspx;Erstatning;;Skybrudsmanual;True;Success
 Afskrivningstabel indbo.aspx;Afskrivningstabel indbo.aspx;Erstatning;Indbo;Skybrudsmanual;False;Success
@@ -54,7 +54,7 @@ Skimmel på indbo.aspx;Skimmel på indbo.aspx;Er skaden dækket;;Skybrudsmanual;
 Skybrud.aspx;SkybrudsmanualSkybrud.aspx;Er skaden dækket;Er skaden dækket;Skybrudsmanual;True;Success
 Sporer i luften.aspx;Sporer i luften.aspx;Redning og bevaring og akutte tiltag;Akutte tiltag;Skybrudsmanual;False;Success
 Startside.aspx;SkybrudsmanualStartside.aspx;;;Skybrudsmanual;True;Success
-Statistikkoder.aspx;Statistikkoder.aspx;Systemet;Selvrisiko-statistikkoder-reserver;Skybrudsmanual;False;Success
+Statistikkoder.aspx;SkybrudsmanualStatistikkoder.aspx;Systemet;Selvrisiko-statistikkoder-reserver;Skybrudsmanual;True;Success
 Strømforbrug.aspx;Strømforbrug.aspx;Erstatning;Redning og bevaring;Skybrudsmanual;False;Success
 Tabsbegrænsningspligt.aspx;Tabsbegrænsningspligt.aspx;Redning og bevaring og akutte tiltag;Redning og bevaring;Skybrudsmanual;False;Success
 Tøjvask.aspx;Tøjvask.aspx;Redning og bevaring og akutte tiltag;Redning og bevaring;Skybrudsmanual;False;Success
