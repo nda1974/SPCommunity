@@ -347,9 +347,9 @@ function RunNewVersion
         {
             $branchSiteUrl="http://intranet.lb.dk/Skade/hb/Person/SitePages/"
         }
-        elseif($branch -eq 'Skybrudmanual')
+        elseif($branch -eq 'Skybrudsmanual')
         {
-            $importFileName = 'C:\Git\LBIntranet\Powershell\MigratePages\ImportFiles\SkybrudsmanualCSV.csv'
+            $branchSiteUrl="http://intranet.lb.dk/Skade/hb/SkybrudsManual/"
         }
         elseif($branch -eq 'Storskade')
         {
