@@ -1,0 +1,71 @@
+﻿OrignalFilnavn;NytFilnavn;Gruppe;Undergruppe;Branche;Coincidence;Status
+Klagevejledning.aspx;Klagevejledning.aspx;forretningsgange;;Erhverv;False;Success
+Udstillingsforsikring.aspx;Udstillingsforsikring.aspx;Andre forsikringer;Udstillingsforsikring;Erhverv;False;Success
+Selvrisici branche 8.aspx;Selvrisici branche 8.aspx;Selvrisiko;Selvrisiko branche 8;Erhverv;False;Success
+Vilkår 87-2 Forældelse.aspx;Vilkår 87-2 Forældelse.aspx;Løsøre;Forældelse Vilkår 87-2;Erhverv;False;Success
+Forældelse Svamp og Insekt.aspx;Forældelse Svamp og Insekt.aspx;Bygning;Vilkår 83-3  forældelse Svamp og insekt;Erhverv;False;Success
+Svamp og insekt.aspx;Svamp og insekt.aspx;Bygning;Svamp og insekt;Erhverv;False;Success
+Startside.aspx;ErhvervStartside.aspx;;;Erhverv;True;Success
+Indekserede summer.aspx;Indekserede summer.aspx;Løsøre;Erstatningsopgørelse;Erhverv;False;Success
+Påkørsel.aspx;Påkørsel.aspx;Bygning;Anden Bygningsbeskadigelse;Erhverv;False;Success
+Klausuler på løsøre.aspx;Klausuler på løsøre.aspx;Løsøre;Forretningsgange;Erhverv;False;Success
+Sagsbehandling løsøre.aspx;Sagsbehandling løsøre.aspx;Løsøre;Forretningsgange;Erhverv;False;Success
+Rede penge.aspx;Rede penge.aspx;Løsøre;Forsikrede Genstande;Erhverv;False;Success
+Driftstab.aspx;Driftstab.aspx;Løsøre;Driftstab;Erhverv;False;Success
+Transportskade.aspx;Transportskade.aspx;Løsøre;Transportskade;Erhverv;False;Success
+Stormskade.aspx;Stormskade.aspx;Løsøre;Storm;Erhverv;False;Success
+Varegruppe og sikringsniveau.aspx;Varegruppe og sikringsniveau.aspx;Løsøre;Tyveri;Erhverv;False;Success
+Tyveri.aspx;ErhvervTyveri.aspx;Løsøre;Tyveri;Erhverv;True;Success
+Sagsbehandling bygning.aspx;Sagsbehandling bygning.aspx;Bygning;Forretningsgange;Erhverv;False;Success
+Genopførelse kan ikke ske.aspx;Genopførelse kan ikke ske.aspx;Bygning;Erstatningsopgørelse;Erhverv;False;Success
+Haveanlæg.aspx;Haveanlæg.aspx;Bygning;Forsikrede Genstande;Erhverv;False;Success
+Tilbehør til bygningen.aspx;Tilbehør til bygningen.aspx;Bygning;Forsikrede Genstande;Erhverv;False;Success
+Faste elinstallationer.aspx;Faste elinstallationer.aspx;Bygning;Forsikrede Genstande;Erhverv;False;Success
+Udvidet rørskade.aspx;Udvidet rørskade.aspx;Bygning;Udvidet rør;Erhverv;False;Success
+Kumme.aspx;Kumme.aspx;Bygning;Glas og kumme;Erhverv;False;Success
+Glas.aspx;Glas.aspx;Bygning;Glas og kumme;Erhverv;False;Success
+Skybrud bygning.aspx;Skybrud bygning.aspx;Bygning;Anden Bygningsbeskadigelse;Erhverv;False;Success
+Frostsprængning bygning.aspx;Frostsprængning bygning.aspx;Bygning;Anden Bygningsbeskadigelse;Erhverv;False;Success
+Udsivning.aspx;Udsivning.aspx;Bygning;Anden Bygningsbeskadigelse;Erhverv;False;Success
+Tilfældig udstrømning.aspx;Tilfældig udstrømning.aspx;Bygning;Anden Bygningsbeskadigelse;Erhverv;False;Success
+Tyveri og hærværk.aspx;Tyveri og hærværk.aspx;Bygning;Anden Bygningsbeskadigelse;Erhverv;False;Success
+Slukning og bortkomst.aspx;Slukning og bortkomst.aspx;Bygning;Brand;Erhverv;False;Success
+Tørkogning.aspx;Tørkogning.aspx;Bygning;Brand;Erhverv;False;Success
+Lynnedslag.aspx;Lynnedslag.aspx;Bygning;Brand;Erhverv;False;Success
+Hvor dækker forsikringen - bygning.aspx;Hvor dækker forsikringen - bygning.aspx;Bygning;Hvor dækkes;Erhverv;False;Success
+Opstigende kloak eller grundvand.aspx;Opstigende kloak eller grundvand.aspx;Bygning;Anden Bygningsbeskadigelse;Erhverv;False;Success
+Data.aspx;Data.aspx;Løsøre;Forsikrede Genstande;Erhverv;False;Success
+Selvrisiko.aspx;ErhvervSelvrisiko.aspx;Bygning;Erstatningsopgørelse;Erhverv;True;Success
+Medarbejdersager L.aspx;Medarbejdersager L.aspx;Løsøre;Forretningsgange;Erhverv;False;Success
+Medarbejdersager.aspx;ErhvervMedarbejdersager.aspx;Bygning;Forretningsgange;Erhverv;True;Success
+Dirke, falske og tillistede nøgler.aspx;Dirke, falske og tillistede nøgler.aspx;Løsøre;Tyveri;Erhverv;False;Success
+Klausuler på bygning.aspx;Klausuler på bygning.aspx;Bygning;Forretningsgange;Erhverv;False;Success
+Skybrud.aspx;ErhvervSkybrud.aspx;Løsøre;Vand;Erhverv;True;Success
+Låseomstilling.aspx;Låseomstilling.aspx;Løsøre;Tyveri;Erhverv;False;Success
+Kasseapparater.aspx;Kasseapparater.aspx;Løsøre;Forsikrede Genstande;Erhverv;False;Success
+Hvem er sikret - Løsøre.aspx;Hvem er sikret - Løsøre.aspx;Løsøre;Hvem er sikret;Erhverv;False;Success
+Driftstab - undtaget på bygning.aspx;Driftstab - undtaget på bygning.aspx;Bygning;Erstatningsopgørelse;Erhverv;False;Success
+Huslejetab.aspx;Huslejetab.aspx;Bygning;Erstatningsopgørelse;Erhverv;False;Success
+Gulvbelægninger.aspx;Gulvbelægninger.aspx;Bygning;Forsikrede Genstande;Erhverv;False;Success
+Antenner.aspx;Antenner.aspx;Bygning;Forsikrede Genstande;Erhverv;False;Success
+Undtaget under anden bygningsbeskadigelse.aspx;Undtaget under anden bygningsbeskadigelse.aspx;Bygning;Forsikrede Genstande;Erhverv;False;Success
+Hvor dækker forsikringen.aspx;ErhvervHvor dækker forsikringen.aspx;Løsøre;Hvor dækkes;Erhverv;True;Success
+Erstatningsopgørelse.aspx;Erstatningsopgørelse.aspx;Løsøre;Erstatningsopgørelse;Erhverv;False;Success
+Vandskade.aspx;Vandskade.aspx;Løsøre;Vand;Erhverv;False;Success
+Oprydning.aspx;Oprydning.aspx;Løsøre;Erstatningsopgørelse;Erhverv;False;Success
+Bygningsbeskadigelse på løsøre.aspx;Bygningsbeskadigelse på løsøre.aspx;Løsøre;Forsikrede Genstande;Erhverv;False;Success
+Lyn.aspx;ErhvervLyn.aspx;Løsøre;Brand;Erhverv;True;Success
+Fast bygningstilbehør.aspx;Fast bygningstilbehør.aspx;Bygning;Forsikrede Genstande;Erhverv;False;Success
+Elskade.aspx;Elskade.aspx;Løsøre;Brand;Erhverv;False;Success
+Hvem er sikret - bygning.aspx;Hvem er sikret - bygning.aspx;Bygning;Hvem er sikret;Erhverv;False;Success
+Vægmalerier og udsmykning.aspx;Vægmalerier og udsmykning.aspx;Bygning;Forsikrede Genstande;Erhverv;False;Success
+Hegn.aspx;Hegn.aspx;Bygning;Forsikrede Genstande;Erhverv;False;Success
+Eget arbejde bygning.aspx;Eget arbejde bygning.aspx;Bygning;Erstatningsopgørelse;Erhverv;False;Success
+Moms på bygning.aspx;Moms på bygning.aspx;Bygning;Erstatningsopgørelse;Erhverv;False;Success
+Nedbør.aspx;Nedbør.aspx;Bygning;Anden Bygningsbeskadigelse;Erhverv;False;Success
+Pludselig skade ikke dækket.aspx;Pludselig skade ikke dækket.aspx;Bygning;Anden Bygningsbeskadigelse;Erhverv;False;Success
+Glas og kumme på løsøre.aspx;Glas og kumme på løsøre.aspx;Løsøre;Forsikrede Genstande;Erhverv;False;Success
+Motorkøretøjer.aspx;Motorkøretøjer.aspx;Løsøre;Forsikrede Genstande;Erhverv;False;Success
+Dokumentation.aspx;ErhvervDokumentation.aspx;Løsøre;Erstatningsopgørelse;Erhverv;True;Success
+Moms.aspx;ErhvervMoms.aspx;Løsøre;Erstatningsopgørelse;Erhverv;True;Success
+Frostsprængning.aspx;ErhvervFrostsprængning.aspx;Løsøre;Vand;Erhverv;True;Success

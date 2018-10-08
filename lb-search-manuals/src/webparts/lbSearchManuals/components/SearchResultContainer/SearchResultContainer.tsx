@@ -56,18 +56,6 @@ export default class SearchResultContainer extends React.Component<ISearchResult
       }
 
 
-    private _toggleGroup(ctrl:any):void{
-
-    }
-
-
-
-      
-    
-    
-      
-
-
       public render(): React.ReactElement<ISearchResultContainerProps> {  
         
       
@@ -114,61 +102,61 @@ export default class SearchResultContainer extends React.Component<ISearchResult
   }
 
 
-  function Test(items: ISearchResult[]):void{
-    var s:string="";
-    {
-        items.map(function (item, key) {
-            console.log('Grouped array ');
-            console.log(item);
-            return "";
-        });
-    }
+//   function Test(items: ISearchResult[]):void{
+//     var s:string="";
+//     {
+//         items.map(function (item, key) {
+//             console.log('Grouped array ');
+//             console.log(item);
+//             return "";
+//         });
+//     }
 
-  }
+//   }
 
 
         
-function _myRender(groupedManuals:any):any {  
+// function _myRender(groupedManuals:any):any {  
 
 
 
-    return(
-        <div>
+//     return(
+//         <div>
 
-             {(() => {
-                for (let index = 0; index < Object.keys(groupedManuals).length; index++) {
-                    var category =Object.keys(groupedManuals)[index];
-                    console.log(category);
-                    console.log(index);
-                    // groupedManuals[category].sort((a,b)=>a.Title.localeCompare(b.Title));
-                    console.log(groupedManuals[category]);
-                    return(
-                        <div>
-                            <MessageBar messageBarType={MessageBarType.info} isMultiline={false}>
-                                            {category} - juhu
-                                            </MessageBar>  
-                                            {groupedManuals[category].map((m,i)=>{
-                                                return <div>{m.Title} - tahah</div>
-                                            })
+//              {(() => {
+//                 for (let index = 0; index < Object.keys(groupedManuals).length; index++) {
+//                     var category =Object.keys(groupedManuals)[index];
+//                     console.log(category);
+//                     console.log(index);
+//                     // groupedManuals[category].sort((a,b)=>a.Title.localeCompare(b.Title));
+//                     console.log(groupedManuals[category]);
+//                     return(
+//                         <div>
+//                             <MessageBar messageBarType={MessageBarType.info} isMultiline={false}>
+//                                             {category} - juhu
+//                                             </MessageBar>  
+//                                             {groupedManuals[category].map((m,i)=>{
+//                                                 return <div>{m.Title} - tahah</div>
+//                                             })
         
-                                            }
-                        </div>
-                    )
-                }
+//                                             }
+//                         </div>
+//                     )
+//                 }
                 
 
 
 
 
-                            })()}
+//                             })()}
         
         
-        </div>
-    )
+//         </div>
+//     )
 
 
     
-}
+// }
 function InsertMessageBar(item: ISearchResult) {
     {
         (() => {

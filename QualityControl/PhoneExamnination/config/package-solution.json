@@ -1,0 +1,12 @@
+{
+  "$schema": "https://dev.office.com/json-schemas/spfx-build/package-solution.schema.json",
+  "solution": {
+    "name": "phone-examnination-client-side-solution",
+    "id": "13d24bc2-1b69-4d1e-be9e-37fafc4f6b2f",
+    "version": "1.0.0.0",
+    "includeClientSideAssets": true
+  },
+  "paths": {
+    "zippedPackage": "solution/phone-examnination.sppkg"
+  }
+}

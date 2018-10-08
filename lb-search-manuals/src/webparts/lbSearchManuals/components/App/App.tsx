@@ -151,13 +151,13 @@ export default class App extends React.Component<IAppProps, IAppState> {
               
                 
                 <div className="ms-Grid-row">
-                    <div className="ms-Grid-col ms-sm6">       
+                    {/* <div className="ms-Grid-col ms-sm6">       
                         <RefinementPanel    refiners={this.state.results.RefinementResults}  
                                             callbackSetRefinementFilters={(newState) => this.onRefinementFiltersChanged(newState) }
                                             callbackClearRefinementFilters={() => this.onRefinementFiltersChanged(null) }/>
-                    </div>
+                    </div> */}
 
-                    <div className="ms-Grid-col ms-sm6">
+                    <div className="ms-Grid-col ms-sm12">
                         <SearchResultContainer  results={this.state.results.RelevantResults} 
                                                 showCompactMode={this.state.compactMode} />
                     </div>

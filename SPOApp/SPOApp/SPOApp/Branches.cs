@@ -30,6 +30,7 @@ namespace SPOApp
         string individuelLønsikring;
         string kollektivLønsikring;
         string ejerskifte;
+        string erhverv;
         public Branches()
         {
             this.ansvar = "Ansvar";
@@ -54,6 +55,8 @@ namespace SPOApp
             this.IndividuelLønsikring = "Individuel lønsikring";
             this.kollektivLønsikring = "Kollektiv lønsikring";
             this.ejerskifte = "Ejerskifte";
+            this.erhverv= "Erhverv";
+
         }
 
         public string Ansvar { get => ansvar; set => ansvar = value; }
@@ -78,5 +81,6 @@ namespace SPOApp
         public string IndividuelLønsikring { get => individuelLønsikring; set => individuelLønsikring = value; }
         public string KollektivLønsikring { get => kollektivLønsikring; set => kollektivLønsikring = value; }
         public string Ejerskifte { get => ejerskifte; set => ejerskifte= value; }
+        public string Erhverv{ get => erhverv; set => erhverv = value; }
     }
 }

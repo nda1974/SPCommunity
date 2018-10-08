@@ -183,6 +183,8 @@ namespace SPOApp
                     return @"https://lbforsikring.sharepoint.com/sites/Skade/SiteAssets/ikoner/lønsikring.png";
                 case "Ejerskifte":
                     return @"https://lbforsikring.sharepoint.com/sites/Skade/SiteAssets/ikoner/fårhus.png";
+                case "Erhverv":
+                    return @"https://lbforsikring.sharepoint.com/sites/Skade/SiteAssets/ikoner/erhverv.png";
                 default:
                     return string.Empty;
             }
@@ -359,8 +361,6 @@ namespace SPOApp
         public static void ValidateContent(ClientContext ctx, string branch)
         {
             lstValidateContent.Add("Filnavn;Content");
-            //lstValidateContent.Add("Filnavn;Gruppe;Undergruppe;Branche;Content");
-            //lstLinksInContent.Add("Filnavn;Gruppe;Undergruppe;Branche;Content;IsLinkCoincidence");
             lstLinksInContent.Add("Filnavn;Branche;Content;IsLinkCoincidence;FileInLink;NytLink;Prefix");
             CamlQuery camlQuery = new CamlQuery();
             string viewXml = string.Format(@"
@@ -402,22 +402,18 @@ namespace SPOApp
                             {
                                 Console.ForegroundColor = ConsoleColor.Yellow;
 
-                                //string strWriteLine = String.Format("{0};{1};{2};{3};{4}",
                                 string strWriteLine = String.Format("{0};{1}",
                                                                     item["FileLeafRef"],
-                                                                    //item["Gruppe"] != null ? item["Gruppe"].ToString() : "Gruppe",
-                                                                    //item["Undergruppe"] != null ? item["Undergruppe"].ToString() : "Undergruppe",
-                                                                    //branch,
                                                                     t.Text
                                                                     );
                                 lstValidateContent.Add(strWriteLine);
 
                                 Console.ForegroundColor = ConsoleColor.White;
                             }
-                            if (t.Text.Contains(@"images/pdf16.gif"))
-                            {
-                                pdfList.Add(item["FileLeafRef"].ToString());
-                            }
+                            //if (t.Text.Contains(@"images/pdf16.gif"))
+                            //{
+                            //    pdfList.Add(item["FileLeafRef"].ToString());
+                            //}
 
                             Regex regex = new Regex("href\\s*=\\s*(?:\"(?<1>[^\"]*)\"|(?<1>\\S+))", RegexOptions.IgnoreCase);
                             Match match;
@@ -425,51 +421,7 @@ namespace SPOApp
                             {
                                 foreach (System.Text.RegularExpressions.Capture capture in match.Captures)
                                 {
-                                    //if (capture.Value.IndexOf(".aspx") > 0)
-                                    //{
-                                    //    string s = capture.Value.Substring(0, capture.Value.IndexOf(".aspx"));
-                                    //    string ss = s.Substring(s.LastIndexOf('/') + 1) + ".aspx";
-                                    //    bool isCoincidenceInFilename = MigrationEngine.IsPageCoincidence(new GenericManualStruct
-                                    //    {
-                                    //        Branche = branch,
-                                    //        FileName = ss
-                                    //    }, L);
-                                    //    //lstLinksInContent.Add("Filnavn;Branche;Content;IsLinkCoincidence;FileInLink;NytLink;Prefix");
-                                    //    string strWriteLine = String.Format("{0};{1};{2};{3};{4};{5};{6}",
-                                    //                                    item["FileLeafRef"],
-                                    //                                    //item["Gruppe"] != null ? item["Gruppe"].ToString() : "Gruppe",
-                                    //                                    //item["Undergruppe"] != null ? item["Undergruppe"].ToString() : "Undergruppe",
-                                    //                                    branch,
-                                    //                                    capture,
-                                    //                                    isCoincidenceInFilename,
-                                    //                                    ss,
-                                    //                                    string.Empty,
-                                    //                                    string.Empty
-                                    //                                    );
-
-                                    //    lstLinksInContent.Add(strWriteLine);
-                                    //}
-                                    //if (capture.Value.IndexOf(".aspx") < 0)
-                                    //{
-                                    //    string postfixPosition2 = capture.Value.Substring(capture.Value.LastIndexOf('/') + 1);
-
-                                    //    string postfixPosition3 = postfixPosition2.Substring(0, postfixPosition2.Length - 1);
-                                    //    Console.WriteLine(postfixPosition3);
-
-                                    //    string strWriteLine = String.Format("{0};{1};{2};{3};{4};{5};{6}",
-                                    //                                    item["FileLeafRef"],
-                                    //                                    //item["Gruppe"] != null ? item["Gruppe"].ToString() : "Gruppe",
-                                    //                                    //item["Undergruppe"] != null ? item["Undergruppe"].ToString() : "Undergruppe",
-                                    //                                    branch,
-                                    //                                    capture,
-                                    //                                    false,
-                                    //                                    postfixPosition3,
-                                    //                                    string.Empty,
-                                    //                                    string.Empty
-                                    //                                    );
-
-                                    //    lstLinksInContent.Add(strWriteLine);
-                                    //}
+                                    
                                     string postfixPosition2 = capture.Value.Substring(capture.Value.LastIndexOf('/') + 1);
 
                                     string postfixPosition3 = postfixPosition2.Substring(0, postfixPosition2.Length - 1);
@@ -560,6 +512,7 @@ namespace SPOApp
             List<GenericManualStruct> lstIndividuelLønsikring = MigrationEngine.GetSourceFilesFromCSV(SHAREPOINT_2_EXCEL_FILEPATH + objBranches.IndividuelLønsikring + ".csv");
             List<GenericManualStruct> lstKollektivLønsikring = MigrationEngine.GetSourceFilesFromCSV(SHAREPOINT_2_EXCEL_FILEPATH + objBranches.KollektivLønsikring + ".csv");
             List<GenericManualStruct> lstEjerskifte = MigrationEngine.GetSourceFilesFromCSV(SHAREPOINT_2_EXCEL_FILEPATH + objBranches.Ejerskifte+ ".csv");
+            List<GenericManualStruct> lstErhverv = MigrationEngine.GetSourceFilesFromCSV(SHAREPOINT_2_EXCEL_FILEPATH + objBranches.Erhverv+ ".csv");
 
 
 
@@ -586,6 +539,7 @@ namespace SPOApp
             L.Add(lstIndividuelLønsikring);
             L.Add(lstKollektivLønsikring);
             L.Add(lstEjerskifte);
+            L.Add(lstErhverv);
 
             string newFilenamePrefix = string.Empty;
             //lstCreateModernPagesLog.Add("Filnavn;Gruppe;Undergruppe;Branche;Status");
@@ -617,7 +571,7 @@ namespace SPOApp
                     //                                                objBranches.Båd,
                     //                                                objBranches.Storskade,
                     //                                                objBranches.IndividuelLønsikring};
-                    List<string> lstBranches = new List<string>() { objBranches.Skybrudsmanual};
+                    List<string> lstBranches = new List<string>() { objBranches.Erhverv};
                     foreach (var branch in lstBranches)
                     {
                         lstCreateModernPagesLog = new List<string>();

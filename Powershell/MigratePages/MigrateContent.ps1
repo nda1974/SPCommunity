@@ -349,7 +349,7 @@ function RunNewVersion
         }
         elseif($branch -eq 'Skybrudsmanual')
         {
-            $branchSiteUrl="http://intranet.lb.dk/Skade/hb/SkybrudsManual/SitePages"
+            $branchSiteUrl="http://intranet.lb.dk/Skade/hb/SkybrudsManual/SitePages/"
         }
         elseif($branch -eq 'Storskade')
         {

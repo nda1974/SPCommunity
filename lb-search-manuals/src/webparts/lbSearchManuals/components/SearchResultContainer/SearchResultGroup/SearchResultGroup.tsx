@@ -20,7 +20,7 @@ export default class SearchResultGroup extends React.Component<ISearchResultGrou
     
     public constructor(props:ISearchResultGroupProps, state:ISearchResultGroupState){  
             super(props);  
-        this.state={show:true}
+        this.state={show:false}
             this.updateState = this.updateState.bind(this);
             
     }
