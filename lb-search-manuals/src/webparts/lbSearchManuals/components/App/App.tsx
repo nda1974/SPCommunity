@@ -139,33 +139,34 @@ export default class App extends React.Component<IAppProps, IAppState> {
                 <div className="ms-Grid">    
               
                 <div className="ms-Grid-row">
-                
-                    <div className="ms-Grid-col ms-sm12 ms-md12 ms-lg12">
-                        <SearchInputContainer   callbackDisplayMode={(newState) => this.onDisplayModeChanged(newState)} 
-                                                callbackSetAppContainerQueryString={(newState) => this.onQueryTextChanged(newState) }/>
+                    <SearchInputContainer   callbackDisplayMode={(newState) => this.onDisplayModeChanged(newState)} 
+                                                    callbackSetAppContainerQueryString={(newState) => this.onQueryTextChanged(newState) }/>
+                                                    <br></br>
+                            
+                    <SearchResultContainer  results={this.state.results.RelevantResults} 
+                                            showCompactMode={this.state.compactMode} />
+                    {/* <div className="ms-Grid-col ms-sm12 ms-md12 ms-lg12">
                                                 <br/><br/>
-                    </div>
+                    </div> */}
                 
                 
-                </div>
+                
               
                 
-                <div className="ms-Grid-row">
                     {/* <div className="ms-Grid-col ms-sm6">       
                         <RefinementPanel    refiners={this.state.results.RefinementResults}  
                                             callbackSetRefinementFilters={(newState) => this.onRefinementFiltersChanged(newState) }
                                             callbackClearRefinementFilters={() => this.onRefinementFiltersChanged(null) }/>
                     </div> */}
-
-                    <div className="ms-Grid-col ms-sm12">
-                        <SearchResultContainer  results={this.state.results.RelevantResults} 
-                                                showCompactMode={this.state.compactMode} />
-                    </div>
                 
-                </div>
+                    {/* <div className="ms-Grid-col ms-sm12">
+                    
+                    </div> */}
+                
                                     
                     {/* <p>Querytext state {this.state.queryText}</p>
                     <p>DisplayMode state {this.state.compactMode}</p> */}
+                </div>
             </div>
             );
         }

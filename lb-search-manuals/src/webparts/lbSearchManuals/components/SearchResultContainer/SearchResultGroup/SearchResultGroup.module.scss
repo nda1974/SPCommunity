@@ -31,6 +31,8 @@ $white: "[theme:white, default:#fff]";
     padding:10px;
     @include ms-fontSize-l;
     margin-bottom: 5px;
+    margin-left: 0px;
+    margin-right: 0px;
     
 }
 
@@ -39,12 +41,12 @@ $white: "[theme:white, default:#fff]";
     @include ms-fontSize-l;
 }
 .ManualRow{
-    @include ms-Grid-row;
-    padding:5px 10px 5px 10px;
+    // @include ms-Grid-row;
+    padding:5px 0px 5px 10px;
     margin-bottom: 2px;
     
     
-    width: 100%;
+    // width: 100%;
     @include ms-fontSize-m;
     border-bottom-color: $themePrimary;
     border-bottom-style: solid;

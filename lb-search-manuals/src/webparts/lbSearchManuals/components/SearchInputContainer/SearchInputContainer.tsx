@@ -21,25 +21,26 @@ export default class SearchInputContainer extends React.Component<ISearchInputCo
 
     public render(): React.ReactElement<ISearchInputContainerProps> {  
         return(
-            <div className="ms-Grid">
-                <div className="ms-Grid-row">
-                    <div className="ms-Grid-col ms-sm6 ms-md8 ms-lg10">
+            <div >
+            <SearchBox
+                            placeholder="Søg"
+                            onSearch={ (newValue:string) => {this._search(newValue)} }
+                        />
+                        <label className={styles.SearchInputLabel}>Tryk [Enter] for at udføre søgning. Tryk [*] + [Enter] for at nulstille søgningen</label>
+
+                {/* <div className="ms-Grid-row"> */}
+                    {/* <div className="ms-Grid-col ms-sm6 ms-md12 ms-lg12"> */}
                                              
                         {/* <TextField
                         onChanged={ (newValue:string) => {this.setState({queryText: newValue});} }
                         value={this.state.queryText}
                         /> */}
 
-                        <SearchBox
-                            placeholder="Søg"
-                            onSearch={ (newValue:string) => {this._search(newValue)} }
-                        />
-                        <label className={styles.SearchInputLabel}>Tryk [Enter] for at udføre søgning. Tryk [*] + [Enter] for at nulstille søgningen</label>
-
+                        
 
 
                          
-                    </div>
+                    {/* </div> */}
                     {/* <div className="ms-Grid-col ms-sm6 ms-md4 ms-lg2">
                     <Toggle
                             defaultChecked={ false }
@@ -51,7 +52,7 @@ export default class SearchInputContainer extends React.Component<ISearchInputCo
                             />
                     </div> */}
                     
-                </div>
+                {/* </div> */}
 
                 
             </div>

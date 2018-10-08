@@ -79,15 +79,16 @@ export default class SearchResultContainer extends React.Component<ISearchResult
 
         return(
             
-            <div className="ms-Grid-row">
+            <div >
             
                 {
                     arrGroupKeys.map((groupKey)=>{
                     const group = groupedManuals[groupKey];
                     
-                    return  <div className="ms-Grid-row">
-                                <SearchResultGroup groupName={groupKey} manuals={group} displayCompactMode={showCompactMode} ></SearchResultGroup>    
-                            </div>
+                    return  <SearchResultGroup groupName={groupKey} manuals={group} displayCompactMode={showCompactMode} ></SearchResultGroup>    
+                    // <div className="ms-Grid-row">
+                                
+                    //         </div>
                 })}
             
         

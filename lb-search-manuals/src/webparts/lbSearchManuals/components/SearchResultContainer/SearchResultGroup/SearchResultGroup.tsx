@@ -114,7 +114,8 @@ export default class SearchResultGroup extends React.Component<ISearchResultGrou
                                     {showTeaserRow==true?<div>{group[manual].LBTeaser} </div>:null}
                                 
                                     {showAdditionalInfoRow==true?
-                                    <div className="ms-Grid-row">
+                                    // <div className="ms-Grid-row">
+                                    <div >
                                         
                                         <br/>
                                         {
