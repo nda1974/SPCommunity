@@ -1,0 +1,11 @@
+﻿PriviligedUser;PriviligedUserEmail;Initialer;Department;Subdepartment;Fordeling;Employee;EmployeeEmail;ClaimID;BatchDate;BatchId
+Lea Frimand Byager;leby@lb.dk;LEBY;Bilskade;Bådskade;30;Jacob Dueholm;jadu@lb.dk;1;9-10-2018;1
+Lea Frimand Byager;leby@lb.dk;LEBY;Bilskade;Bådskade;30;Jacob Dueholm;jadu@lb.dk;2;9-10-2018;1
+Nicolai Danielsen;nicd@lb.dk;NICD;Bilskade;Bådskade;70;Jacob Dueholm;jadu@lb.dk;3;9-10-2018;1
+Nicolai Danielsen;nicd@lb.dk;NICD;Bilskade;Bådskade;70;Luise Jørgensen;lujo@lb.dk;4;9-10-2018;1
+Nicolai Danielsen;nicd@lb.dk;NICD;Bilskade;Bådskade;70;Luise Jørgensen;lujo@lb.dk;5;9-10-2018;1
+Lea Frimand Byager;leby@lb.dk;LEBY;Bilskade;Bådskade;30;Carsten Rasmussen;carr@lb.dk;6;9-10-2018;1
+Nicolai Danielsen;nicd@lb.dk;NICD;Bilskade;Bådskade;70;Mads Yhde;mayh@lb.dk;7;9-10-2018;1
+Nicolai Danielsen;nicd@lb.dk;NICD;Bilskade;Bådskade;70;Ole Jensen;olje@lb.dk;8;9-10-2018;1
+Nicolai Danielsen;nicd@lb.dk;NICD;Bilskade;Bådskade;70;Ole Jensen;olje@lb.dk;9;9-10-2018;1
+Nicolai Danielsen;nicd@lb.dk;NICD;Bilskade;Bådskade;70;Troels Nielsen;trni@lb.dk;10;9-10-2018;1

@@ -9,7 +9,7 @@ function _traverseGroup(){
     $group | foreach{
     
         #$global:emailBody=$global:emailBody + "<a href='https://lbforsikring.sharepoint.com/sites/skade/_layouts/15/workbench.aspx?ClaimID="+$_.ClaimID+"&BatchID="+$_.BatchID+"'>"+$_.ClaimID + "</a></br>"
-        $global:emailBody=$global:emailBody + "<a href='https://lbforsikring.sharepoint.com/sites/skade/sitepages/Claim-Quality-Control.aspx?ClaimID="+$_.ClaimID+"&BatchID="+$_.BatchID+"'>"+$_.ClaimID + "</a></br>"
+        $global:emailBody=$global:emailBody + "<a href='https://lbforsikring.sharepoint.com/sites/skade/sitepages/Claim-Quality-Control.aspx?ClaimID="+$_.ClaimID+"&BatchID="+$_.BatchID+"'>Link til kvalitetskontrol af sagsnr: "+$_.ClaimID + "</a></br>"
         $priviligedUser=$_.PriviligedUser
         _createClaimControl -itemToCreate $_
     }
@@ -31,6 +31,8 @@ param
                                           "ClaimID"=$_.ClaimID;
                                           "Department"=$_.Department;  }
 }
+
+
 #region Variables 
  $Username = "sadmnicd@lbforsikring.onmicrosoft.com" 
  $Password = "MandM1974" 
@@ -46,10 +48,8 @@ $ListName="Quality Control - Claims Handler Answers"
 
 Connect-PnPOnline -Url $SiteURL -Credentials $PSCredentials
 
-
-
-
-$importFilePath = 'C:\Git\LBIntranet\QualityControl\Excel-output kvalitetskontrol.csv'
+#$importFilePath = 'C:\Git\LBIntranet\QualityControl\Excel-output kvalitetskontrol.csv'
+$importFilePath = 'C:\Git\LBIntranet\QualityControl\skadekontrol.csv'
 $itemsFromFile = Import-Csv -Path $importFilePath -Delimiter ';' -Encoding UTF8
 $groupeditems = $itemsFromFile  | Group-Object {$_.PriviligedUserEmail},{$_.PriviligedUserEmail}
 
