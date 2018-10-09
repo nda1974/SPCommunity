@@ -399,6 +399,15 @@ function RunNewVersion
         {
             $branchSiteUrl="http://intranet.lb.dk/Skade/hb/lønsikringkollektiv/SitePages/"
         }  
+        elseif($branch -eq 'Stormflod')
+        {
+            $branchSiteUrl="http://intranet.lb.dk/Skade/hb/SF/SitePages/"
+        }
+        elseif($branch -eq 'Stormmanual')
+        {
+            $branchSiteUrl="http://intranet.lb.dk/Skade/hb/StormManual/SitePages/"
+        }
+        
         else{
             $branchSiteUrl=$null
 

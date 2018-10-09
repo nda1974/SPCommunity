@@ -31,6 +31,8 @@ namespace SPOApp
         string kollektivLønsikring;
         string ejerskifte;
         string erhverv;
+        string generelSkadePolitik;
+        string stormFlod;
         public Branches()
         {
             this.ansvar = "Ansvar";
@@ -49,13 +51,15 @@ namespace SPOApp
             this.skadeservice = "Skadeservice";
             this.skybrudsmanual = "Skybrudsmanual";
             this.beredskab = "Beredskab";
-            this.stormmanual = "Stormmanual";
+            this.stormmanual = "StormManual";
             this.storskade = "Storskade";
             this.båd = "Båd";
             this.IndividuelLønsikring = "Individuel lønsikring";
             this.kollektivLønsikring = "Kollektiv lønsikring";
             this.ejerskifte = "Ejerskifte";
             this.erhverv= "Erhverv";
+            this.generelSkadePolitik= "Generel skadepolitik";
+            this.stormFlod = "Stormflod";
 
         }
 
@@ -75,12 +79,14 @@ namespace SPOApp
         public string Skadeservice { get => skadeservice; set => skadeservice = value; }
         public string Skybrudsmanual { get => skybrudsmanual; set => skybrudsmanual = value; }
         public string Beredskab { get => beredskab; set => beredskab = value; }
-        public string Stormmanual { get => stormmanual; set => stormmanual = value; }
         public string Storskade { get => storskade; set => storskade = value; }
         public string Båd { get => båd; set => båd = value; }
         public string IndividuelLønsikring { get => individuelLønsikring; set => individuelLønsikring = value; }
         public string KollektivLønsikring { get => kollektivLønsikring; set => kollektivLønsikring = value; }
         public string Ejerskifte { get => ejerskifte; set => ejerskifte= value; }
         public string Erhverv{ get => erhverv; set => erhverv = value; }
+        public string GenerelSkadePolitik { get => generelSkadePolitik; set => generelSkadePolitik= value; }
+        public string StormFlod { get => stormFlod; set => stormFlod = value; }
+        public string StormManual { get => stormmanual; set => stormmanual = value; }
     }
 }

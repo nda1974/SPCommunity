@@ -183,8 +183,12 @@ namespace SPOApp
                     return @"https://lbforsikring.sharepoint.com/sites/Skade/SiteAssets/ikoner/lønsikring.png";
                 case "Ejerskifte":
                     return @"https://lbforsikring.sharepoint.com/sites/Skade/SiteAssets/ikoner/fårhus.png";
+                case "Generel Skadepolitik":
+                    return @"https://lbforsikring.sharepoint.com/sites/Skade/SiteAssets/ikoner/Generel%20skadepolitik.png";
                 case "Erhverv":
                     return @"https://lbforsikring.sharepoint.com/sites/Skade/SiteAssets/ikoner/erhverv.png";
+
+
                 default:
                     return string.Empty;
             }
@@ -421,7 +425,7 @@ namespace SPOApp
                             {
                                 foreach (System.Text.RegularExpressions.Capture capture in match.Captures)
                                 {
-                                    
+
                                     string postfixPosition2 = capture.Value.Substring(capture.Value.LastIndexOf('/') + 1);
 
                                     string postfixPosition3 = postfixPosition2.Substring(0, postfixPosition2.Length - 1);
@@ -506,13 +510,15 @@ namespace SPOApp
 
             List<GenericManualStruct> lstSkybrudsmanual = MigrationEngine.GetSourceFilesFromCSV(SHAREPOINT_2_EXCEL_FILEPATH + objBranches.Skybrudsmanual + ".csv");
             List<GenericManualStruct> lstBeredskab = MigrationEngine.GetSourceFilesFromCSV(SHAREPOINT_2_EXCEL_FILEPATH + objBranches.Beredskab + ".csv");
-            List<GenericManualStruct> lstStormmanual = MigrationEngine.GetSourceFilesFromCSV(SHAREPOINT_2_EXCEL_FILEPATH + objBranches.Stormmanual + ".csv");
+            List<GenericManualStruct> lstStormmanual = MigrationEngine.GetSourceFilesFromCSV(SHAREPOINT_2_EXCEL_FILEPATH + objBranches.StormManual + ".csv");
             List<GenericManualStruct> lstStorskade = MigrationEngine.GetSourceFilesFromCSV(SHAREPOINT_2_EXCEL_FILEPATH + objBranches.Storskade + ".csv");
             List<GenericManualStruct> lstBåd = MigrationEngine.GetSourceFilesFromCSV(SHAREPOINT_2_EXCEL_FILEPATH + objBranches.Båd + ".csv");
             List<GenericManualStruct> lstIndividuelLønsikring = MigrationEngine.GetSourceFilesFromCSV(SHAREPOINT_2_EXCEL_FILEPATH + objBranches.IndividuelLønsikring + ".csv");
             List<GenericManualStruct> lstKollektivLønsikring = MigrationEngine.GetSourceFilesFromCSV(SHAREPOINT_2_EXCEL_FILEPATH + objBranches.KollektivLønsikring + ".csv");
-            List<GenericManualStruct> lstEjerskifte = MigrationEngine.GetSourceFilesFromCSV(SHAREPOINT_2_EXCEL_FILEPATH + objBranches.Ejerskifte+ ".csv");
-            List<GenericManualStruct> lstErhverv = MigrationEngine.GetSourceFilesFromCSV(SHAREPOINT_2_EXCEL_FILEPATH + objBranches.Erhverv+ ".csv");
+            List<GenericManualStruct> lstEjerskifte = MigrationEngine.GetSourceFilesFromCSV(SHAREPOINT_2_EXCEL_FILEPATH + objBranches.Ejerskifte + ".csv");
+            List<GenericManualStruct> lstErhverv = MigrationEngine.GetSourceFilesFromCSV(SHAREPOINT_2_EXCEL_FILEPATH + objBranches.Erhverv + ".csv");
+            List<GenericManualStruct> lstGenerelSkadePolitik = MigrationEngine.GetSourceFilesFromCSV(SHAREPOINT_2_EXCEL_FILEPATH + objBranches.GenerelSkadePolitik + ".csv"); 
+            List<GenericManualStruct> lstStormflod = MigrationEngine.GetSourceFilesFromCSV(SHAREPOINT_2_EXCEL_FILEPATH + objBranches.StormFlod + ".csv");
 
 
 
@@ -540,12 +546,11 @@ namespace SPOApp
             L.Add(lstKollektivLønsikring);
             L.Add(lstEjerskifte);
             L.Add(lstErhverv);
+            L.Add(lstGenerelSkadePolitik);
+            L.Add(lstStormflod);
 
             string newFilenamePrefix = string.Empty;
-            //lstCreateModernPagesLog.Add("Filnavn;Gruppe;Undergruppe;Branche;Status");
 
-
-            //MigrationEngine.ChangePageLayoutType(ctx, L);
             switch (InputFromScreen_FEATURE)
             {
                 case "1":
@@ -571,7 +576,7 @@ namespace SPOApp
                     //                                                objBranches.Båd,
                     //                                                objBranches.Storskade,
                     //                                                objBranches.IndividuelLønsikring};
-                    List<string> lstBranches = new List<string>() { objBranches.Erhverv};
+                    List<string> lstBranches = new List<string>() { objBranches.Skadeservice};
                     foreach (var branch in lstBranches)
                     {
                         lstCreateModernPagesLog = new List<string>();
@@ -579,7 +584,7 @@ namespace SPOApp
                         //InputFromScreen_BRANCHE = branch;
 
                         //CreatemodernPagesFeature(InputFromScreen_BRANCHE, ctx, L, newFilenamePrefix);
-                        
+
                         CreatemodernPagesFeature(InputFromScreen_BRANCHE, ctx, L);
 
                         System.IO.File.WriteAllLines(@"C:\Git\LBIntranet\SPOApp\SPOApp\SPOApp\importfiles\CreateModernPagesLog\log_" + InputFromScreen_BRANCHE + ".csv", lstCreateModernPagesLog.ToArray(), Encoding.UTF8);
@@ -1031,29 +1036,13 @@ namespace SPOApp
 
                 foreach (GenericManualStruct manual in lstManual)
                 {
-
-
                     //InputFromScreen_BRANCHE
-                    //if (manual.Branche.Equals("Personskade") ||
-                    //    manual.Branche.Equals("Regres") ||
-                    //    manual.Branche.Equals("Retshjælp") ||
-                    //    manual.Branche.Equals("Gerningsmand") ||
-                    //    manual.Branche.Equals("Hund") ||
-                    //    manual.Branche.Equals("Sanering") ||
-                    //    manual.Branche.Equals("BPG") ||
-                    //    manual.Branche.Equals("Skadeservice") ||
-                    //    manual.Branche.Equals("ScalePoint"))
                     if (manual.Branche.Equals(InputFromScreen_BRANCHE))
                     {
                         counter++;
                         Console.WriteLine("Creating " + counter + " of " + lstManual.Count + " Modern Pages");
-                        
-                        bool isCoincidenceInFilename = MigrationEngine.IsPageCoincidence(manual, L);
-                        //if (MigrationEngine.IsPageCoincidence(manual, L))
-                        //{
-                        //    newFilenamePrefix = manual.Branche;
-                        //}
 
+                        bool isCoincidenceInFilename = MigrationEngine.IsPageCoincidence(manual, L);
                         try
                         {
                             modernPageFilename = isCoincidenceInFilename ? manual.Branche + manual.FileName : manual.FileName;
