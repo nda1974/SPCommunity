@@ -110,12 +110,21 @@ export default class TopMenu extends React.Component<ITopBarProps, ITopBarState>
             if (favourite.LBAudience) {
                 const isCurrentUserMemberOfGroup: any = await this.CheckIfUserBelongsToGroup(favourite.LBAudience, this.state.currentUser.Email)
                 // const isCurrentUserMemberOfGroup = await isCurrentUserMemberOfGroupResponse;
-                if (isCurrentUserMemberOfGroup) {
-                    if (isCurrentUserMemberOfGroup.length > 0) {
-                        // myFavouritesCollection.push(favourite);
-                        returnlist.push(favourite);
-                    }
+                
+                if (isCurrentUserMemberOfGroup == true) {
+                    returnlist.push(favourite);
                 }
+                // if (isCurrentUserMemberOfGroup) {
+                //     if (isCurrentUserMemberOfGroup.length > 0) {
+                //         isCurrentUserMemberOfGroup.map(user=>{
+                //             if(user.Id == this.state.currentUser.Id)
+                //             returnlist.push(favourite);
+                //             console.log('hurray')
+                //         })
+                        
+                //         //returnlist.push(favourite);
+                //     }
+                // }
             }
             else {
                 // myFavouritesCollection.push(favourite);
@@ -206,16 +215,49 @@ export default class TopMenu extends React.Component<ITopBarProps, ITopBarState>
 
             </div>)
     }
-    public async CheckIfUserBelongsToGroup(groupName: string, userEmail: string): Promise<any> {
-
+    public async CheckIfUserBelongsToGroup(groupName: string, userEmail: string): Promise<boolean> {
+        let resBool:any=false;
         try {
-            const response = await pnp.sp.web.siteGroups.getByName(groupName).users.get();
+            const response = await pnp.sp.web.siteGroups.getByName(groupName).users.get().then((res)=>
+            res.map(user=>{
+                if(user.Email == this.state.currentUser.Email)
+                {
+                    resBool=  true
+                }
+            })
+
+            );
+            // response.map(group=>{
+            //     if(userEmail == this.state.currentUser.Email)
+            //     {
+            //         resBool=  true
+            //     }
+            // })
             // const data =await response
-            return response;
+            // return response;
         } catch (error) {
             return null;
         }
+        return resBool;
 
+    }
+    public async CheckIfUserBelongsToGroupORG(groupName: string, userEmail: string): Promise<any> {
+        let resBool:any=false;
+        try {
+            const response = await pnp.sp.web.siteGroups.getByName(groupName).users.get();
+            response.map(group=>{
+                if(userEmail == this.state.currentUser.Email)
+                {
+                    resBool=  true
+                }
+            })
+            // const data =await response
+            // return response;
+            resBool=false;
+        } catch (error) {
+            return null;
+        }
+        return resBool;
 
     }
     public async saveFavourite(favouriteItem: IFavouriteItem): Promise<boolean> {
