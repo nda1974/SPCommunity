@@ -2,7 +2,8 @@
 function _traverseGroup(){
     param
     (
-        [Parameter(Mandatory=$true)] [System.Object] $group
+        [Parameter(Mandatory=$true)] [System.Object] $group,
+        [Parameter(Mandatory=$true)] [string] $groupId
         
     )
     $priviligedUser='';
@@ -11,17 +12,19 @@ function _traverseGroup(){
         #$global:emailBody=$global:emailBody + "<a href='https://lbforsikring.sharepoint.com/sites/skade/_layouts/15/workbench.aspx?ClaimID="+$_.ClaimID+"&BatchID="+$_.BatchID+"'>"+$_.ClaimID + "</a></br>"
         $global:emailBody=$global:emailBody + "<a href='https://lbforsikring.sharepoint.com/sites/skade/sitepages/Claim-Quality-Control.aspx?ClaimID="+$_.ClaimID+"&BatchID="+$_.BatchID+"'>Link til kvalitetskontrol af sagsnr: "+$_.ClaimID + "</a></br>"
         $priviligedUser=$_.PriviligedUser
-        _createClaimControl -itemToCreate $_
+        _createClaimControl -itemToCreate $_ -groupId $groupId
     }
     $priviligedUser= 'Til ' +$priviligedUser
-    Send-PnPMail -To nicd@lb.dk -Subject $priviligedUser  -Body $global:emailBody 
+    # udkommenteret af praktiske hensyn :-)
+    #Send-PnPMail -To nicd@lb.dk -Subject $priviligedUser  -Body $global:emailBody 
     $global:emailBody='';
 }
 
 function _createClaimControl(){
 param
     (
-        [Parameter(Mandatory=$true)] [System.Object] $itemToCreate
+        [Parameter(Mandatory=$true)] [System.Object] $itemToCreate,
+        [Parameter(Mandatory=$true)] [string] $groupId
         
     )
     Add-PnPListItem -List $ListName -Values @{"Title" = $_.BatchID;
@@ -29,7 +32,8 @@ param
                                           "PriviligedUser"=$_.PriviligedUserEmail;
                                           "EmployeeInFocus"=$_.EmployeeEmail;
                                           "ClaimID"=$_.ClaimID;
-                                          "Department"=$_.Department;  }
+                                          "Department"=$_.Department;  
+                                          "DataExtractionID"=$groupId}
 }
 
 
@@ -54,8 +58,9 @@ $itemsFromFile = Import-Csv -Path $importFilePath -Delimiter ';' -Encoding UTF8
 $groupeditems = $itemsFromFile  | Group-Object {$_.PriviligedUserEmail},{$_.PriviligedUserEmail}
 
 $groupeditems | foreach{
+$groupId = [guid]::NewGuid()
     Write-Host $_
-    _traverseGroup -group $_.Group
+    _traverseGroup -group $_.Group -groupId $groupId 
 }
 
 
