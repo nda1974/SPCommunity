@@ -31,17 +31,21 @@ export default class SearchResultGroup extends React.Component<ISearchResultGrou
 
                                 return(
                                     <div className={styles.ManualRow}>
-                                        <Link href={item.LinkingUrl} target="_new">{item.Title}</Link>
+                                        <Link href={item.LinkingUrl} target="_new">
+                                        {/* <img src={previewUrl} /> */}
+                                        {item.Title}</Link>
                                         
                                         {/* <div className="ms-Grid-row"> */}
-                                        <div className={styles.processTagRow}>
+                                        
+                                        {/* <div className={styles.processTagRow}>
                                         {
                                             
                                             item.Process.split(';').map((p)=>{
                                                 return <div className="ms-Grid-col ms-md2 ms-lg4"><div className={styles.processTag}>{p}</div></div>    
                                             })
                                         }
-                                        </div>
+                                        </div> */}
+                                        
                                         {/* <img src={previewUrl} /> */}
                                         {/* <div>{item.Process}</div>     */}
                                     </div>

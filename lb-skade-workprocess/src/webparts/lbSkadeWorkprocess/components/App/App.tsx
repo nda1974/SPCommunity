@@ -146,6 +146,7 @@ export default class App extends React.Component<IAppProps, IAppState> {
                             return(
                                 <div className={styles.row}>
                                     <ProcessMap mapItems={this.state.results.RefinementResults[1]} setAreaFilter={(areaFilter) => this.setAreaFilter(areaFilter) } />
+                                    <br/>
                                 </div>
                             )                
                         }
@@ -159,10 +160,10 @@ export default class App extends React.Component<IAppProps, IAppState> {
                 
 
                 <div className={styles.row}>
-                    <div className="ms-Grid-col ms-md8 ms-lg8">
+                    <div className="ms-Grid-col ms-md12 ms-lg12">
                         <SearchResultContainer  results={this.state.results.RelevantResults} />
                     </div>
-                    {
+                    {/* {
                         this.state.results.RefinementResults.map((refinementResult)=>{
                             if (refinementResult.FilterName=="Process") {
                             return(
@@ -174,7 +175,7 @@ export default class App extends React.Component<IAppProps, IAppState> {
                                 )
                             }
                         })
-                    }
+                    } */}
                 </div>
         </div>
         );
