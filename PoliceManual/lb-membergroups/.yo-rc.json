@@ -1,0 +1,8 @@
+{
+  "@microsoft/generator-sharepoint": {
+    "version": "1.4.1",
+    "libraryName": "lb-membergroups",
+    "libraryId": "55e3555f-b8c7-4ed8-89e3-f97a0baedaa4",
+    "environment": "spo"
+  }
+}

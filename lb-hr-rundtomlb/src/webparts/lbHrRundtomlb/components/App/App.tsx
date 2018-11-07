@@ -32,10 +32,11 @@ private fetchSharePointData(){
   let d = new Date();
   
   //.filter(`Start lt datetime'${today.toISOString()}' and Slut gt datetime'${today.toISOString()}'`)
-  
+let arg =encodeURIComponent(this.props.eventType)
 pnp.sp.web.lists.getByTitle("RundtOmLB")
               .items.select("Kategori,Stilling,Afdeling,Begivenhed,EventDate,FileLeafRef,Startdato,Slutdato")
-              .filter(`Kategori eq '${this.props.eventType}' and Startdato le datetime'${d.toISOString()}' and Slutdato gt datetime'${d.toISOString()}'`)
+              .filter(`Kategori eq '${encodeURIComponent(this.props.eventType)}' and Startdato le datetime'${d.toISOString()}' and Slutdato gt datetime'${d.toISOString()}'`)
+              // .filter(`Kategori eq '${this.props.eventType}' and Startdato le datetime'${d.toISOString()}' and Slutdato gt datetime'${d.toISOString()}'`)
               .orderBy("EventDate",this.props.sortOrder)
               .get().then(
                 (data:any[])=>{this.setState({listItems:data})}

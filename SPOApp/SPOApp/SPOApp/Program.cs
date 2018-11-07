@@ -477,6 +477,8 @@ namespace SPOApp
 
         static void Main(string[] args)
         {
+            PoliceManualApp.ReadImportFile();
+            return;
             Branches objBranches = new Branches();
 
 

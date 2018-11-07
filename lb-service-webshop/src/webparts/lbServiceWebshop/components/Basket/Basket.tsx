@@ -129,6 +129,8 @@ export default class Basket extends React.Component<IBasketProps, IBasketState> 
                         </div>
                       </div>
                       
+                      {/* <div className="ms-Grid-row">
+                      </div> */}
                       <div className="ms-Grid-row">
                       <div className="ms-Grid-col ms-sm6 ms-md6 ms-lg6">
                           <DefaultButton

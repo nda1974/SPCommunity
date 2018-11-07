@@ -1,0 +1,145 @@
+@import '~@microsoft/sp-office-ui-fabric-core/dist/sass/SPFabricCore.scss';
+$themePrimary: '[theme:themePrimary, default:#000000]';
+$themeSecondary: '[theme:themeSecondary, default:#5692b5]';
+$themeTertiary: "[theme:themeTertiary, default:#69afe5]";
+$themeLight: "[theme:themeLight, default:#b3d6f2]";
+$themeAccent: "[theme:themeAccent, default:inherit]";
+$themeDark: "[theme:themeDark, default:#005a9e]";
+$themeDarkAlt: "[theme:themeDarkAlt, default:#106ebe]";
+$themeDarker: "[theme:themeDarker, default:#004578]";
+$neutralLighter: "[theme:neutralLighter, default:#fff]";
+$white: "[theme:white, default:#fff]";
+
+.container {
+    max-width: 700px;
+    margin: 0px auto;
+    // box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2), 0 25px 50px 0 rgba(0, 0, 0, 0.1);
+  }
+  .myYellow{
+      @include ms-fontSize-su;
+      color:yellow
+  }
+  .myBlue{
+    @include ms-fontSize-su;
+    color: blue
+}
+.myGreen{
+  @include ms-fontSize-su;
+  color:green;
+}
+  .row {
+    @include ms-Grid-row;
+    @include ms-fontColor-white;
+    @include ms-font-l;
+    background-color: $themeLight;
+    
+    &.header{
+      @include ms-font-xl;
+      @include ms-fontColor-white;
+      background-color: $themePrimary;
+      padding: 20px;
+    }
+    &.infoSection{
+      @include ms-font-l;
+      @include ms-fontColor-white;
+      background-color: $themeLight;
+      padding: 10px;
+      // &.column{
+      //   @include ms-Grid-col;
+      //   @include ms-lg6;
+      //   @include ms-xl6;
+      //   left:0px; 
+      // }
+    }
+  }
+      
+  .column {
+    @include ms-Grid-col;
+    @include ms-lg6;
+    @include ms-xl6;
+    // @include ms-xlPush2;
+    // @include ms-lgPush1;
+    left:0px; 
+  }
+  
+
+  .title {
+    @include ms-font-xl;
+    @include ms-fontColor-white;
+  }
+
+  .subTitle {
+    @include ms-font-l;
+    @include ms-fontColor-white;
+  }
+
+  .description {
+    @include ms-font-l;
+    @include ms-fontColor-white;
+  }
+  .question{
+    @include ms-Grid-row;
+    margin: 0px;
+    @include ms-font-l;
+    border-bottom-style: solid;
+    border-bottom-color: $themePrimary;
+    border-bottom-width: 1px;
+    padding: 10px;
+  }
+  .rowRemarks {
+    @include ms-Grid-row;
+    margin: 0px;
+    
+  }
+  
+  .descriptionTextFieldVisible{
+    display: block;
+  }
+  .descriptionTextFieldHidden{
+    display: none;
+  }
+  .button {
+    // Our button
+    text-decoration: none;
+    height: 32px;
+
+    // Primary Button
+    min-width: 80px;
+    background-color: $ms-color-themePrimary;
+    border-color: $ms-color-themePrimary;
+    color: $ms-color-white;
+
+    // Basic Button
+    outline: transparent;
+    position: relative;
+    font-family: "Segoe UI WestEuropean","Segoe UI",-apple-system,BlinkMacSystemFont,Roboto,"Helvetica Neue",sans-serif;
+    -webkit-font-smoothing: antialiased;
+    font-size: $ms-font-size-m;
+    font-weight: $ms-font-weight-regular;
+    border-width: 0;
+    text-align: center;
+    cursor: pointer;
+    display: inline-block;
+    padding: 0 16px;
+
+    .label {
+      font-weight: $ms-font-weight-semibold;
+      font-size: $ms-font-size-m;
+      height: 32px;
+      line-height: 32px;
+      margin: 0 4px;
+      vertical-align: top;
+      display: inline-block;
+    }
+    
+  }
+
+
+  
+
+
+
+
+  
+
+

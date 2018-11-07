@@ -1,21 +1,31 @@
-﻿PriviligedUser;PriviligedUserEmail;Initialer;Department;Subdepartment;Fordeling;Employee;EmployeeEmail;ClaimID;BatchDate;BatchId
-Lea Frimand Byager;leby@lb.dk;LEBY;Bilskade;Bådskade;30;Jacob Dueholm;jadu@lb.dk;1;9-10-2018;1
-Lea Frimand Byager;leby@lb.dk;LEBY;Bilskade;Bådskade;30;Jacob Dueholm;jadu@lb.dk;2;9-10-2018;1
-Lea Frimand Byager;leby@lb.dk;LEBY;Bilskade;Bådskade;70;Jacob Dueholm;jadu@lb.dk;3;9-10-2018;1
-Lea Frimand Byager;leby@lb.dk;LEBY;Bilskade;Bådskade;70;Jacob Dueholm;jadu@lb.dk;4;9-10-2018;1
-Lea Frimand Byager;leby@lb.dk;LEBY;Bilskade;Bådskade;70;Jacob Dueholm;jadu@lb.dk;5;9-10-2018;1
-Lea Frimand Byager;leby@lb.dk;LEBY;Bilskade;Bådskade;30;Jacob Dueholm;jadu@lb.dk;6;9-10-2018;1
-Lea Frimand Byager;leby@lb.dk;LEBY;Bilskade;Bådskade;70;Jacob Dueholm;jadu@lb.dk;7;9-10-2018;1
-Lea Frimand Byager;leby@lb.dk;LEBY;Bilskade;Bådskade;70;Jacob Dueholm;jadu@lb.dk;8;9-10-2018;1
-Lea Frimand Byager;leby@lb.dk;LEBY;Bilskade;Bådskade;70;Jacob Dueholm;jadu@lb.dk;9;9-10-2018;1
-Lea Frimand Byager;leby@lb.dk;LEBY;Bilskade;Bådskade;70;Jacob Dueholm;jadu@lb.dk;10;9-10-2018;1
-Nicolai Danielsen;nicd@lb.dk;NICD;Bilskade;Bådskade;30;Mads Yhde;mayh@lb.dk;11;9-10-2018;1
-Nicolai Danielsen;nicd@lb.dk;NICD;Bilskade;Bådskade;30;Mads Yhde;mayh@lb.dk;12;9-10-2018;1
-Nicolai Danielsen;nicd@lb.dk;NICD;Bilskade;Bådskade;70;Mads Yhde;mayh@lb.dk;13;9-10-2018;1
-Nicolai Danielsen;nicd@lb.dk;NICD;Bilskade;Bådskade;70;Mads Yhde;mayh@lb.dk;14;9-10-2018;1
-Nicolai Danielsen;nicd@lb.dk;NICD;Bilskade;Bådskade;70;Mads Yhde;mayh@lb.dk;15;9-10-2018;1
-Nicolai Danielsen;nicd@lb.dk;NICD;Bilskade;Bådskade;30;Mads Yhde;mayh@lb.dk;16;9-10-2018;1
-Nicolai Danielsen;nicd@lb.dk;NICD;Bilskade;Bådskade;70;Mads Yhde;mayh@lb.dk;17;9-10-2018;1
-Nicolai Danielsen;nicd@lb.dk;NICD;Bilskade;Bådskade;70;Mads Yhde;mayh@lb.dk;18;9-10-2018;1
-Nicolai Danielsen;nicd@lb.dk;NICD;Bilskade;Bådskade;70;Mads Yhde;mayh@lb.dk;19;9-10-2018;1
-Nicolai Danielsen;nicd@lb.dk;NICD;Bilskade;Bådskade;70;Mads Yhde;mayh@lb.dk;20;9-10-2018;1
+﻿PriviligedUser;PriviligedUserEmail;Initialer;Department;Subdepartment;Fordeling;Employee;EmployeeEmail;ClaimID;BatchDate;BatchId;ExtractionID
+Lea Frimand Byager;leby@lb.dk;LEBY;Bilskade;Bådskade;30;Jacob Dueholm;jadu@lb.dk;1;9-10-2018;1;100
+Lea Frimand Byager;leby@lb.dk;LEBY;Bilskade;Bådskade;30;Jacob Dueholm;jadu@lb.dk;2;9-10-2018;1;100
+Lea Frimand Byager;leby@lb.dk;LEBY;Bilskade;Bådskade;70;Jacob Dueholm;jadu@lb.dk;3;9-10-2018;1;100
+Lea Frimand Byager;leby@lb.dk;LEBY;Bilskade;Bådskade;70;Jacob Dueholm;jadu@lb.dk;4;9-10-2018;1;100
+Lea Frimand Byager;leby@lb.dk;LEBY;Bilskade;Bådskade;70;Jacob Dueholm;jadu@lb.dk;5;9-10-2018;1;100
+Lea Frimand Byager;leby@lb.dk;LEBY;Bilskade;Bådskade;30;Jacob Dueholm;jadu@lb.dk;6;9-10-2018;1;100
+Lea Frimand Byager;leby@lb.dk;LEBY;Bilskade;Bådskade;70;Jacob Dueholm;jadu@lb.dk;7;9-10-2018;1;100
+Lea Frimand Byager;leby@lb.dk;LEBY;Bilskade;Bådskade;70;Jacob Dueholm;jadu@lb.dk;8;9-10-2018;1;100
+Lea Frimand Byager;leby@lb.dk;LEBY;Bilskade;Bådskade;70;Jacob Dueholm;jadu@lb.dk;9;9-10-2018;1;100
+Lea Frimand Byager;leby@lb.dk;LEBY;Bilskade;Bådskade;70;Jacob Dueholm;jadu@lb.dk;10;9-10-2018;1;100
+Nicolai Danielsen;nicd@lb.dk;NICD;Bilskade;Bådskade;30;Mads Yhde;mayh@lb.dk;11;9-10-2018;2;100
+Nicolai Danielsen;nicd@lb.dk;NICD;Bilskade;Bådskade;30;Mads Yhde;mayh@lb.dk;12;9-10-2018;2;100
+Nicolai Danielsen;nicd@lb.dk;NICD;Bilskade;Bådskade;70;Mads Yhde;mayh@lb.dk;13;9-10-2018;2;100
+Nicolai Danielsen;nicd@lb.dk;NICD;Bilskade;Bådskade;70;Mads Yhde;mayh@lb.dk;14;9-10-2018;2;100
+Nicolai Danielsen;nicd@lb.dk;NICD;Bilskade;Bådskade;70;Mads Yhde;mayh@lb.dk;15;9-10-2018;2;100
+Nicolai Danielsen;nicd@lb.dk;NICD;Bilskade;Bådskade;30;Mads Yhde;mayh@lb.dk;16;9-10-2018;2;100
+Nicolai Danielsen;nicd@lb.dk;NICD;Bilskade;Bådskade;70;Mads Yhde;mayh@lb.dk;17;9-10-2018;3;100
+Nicolai Danielsen;nicd@lb.dk;NICD;Bilskade;Bådskade;70;Mads Yhde;mayh@lb.dk;18;9-10-2018;3;100
+Nicolai Danielsen;nicd@lb.dk;NICD;Bilskade;Bådskade;70;Mads Yhde;mayh@lb.dk;19;9-10-2018;3;100
+Nicolai Danielsen;nicd@lb.dk;NICD;Bilskade;Bådskade;70;Mads Yhde;mayh@lb.dk;20;9-10-2018;3;100
+Peter Møgelvang;pemo@lb.dk;PEMO;Bilskade;Bådskade;30;Mads Yhde;mayh@lb.dk;21;9-10-2018;3;100
+Peter Møgelvang;pemo@lb.dk;PEMO;Bilskade;Bådskade;30;Mads Yhde;mayh@lb.dk;22;9-10-2018;3;100
+Peter Møgelvang;pemo@lb.dk;PEMO;Bilskade;Bådskade;70;Mads Yhde;mayh@lb.dk;23;9-10-2018;3;100
+Peter Møgelvang;pemo@lb.dk;PEMO;Bilskade;Bådskade;70;Mads Yhde;mayh@lb.dk;24;9-10-2018;3;100
+Peter Møgelvang;pemo@lb.dk;PEMO;Bilskade;Bådskade;70;Mads Yhde;mayh@lb.dk;25;9-10-2018;3;100
+Peter Møgelvang;pemo@lb.dk;PEMO;Bilskade;Bådskade;30;Mads Yhde;mayh@lb.dk;26;9-10-2018;3;100
+Peter Møgelvang;pemo@lb.dk;PEMO;Bilskade;Bådskade;70;Mads Yhde;mayh@lb.dk;27;9-10-2018;3;100
+Peter Møgelvang;pemo@lb.dk;PEMO;Bilskade;Bådskade;70;Mads Yhde;mayh@lb.dk;28;9-10-2018;3;100
+Peter Møgelvang;pemo@lb.dk;PEMO;Bilskade;Bådskade;70;Mads Yhde;mayh@lb.dk;29;9-10-2018;3;100
+Peter Møgelvang;pemo@lb.dk;PEMO;Bilskade;Bådskade;70;Mads Yhde;mayh@lb.dk;30;9-10-2018;3;100

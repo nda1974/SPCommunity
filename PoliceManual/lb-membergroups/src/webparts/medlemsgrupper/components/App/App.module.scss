@@ -1,0 +1,168 @@
+@import '~@microsoft/sp-office-ui-fabric-core/dist/sass/SPFabricCore.scss';
+$themePrimary: '[theme:themePrimary, default:red]';
+$themeSecondary: '[theme:themeSecondary, default:#5692b5]';
+$themeTertiary: "[theme:themeTertiary, default:#69afe5]";
+$themeLight: "[theme:themeLight, default:#b3d6f2]";
+$themeAccent: "[theme:themeAccent, default:inherit]";
+$themeDark: "[theme:themeDark, default:#005a9e]";
+$themeDarkAlt: "[theme:themeDarkAlt, default:#106ebe]";
+$themeDarker: "[theme:themeDarker, default:#004578]";
+$neutralLighter: "[theme:neutralLighter, default:#fff]";
+$white: "[theme:white, default:#fff]";
+
+
+
+
+  .container {
+    max-width: 700px;
+    margin: 0px auto;
+    // box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2), 0 25px 50px 0 rgba(0, 0, 0, 0.1);
+  }
+
+  .row {
+    @include ms-Grid-row;
+    @include ms-fontColor-white;
+    // background-color: $ms-color-themeDark;
+    padding: 20px;
+  }
+
+  .column {
+    @include ms-Grid-col;
+    @include ms-lg6;
+    @include ms-xl6;
+    @include ms-xlPush2;
+    @include ms-lgPush1;
+  }
+  
+  
+
+  .title {
+    @include ms-font-xl;
+    @include ms-fontColor-white;
+  }
+
+  .subTitle {
+    @include ms-font-l;
+    @include ms-fontColor-white;
+  }
+
+  .description {
+    @include ms-font-l;
+    @include ms-fontColor-white;
+  }
+
+  .button {
+    // Our button
+    text-decoration: none;
+    height: 32px;
+
+    // Primary Button
+    min-width: 80px;
+    background-color: $ms-color-themePrimary;
+    border-color: $ms-color-themePrimary;
+    color: $ms-color-white;
+
+    // Basic Button
+    outline: transparent;
+    position: relative;
+    font-family: "Segoe UI WestEuropean","Segoe UI",-apple-system,BlinkMacSystemFont,Roboto,"Helvetica Neue",sans-serif;
+    -webkit-font-smoothing: antialiased;
+    font-size: $ms-font-size-m;
+    font-weight: $ms-font-weight-regular;
+    border-width: 0;
+    text-align: center;
+    cursor: pointer;
+    display: inline-block;
+    padding: 0 16px;
+
+    .label {
+      font-weight: $ms-font-weight-semibold;
+      font-size: $ms-font-size-m;
+      height: 32px;
+      line-height: 32px;
+      margin: 0 4px;
+      vertical-align: top;
+      display: inline-block;
+    }
+  }
+
+  .memberGroupRow{
+    cursor: pointer;
+    // @include ms-Grid-row;
+    padding:5px 0px 5px 10px;
+    margin-bottom: 2px;
+    
+    color: $themePrimary;
+    // width: 100%;
+    @include ms-fontSize-m;
+    border-bottom-color: $themePrimary;
+    border-bottom-style: solid;
+    border-bottom-width: thin;
+}
+.panelRow{
+  @include ms-Grid-row;
+  padding:5px 0px 5px 10px;
+  background-color: $themePrimary;
+  
+  color: $themePrimary;
+  width: 100%;
+  @include ms-fontSize-m;
+  border-bottom-color: $themePrimary;
+}
+.panelContent{
+  padding:5px 0px 5px 10px;
+  color: $themePrimary;
+  @include ms-fontSize-m;
+}
+.ccPanelHeader{
+  // @include ms-font-xl;
+  @include ms-font-m;
+  @include ms-fontWeight-light;
+  background-color: $themePrimary;
+  color: $white;
+  text-align: center;
+  width:100%;
+  padding-bottom: 10px;
+  padding-top: 10px;
+  padding-right: 20px;
+  // font-weight: bold;
+}
+.ccPanelHeader i{
+  cursor: pointer;
+  @include ms-font-l;
+  color:white;
+  position: absolute;
+  top:4px;
+  right: 4px; 
+  padding: 5px 5px 5px 5px;
+}
+
+.myTextArea{
+  width: 100%;
+  height: 300px;
+  border-style: none;
+}
+.showDiv{
+  background-color:$white;
+    // display: block;
+}
+.hideDiv{
+  // display: none;
+  visibility: hidden;
+}
+
+.myIconExample{
+  color: white;
+  float: right;
+}
+.columnTen {
+  @include ms-Grid-col;
+  @include ms-lg10;
+  @include ms-md10;
+}
+.columnTwo {
+  @include ms-Grid-col;
+  @include ms-lg2;
+  @include ms-md2;
+  cursor: pointer;
+}

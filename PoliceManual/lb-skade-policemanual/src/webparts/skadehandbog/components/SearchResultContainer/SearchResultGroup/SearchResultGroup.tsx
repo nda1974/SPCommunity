@@ -1,0 +1,105 @@
+import * as React from "react";
+import * as ReactDom from 'react-dom';
+  import { Link } from 'office-ui-fabric-react/lib/Link';
+  import { BaseComponent } from 'office-ui-fabric-react/lib/Utilities';
+import { PrimaryButton, DefaultButton, IButtonProps } from 'office-ui-fabric-react/lib/Button';
+import { MessageBar, MessageBarType } from 'office-ui-fabric-react/lib/MessageBar';
+
+  import { DetailsList, buildColumns, IColumn } from 'office-ui-fabric-react/lib/DetailsList';
+  import { DirectionalHint } from 'office-ui-fabric-react/lib/common/DirectionalHint';
+  import { autobind } from 'office-ui-fabric-react/lib/Utilities';
+import { ISearchResultGroupProps } from "./ISearchResultGroupProps";
+import { ISearchResultGroupState } from "./ISearchResultGroupState";
+import styles from "./SearchResultGroup.module.scss";
+import {TeachingBubbleBasicExample} from '../../TeachingBubbleBasicExample/TeachingBubbleBasicExample'
+import {ITeachingBubbleBasicExampleState}from '../../TeachingBubbleBasicExample/TeachingBubbleBasicExample'
+import pnp, { ConsoleListener, Logger, LogLevel, SearchQuery, SearchQueryBuilder, SearchResults, setup, Web, Sort, SortDirection } from "sp-pnp-js";
+
+
+export default class SearchResultGroup extends React.Component<ISearchResultGroupProps, ISearchResultGroupState> {
+    
+    public constructor(props:ISearchResultGroupProps, state:ISearchResultGroupState){  
+            super(props);  
+        this.state={show:false}
+            this.updateState = this.updateState.bind(this);
+            
+    }
+    updateState() {
+        if  (this.state.show == true){
+            this.setState({show: false})
+        }
+        else{
+            this.setState({show: true})
+        }
+        
+     }
+
+    public render(): React.ReactElement<ISearchResultGroupProps> {  
+        const group = this.props.manuals;      
+        const showCompactMode = true;  
+        const verdicts = [];
+        return(<div >
+            <div onClick = {this.updateState} className= {styles.GroupBar}>{this.props.groupName.length>0?this.props.groupName:'Uden kategori'}<i className={this.state.show==true? "ms-Icon ms-Icon--ChevronUp":"ms-Icon ms-Icon--ChevronDown"} aria-hidden="true"></i></div>
+            
+            <div className= {this.state.show==true? styles.Show:styles.Hide}>
+            
+            
+            
+                {(() => {
+                    if(group.length>1){
+                        group.sort((a,b)=>a.Title.localeCompare(b.Title))
+                    }        
+                })()}
+                
+                
+                {/* {  group.sort((a,b)=>a.Title.localeCompare(b.Title)) }                  */}
+            
+            
+                
+                
+            {
+            
+        
+            Object.keys(group).map((manual)=>{
+                var showTeaserRow=false;
+                var showAdditionalInfoRow=false;
+                var showVerdicts=false;
+
+                if(group[manual].LBTeaser!=null){
+                    if(group[manual].LBTeaser.length>0){
+                        showTeaserRow=true;
+                    }    
+                }
+
+                if(group[manual].LBInfo!=null){
+                    if(group[manual].LBInfo.length>0){
+                        showAdditionalInfoRow=true;
+                    }    
+                }
+
+                // if(group[manual].LBVerdicts!=null){
+                //     if(group[manual].LBVerdicts.length>0){
+                //         showAdditionalInfoRow=true;
+                //     }    
+                // }
+                
+                // if(group[manual].Verdicts.length>0){
+                //     showAdditionalInfoRow=true;
+                //     showVerdicts=true;
+                // }
+                
+                
+                return (
+                        <div className={styles.ManualRow}>
+                            <Link href={group[manual].Path}>{group[manual].Title}</Link>
+                            {/* <img src="https://lbforsikring.sharepoint.com/sites/skade/_layouts/15/getpreview.ashx?resolution=0&clientMode=modernWebPart&path={group[manual].Path}&width=252&height=200" /> */}   
+                        </div>
+                        )
+                
+                })
+            }  
+            </div>
+            </div>)
+    }}
+      
+    

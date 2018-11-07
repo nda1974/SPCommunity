@@ -2,8 +2,7 @@
 function _traverseGroup(){
     param
     (
-        [Parameter(Mandatory=$true)] [System.Object] $group,
-        [Parameter(Mandatory=$true)] [string] $groupId
+        [Parameter(Mandatory=$true)] [System.Object] $group
         
     )
     $priviligedUser='';
@@ -12,7 +11,7 @@ function _traverseGroup(){
         #$global:emailBody=$global:emailBody + "<a href='https://lbforsikring.sharepoint.com/sites/skade/_layouts/15/workbench.aspx?ClaimID="+$_.ClaimID+"&BatchID="+$_.BatchID+"'>"+$_.ClaimID + "</a></br>"
         $global:emailBody=$global:emailBody + "<a href='https://lbforsikring.sharepoint.com/sites/skade/sitepages/Claim-Quality-Control.aspx?ClaimID="+$_.ClaimID+"&BatchID="+$_.BatchID+"'>Link til kvalitetskontrol af sagsnr: "+$_.ClaimID + "</a></br>"
         $priviligedUser=$_.PriviligedUser
-        _createClaimControl -itemToCreate $_ -groupId $groupId
+        _createClaimControl -itemToCreate $_ 
     }
     $priviligedUser= 'Til ' +$priviligedUser
     # udkommenteret af praktiske hensyn :-)
@@ -23,23 +22,23 @@ function _traverseGroup(){
 function _createClaimControl(){
 param
     (
-        [Parameter(Mandatory=$true)] [System.Object] $itemToCreate,
-        [Parameter(Mandatory=$true)] [string] $groupId
+        [Parameter(Mandatory=$true)] [System.Object] $itemToCreate
         
     )
+    
     Add-PnPListItem -List $ListName -Values @{"Title" = $_.BatchID;
                                           "BatchID" = $_.BatchID;
                                           "PriviligedUser"=$_.PriviligedUserEmail;
                                           "EmployeeInFocus"=$_.EmployeeEmail;
                                           "ClaimID"=$_.ClaimID;
                                           "Department"=$_.Department;  
-                                          "DataExtractionID"=$groupId}
+                                          "DataExtractionID"="100"}
 }
 
 
 #region Variables 
  $Username = "sadmnicd@lbforsikring.onmicrosoft.com" 
- $Password = "MandM1974" 
+ $Password = "MandM2013" 
  #endregion Variables
 
 #region Credentials 
@@ -58,9 +57,9 @@ $itemsFromFile = Import-Csv -Path $importFilePath -Delimiter ';' -Encoding UTF8
 $groupeditems = $itemsFromFile  | Group-Object {$_.PriviligedUserEmail},{$_.PriviligedUserEmail}
 
 $groupeditems | foreach{
-$groupId = [guid]::NewGuid()
+
     Write-Host $_
-    _traverseGroup -group $_.Group -groupId $groupId 
+    _traverseGroup -group $_.Group
 }
 
 

@@ -46,8 +46,12 @@ export default class App extends React.Component<IAppProps, IAppState> {
 
 private fetchSharePointData(){
   pnp.sp.web.lists.getByTitle("Produkter")
-                  .items.select("Title,Varegruppe,Varenummer,Produktbillede,Beskrivelse").get().then(
-                    (data:any[])=>{this.setState({listItems:data})}
+                  .items.select("Title,Varegruppe,Varenummer,Produktbillede,Beskrivelse").getAll().then(
+                    
+                    (data:any[])=>{
+                      console.log(data)
+                      this.setState({listItems:data})
+                    }
                   );
 }
 

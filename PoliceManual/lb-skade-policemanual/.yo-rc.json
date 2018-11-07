@@ -1,0 +1,8 @@
+{
+  "@microsoft/generator-sharepoint": {
+    "version": "1.4.1",
+    "libraryName": "lb-skade-policemanual",
+    "libraryId": "63f8da93-7ce7-4ecd-9994-fde42b7d5381",
+    "environment": "spo"
+  }
+}
