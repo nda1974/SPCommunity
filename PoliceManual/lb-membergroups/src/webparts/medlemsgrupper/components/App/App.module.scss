@@ -14,7 +14,7 @@ $white: "[theme:white, default:#fff]";
 
 
   .container {
-    max-width: 700px;
+    max-width: 100%;
     margin: 0px auto;
     // box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2), 0 25px 50px 0 rgba(0, 0, 0, 0.1);
   }
@@ -25,13 +25,31 @@ $white: "[theme:white, default:#fff]";
     // background-color: $ms-color-themeDark;
     padding: 20px;
   }
+  .componentRow {
+    @include ms-Grid-row;
+    @include ms-fontColor-white;
+    // background-color: $ms-color-themeDark;
+    padding: 0px;
+  }
 
   .column {
     @include ms-Grid-col;
     @include ms-lg6;
     @include ms-xl6;
-    @include ms-xlPush2;
-    @include ms-lgPush1;
+    // @include ms-xlPush2;
+    // @include ms-lgPush1;
+  }
+  .column8 {
+    @include ms-Grid-col;
+    @include ms-lg8;
+    @include ms-xl8;
+    // @include ms-xlPush2;
+    // @include ms-lgPush1;
+  }
+  .column4 {
+    @include ms-Grid-col;
+    @include ms-lg4;
+    @include ms-xl4;
   }
   
   
@@ -114,17 +132,30 @@ $white: "[theme:white, default:#fff]";
   color: $themePrimary;
   @include ms-fontSize-m;
 }
+// .ccPanelHeader{
+//   // @include ms-font-xl;
+//   @include ms-font-m;
+//   @include ms-fontWeight-light;
+//   background-color: $themePrimary;
+//   color: $white;
+//   text-align: center;
+//   width:100%;
+//   padding-bottom: 10px;
+//   padding-top: 10px;
+//   padding-right: 20px;
+// }
+
 .ccPanelHeader{
   // @include ms-font-xl;
-  @include ms-font-m;
-  @include ms-fontWeight-light;
-  background-color: $themePrimary;
-  color: $white;
-  text-align: center;
-  width:100%;
-  padding-bottom: 10px;
-  padding-top: 10px;
-  padding-right: 20px;
+  @include ms-font-xl;
+  @include ms-fontWeight-bold;
+  // background-color: $themePrimary;
+  color: $themePrimary;
+  // text-align: center;
+  // width:100%;
+  // padding-bottom: 10px;
+  // padding-top: 10px;
+  // padding-right: 20px;
   // font-weight: bold;
 }
 .ccPanelHeader i{

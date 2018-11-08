@@ -63,9 +63,9 @@ private fetchSharePointData(){
     return (
       
       <div className={ styles.container }>
-        <div className={ styles.row }>
+        <div className={ styles.componentRow }>
           
-          <div className={ styles.column }>
+          <div className={ styles.column4 }>
               {
                 this.props.filterTerm!=undefined && this.props.filterTerm.length>0 ?
                   this.state.listItems.map((rowItem)=>{
@@ -87,9 +87,9 @@ private fetchSharePointData(){
               }
             </div>
           
-          <div className={ styles.column }>
+          <div className={ styles.column8 }>
               <div className={this.state.showPanel ? styles.showDiv : styles.hideDiv}>
-              <div className={ styles.panelRow }>
+              {/* <div className={ styles.panelRow }>
                 
                 <div className={ styles.columnTen }>
                   <div className={styles.ccPanelHeader} >
@@ -104,10 +104,10 @@ private fetchSharePointData(){
   
 
 
-              </div>
+              </div> */}
 
               
-              
+              <div className={styles.ccPanelHeader}>{this.state.panelHeader}</div>
               <div className={styles.panelContent} dangerouslySetInnerHTML={{ __html: this.state.panelText }} />
               </div>          
           </div>
