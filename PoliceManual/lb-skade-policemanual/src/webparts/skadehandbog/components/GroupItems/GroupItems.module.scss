@@ -1,0 +1,33 @@
+$themePrimary: '[theme:themePrimary, default:red]';
+$themeSecondary: '[theme:themeSecondary, default:#5692b5]';
+$themeTertiary: "[theme:themeTertiary, default:#69afe5]";
+$themeLight: "[theme:themeLight, default:#b3d6f2]";
+$themeAccent: "[theme:themeAccent, default:inherit]";
+$themeDark: "[theme:themeDark, default:#005a9e]";
+$themeDarkAlt: "[theme:themeDarkAlt, default:#106ebe]";
+$themeDarker: "[theme:themeDarker, default:#004578]";
+$neutralLighter: "[theme:neutralLighter, default:#fff]";
+$white: "[theme:white, default:#fff]";
+
+.groupItems{
+    padding: 10px 10px 10px 10px;
+    color:$themePrimary;
+    background-color: $white;
+    border-top-style: solid;
+    border-width: 1px;
+    border-color: $themePrimary;
+    
+}
+.groupItems:hover{
+    background-color: $neutralLighter;
+}
+.groupItems a{
+    text-decoration: none;
+    color:$themePrimary;
+}
+.showGroupItems{
+    display:block
+}
+.hideGroupItems{
+    display:none
+}

@@ -7,6 +7,8 @@ import { ISearchResults } from '../../ISearchResults';
 import SearchResultContainer from '../SearchResultContainer/SearchResultContainer';
 import { IAppState } from './IAppState';
 import SearchInputContainer from '../SearchInputContainer/SearchInputContainer';
+import Groupbar from '../Groupbar/Groupbar';
+import Groupbars from '../Groupbars/Groupbars';
 
 export default class App extends React.Component<IAppProps, IAppState> {
   public constructor(props: IAppProps,state:IAppState){  
@@ -35,7 +37,12 @@ export default class App extends React.Component<IAppProps, IAppState> {
     let filterArr=[filter];
     let ss: SPSearchService=new SPSearchService(this.props.webPartContext)
     // let searchResult:Promise<ISearchResults>=ss.search(this.state.queryText + ' ' + this.props.searchUrl,this.state.refinementFilters,this.props.manualType);
+    //ORG let searchResult:Promise<ISearchResults>=ss.search(queryString,filterArr,'Police håndbog');
+    
+    
     let searchResult:Promise<ISearchResults>=ss.search(queryString,filterArr,'Police håndbog');
+    
+    
     
     let results: ISearchResults = {
         RelevantResults : [],
@@ -63,13 +70,12 @@ export default class App extends React.Component<IAppProps, IAppState> {
           <div className={ styles.row }>
           
           <SearchInputContainer callbackSetAppContainerQueryString={(newState) => this.onQueryTextChanged(newState) }/>
-
-          <SearchResultContainer results={this.state.results.RelevantResults} filterGroup={term} />
-            {/* <div className={ styles.column }>
-              
-              
-              
-            </div> */}
+          {
+            this.state.results.RefinementResults.length>0?
+            this.state.results.RefinementResults[0].Values.sort((a,b)=>a.RefinementValue.localeCompare(b.RefinementValue )).map((refiners)=>{
+              return (<Groupbars searchResults={this.state.results} title={refiners.RefinementValue} />)
+            }):null
+          }
           </div>
         </div>
       </div>
