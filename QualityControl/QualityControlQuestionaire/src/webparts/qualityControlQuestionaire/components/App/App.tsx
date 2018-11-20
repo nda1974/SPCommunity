@@ -16,6 +16,8 @@ import { IUserRoles } from '../../Interfaces/IUserRole';
 import QuestionItem from '../QuestionItem/QuestionItem';
 import { Icon } from 'office-ui-fabric-react/lib/Icon';
 import { IconButton } from 'office-ui-fabric-react/lib/Button';
+import { ICurrentUser } from '../../../../Interfaces/ICurrentUser.';
+import { Panel, PanelType } from 'office-ui-fabric-react/lib/Panel';
 
 
 let employeeInFocus:IQCUser={
@@ -56,11 +58,13 @@ const ANSWERS_LIST_ID = '433d918b-2e51-4ebb-ab2a-3fc9e2b5c540';
 export default class App extends React.Component<IAppProps, IAppState> {
 
     
-    constructor(props: IAppProps) {
+    constructor(props: IAppProps,state: IAppState) {
         super(props);
         
         this.state = {
-
+            showPanel:false,
+            currentUser:{},
+            answersList:[],
             questions:{
                 Q1:'',
                 Q2:'',
@@ -70,7 +74,6 @@ export default class App extends React.Component<IAppProps, IAppState> {
                 Q6:''
             },
             answers:{
-                
                 batchID:'',
                 claimID:'',
                 department:'',
@@ -110,8 +113,12 @@ export default class App extends React.Component<IAppProps, IAppState> {
         this._updateAnswers=this._updateAnswers.bind(this);
         // this._getPeoplePickerItems();
         this.test();
-        this._getAnswers();
-        
+         
+        const r = this._getUserObject()
+        r.then(
+            this._getAnswers
+        )
+        // this._getAnswers();
 
                 
                 
@@ -202,23 +209,8 @@ export default class App extends React.Component<IAppProps, IAppState> {
             }
         )
     }
-    private async _getPriviligedUser(userId:number):Promise<any>{
-        return pnp.sp.web.getUserById(userId).get().then(user=>{
-            priviligedUser.email = user.Email;
-            priviligedUser.name= user.Title;
-            itemInContext.priviligedUser=priviligedUser;
-            this.setState({answers:itemInContext});
-
-        })    
-    }
-    private async _getEmployee(userId:number):Promise<any>{
-        return pnp.sp.web.getUserById(userId).get().then(user=>{
-            employeeInFocus.email = user.Email;
-            employeeInFocus.name= user.Title;
-            itemInContext.employeeInFocus=employeeInFocus;
-            this.setState({answers:itemInContext});
-        })    
-    }
+    
+    
     public async _updateAnswers(): Promise<void> {
         // Getting the second "page" of results from the top query
         pnp.sp.web.lists.getById(ANSWERS_LIST_ID).items.getById(itemInContext.listItemId).update({
@@ -245,57 +237,45 @@ export default class App extends React.Component<IAppProps, IAppState> {
         });
     }
     public async _getAnswers(): Promise<void> {
-        var queryParameters = new UrlQueryParameterCollection(window.location.href);
-        var batchID:string='';
-        var claimsID:string='';
-        if (queryParameters.getValue("ClaimID")) {
-            claimsID = queryParameters.getValue("ClaimID");
-        }
-        if (queryParameters.getValue("BatchID")) {
-            batchID = queryParameters.getValue("BatchID");
-        }
-
+        let answersitems:IAnswer[]=[];
         // Quality Control - Claims Handler Questions
         // return await pnp.sp.web.lists.getByTitle('QualityControl-10Sagsgennemgang')
         await pnp.sp.web.lists.getById(ANSWERS_LIST_ID)
             .items
-            .filter("BatchID eq '" + batchID + "' and ClaimID eq '" + claimsID +"'")
-            // .filter("ClaimsNumber eq '" + claimsID +"'")
+            .filter("PriviligedUser eq "+ this.state.currentUser.id)
             .get()
-            .then(async (data: any) => {
-                itemInContext.listItemId= data[0].ID;
-                itemInContext.department= data[0].Department;
-                itemInContext.claimID= data[0].ClaimID;
-                itemInContext.priviligedUser= data[0].PriviligedUserId;
-                itemInContext.employeeInFocus=data[0].EmployeeInFocusId;
-                
-                // var a:any=this._setPriviligedUser(data[0].PriviligedUserId);
-                // console.log(a)
-                // var user = await a.then((res)=>{return res});
-                // console.log(user)
-                this.setState({answers:itemInContext})
-                
-                
-                await this._getPriviligedUser(data[0].PriviligedUserId);
-                await this._getEmployee(data[0].EmployeeInFocusId);
-                //return data;
-                // this.setState({items:data})
+            .then(async (data: any[]) => {
+                data.map((item)=>{
+                    answersitems.push(  {
+                                            claimID:item.ClaimID,
+                                            listItemId:item.Id
+
+                                        }
+                                    )
+                })
+                this.setState({answersList:answersitems})
             }
         )
         // const r = await this._getPriviligedUser(data[0].PriviligedUserId);
     }
-    // private async _getUserObject(): Promise<any> {
-    //     try {
+    private async _getUserObject(): Promise<any> {
+        try {
             
-    //     pnp.sp.web.currentUser.get().then(result => {
+            return pnp.sp.web.currentUser.get().then(result => {
+                let currentUser:ICurrentUser={
+                    displayName:result.Title,
+                    email:result.Email,
+                    id:result.Id,
+                };
+                this.setState({currentUser:currentUser});    
+                return result
+                
+            });
+        } catch (error) {
+            console.log(error)
+        }
 
-    //             console.log(result);
-    //         });
-    //     } catch (error) {
-    //         console.log(error)
-    //     }
-
-    // }
+    }
     // public async saveAnswer(): Promise<void> {
     //     // var userObject=await this._getUserObject();
 
@@ -324,11 +304,13 @@ export default class App extends React.Component<IAppProps, IAppState> {
     public render(): React.ReactElement<IAppProps> {
         return (
         <div>
+            
              <div className={ styles.container }>
-
-                <div className={[styles.row, styles.header].join(' ') }>
-                    Quality Control - ClaimID: <b>{this.state.answers.claimID}</b>
-                </div>
+                {this.state.answersList.map((ans)=>{
+                    return(<div className={styles.claimControlRow} 
+                                onClick={()=>{this.setState({showPanel:!this.state.showPanel})}}>{ans.claimID} - {ans.listItemId}</div>)
+                })}
+                
                     {/* <div className={styles.row}>
                         <div className={[ styles.infoSection,styles.column].join(' ') }>
                             Udføres af:
@@ -337,179 +319,190 @@ export default class App extends React.Component<IAppProps, IAppState> {
                             {this.state.answers.priviligedUser.name}
                         </div>
                     </div> */}
+    <Panel
+          isOpen={this.state.showPanel}
+          // tslint:disable-next-line:jsx-no-lambda
+          onDismiss={() => this.setState({ showPanel: false })}
+          type={PanelType.extraLarge}
+          headerText={"Quality Control - ClaimID: " + this.state.answers.claimID}
+          closeButtonAriaLabel="Close"
+        >           
+            {/* <div className={[styles.row, styles.header].join(' ') }>
+                Quality Control - ClaimID: <b>{this.state.answers.claimID}</b>
+            </div> 
+            <div className={[styles.row, styles.infoSection].join(' ') }>
+                <div className={[ styles.column].join(' ') }>
+                    Medarbejder i fokus:
+                </div>
+                <div className={[ styles.column].join(' ') }>
+                    {this.state.answers.employeeInFocus.name}
+                </div>
+            </div>
 
-                    <div className={[styles.row, styles.infoSection].join(' ') }>
-                        <div className={[ styles.column].join(' ') }>
-                            Medarbejder i fokus:
-                        </div>
-                        <div className={[ styles.column].join(' ') }>
-                            {this.state.answers.employeeInFocus.name}
-                        </div>
-                    </div>
-
-                    <div className={[styles.row, styles.infoSection].join(' ') }>
-                        <div className={[ styles.infoSection,styles.column].join(' ') }>
-                            Afdeling:
-                        </div>
-                        <div className={[ styles.infoSection,styles.column].join(' ') }>
-                            {this.state.answers.department}
-                        </div>
-                    </div>
-                    {/* <QuestionItem questionDescription={this.state.questions.Q1} question={true} setParentAnswerState={this._setStateFromChildComponent} />     */}
-                    
-                    <div className={ styles.question}>
-                        <Toggle
-                        defaultChecked={true}
-                        label={this.state.questions.Q1}
-                        onText="Ja"
-                        offText="Nej"
-                        onChanged={(answer1)=>{
-                            itemInContext.answer1=answer1;
-                            if(!answer1){
-                                itemInContext.answer1Description ='';
-                            }
-                            this.setState({answers:itemInContext})
-                        }}
+            <div className={[styles.row, styles.infoSection].join(' ') }>
+                <div className={[ styles.infoSection,styles.column].join(' ') }>
+                    Afdeling:
+                </div>
+                <div className={[ styles.infoSection,styles.column].join(' ') }>
+                    {this.state.answers.department}
+                </div>
+            </div>
+            */}
+            
+            <div className={ styles.question}>
+                <Toggle
+                defaultChecked={true}
+                label={this.state.questions.Q1}
+                onText="Ja"
+                offText="Nej"
+                onChanged={(answer1)=>{
+                    itemInContext.answer1=answer1;
+                    if(!answer1){
+                        itemInContext.answer1Description ='';
+                    }
+                    this.setState({answers:itemInContext})
+                }}
+                />
+            
+                <TextField  
+                    className={this.state.answers.answer1?styles.descriptionTextFieldHidden:styles.descriptionTextFieldVisible} 
+                    label="Hvis nej så uddyb" 
+                    multiline rows={4} 
+                    value={itemInContext.answer1Description}  
+                    onChanged={(input)=>itemInContext.answer1Description=input}
+                    />
+            </div>
+            
+            <div className={ styles.question}>
+                    <Toggle
+                    defaultChecked={true}
+                    label={this.state.questions.Q2}
+                    onText="Ja"
+                    offText="Nej"
+                    onChanged={(answer2)=>{
+                        itemInContext.answer2=answer2;
+                        if(!answer2){
+                            itemInContext.answer2Description ='';
+                        }
+                        this.setState({answers:itemInContext})
+                    }}
+                    />
+                
+                    <TextField  
+                        className={this.state.answers.answer2?styles.descriptionTextFieldHidden:styles.descriptionTextFieldVisible} 
+                        label="Hvis nej så uddyb" 
+                        multiline rows={4} 
+                        value={itemInContext.answer2Description}  
+                        onChanged={(input)=>itemInContext.answer2Description=input}
                         />
-                    
-                        <TextField  
-                            className={this.state.answers.answer1?styles.descriptionTextFieldHidden:styles.descriptionTextFieldVisible} 
-                            label="Hvis nej så uddyb" 
-                            multiline rows={4} 
-                            value={itemInContext.answer1Description}  
-                            onChanged={(input)=>itemInContext.answer1Description=input}
-                            />
-                    </div>
-                    
-                    <div className={ styles.question}>
-                            <Toggle
-                            defaultChecked={true}
-                            label={this.state.questions.Q2}
-                            onText="Ja"
-                            offText="Nej"
-                            onChanged={(answer2)=>{
-                                itemInContext.answer2=answer2;
-                                if(!answer2){
-                                    itemInContext.answer2Description ='';
-                                }
-                                this.setState({answers:itemInContext})
-                            }}
-                            />
-                        
-                            <TextField  
-                                className={this.state.answers.answer2?styles.descriptionTextFieldHidden:styles.descriptionTextFieldVisible} 
-                                label="Hvis nej så uddyb" 
-                                multiline rows={4} 
-                                value={itemInContext.answer2Description}  
-                                onChanged={(input)=>itemInContext.answer2Description=input}
-                                />
-                    </div>
+            </div>
 
-                    <div className={ styles.question}>
-                            <Toggle
-                            defaultChecked={true}
-                            label={this.state.questions.Q3}
-                            onText="Ja"
-                            offText="Nej"
-                            onChanged={(answer3)=>{
-                                itemInContext.answer3=answer3;
-                                if(!answer3){
-                                    itemInContext.answer3Description ='';
-                                }
-                                this.setState({answers:itemInContext})
-                            }}
-                            />
-                        
-                            <TextField  
-                                className={this.state.answers.answer3?styles.descriptionTextFieldHidden:styles.descriptionTextFieldVisible} 
-                                label="Hvis nej så uddyb" 
-                                multiline rows={4} 
-                                value={itemInContext.answer3Description}  
-                                onChanged={(input)=>itemInContext.answer3Description=input}
-                                />
-                    </div>
+            <div className={ styles.question}>
+                    <Toggle
+                    defaultChecked={true}
+                    label={this.state.questions.Q3}
+                    onText="Ja"
+                    offText="Nej"
+                    onChanged={(answer3)=>{
+                        itemInContext.answer3=answer3;
+                        if(!answer3){
+                            itemInContext.answer3Description ='';
+                        }
+                        this.setState({answers:itemInContext})
+                    }}
+                    />
+                
+                    <TextField  
+                        className={this.state.answers.answer3?styles.descriptionTextFieldHidden:styles.descriptionTextFieldVisible} 
+                        label="Hvis nej så uddyb" 
+                        multiline rows={4} 
+                        value={itemInContext.answer3Description}  
+                        onChanged={(input)=>itemInContext.answer3Description=input}
+                        />
+            </div>
 
-                    <div className={ styles.question}>
-                            <Toggle
-                            defaultChecked={true}
-                            label={this.state.questions.Q4}
-                            onText="Ja"
-                            offText="Nej"
-                            onChanged={(answer4)=>{
-                                itemInContext.answer4=answer4;
-                                if(!answer4){
-                                    itemInContext.answer4Description ='';
-                                }
-                                this.setState({answers:itemInContext})
-                            }}
-                            />
-                        
-                            <TextField  
-                                className={this.state.answers.answer4?styles.descriptionTextFieldHidden:styles.descriptionTextFieldVisible} 
-                                label="Hvis nej så uddyb" 
-                                multiline rows={4} 
-                                value={itemInContext.answer4Description}  
-                                onChanged={(input)=>itemInContext.answer4Description=input}
-                                />
-                    </div>
-                    <div className={ styles.question}>
-                            <Toggle
-                            defaultChecked={true}
-                            label={this.state.questions.Q5}
-                            onText="Ja"
-                            offText="Nej"
-                            onChanged={(answer5)=>{
-                                itemInContext.answer5=answer5;
-                                if(!answer5){
-                                    itemInContext.answer5Description ='';
-                                }
-                                this.setState({answers:itemInContext})
-                            }}
-                            />
-                        
-                            <TextField  
-                                className={this.state.answers.answer5?styles.descriptionTextFieldHidden:styles.descriptionTextFieldVisible} 
-                                label="Hvis nej så uddyb" 
-                                multiline rows={4} 
-                                value={itemInContext.answer5Description}  
-                                onChanged={(input)=>itemInContext.answer5Description=input}
-                                />
-                    </div>
+            <div className={ styles.question}>
+                    <Toggle
+                    defaultChecked={true}
+                    label={this.state.questions.Q4}
+                    onText="Ja"
+                    offText="Nej"
+                    onChanged={(answer4)=>{
+                        itemInContext.answer4=answer4;
+                        if(!answer4){
+                            itemInContext.answer4Description ='';
+                        }
+                        this.setState({answers:itemInContext})
+                    }}
+                    />
+                
+                    <TextField  
+                        className={this.state.answers.answer4?styles.descriptionTextFieldHidden:styles.descriptionTextFieldVisible} 
+                        label="Hvis nej så uddyb" 
+                        multiline rows={4} 
+                        value={itemInContext.answer4Description}  
+                        onChanged={(input)=>itemInContext.answer4Description=input}
+                        />
+            </div>
+            <div className={ styles.question}>
+                    <Toggle
+                    defaultChecked={true}
+                    label={this.state.questions.Q5}
+                    onText="Ja"
+                    offText="Nej"
+                    onChanged={(answer5)=>{
+                        itemInContext.answer5=answer5;
+                        if(!answer5){
+                            itemInContext.answer5Description ='';
+                        }
+                        this.setState({answers:itemInContext})
+                    }}
+                    />
+                
+                    <TextField  
+                        className={this.state.answers.answer5?styles.descriptionTextFieldHidden:styles.descriptionTextFieldVisible} 
+                        label="Hvis nej så uddyb" 
+                        multiline rows={4} 
+                        value={itemInContext.answer5Description}  
+                        onChanged={(input)=>itemInContext.answer5Description=input}
+                        />
+            </div>
 
-                    <div>
-        <ChoiceGroup
-          defaultSelectedKey="B"
-          options={[
-            {
-              key: 'Blue',
-              text: 'Blå',
-              'data-automation-id': 'auto1'
-            } as IChoiceGroupOption,
-            {
-              key: 'Yellow',
-              text: 'Gul'
-            },
-            {
-              key: 'Green',
-              text: 'Grøn'
-            }
-        ]}
-          onChange={this._onChange}
-          
-          label={this.state.questions.Q6}
-        />
-      </div>
+            <div>
+<ChoiceGroup
+    defaultSelectedKey="B"
+    options={[
+    {
+        key: 'Blue',
+        text: 'Blå',
+        'data-automation-id': 'auto1'
+    } as IChoiceGroupOption,
+    {
+        key: 'Yellow',
+        text: 'Gul'
+    },
+    {
+        key: 'Green',
+        text: 'Grøn'
+    }
+]}
+    onChange={this._onChange}
+    
+    label={this.state.questions.Q6}
+/>
+</div>
+            <div>
+                <DefaultButton
+                        data-automation-id="test"
+                        text="Gem"
+                        onClick={this._onBtnClick}
+                        />
+            </div>
+        </Panel>
+                    </div>
                    
-                   
-                    </div>
 
-                    <div >
-                        <DefaultButton
-                                data-automation-id="test"
-                                text="Gem"
-                                onClick={this._onBtnClick}
-                                />
-                    </div>
+                    
             </div>
         
     );

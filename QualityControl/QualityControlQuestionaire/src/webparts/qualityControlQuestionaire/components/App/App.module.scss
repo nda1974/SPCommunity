@@ -86,6 +86,15 @@ $white: "[theme:white, default:#fff]";
     border-bottom-width: 1px;
     padding: 10px;
   }
+  .claimControlRow{
+    @include ms-Grid-row;
+    margin: 0px;
+    @include ms-font-l;
+    border-bottom-style: solid;
+    border-bottom-color: $themePrimary;
+    border-bottom-width: 1px;
+    padding: 10px;
+  }
   .rowRemarks {
     @include ms-Grid-row;
     margin: 0px;

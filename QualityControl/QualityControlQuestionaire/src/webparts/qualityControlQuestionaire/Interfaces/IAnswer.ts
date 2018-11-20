@@ -4,6 +4,8 @@ export interface IAnswer {
   listItemId?:number;
   batchID?: string;
   claimID?: string;
+  dataExtractionID?: string;
+  controlSubmmitted?:boolean;
   priviligedUser?: IQCUser;
   employeeInFocus?: IQCUser;
   department?: string;
