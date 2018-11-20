@@ -51,14 +51,20 @@ export default class SPSearchService{
 
             refinersMappedProperties= "Process,Målgruppe";
             refinersMappedProperties= "Målgruppe,Process";
+            
             selectProperties=['Title','Author','Process','Målgruppe','Path','ContentType','HitHighlightedSummary','DocumentLink','LinkingUrl'];
             filterOnContentType = manualType;
             // searchQuery.TrimDuplicates=false;
-            refinementFilters.length==1?searchQuery.Querytext="ContentType:"+filterOnContentType+" AND " + queryText + " " + refinersMappedProperties + ":" + refinementFilters[0]
-            :searchQuery.Querytext="ContentType:"+filterOnContentType+" AND " + queryText;    
+
+            
+            // refinementFilters.length==1?searchQuery.Querytext="ContentType:"+filterOnContentType+" AND " + queryText + " " + refinersMappedProperties + ":" + refinementFilters[0]
+            // refinementFilters.length==1?searchQuery.Querytext="(ContentType:\"Skadearbejdsbeskrivelse\" OR ContentType:\"SMSarbejdsbeskrivelse\") AND " + queryText + " " + refinersMappedProperties + ":\"" + refinementFilters[0] + "\""
+            refinementFilters.length==1?searchQuery.Querytext="((ContentType:\"Skadearbejdsbeskrivelse\" OR ContentType:\"SMSarbejdsbeskrivelse\") AND ( "+queryText+"))"
+            :searchQuery.Querytext="((ContentType:\"Skadearbejdsbeskrivelse\" OR ContentType:\"SMSarbejdsbeskrivelse\") AND "+ queryText+ " )";    
 
             searchQuery.SelectProperties=selectProperties;
             searchQuery.Refiners=refinersMappedProperties;
+
             const r = await pnp.sp.search(searchQuery);
             
             if (r.RawSearchResults.PrimaryQueryResult) {
@@ -68,7 +74,7 @@ export default class SPSearchService{
                 const r2 = await r.getPage(1,100);
                 
                 const resultRows = r2.RawSearchResults.PrimaryQueryResult.RelevantResults.Table.Rows;
-                console.log (resultRows);
+                // console.log (resultRows);
                 let refinementResultsRows = r2.RawSearchResults.PrimaryQueryResult.RefinementResults;
         
                 const refinementRows = refinementResultsRows ? refinementResultsRows["Refiners"] : [];

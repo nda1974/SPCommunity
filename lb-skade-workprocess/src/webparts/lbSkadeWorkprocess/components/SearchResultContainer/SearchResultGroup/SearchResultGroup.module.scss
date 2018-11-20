@@ -32,9 +32,16 @@ $white: "[theme:white, default:#fff]";
     @include ms-fontSize-l;
     // margin-bottom: 5px;
     margin: 0px;
+    margin-top: 5px;
     
 }
-
+.GroupItemsContainerShow{
+    display: block;
+    background-color: $white;
+}
+.GroupItemsContainerHide{
+    display: none;
+}
 .ManualRow a{
     color:rgba(0,50,98,1);
     @include ms-fontSize-m;
@@ -44,12 +51,14 @@ $white: "[theme:white, default:#fff]";
     padding:5px 0px 5px 10px;
     // margin-bottom: 2px;
     
-    
-    
     @include ms-fontSize-m;
-    border-bottom-color: $themePrimary;
-    border-bottom-style: solid;
-    border-bottom-width: thin;
+    // border-bottom-color: $themePrimary;
+    // border-bottom-style: solid;
+    // border-bottom-width: thin;
+
+    border-top-color: $themePrimary;
+    border-top-style: solid;
+    border-top-width: thin;
 }
 .ManualRow:hover{
     background-color:rgba(0,50,98,.2);

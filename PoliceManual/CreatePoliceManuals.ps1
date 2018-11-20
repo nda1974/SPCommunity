@@ -12,11 +12,11 @@ function CreatePage($pageName,$content,$group,$subGroup){
 
 #Set variable pagename
 #$pagename = “nicdTest3”
-
+Write-Host "Creating page - " $pagename
 #Add 3 new sections to the page
-$page = Add-PnPClientSidePage -Name $pagename -LayoutType Home #Using layouttype Home, removes the title and banner zone
+$page = Add-PnPClientSidePage -Name $pagename -LayoutType Article #Using layouttype Home, removes the title and banner zone
 Add-PnPClientSidePageSection -Page $page -SectionTemplate OneColumn -Order 1 
-Add-PnPClientSideText -Page $page -Text $content -Section 1 -Column 1
+Add-PnPClientSideText -Page $page -Text $content -Section 1 -Column 1 
 
 #Add-PnPClientSidePageSection -Page $page -SectionTemplate OneColumnFullWidth -Order 1 # OneColumnFullWidth is only available if the site is a Communication site
 #Add-PnPClientSidePageSection -Page $page -SectionTemplate TwoColumn -Order 2
@@ -61,7 +61,7 @@ $startRow = 1
 
 $excel = new-object -com excel.application
 #$wb = $excel.workbooks.open("C:\Git\LBIntranet\SPOApp\SPOApp\SPOApp\PoliceManuals\PH.xlsx")
-$wb = $excel.workbooks.open("C:\Git\LBIntranet\PoliceManual\PH.xlsx")
+$wb = $excel.workbooks.open("C:\Git\LBIntranet\PoliceManual\PHND.xlsx")
 
 
 for($i=2;$i -le $wb.Sheets[1].Rows.Count;$i++){
@@ -69,7 +69,8 @@ for($i=2;$i -le $wb.Sheets[1].Rows.Count;$i++){
     if($row.Columns[1].Text.Length -gt 0)
     {
         $ii++;
-        CreatePage -pageName $row.Columns[1].Text -content $row.Columns[2].Text -group $row.Columns[3].Text -subGroup $row.Columns[4].Text
+        CreatePage -pageName $row.Columns[1].Text -content $row.Columns[2].Value2 -group $row.Columns[3].Text -subGroup $row.Columns[4].Text
+        #ORG CreatePage -pageName $row.Columns[1].Text -content $row.Columns[2].Text -group $row.Columns[3].Text -subGroup $row.Columns[4].Text
         
         #Write-Host $row.Columns[1].Text
         #Write-Host $row.Columns[2].Text

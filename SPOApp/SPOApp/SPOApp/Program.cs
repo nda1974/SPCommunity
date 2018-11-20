@@ -477,8 +477,6 @@ namespace SPOApp
 
         static void Main(string[] args)
         {
-            PoliceManualApp.ReadImportFile();
-            return;
             Branches objBranches = new Branches();
 
 
@@ -487,12 +485,13 @@ namespace SPOApp
             Console.WriteLine("[2] - Validate content");
             Console.WriteLine("[3] - Migrate Links");
             Console.WriteLine("[4] - Repair Modern Pages");
+
             string InputFromScreen_FEATURE = Console.ReadLine();
             Console.WriteLine("Vælg 'Branche' ");
             string InputFromScreen_BRANCHE = Console.ReadLine();
             Console.WriteLine(DateTime.Now.ToShortTimeString());
             string targetSiteUrl = "https://lbforsikring.sharepoint.com/sites/skade";
-            ClientContext ctx = SPOUtility.Authenticate(targetSiteUrl, "admnicd@lb.dk", "MandM5555");
+            ClientContext ctx = SPOUtility.Authenticate(targetSiteUrl, "admnicd@lb.dk", "MandM6666");
 
 
             List<GenericManualStruct> lstAnsvar = MigrationEngine.GetSourceFilesFromCSV(SHAREPOINT_2_EXCEL_FILEPATH + objBranches.Ansvar + ".csv");
@@ -521,6 +520,7 @@ namespace SPOApp
             List<GenericManualStruct> lstErhverv = MigrationEngine.GetSourceFilesFromCSV(SHAREPOINT_2_EXCEL_FILEPATH + objBranches.Erhverv + ".csv");
             List<GenericManualStruct> lstGenerelSkadePolitik = MigrationEngine.GetSourceFilesFromCSV(SHAREPOINT_2_EXCEL_FILEPATH + objBranches.GenerelSkadePolitik + ".csv"); 
             List<GenericManualStruct> lstStormflod = MigrationEngine.GetSourceFilesFromCSV(SHAREPOINT_2_EXCEL_FILEPATH + objBranches.StormFlod + ".csv");
+            List<GenericManualStruct> lstUlykkeskade = MigrationEngine.GetSourceFilesFromCSV(SHAREPOINT_2_EXCEL_FILEPATH + objBranches.Ulykkeskade+ ".csv");
 
 
 
@@ -550,6 +550,7 @@ namespace SPOApp
             L.Add(lstErhverv);
             L.Add(lstGenerelSkadePolitik);
             L.Add(lstStormflod);
+            L.Add(lstUlykkeskade);
 
             string newFilenamePrefix = string.Empty;
 
@@ -578,7 +579,7 @@ namespace SPOApp
                     //                                                objBranches.Båd,
                     //                                                objBranches.Storskade,
                     //                                                objBranches.IndividuelLønsikring};
-                    List<string> lstBranches = new List<string>() { objBranches.Skadeservice};
+                    List<string> lstBranches = new List<string>() { objBranches.Ulykkeskade};
                     foreach (var branch in lstBranches)
                     {
                         lstCreateModernPagesLog = new List<string>();

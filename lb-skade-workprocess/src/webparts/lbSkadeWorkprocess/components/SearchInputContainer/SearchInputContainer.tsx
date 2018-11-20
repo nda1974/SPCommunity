@@ -22,8 +22,11 @@ export default class SearchInputContainer extends React.Component<ISearchInputCo
         return(
                     <div className={styles.container}>
                         <SearchBox
-                            placeholder='Søg'
+                            placeholder="Søg efter arbejdsbeskrivelse"
                             onSearch={ (newValue:string) => {this._search(newValue)} }
+                            onClear={ (newValue:string) => {this._search('*')} }
+                            onChange={ (newValue:string) => {newValue.length==0?this._search('*'):null} }
+
                             
                         />
                         {/* <label className={styles.SearchInputLabel}>Tryk Enter 2 gange for at udføre søgning. Tryk * for at nulstille søgningen</label> */}
@@ -39,7 +42,7 @@ export default class SearchInputContainer extends React.Component<ISearchInputCo
         this.props.callbackSetAppContainerQueryString(this.state.queryText); 
     }
     private _search(newValue:string):void{
-        console.log('search called: ' + newValue) 
+        // console.log('search called: ' + newValue) 
         this.setState({queryText: newValue},function(){
             // this.props.callbackSetAppContainerQueryString(this.state.queryText); 
             this.props.callbackSetAppContainerQueryString(newValue); 
@@ -48,7 +51,7 @@ export default class SearchInputContainer extends React.Component<ISearchInputCo
     }
     private _toggleChanged(value:boolean):void{
         // this.props.callbackDisplayMode(this.state.compactMode);
-        console.log('Searchiputcontainer ' +value) 
+        // console.log('Searchiputcontainer ' +value) 
     }
 
     

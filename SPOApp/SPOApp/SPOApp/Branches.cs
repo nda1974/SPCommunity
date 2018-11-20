@@ -33,6 +33,7 @@ namespace SPOApp
         string erhverv;
         string generelSkadePolitik;
         string stormFlod;
+        string ulykkeskade;
         public Branches()
         {
             this.ansvar = "Ansvar";
@@ -60,6 +61,7 @@ namespace SPOApp
             this.erhverv= "Erhverv";
             this.generelSkadePolitik= "Generel skadepolitik";
             this.stormFlod = "Stormflod";
+            this.Ulykkeskade= "Ulykkeskade";
 
         }
 
@@ -88,5 +90,6 @@ namespace SPOApp
         public string GenerelSkadePolitik { get => generelSkadePolitik; set => generelSkadePolitik= value; }
         public string StormFlod { get => stormFlod; set => stormFlod = value; }
         public string StormManual { get => stormmanual; set => stormmanual = value; }
+        public string Ulykkeskade { get => ulykkeskade; set => ulykkeskade = value; }
     }
 }

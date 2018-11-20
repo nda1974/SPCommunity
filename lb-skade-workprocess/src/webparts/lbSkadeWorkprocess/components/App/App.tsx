@@ -45,6 +45,7 @@ export default class App extends React.Component<IAppProps, IAppState> {
 
 
             this.fetchSharePointData=this.fetchSharePointData.bind(this)
+
             this.fetchSharePointData()
             
     }
@@ -56,9 +57,6 @@ export default class App extends React.Component<IAppProps, IAppState> {
         })
         
     }
-    
-    
-    
     
     onRefinementFiltersChanged(refinementToken?:string,refinemantString?:string,toggle?:boolean) {
         if (refinementToken==null) {
@@ -92,13 +90,11 @@ export default class App extends React.Component<IAppProps, IAppState> {
         let qString:string="";
         let v:string="";
         this.state.refinementFilters.map((f)=>{
-            // v=f.replace('"','')
-            // v=f.replace(/\"/g, '');
             qString=qString+ `Process:${f}` + " AND "
         })
-        // let searchResult:Promise<ISearchResults>=ss.search(this.state.queryText + ' ' + this.props.searchUrl,this.state.refinementFilters,this.props.manualType);
-        // let searchResult:Promise<ISearchResults>=ss.search(this.state.queryText + ' ' + "Process=ǂǂ416c706861" + this.props.searchUrl,[],this.props.manualType);
-        let searchResult:Promise<ISearchResults>=ss.search(this.state.queryText + ' ' + qString + this.props.searchUrl,[],this.props.manualType);
+
+        // let searchResult:Promise<ISearchResults>=ss.search(this.state.queryText + ' ' + qString + this.props.searchUrl,[],this.props.manualType);
+        let searchResult:Promise<ISearchResults>=ss.search(this.state.queryText +  this.props.searchUrl,[],this.props.manualType);
         
         let results: ISearchResults = {
             RelevantResults : [],
@@ -109,11 +105,12 @@ export default class App extends React.Component<IAppProps, IAppState> {
         searchResult.then(
             (data:ISearchResults)=> {
                                         this.setState({results:data})
-                                        console.log(data)
+                                        // console.log(data)
                                     }
 
         );
     }
+   
     setAreaFilter(areaFilter)
     {
         let qText:string="";
@@ -121,11 +118,11 @@ export default class App extends React.Component<IAppProps, IAppState> {
             qText="";
         }
         else{
-            qText="Målgruppe:"+areaFilter;
+            qText="Målgruppe:\""+areaFilter + "\"";
         }
-        console.log("areaFilter: " + qText)
+        // console.log("areaFilter: " + qText)
         this.setState({queryText:qText},()=>{
-            console.log("queryText: " + this.state.queryText)
+            // console.log("queryText: " + this.state.queryText)
             this.fetchSharePointData();
         })
         
@@ -140,12 +137,13 @@ export default class App extends React.Component<IAppProps, IAppState> {
                         <SearchInputContainer callbackSetAppContainerQueryString={(newState) => this.onQueryTextChanged(newState) }/>
                 </div>
 
-                {
+                {/* {
                     this.state.results.RefinementResults.map((refinementResults)=>{
                         if (refinementResults.FilterName=="Målgruppe") {
                             return(
                                 <div className={styles.row}>
                                     <ProcessMap mapItems={this.state.results.RefinementResults[1]} setAreaFilter={(areaFilter) => this.setAreaFilter(areaFilter) } />
+                                    
                                     <br/>
                                 </div>
                             )                
@@ -157,26 +155,13 @@ export default class App extends React.Component<IAppProps, IAppState> {
                         }
                     })
                 }
-                
-
-                <div className={styles.row}>
+                 */}
+                <SearchResultContainer  results={this.state.results.RelevantResults} />
+                {/* <div className={styles.row}>
                     <div className="ms-Grid-col ms-md12 ms-lg12">
                         <SearchResultContainer  results={this.state.results.RelevantResults} />
                     </div>
-                    {/* {
-                        this.state.results.RefinementResults.map((refinementResult)=>{
-                            if (refinementResult.FilterName=="Process") {
-                            return(
-                                <div className="ms-Grid-col ms-md4 ms-lg4">
-                                    <RefinementPanel selectedRefiners={this.state.refinementFilters} myRefiners={refinementResult} refiners={this.state.results.RefinementResults}  
-                                                    callbackSetRefinementFilters={(newState,toggle) => this.onRefinementFiltersChanged(newState,toggle) }
-                                                    callbackClearRefinementFilters={() => this.onRefinementFiltersChanged(null) }/>
-                                </div>
-                                )
-                            }
-                        })
-                    } */}
-                </div>
+                </div> */}
         </div>
         );
     }

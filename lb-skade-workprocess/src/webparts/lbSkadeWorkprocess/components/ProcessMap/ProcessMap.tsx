@@ -38,7 +38,7 @@ export default class ProcessMap extends React.Component<IProcessMapProps, IProce
             (data:(ITermData & ITerm)[])=>{
                 this.setState({test:data})
                 data.map((item)=>{
-                    console.log(item)
+                    // console.log(item)
 
                 })
                 
