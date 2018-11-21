@@ -8,4 +8,5 @@ export interface IAppState {
   answers:IAnswer;
   currentUser:ICurrentUser;
   showPanel:boolean;
+  currentAnswerId:number;
 }

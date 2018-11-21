@@ -6,3 +6,4 @@ export interface IQuestions {
   Q5:string;
   Q6:string;
 }
+

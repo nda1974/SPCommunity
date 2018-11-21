@@ -63,6 +63,7 @@ export default class App extends React.Component<IAppProps, IAppState> {
         
         this.state = {
             showPanel:false,
+            currentAnswerId:0,
             currentUser:{},
             answersList:[],
             questions:{
@@ -107,27 +108,14 @@ export default class App extends React.Component<IAppProps, IAppState> {
         this._getQuestions=this._getQuestions.bind(this);
         this._getAnswers=this._getAnswers.bind(this);
         this._onBtnClick=this._onBtnClick.bind(this);
-        this.test=this.test.bind(this);
+        this._setItemInContext=this._setItemInContext.bind(this);
         // this.saveAnswer=this.saveAnswer.bind(this);
         this._onChange=this._onChange.bind(this);
         this._updateAnswers=this._updateAnswers.bind(this);
-        // this._getPeoplePickerItems();
-        this.test();
-         
-        const r = this._getUserObject()
-        r.then(
-            this._getAnswers
-        )
-        // this._getAnswers();
-
-                
-                
         
-    }
-    private async test():Promise<void>{
-
-        const t:any = await this._getQuestions().then((t)=>{
-            let res:IQuestions={
+        const pQuestions= this._getQuestions();
+            pQuestions.then((t)=>{
+                    let res:IQuestions={
                 Q1:'',
                 Q2:'',
                 Q3:'',
@@ -145,54 +133,21 @@ export default class App extends React.Component<IAppProps, IAppState> {
         
             this.setState({questions:res})
         }
-            
-        );
+
+         )
+        const pUser = this._getUserObject()
+        pUser.then(
+            this._getAnswers
+        )
+
+                
+                
         
     }
+    
     //https://github.com/pnp/pnpjs/issues/196#issuecomment-410908170
     public _onBtnClick():void{
         this.setState({answers:itemInContext},this._updateAnswers);
-
-
-
-        // pnp.sp.web
-        // .getFolderByServerRelativeUrl('/sites/NICD/Delte%20dokumenter')
-        // .files
-        // .add('test.docx', '123', true)
-        // .then(f => f.file.getItem())
-        // .then(item => {
-        //     return item.update({
-        //     Title: 'A Title'
-        //     });
-        // })
-        // .then(console.log)
-        // .catch(console.error);
-        // var templateUrl:string='/sites/NICD/Delte%20dokumenter/Forms/Template/QCTemplate.dotx'
-        // var templateUrl:string='/sites/Skade/Delte%20dokumenter/Forms/QC Report/QCTemplate.dotx'
-        // var templateUrl:string='/sites/Skade/Dokumenter/Forms/QC Report/QCTemplate.dotx'
-        // var templateUrl:string='/sites/Skade/Delte%20dokumenter/nicd.docx'
-        // var name:string='QCTemplate.dotx'
-        // var url:string='/sites/Skade/Delte%20dokumenter'
-        
-        // pnp.sp.web.getFolderByServerRelativeUrl(url).files.add('nicdTest.docx',).then(
-        //     ({file})=>{
-        //         return file.getItem();
-        //     }
-        // ).then(item=>{
-        //     return item.validateUpdateListItem([{FieldName:'Title',FieldValue:'Yahoo'},{FieldName:'ContentType',FieldValue:'QC Report'}])
-        // })
-
-        // pnp.sp.web.getFileByServerRelativeUrl(templateUrl).get.getBuffer().then((templateData:ArrayBuffer)=>{
-        //     console.log(templateData);
-        //     pnp.sp.web.getFolderByServerRelativeUrl(url).files.add('nicdTest.docx',templateData).then(
-        //         ({file})=>{
-        //             return file.getItem();
-        //         }
-        //     ).then(item=>{
-        //         return item.validateUpdateListItem([{FieldName:'Title',FieldValue:'Yahoo'}])
-        //     })
-        // })
-        
     }
     
     public async _getQuestions(): Promise<any> {
@@ -245,10 +200,13 @@ export default class App extends React.Component<IAppProps, IAppState> {
             .filter("PriviligedUser eq "+ this.state.currentUser.id)
             .get()
             .then(async (data: any[]) => {
+                console.log(data)
                 data.map((item)=>{
                     answersitems.push(  {
                                             claimID:item.ClaimID,
-                                            listItemId:item.Id
+                                            listItemId:item.Id,
+                                            answer1:item.Answer1,
+                                            answer1Description:item.Answer1Description
 
                                         }
                                     )
@@ -293,13 +251,13 @@ export default class App extends React.Component<IAppProps, IAppState> {
     //     });
 
     // }
-    private async _getPeoplePickerItems() {
-        await pnp.sp.web.siteUsers.filter("Title eq 'Nicolai Danielsen'").get().then((result)=> {
-            console.log(result)
-        })
-    }
+    
     private _setRemark(choice:number):any{
         alert(choice);
+    }
+    private _setItemInContext(answer:IAnswer):any{
+        itemInContext.answer1Description = answer.answer1Description;
+        
     }
     public render(): React.ReactElement<IAppProps> {
         return (
@@ -308,7 +266,11 @@ export default class App extends React.Component<IAppProps, IAppState> {
              <div className={ styles.container }>
                 {this.state.answersList.map((ans)=>{
                     return(<div className={styles.claimControlRow} 
-                                onClick={()=>{this.setState({showPanel:!this.state.showPanel})}}>{ans.claimID} - {ans.listItemId}</div>)
+                                onClick={()=>{
+                                                this.setState({currentAnswerId:ans.listItemId,showPanel:!this.state.showPanel})
+                                            }}>
+                                                            {ans.claimID} - {ans.listItemId}
+                            </div>)
                 })}
                 
                     {/* <div className={styles.row}>
@@ -327,6 +289,13 @@ export default class App extends React.Component<IAppProps, IAppState> {
           headerText={"Quality Control - ClaimID: " + this.state.answers.claimID}
           closeButtonAriaLabel="Close"
         >           
+        {
+            this.state.answersList.map((ans)=>{
+                ans.listItemId = this.state.currentAnswerId
+                    ?this._setItemInContext(ans)
+                    :null
+            })
+        }
             {/* <div className={[styles.row, styles.header].join(' ') }>
                 Quality Control - ClaimID: <b>{this.state.answers.claimID}</b>
             </div> 
