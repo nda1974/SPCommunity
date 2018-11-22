@@ -69,7 +69,8 @@ for($i=2;$i -le $wb.Sheets[1].Rows.Count;$i++){
     if($row.Columns[1].Text.Length -gt 0)
     {
         $ii++;
-        CreatePage -pageName $row.Columns[1].Text -content $row.Columns[2].Value2 -group $row.Columns[3].Text -subGroup $row.Columns[4].Text
+        $content = $row.Columns[2].Text 
+        CreatePage -pageName $row.Columns[1].Text -content $row.Columns[2].Text-group $row.Columns[3].Text -subGroup $row.Columns[4].Text
         #ORG CreatePage -pageName $row.Columns[1].Text -content $row.Columns[2].Text -group $row.Columns[3].Text -subGroup $row.Columns[4].Text
         
         #Write-Host $row.Columns[1].Text

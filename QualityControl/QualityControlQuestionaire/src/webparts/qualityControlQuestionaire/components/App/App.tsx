@@ -18,19 +18,20 @@ import { Icon } from 'office-ui-fabric-react/lib/Icon';
 import { IconButton } from 'office-ui-fabric-react/lib/Button';
 import { ICurrentUser } from '../../../../Interfaces/ICurrentUser.';
 import { Panel, PanelType } from 'office-ui-fabric-react/lib/Panel';
+import { SiteUsers, SiteUser } from 'sp-pnp-js/lib/sharepoint/siteusers';
 
 
 let employeeInFocus:IQCUser={
     name:'',
-    email:'',
-    userRole:IUserRoles.Employee
+    email:''
+    // userRole:IUserRoles.Employee
 };
 let priviligedUser:IQCUser={
     name:'',
-    email:'',
-    userRole:IUserRoles.PriviligedUser
+    email:''
+    // userRole:IUserRoles.PriviligedUser
 };
-let itemInContext: IAnswer = {
+let updatableitemInContext: IAnswer = {
     listItemId:null,
     batchID:'',
     claimID:'',
@@ -62,6 +63,7 @@ export default class App extends React.Component<IAppProps, IAppState> {
         super(props);
         
         this.state = {
+            itemInContext:{},
             showPanel:false,
             currentAnswerId:0,
             currentUser:{},
@@ -80,6 +82,7 @@ export default class App extends React.Component<IAppProps, IAppState> {
                 department:'',
                 priviligedUser:priviligedUser,
                 employeeInFocus:employeeInFocus,
+                listItemId:0,
                 answer1:true,
                 answer1Description:'',
                 answer2:true,
@@ -104,7 +107,7 @@ export default class App extends React.Component<IAppProps, IAppState> {
             
         });
         
-        
+        this._getEmployeeInFocusProps=this._getEmployeeInFocusProps.bind(this);
         this._getQuestions=this._getQuestions.bind(this);
         this._getAnswers=this._getAnswers.bind(this);
         this._onBtnClick=this._onBtnClick.bind(this);
@@ -112,10 +115,12 @@ export default class App extends React.Component<IAppProps, IAppState> {
         // this.saveAnswer=this.saveAnswer.bind(this);
         this._onChange=this._onChange.bind(this);
         this._updateAnswers=this._updateAnswers.bind(this);
-        
+        this._getUserObject=this._getUserObject.bind(this);
+        this._onDismissPanel=this._onDismissPanel.bind(this);
         const pQuestions= this._getQuestions();
-            pQuestions.then((t)=>{
-                    let res:IQuestions={
+
+        pQuestions.then((t)=>{
+            let res:IQuestions={
                 Q1:'',
                 Q2:'',
                 Q3:'',
@@ -123,7 +128,7 @@ export default class App extends React.Component<IAppProps, IAppState> {
                 Q5:'',
                 Q6:''
             };
-            
+        
             res.Q1=t[0].ControlQuestion;
             res.Q2=t[1].ControlQuestion;
             res.Q3=t[2].ControlQuestion;
@@ -132,22 +137,19 @@ export default class App extends React.Component<IAppProps, IAppState> {
             res.Q6=t[5].ControlQuestion;
         
             this.setState({questions:res})
-        }
-
-         )
+            }
+        )
+        
         const pUser = this._getUserObject()
         pUser.then(
             this._getAnswers
         )
-
-                
-                
-        
     }
     
     //https://github.com/pnp/pnpjs/issues/196#issuecomment-410908170
     public _onBtnClick():void{
-        this.setState({answers:itemInContext},this._updateAnswers);
+        this._updateAnswers();
+        // this.setState({answers:itemInContext},this._updateAnswers);
     }
     
     public async _getQuestions(): Promise<any> {
@@ -167,32 +169,32 @@ export default class App extends React.Component<IAppProps, IAppState> {
     
     
     public async _updateAnswers(): Promise<void> {
-        // Getting the second "page" of results from the top query
-        pnp.sp.web.lists.getById(ANSWERS_LIST_ID).items.getById(itemInContext.listItemId).update({
-            Title: itemInContext.claimID,
-            Answer1:itemInContext.answer1,
-            Answer1Description:itemInContext.answer1Description,
-            Answer2:itemInContext.answer2,
-            Answer2Description:itemInContext.answer2Description,
-            Answer3:itemInContext.answer3,
-            Answer3Description:itemInContext.answer3Description,
-            Answer4:itemInContext.answer4,
-            Answer4Description:itemInContext.answer4Description,
-            Answer5:itemInContext.answer5,
-            Answer5Description:itemInContext.answer5Description,
-            Answer6:itemInContext.answer6
+        
+        pnp.sp.web.lists.getById(ANSWERS_LIST_ID).items.getById(updatableitemInContext.listItemId).update({
+            Title: updatableitemInContext.claimID,
+            Answer1:updatableitemInContext.answer1,
+            Answer1Description:updatableitemInContext.answer1Description,
+            Answer2:updatableitemInContext.answer2,
+            Answer2Description:updatableitemInContext.answer2Description,
+            Answer3:updatableitemInContext.answer3,
+            Answer3Description:updatableitemInContext.answer3Description,
+            Answer4:updatableitemInContext.answer4,
+            Answer4Description:updatableitemInContext.answer4Description,
+            Answer5:updatableitemInContext.answer5,
+            Answer5Description:updatableitemInContext.answer5Description,
+            Answer6:updatableitemInContext.answer6
         }).then(r => {
-            
-            // this result will have two properties "data" and "item"
-            // data is what was returned from SharePoint after the update operation
-            // and item is an object of type item representing the REST query to that item
-            // so you can immediately chain off that
-
+            this.setState({showPanel:!this.state.showPanel})
             console.log(r);
         });
     }
+
     public async _getAnswers(): Promise<void> {
         let answersitems:IAnswer[]=[];
+        let employeeInFocus:IQCUser={
+            email:'',
+            name:''
+        }
         // Quality Control - Claims Handler Questions
         // return await pnp.sp.web.lists.getByTitle('QualityControl-10Sagsgennemgang')
         await pnp.sp.web.lists.getById(ANSWERS_LIST_ID)
@@ -205,8 +207,20 @@ export default class App extends React.Component<IAppProps, IAppState> {
                     answersitems.push(  {
                                             claimID:item.ClaimID,
                                             listItemId:item.Id,
+                                            employeeInFocus:{
+                                                name:'Fisk',
+                                                email:''
+                                            },
                                             answer1:item.Answer1,
-                                            answer1Description:item.Answer1Description
+                                            answer1Description:item.Answer1Description,
+                                            answer2:item.Answer2,
+                                            answer2Description:item.Answer2Description,
+                                            answer3:item.Answer3,
+                                            answer3Description:item.Answer3Description,
+                                            answer4:item.Answer4,
+                                            answer4Description:item.Answer4Description,
+                                            answer5:item.Answer5,
+                                            answer5Description:item.Answer5Description
 
                                         }
                                     )
@@ -234,30 +248,28 @@ export default class App extends React.Component<IAppProps, IAppState> {
         }
 
     }
-    // public async saveAnswer(): Promise<void> {
-    //     // var userObject=await this._getUserObject();
-
-    //     await pnp.sp.web.lists.getById(ANSWERS_LIST_ID).items.add({
-    //         'Title': 'Test',
-    //         // 'Description': favouriteItem.Description,
-    //         'Answer1': this.state.answers.answer1,
-    //         'Answer1Description': this.state.answers.answer1Description
-    //     }).then(async (result: any): Promise<void> => {
-    //         let addedItem: any = result.data;
-    //         // await this._getAllFavourites();
-    //         // return true;
-    //     }, (error: any): void => {
-    //         // return false;
-    //     });
-
-    // }
     
-    private _setRemark(choice:number):any{
-        alert(choice);
-    }
-    private _setItemInContext(answer:IAnswer):any{
-        itemInContext.answer1Description = answer.answer1Description;
+    private _setItemInContext(answerId:number):any{
+
+        this.state.answersList.map((answer)=>{
+                answer.listItemId == answerId?
+                        this.setState({itemInContext:answer},()=>{updatableitemInContext = this.state.itemInContext;this.setState({showPanel:!this.state.showPanel});})
+                        :null
+        })
         
+    }
+    private _onDismissPanel():void{
+        
+        this.setState({ showPanel: false },
+        this._getAnswers)
+    }
+    private async _getEmployeeInFocusProps(email:string):Promise<any>{
+        
+        pnp.sp.web.siteUsers.getByEmail(email).get().then(res=>{
+            return res
+        }
+
+        );
     }
     public render(): React.ReactElement<IAppProps> {
         return (
@@ -267,7 +279,7 @@ export default class App extends React.Component<IAppProps, IAppState> {
                 {this.state.answersList.map((ans)=>{
                     return(<div className={styles.claimControlRow} 
                                 onClick={()=>{
-                                                this.setState({currentAnswerId:ans.listItemId,showPanel:!this.state.showPanel})
+                                                this._setItemInContext(ans.listItemId);
                                             }}>
                                                             {ans.claimID} - {ans.listItemId}
                             </div>)
@@ -284,182 +296,167 @@ export default class App extends React.Component<IAppProps, IAppState> {
     <Panel
           isOpen={this.state.showPanel}
           // tslint:disable-next-line:jsx-no-lambda
-          onDismiss={() => this.setState({ showPanel: false })}
+          onDismiss={() => this._onDismissPanel()}
+          
           type={PanelType.extraLarge}
-          headerText={"Quality Control - ClaimID: " + this.state.answers.claimID}
+        //   headerText={"Quality Control - ClaimID: " + updatableitemInContext.claimID}
           closeButtonAriaLabel="Close"
         >           
         {
-            this.state.answersList.map((ans)=>{
-                ans.listItemId = this.state.currentAnswerId
-                    ?this._setItemInContext(ans)
-                    :null
-            })
-        }
-            {/* <div className={[styles.row, styles.header].join(' ') }>
-                Quality Control - ClaimID: <b>{this.state.answers.claimID}</b>
+            this._getEmployeeInFocusProps (updatableitemInContext.employeeInFocus.email)
+        }   
+            <div className={[styles.row, styles.header].join(' ') }>
+            <div>Quality Control - ClaimID: <b>{updatableitemInContext.claimID}</b></div>
+            <div>Medarbejder i fokus: </div>
+                
             </div> 
-            <div className={[styles.row, styles.infoSection].join(' ') }>
-                <div className={[ styles.column].join(' ') }>
-                    Medarbejder i fokus:
-                </div>
-                <div className={[ styles.column].join(' ') }>
-                    {this.state.answers.employeeInFocus.name}
-                </div>
-            </div>
-
-            <div className={[styles.row, styles.infoSection].join(' ') }>
-                <div className={[ styles.infoSection,styles.column].join(' ') }>
-                    Afdeling:
-                </div>
-                <div className={[ styles.infoSection,styles.column].join(' ') }>
-                    {this.state.answers.department}
-                </div>
-            </div>
-            */}
             
             <div className={ styles.question}>
                 <Toggle
-                defaultChecked={true}
+                defaultChecked={updatableitemInContext.answer1}
                 label={this.state.questions.Q1}
                 onText="Ja"
                 offText="Nej"
                 onChanged={(answer1)=>{
-                    itemInContext.answer1=answer1;
+                    updatableitemInContext.answer1=answer1;
                     if(!answer1){
-                        itemInContext.answer1Description ='';
+                        updatableitemInContext.answer1Description ='';
                     }
-                    this.setState({answers:itemInContext})
+                    this.setState({answers:updatableitemInContext})
                 }}
                 />
             
                 <TextField  
-                    className={this.state.answers.answer1?styles.descriptionTextFieldHidden:styles.descriptionTextFieldVisible} 
+                    className={updatableitemInContext.answer1?styles.descriptionTextFieldHidden:styles.descriptionTextFieldVisible} 
                     label="Hvis nej så uddyb" 
                     multiline rows={4} 
-                    value={itemInContext.answer1Description}  
-                    onChanged={(input)=>itemInContext.answer1Description=input}
+                    value={updatableitemInContext.answer1Description}  
+                    onChanged={(input)=>updatableitemInContext.answer1Description=input}
                     />
             </div>
+
             
             <div className={ styles.question}>
                     <Toggle
-                    defaultChecked={true}
+                    defaultChecked={updatableitemInContext.answer2}
                     label={this.state.questions.Q2}
                     onText="Ja"
                     offText="Nej"
                     onChanged={(answer2)=>{
-                        itemInContext.answer2=answer2;
+                        updatableitemInContext.answer2=answer2;
                         if(!answer2){
-                            itemInContext.answer2Description ='';
+                            updatableitemInContext.answer2Description ='';
                         }
-                        this.setState({answers:itemInContext})
+                        this.setState({answers:updatableitemInContext})
                     }}
                     />
                 
                     <TextField  
-                        className={this.state.answers.answer2?styles.descriptionTextFieldHidden:styles.descriptionTextFieldVisible} 
+                        className={updatableitemInContext.answer2?styles.descriptionTextFieldHidden:styles.descriptionTextFieldVisible} 
                         label="Hvis nej så uddyb" 
                         multiline rows={4} 
-                        value={itemInContext.answer2Description}  
-                        onChanged={(input)=>itemInContext.answer2Description=input}
+                        value={updatableitemInContext.answer2Description}  
+                        onChanged={(input)=>updatableitemInContext.answer2Description=input}
                         />
             </div>
 
             <div className={ styles.question}>
                     <Toggle
-                    defaultChecked={true}
+                    defaultChecked={updatableitemInContext.answer3}
                     label={this.state.questions.Q3}
                     onText="Ja"
                     offText="Nej"
                     onChanged={(answer3)=>{
-                        itemInContext.answer3=answer3;
+                        updatableitemInContext.answer3=answer3;
                         if(!answer3){
-                            itemInContext.answer3Description ='';
+                            updatableitemInContext.answer3Description ='';
                         }
-                        this.setState({answers:itemInContext})
+                        this.setState({answers:updatableitemInContext})
                     }}
                     />
                 
                     <TextField  
-                        className={this.state.answers.answer3?styles.descriptionTextFieldHidden:styles.descriptionTextFieldVisible} 
+                        className={updatableitemInContext.answer3?styles.descriptionTextFieldHidden:styles.descriptionTextFieldVisible} 
                         label="Hvis nej så uddyb" 
                         multiline rows={4} 
-                        value={itemInContext.answer3Description}  
-                        onChanged={(input)=>itemInContext.answer3Description=input}
+                        value={updatableitemInContext.answer3Description}  
+                        onChanged={(input)=>updatableitemInContext.answer3Description=input}
                         />
             </div>
 
             <div className={ styles.question}>
                     <Toggle
-                    defaultChecked={true}
+                    defaultChecked={updatableitemInContext.answer4}
                     label={this.state.questions.Q4}
                     onText="Ja"
                     offText="Nej"
                     onChanged={(answer4)=>{
-                        itemInContext.answer4=answer4;
+                        updatableitemInContext.answer4=answer4;
                         if(!answer4){
-                            itemInContext.answer4Description ='';
+                            updatableitemInContext.answer4Description ='';
                         }
-                        this.setState({answers:itemInContext})
+                        this.setState({answers:updatableitemInContext})
                     }}
                     />
                 
                     <TextField  
-                        className={this.state.answers.answer4?styles.descriptionTextFieldHidden:styles.descriptionTextFieldVisible} 
+                        className={updatableitemInContext.answer4?styles.descriptionTextFieldHidden:styles.descriptionTextFieldVisible} 
                         label="Hvis nej så uddyb" 
                         multiline rows={4} 
-                        value={itemInContext.answer4Description}  
-                        onChanged={(input)=>itemInContext.answer4Description=input}
+                        value={updatableitemInContext.answer4Description}  
+                        onChanged={(input)=>updatableitemInContext.answer4Description=input}
                         />
             </div>
             <div className={ styles.question}>
                     <Toggle
-                    defaultChecked={true}
+                    defaultChecked={updatableitemInContext.answer5}
                     label={this.state.questions.Q5}
                     onText="Ja"
                     offText="Nej"
                     onChanged={(answer5)=>{
-                        itemInContext.answer5=answer5;
+                        updatableitemInContext.answer5=answer5;
                         if(!answer5){
-                            itemInContext.answer5Description ='';
+                            updatableitemInContext.answer5Description ='';
                         }
-                        this.setState({answers:itemInContext})
+                        this.setState({answers:updatableitemInContext})
                     }}
                     />
                 
                     <TextField  
-                        className={this.state.answers.answer5?styles.descriptionTextFieldHidden:styles.descriptionTextFieldVisible} 
+                        className={updatableitemInContext.answer5?styles.descriptionTextFieldHidden:styles.descriptionTextFieldVisible} 
                         label="Hvis nej så uddyb" 
                         multiline rows={4} 
-                        value={itemInContext.answer5Description}  
-                        onChanged={(input)=>itemInContext.answer5Description=input}
+                        value={updatableitemInContext.answer5Description}  
+                        onChanged={(input)=>updatableitemInContext.answer5Description=input}
                         />
             </div>
 
             <div>
-<ChoiceGroup
-    defaultSelectedKey="B"
-    options={[
-    {
-        key: 'Blue',
-        text: 'Blå',
-        'data-automation-id': 'auto1'
-    } as IChoiceGroupOption,
-    {
-        key: 'Yellow',
-        text: 'Gul'
-    },
-    {
-        key: 'Green',
-        text: 'Grøn'
-    }
-]}
-    onChange={this._onChange}
-    
-    label={this.state.questions.Q6}
-/>
-</div>
+                <ChoiceGroup
+                    defaultSelectedKey="B"
+                    options={[
+                    {
+                        key: 'None',
+                        text: 'Ingen bemærkninger'
+                    } as IChoiceGroupOption,
+                    {
+                    key: 'Blue',
+                    text: 'Blå'
+                    },
+                    {
+                        key: 'Yellow',
+                        text: 'Gul'
+                    },
+                    {
+                        key: 'Green',
+                        text: 'Grøn'
+                    }
+                ]}
+                    onChange={this._onChange}
+                    
+                    label={this.state.questions.Q6}
+                />
+            </div>
             <div>
                 <DefaultButton
                         data-automation-id="test"
@@ -479,18 +476,21 @@ export default class App extends React.Component<IAppProps, IAppState> {
     }
     private _onChange = (ev: React.FormEvent<HTMLInputElement>, option: any): void => {
         switch (option.key) {
-            case 'Green':
-            itemInContext.answer6=1;        
+            case 'None':
+            updatableitemInContext.answer6=0;        
                 break;
             case 'Blue':
-            itemInContext.answer6=2;        
+            updatableitemInContext.answer6=1;        
                 break;
             case 'Yellow':
-            itemInContext.answer6=2;        
+            updatableitemInContext.answer6=2;        
+                break;
+            case 'Green':
+            updatableitemInContext.answer6=3;        
                 break;
             default:
                 break;
         }
-        this.setState({answers:itemInContext})
-      };
+        
+    };
 }

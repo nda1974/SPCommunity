@@ -32,7 +32,7 @@ param
                                           "EmployeeInFocus"=$_.EmployeeEmail;
                                           "ClaimID"=$_.ClaimID;
                                           "Department"=$_.Department;  
-                                          "DataExtractionID"="100"}
+                                          "DataExtractionID"=$_.ExtractionID;}
 }
 
 
@@ -49,7 +49,7 @@ param
 $SiteURL = 'https://lbforsikring.sharepoint.com/sites/Skade/'
 $ListName="Quality Control - Claims Handler Answers"
 
-Connect-PnPOnline -Url $SiteURL -Credentials $PSCredentials
+Connect-PnPOnline -Url $SiteURL -Credentials -NICD-
 
 #$importFilePath = 'C:\Git\LBIntranet\QualityControl\Excel-output kvalitetskontrol.csv'
 $importFilePath = 'C:\Git\LBIntranet\QualityControl\skadekontrol.csv'

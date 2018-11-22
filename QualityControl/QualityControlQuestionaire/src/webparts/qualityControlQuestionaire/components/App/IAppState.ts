@@ -9,4 +9,5 @@ export interface IAppState {
   currentUser:ICurrentUser;
   showPanel:boolean;
   currentAnswerId:number;
+  itemInContext:IAnswer;
 }
