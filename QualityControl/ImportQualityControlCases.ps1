@@ -30,6 +30,7 @@ param
                                           "BatchID" = $_.BatchID;
                                           "PriviligedUser"=$_.PriviligedUserEmail;
                                           "EmployeeInFocus"=$_.EmployeeEmail;
+                                          "EmployeeInFocusDisplayName"=$_.Employee;
                                           "ClaimID"=$_.ClaimID;
                                           "Department"=$_.Department;  
                                           "DataExtractionID"=$_.ExtractionID;}

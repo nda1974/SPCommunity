@@ -8,6 +8,7 @@ export interface IAnswer {
   controlSubmmitted?:boolean;
   priviligedUser?: IQCUser;
   employeeInFocus?: IQCUser;
+  employeeInFocusDisplayName?:string;
   department?: string;
   answer1?: boolean;
   answer1Description?: string;

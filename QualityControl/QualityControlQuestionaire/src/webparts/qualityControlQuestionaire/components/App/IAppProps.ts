@@ -1,6 +1,6 @@
 import { IWebPartContext } from "@microsoft/sp-webpart-base";
 
 export interface IAppProps {
-  description: string;
+  webPartHeader: string;
   ctx:IWebPartContext;
 }

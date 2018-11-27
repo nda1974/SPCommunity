@@ -13,7 +13,7 @@ import App from './components/App/App';
 import { setup } from 'sp-pnp-js/lib/pnp';
 
 export interface IQualityControlQuestionaireWebPartProps {
-  description:string;
+  webPartHeader:string;
 }
 
 export default class QualityControlQuestionaireWebPart extends BaseClientSideWebPart<IQualityControlQuestionaireWebPartProps> {
@@ -24,7 +24,7 @@ export default class QualityControlQuestionaireWebPart extends BaseClientSideWeb
       App,
       {
         ctx:this.context,
-        description: this.properties.description
+        webPartHeader: this.properties.webPartHeader
       }
     );
 
@@ -40,14 +40,14 @@ export default class QualityControlQuestionaireWebPart extends BaseClientSideWeb
       pages: [
         {
           header: {
-            description: strings.PropertyPaneDescription
+            description: 'Konfigurer webpart'
           },
           groups: [
             {
-              groupName: strings.BasicGroupName,
+              groupName: 'Overskrift på webparten',
               groupFields: [
-                PropertyPaneTextField('description', {
-                 label: strings.DescriptionFieldLabel
+                PropertyPaneTextField('webPartHeader', {
+                 label: "Overskrift"
                 })
               ]
             }

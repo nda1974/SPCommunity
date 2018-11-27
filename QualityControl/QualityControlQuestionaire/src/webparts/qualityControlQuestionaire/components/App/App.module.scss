@@ -10,23 +10,22 @@ $themeDarker: "[theme:themeDarker, default:#004578]";
 $neutralLighter: "[theme:neutralLighter, default:#fff]";
 $white: "[theme:white, default:#fff]";
 
-.container {
-    max-width: 700px;
-    margin: 0px auto;
-    // box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2), 0 25px 50px 0 rgba(0, 0, 0, 0.1);
+// .container {
+//     //max-width: 700px;
+//     // margin: 0px auto;
+//     // box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2), 0 25px 50px 0 rgba(0, 0, 0, 0.1);
+//   }
+  .webPartHeader{
+    @include ms-Grid-row;
+    margin: 0px;
+    @include ms-font-xl;
+    border-bottom-style: solid;
+    border-bottom-color: $themePrimary;
+    border-bottom-width: 1px;
+    padding: 10px;
+    background-color:$themePrimary;
+    color:$white;
   }
-  .myYellow{
-      @include ms-fontSize-su;
-      color:yellow
-  }
-  .myBlue{
-    @include ms-fontSize-su;
-    color: blue
-}
-.myGreen{
-  @include ms-fontSize-su;
-  color:green;
-}
   .row {
     @include ms-Grid-row;
     @include ms-fontColor-white;
@@ -89,18 +88,29 @@ $white: "[theme:white, default:#fff]";
   .claimControlRow{
     @include ms-Grid-row;
     margin: 0px;
-    @include ms-font-l;
+    @include ms-font-s;
     border-bottom-style: solid;
     border-bottom-color: $themePrimary;
     border-bottom-width: 1px;
     padding: 10px;
+    cursor: pointer;
+  }
+  .claimControlRow:hover{
+    background-color: $ms-color-themePrimary;
+    color: $white;
   }
   .rowRemarks {
     @include ms-Grid-row;
     margin: 0px;
     
   }
-  
+  .btnRow{
+    background-color:$ms-color-themePrimary;     
+    color: $white;
+    padding: 10px;
+    margin: 10px;
+    float: right;
+  }
   .descriptionTextFieldVisible{
     display: block;
   }
@@ -140,6 +150,7 @@ $white: "[theme:white, default:#fff]";
       vertical-align: top;
       display: inline-block;
     }
+    
     
   }
 

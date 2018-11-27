@@ -19,6 +19,7 @@ import { IconButton } from 'office-ui-fabric-react/lib/Button';
 import { ICurrentUser } from '../../../../Interfaces/ICurrentUser.';
 import { Panel, PanelType } from 'office-ui-fabric-react/lib/Panel';
 import { SiteUsers, SiteUser } from 'sp-pnp-js/lib/sharepoint/siteusers';
+import { IUser } from '../../../../../lib/webparts/qualityControlQuestionaire/Interfaces/IUser';
 
 
 let employeeInFocus:IQCUser={
@@ -64,6 +65,7 @@ export default class App extends React.Component<IAppProps, IAppState> {
         
         this.state = {
             itemInContext:{},
+            employeeInFocus:{},
             showPanel:false,
             currentAnswerId:0,
             currentUser:{},
@@ -117,6 +119,7 @@ export default class App extends React.Component<IAppProps, IAppState> {
         this._updateAnswers=this._updateAnswers.bind(this);
         this._getUserObject=this._getUserObject.bind(this);
         this._onDismissPanel=this._onDismissPanel.bind(this);
+        // this._resolveUserIdtoUserName=this._resolveUserIdtoUserName.bind(this);
         const pQuestions= this._getQuestions();
 
         pQuestions.then((t)=>{
@@ -182,13 +185,21 @@ export default class App extends React.Component<IAppProps, IAppState> {
             Answer4Description:updatableitemInContext.answer4Description,
             Answer5:updatableitemInContext.answer5,
             Answer5Description:updatableitemInContext.answer5Description,
-            Answer6:updatableitemInContext.answer6
+            Answer6:updatableitemInContext.answer6,
+            ControlSubmitted:true
         }).then(r => {
             this.setState({showPanel:!this.state.showPanel})
             console.log(r);
         });
     }
+    private _groupBy(prop:string,arr:IAnswer[]):any{
+        
+        var groupBy = require('lodash.groupby');
+        return groupBy(arr,prop);
 
+        // return groupArray(arr,prop);
+        
+      }
     public async _getAnswers(): Promise<void> {
         let answersitems:IAnswer[]=[];
         let employeeInFocus:IQCUser={
@@ -199,18 +210,21 @@ export default class App extends React.Component<IAppProps, IAppState> {
         // return await pnp.sp.web.lists.getByTitle('QualityControl-10Sagsgennemgang')
         await pnp.sp.web.lists.getById(ANSWERS_LIST_ID)
             .items
-            .filter("PriviligedUser eq "+ this.state.currentUser.id)
+            .filter("PriviligedUser eq "+ this.state.currentUser.id + " and ControlSubmitted eq 0")
             .get()
             .then(async (data: any[]) => {
                 console.log(data)
-                data.map((item)=>{
+                
+                data.map(async (item)=>{
+                    // const userPromise =await  pnp.sp.web.siteUsers.getById(item.EmployeeInFocusId).get().then((data)=>{
+                    //     return data;
+                    // }
+                    // );
+                    
                     answersitems.push(  {
                                             claimID:item.ClaimID,
                                             listItemId:item.Id,
-                                            employeeInFocus:{
-                                                name:'Fisk',
-                                                email:''
-                                            },
+                                            employeeInFocus:employeeInFocus,
                                             answer1:item.Answer1,
                                             answer1Description:item.Answer1Description,
                                             answer2:item.Answer2,
@@ -220,8 +234,9 @@ export default class App extends React.Component<IAppProps, IAppState> {
                                             answer4:item.Answer4,
                                             answer4Description:item.Answer4Description,
                                             answer5:item.Answer5,
-                                            answer5Description:item.Answer5Description
-
+                                            answer5Description:item.Answer5Description,
+                                            answer6:item.Answer6,
+                                            employeeInFocusDisplayName:item.EmployeeInFocusDisplayName
                                         }
                                     )
                 })
@@ -253,62 +268,109 @@ export default class App extends React.Component<IAppProps, IAppState> {
 
         this.state.answersList.map((answer)=>{
                 answer.listItemId == answerId?
-                        this.setState({itemInContext:answer},()=>{updatableitemInContext = this.state.itemInContext;this.setState({showPanel:!this.state.showPanel});})
+                        this.setState({itemInContext:answer},
+                            ()=>{
+                                updatableitemInContext = this.state.itemInContext;
+                                this.setState({showPanel:!this.state.showPanel},()=>{
+                                    // const promiseResult = this._getEmployeeInFocusProps (updatableitemInContext.employeeInFocus.email)
+                                    // promiseResult.then((promiseData)=>{
+                                    //     let empInFocus:IUser={};
+                                    //     empInFocus.name = promiseData.Title
+                                    //     this.setState({employeeInFocus:empInFocus})
+                                    // })
+                                    
+                                });
+                                }
+                            )
                         :null
         })
         
     }
+    private async _resolveUserId(id:number):Promise<void>{
+        let empInFocus:IQCUser={
+            name:'',
+            email:''
+            // userRole:IUserRoles.Employee
+        };
+        const promiseResult = await this._getEmployeeInFocusProps(id)
+        empInFocus.name=promiseResult.Title
+        empInFocus.email=promiseResult.email
+        this.setState({employeeInFocus:empInFocus})
+    }
+    // private async  _resolveUserIdtoUserName(id:number,htmlElementId:string):Promise<string>{
+        
+    //     // return this._getEmployeeInFocusProps(id).then(
+    //     //     (data)=>{
+    //     //         return data.Title;
+    //     //         document.getElementById("EmployeeInFocus_" + htmlElementId).innerHTML = data.Title;
+    //     //     }
+    //     // );
+
+
+    //     // const promiseResult = await this._getEmployeeInFocusProps(id)
+    //     // document.getElementById("listItemID" + htmlElementId).innerHTML = promiseResult.Title;
+        
+        
+        
+    //     // return promiseResult.Title;
+        
+    // }
+    
+
     private _onDismissPanel():void{
         
         this.setState({ showPanel: false },
         this._getAnswers)
     }
-    private async _getEmployeeInFocusProps(email:string):Promise<any>{
+    private async _getEmployeeInFocusProps(userId:number):Promise<any>{
         
-        pnp.sp.web.siteUsers.getByEmail(email).get().then(res=>{
-            return res
-        }
-
-        );
+        return pnp.sp.web.siteUsers.getById(userId).get().then((promise)=>{
+            return promise;
+        });
     }
     public render(): React.ReactElement<IAppProps> {
+        var groupedManuals:any;
+        
+        groupedManuals=this._groupBy('EmployeeInFocusDisplayName',this.state.answersList)
+        var arrGroupKeys:string[]=[];
+        
+        Object.keys(groupedManuals).map((groupKey,i)=>{
+            arrGroupKeys.push(groupKey);
+        });
+
         return (
-        <div>
             
-             <div className={ styles.container }>
-                {this.state.answersList.map((ans)=>{
+        <div>
+            {this.props.webPartHeader?this.props.webPartHeader.length>0?
+            <div className={ styles.webPartHeader}>{this.props.webPartHeader}</div>:null:null
+            }
+            
+             <div >
+             
+                {
+                    
+                    this.state.answersList.map((ans)=>{
                     return(<div className={styles.claimControlRow} 
                                 onClick={()=>{
                                                 this._setItemInContext(ans.listItemId);
+                                                // this._resolveUserId(ans.employeeInFocusID)
                                             }}>
-                                                            {ans.claimID} - {ans.listItemId}
+                                            <div id={"listItemID" + ans.listItemId}></div>
+                                            
+                                            {ans.claimID +":" + ans.employeeInFocusDisplayName}
+                                            {/* {this._resolveUserIdtoUserName(ans.employeeInFocusID,ans.listItemId.toString())} */}
                             </div>)
                 })}
-                
-                    {/* <div className={styles.row}>
-                        <div className={[ styles.infoSection,styles.column].join(' ') }>
-                            Udføres af:
-                            </div>
-                            <div className={[ styles.infoSection,styles.column].join(' ') }>
-                            {this.state.answers.priviligedUser.name}
-                        </div>
-                    </div> */}
-    <Panel
+        <Panel
           isOpen={this.state.showPanel}
-          // tslint:disable-next-line:jsx-no-lambda
           onDismiss={() => this._onDismissPanel()}
-          
           type={PanelType.extraLarge}
-        //   headerText={"Quality Control - ClaimID: " + updatableitemInContext.claimID}
           closeButtonAriaLabel="Close"
         >           
-        {
-            this._getEmployeeInFocusProps (updatableitemInContext.employeeInFocus.email)
-        }   
             <div className={[styles.row, styles.header].join(' ') }>
-            <div>Quality Control - ClaimID: <b>{updatableitemInContext.claimID}</b></div>
-            <div>Medarbejder i fokus: </div>
-                
+                <div>Quality Control - ClaimID: <b>{updatableitemInContext.claimID}</b></div>
+                {/* <div>Medarbejder i fokus: {updatableitemInContext.employeeInFocus}</div>                 */}
+                {/* <div>Medarbejder i fokus: {this.state.employeeInFocus.name}</div>                 */}
             </div> 
             
             <div className={ styles.question}>
@@ -431,13 +493,19 @@ export default class App extends React.Component<IAppProps, IAppState> {
                         />
             </div>
 
-            <div>
+            <div className={styles.question}>
                 <ChoiceGroup
-                    defaultSelectedKey="B"
+                    // defaultSelectedKey={updatableitemInContext.answer6==0?"None":"Blue"}
+                    defaultSelectedKey={updatableitemInContext.answer6==0?"None":
+                                            updatableitemInContext.answer6==1?"Blue":
+                                                updatableitemInContext.answer6==2?"Yellow":
+                                                    updatableitemInContext.answer6==3?"Red":""}
+
                     options={[
                     {
                         key: 'None',
                         text: 'Ingen bemærkninger'
+                        
                     } as IChoiceGroupOption,
                     {
                     key: 'Blue',
@@ -448,18 +516,17 @@ export default class App extends React.Component<IAppProps, IAppState> {
                         text: 'Gul'
                     },
                     {
-                        key: 'Green',
-                        text: 'Grøn'
+                        key: 'Red',
+                        text: 'Rød'
                     }
                 ]}
                     onChange={this._onChange}
-                    
                     label={this.state.questions.Q6}
                 />
             </div>
-            <div>
+            <div >
                 <DefaultButton
-                        data-automation-id="test"
+                className={styles.btnRow}
                         text="Gem"
                         onClick={this._onBtnClick}
                         />
