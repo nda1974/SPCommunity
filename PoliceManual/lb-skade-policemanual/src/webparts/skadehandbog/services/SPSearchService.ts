@@ -57,12 +57,14 @@ export default class SPSearchService{
             if (refinementFilters.length==1) {
                 // searchQuery.Querytext=searchQueryQueryText;
                 // searchQuery.Querytext="ContentType:Skadehåndbog AND Håndbog:"+ manualType + " AND " + queryText + " " + refinersMappedProperties + ":" + refinementFilters[0];
-                searchQuery.Querytext="ContentType:\"Police håndbog\" AND PoliceManualGroup:\""+refinementFilters[0]+"\""+ " AND " + queryText;;
+                //searchQuery.Querytext="ContentType:\"Police håndbog\" AND PoliceManualGroup:\""+refinementFilters[0]+"\""+ " AND " + queryText;;
+                searchQuery.Querytext="ContentType:\"Police håndbog\" AND RefinableString03=\""+refinementFilters[0]+"\""+ " AND " + queryText;;
             }
             else
             {
+                // searchQuery.Querytext="ContentType:\"Police håndbog\"" + " AND " + queryText;
                 searchQuery.Querytext="ContentType:\"Police håndbog\"" + " AND " + queryText;
-                // searchQuery.Querytext="ContentType:Skadehåndbog AND Håndbog:"+ manualType + " AND " + queryText;    
+                
             }
 
             
