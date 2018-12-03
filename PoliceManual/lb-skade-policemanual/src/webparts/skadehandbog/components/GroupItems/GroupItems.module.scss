@@ -18,8 +18,14 @@ $white: "[theme:white, default:#fff]";
     border-color: $themePrimary;
     
 }
-.groupItems:hover{
-    background-color: $neutralLighter;
+.groupItems:hover {
+    background-color: $themeLight;
+    color: $white;
+    transition: all 0.5s;
+}
+.groupItems:hover  a{
+    text-decoration: none;
+    color: $white;
 }
 .groupItems a{
     text-decoration: none;

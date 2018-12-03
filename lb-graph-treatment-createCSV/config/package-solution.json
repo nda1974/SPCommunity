@@ -1,0 +1,19 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/spfx-build/package-solution.schema.json",
+  "solution": {
+    "name": "lb-graph-treatment-create-csv-client-side-solution",
+    "id": "3ab60990-c7a0-4237-9573-461f03068909",
+    "version": "1.0.0.0",
+    "includeClientSideAssets": true,
+    "webApiPermissionRequests": [
+      {
+        "resource": "Microsoft Graph",
+        "scope": "Bookings.Read.All"
+      }
+    ], 
+    "isDomainIsolated": false
+  },
+  "paths": {
+    "zippedPackage": "solution/lb-graph-treatment-create-csv.sppkg"
+  }
+}

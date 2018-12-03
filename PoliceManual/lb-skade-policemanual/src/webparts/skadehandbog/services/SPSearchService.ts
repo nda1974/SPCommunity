@@ -58,17 +58,14 @@ export default class SPSearchService{
                 // searchQuery.Querytext=searchQueryQueryText;
                 // searchQuery.Querytext="ContentType:Skadehåndbog AND Håndbog:"+ manualType + " AND " + queryText + " " + refinersMappedProperties + ":" + refinementFilters[0];
                 //searchQuery.Querytext="ContentType:\"Police håndbog\" AND PoliceManualGroup:\""+refinementFilters[0]+"\""+ " AND " + queryText;;
-                searchQuery.Querytext="ContentType:\"Police håndbog\" AND RefinableString03=\""+refinementFilters[0]+"\""+ " AND " + queryText;;
+                searchQuery.Querytext="ContentType=\"Police håndbog\" AND (PoliceManualGroup:\""+refinementFilters[0]+"\")"+ " AND " + queryText;;
             }
             else
             {
                 // searchQuery.Querytext="ContentType:\"Police håndbog\"" + " AND " + queryText;
-                searchQuery.Querytext="ContentType:\"Police håndbog\"" + " AND " + queryText;
+                searchQuery.Querytext="ContentType=\"Police håndbog\"" + " AND " + queryText;
                 
             }
-
-            
-            
 
             searchQuery.SelectProperties=selectProperties;
             searchQuery.Refiners=refinersMappedProperties;
@@ -146,7 +143,33 @@ export default class SPSearchService{
             const relevantResults: ISearchResult[] = await Promise.all(allItemsPromises);
             results.RelevantResults = relevantResults;
             results.RefinementResults = refinementResults;
-            return results;
+
+            let filteredResults: ISearchResults = {
+                RelevantResults : [],
+                RefinementResults: [],
+                TotalRows: 0,
+            };
+            results.RelevantResults.map((row)=>{
+                if(row["PoliceManualGroup"].length>0){
+                    if(row["PoliceManualGroup"].indexOf(';') > -1)
+                    {
+                        let subGroup = row["PoliceManualGroup"].split(';')
+                        subGroup.map((group)=>{
+                            if(group==refinementFilters[0])
+                            {
+                                filteredResults.RelevantResults.push(row)
+                            }
+                        });
+                    }
+                    else{
+                        filteredResults.RelevantResults.push(row)
+                    }
+                }
+            }
+            );
+            filteredResults.RefinementResults = refinementResults
+            return filteredResults;
+            //return results;
           
     }
     

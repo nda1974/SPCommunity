@@ -15,6 +15,7 @@ function _traverseGroup(){
     }
     $priviligedUser= 'Til ' +$priviligedUser
     # udkommenteret af praktiske hensyn :-)
+
     #Send-PnPMail -To nicd@lb.dk -Subject $priviligedUser  -Body $global:emailBody 
     $global:emailBody='';
 }
