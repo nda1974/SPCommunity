@@ -50,11 +50,57 @@ export default class App extends React.Component<IAppProps, IAppState> {
         TotalRows: 0,
     };
 
-    searchResult.then(
-        (data:ISearchResults)=>{this.setState({results:data})}
+    // ORG
+    // searchResult.then(
+    //     (data:ISearchResults)=>{this.setState({results:data})}
 
+    // );
+
+
+    let filteredResults: ISearchResults = {
+      RelevantResults : [],
+      RefinementResults: [],
+      TotalRows: 0,
+    };
+    
+    searchResult.then((data:ISearchResults)=>{
+      
+      data.RelevantResults.map((row)=>{
+        if(row["PoliceManualGroup"].length>0){
+            if(row["PoliceManualGroup"].indexOf(';') > -1)
+            {
+                let subGroup = row["PoliceManualGroup"].split(';')
+                subGroup.map((group)=>{
+                    // if(group==refinementFilters[0])
+                    if(group=="Ulykke")
+                    {
+                        filteredResults.RelevantResults.push(row)
+                    }
+                });
+            }
+            else{
+              if(row["PoliceManualGroup"]=="Ulykke")
+              {
+                  filteredResults.RelevantResults.push(row)
+              }
+            }
+        }
+    }
     );
+    filteredResults.RefinementResults=data.RefinementResults;
+    this.setState({results:filteredResults})
+    })
+    
   }          
+  private _isGroupSelectedInTermPicker(t:string):boolean{
+    
+    this.props.terms.map((term)=>{
+      if(term.name == t){
+        return true;
+      }
+    })
+    return false
+  }
   public onQueryTextChanged(newState?:string) {
         
     this.setState({ queryText: newState },()=>this.GetSharePointData())

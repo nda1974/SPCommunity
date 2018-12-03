@@ -149,27 +149,28 @@ export default class SPSearchService{
                 RefinementResults: [],
                 TotalRows: 0,
             };
-            results.RelevantResults.map((row)=>{
-                if(row["PoliceManualGroup"].length>0){
-                    if(row["PoliceManualGroup"].indexOf(';') > -1)
-                    {
-                        let subGroup = row["PoliceManualGroup"].split(';')
-                        subGroup.map((group)=>{
-                            if(group==refinementFilters[0])
-                            {
-                                filteredResults.RelevantResults.push(row)
-                            }
-                        });
-                    }
-                    else{
-                        filteredResults.RelevantResults.push(row)
-                    }
-                }
-            }
-            );
-            filteredResults.RefinementResults = refinementResults
-            return filteredResults;
-            //return results;
+            // results.RelevantResults.map((row)=>{
+            //     if(row["PoliceManualGroup"].length>0){
+            //         if(row["PoliceManualGroup"].indexOf(';') > -1)
+            //         {
+            //             let subGroup = row["PoliceManualGroup"].split(';')
+            //             subGroup.map((group)=>{
+            //                 if(group==refinementFilters[0])
+            //                 {
+            //                     filteredResults.RelevantResults.push(row)
+            //                 }
+            //             });
+            //         }
+            //         else{
+            //             filteredResults.RelevantResults.push(row)
+            //         }
+            //     }
+            // }
+            // );
+            
+            // filteredResults.RefinementResults = refinementResults
+            // return filteredResults;
+            return results;
           
     }
     

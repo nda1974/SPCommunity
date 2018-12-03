@@ -52,10 +52,18 @@ $white: "[theme:white, default:#fff]";
     }
   }
       
-  .column {
+  .column3 {
     @include ms-Grid-col;
-    @include ms-lg6;
-    @include ms-xl6;
+    @include ms-lg3;
+    @include ms-xl3;
+    // @include ms-xlPush2;
+    // @include ms-lgPush1;
+    left:0px; 
+  }
+  .column9 {
+    @include ms-Grid-col;
+    @include ms-lg9;
+    @include ms-xl9;
     // @include ms-xlPush2;
     // @include ms-lgPush1;
     left:0px; 
@@ -96,8 +104,10 @@ $white: "[theme:white, default:#fff]";
     cursor: pointer;
   }
   .claimControlRow:hover{
-    background-color: $ms-color-themePrimary;
+    background-color: $themeSecondary;
     color: $white;
+    transition: all 0.5s;
+
   }
   .rowRemarks {
     @include ms-Grid-row;

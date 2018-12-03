@@ -13,13 +13,22 @@ $white: "[theme:white, default:#fff]";
         
         background-color:$themePrimary;
         color: $white;
-        margin-bottom: 5px;
+        border-top: 1px solid $white;
+        
         cursor: pointer;
         
 }
+
+// .groupbarTitle{
+//     padding: 5px 5px 5px 5px;
+// }
 .groupbarTitle{
-    padding: 5px 5px 5px 5px;
+    padding: 10px 10px 10px 10px;
 }
+// .groupbarPanel:hover{
+//     background-color:$themeLight
+    
+// }
 .showGroupbarItems{
     display: block;
 }

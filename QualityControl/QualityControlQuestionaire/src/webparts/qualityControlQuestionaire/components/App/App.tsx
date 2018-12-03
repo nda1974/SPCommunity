@@ -199,6 +199,8 @@ export default class App extends React.Component<IAppProps, IAppState> {
         }).then(r => {
             this.setState({showPanel:!this.state.showPanel})
             console.log(r);
+        }).catch((err)=>{
+            console.log(err);
         });
     }
     private _groupBy(prop:string,arr:IAnswer[]):any{
@@ -346,9 +348,15 @@ export default class App extends React.Component<IAppProps, IAppState> {
                                                 this._setItemInContext(ans.listItemId);
                                                 // this._resolveUserId(ans.employeeInFocusID)
                                             }}>
-                                            <div id={"listItemID" + ans.listItemId}></div>
+                                            {/* <div id={"listItemID" + ans.listItemId}></div> */}
+                                            <div className={styles.column3}>
+                                                {ans.claimID}
+                                            </div>
+                                            <div className={styles.column9}>
+                                                {ans.employeeInFocusDisplayName}
+                                            </div>
                                             
-                                            {ans.claimID +":" + ans.employeeInFocusDisplayName}
+                                            
                                             {/* {this._resolveUserIdtoUserName(ans.employeeInFocusID,ans.listItemId.toString())} */}
                             </div>)
                 })}
@@ -359,7 +367,8 @@ export default class App extends React.Component<IAppProps, IAppState> {
           closeButtonAriaLabel="Close"
         >           
             <div className={[styles.row, styles.header].join(' ') }>
-                <div>Quality Control - ClaimID: <b>{updatableitemInContext.claimID}</b></div>
+                <div>Evaluering af sag: <b>{updatableitemInContext.claimID}</b></div>
+                <div>behandlet af: <b>{updatableitemInContext.employeeInFocusDisplayName}</b></div>
                 {/* <div>Medarbejder i fokus: {updatableitemInContext.employeeInFocus}</div>                 */}
                 {/* <div>Medarbejder i fokus: {this.state.employeeInFocus.name}</div>                 */}
             </div> 
@@ -723,7 +732,14 @@ export default class App extends React.Component<IAppProps, IAppState> {
                 ]}
                     onChange={this._onChange}
                     label="Angiv bemærkning"                />
+                    <TextField  
+                        label="Hvis nej så uddyb" 
+                        multiline rows={4} 
+                        value={updatableitemInContext.ConcludingDescription}  
+                        onChanged={(input)=>updatableitemInContext.ConcludingDescription=input}
+                        />
             </div>
+            
             <div >
                 <DefaultButton
                 className={styles.btnRow}
