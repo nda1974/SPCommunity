@@ -19,7 +19,7 @@ $white: "[theme:white, default:#fff]";
     
 }
 .groupItems:hover {
-    background-color: $themeLight;
+    background-color: $themeSecondary;
     color: $white;
     transition: all 0.5s;
 }
