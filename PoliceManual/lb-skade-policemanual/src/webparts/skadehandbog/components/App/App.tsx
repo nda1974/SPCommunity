@@ -72,14 +72,14 @@ export default class App extends React.Component<IAppProps, IAppState> {
                 let subGroup = row["PoliceManualGroup"].split(';')
                 subGroup.map((group)=>{
                     // if(group==refinementFilters[0])
-                    if(group=="Ulykke")
+                    if(this._isGroupSelectedInTermPicker(group)==true)
                     {
                         filteredResults.RelevantResults.push(row)
                     }
                 });
             }
             else{
-              if(row["PoliceManualGroup"]=="Ulykke")
+              if(this._isGroupSelectedInTermPicker(row["PoliceManualGroup"])==true)
               {
                   filteredResults.RelevantResults.push(row)
               }
@@ -91,15 +91,16 @@ export default class App extends React.Component<IAppProps, IAppState> {
     this.setState({results:filteredResults})
     })
     
+    
   }          
   private _isGroupSelectedInTermPicker(t:string):boolean{
-    
+    let returnValue:boolean=false;
     this.props.terms.map((term)=>{
       if(term.name == t){
-        return true;
+        returnValue = true;
       }
     })
-    return false
+    return returnValue
   }
   public onQueryTextChanged(newState?:string) {
         
