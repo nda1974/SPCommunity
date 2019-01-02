@@ -22,35 +22,18 @@ import { SiteUsers, SiteUser } from 'sp-pnp-js/lib/sharepoint/siteusers';
 import { IUser } from '../../../../../lib/webparts/qualityControlQuestionaire/Interfaces/IUser';
 
 
-let employeeInFocus:IQCUser={
-    name:'',
-    email:''
-    // userRole:IUserRoles.Employee
-};
-let priviligedUser:IQCUser={
-    name:'',
-    email:''
-    // userRole:IUserRoles.PriviligedUser
-};
-let updatableitemInContext: IAnswer = {
-    // listItemId:null,
-    // batchID:'',
-    // claimID:'',
-    // department:'',
-    // employeeInFocus:employeeInFocus,
-    // priviligedUser:priviligedUser,
-    // answer1:true,
-    // answer1Description:'',
-    // answer2:true,
-    // answer2Description:'',
-    // answer3:true,
-    // answer3Description:'',
-    // answer4:true,
-    // answer4Description:'',
-    // answer5:true,
-    // answer5Description:'',
-    // answer6:0
-};
+// let employeeInFocus:IQCUser={
+//     name:'',
+//     email:''
+//     // userRole:IUserRoles.Employee
+// };
+// let priviligedUser:IQCUser={
+//     name:'',
+//     email:''
+// };
+
+// let this.state.itemInContext: IAnswer = {};
+
 //https://lbforsikring.sharepoint.com/sites/Skade/Lists/Quality%20Control%20%20Claims%20Handler%20Questions/
 const QUESTIONS_LIST_ID = 'ad5ea1c8-3321-4a16-bc06-39a3b03d9e20';
 
@@ -71,31 +54,8 @@ export default class App extends React.Component<IAppProps, IAppState> {
             currentUser:{},
             answersList:[],
             questions:{
-                Q1:'',
-                Q2:'',
-                Q3:'',
-                Q4:'',
-                Q5:'',
-                Q6:''
             },
             answers:{
-                // batchID:'',
-                // claimID:'',
-                // department:'',
-                // priviligedUser:priviligedUser,
-                // employeeInFocus:employeeInFocus,
-                // listItemId:0,
-                // answer1:true,
-                // answer1Description:'',
-                // answer2:true,
-                // answer2Description:'',
-                // answer3:true,
-                // answer3Description:'',
-                // answer4:true,
-                // answer4Description:'',
-                // answer5:true,
-                // answer5Description:'',
-                // answer6:0
             }
         }
 
@@ -114,23 +74,21 @@ export default class App extends React.Component<IAppProps, IAppState> {
         this._getAnswers=this._getAnswers.bind(this);
         this._onBtnClick=this._onBtnClick.bind(this);
         this._setItemInContext=this._setItemInContext.bind(this);
+        this._updateItemInContext=this._updateItemInContext.bind(this);
         // this.saveAnswer=this.saveAnswer.bind(this);
         this._onChange=this._onChange.bind(this);
+        this._onToggleChange=this._onToggleChange.bind(this);
+
         this._updateAnswers=this._updateAnswers.bind(this);
         this._getUserObject=this._getUserObject.bind(this);
         this._onDismissPanel=this._onDismissPanel.bind(this);
+        this.handleChange=this.handleChange.bind(this);
+        
         // this._resolveUserIdtoUserName=this._resolveUserIdtoUserName.bind(this);
         const pQuestions= this._getQuestions();
 
         pQuestions.then((t)=>{
-            let res:IQuestions={
-                Q1:'',
-                Q2:'',
-                Q3:'',
-                Q4:'',
-                Q5:'',
-                Q6:''
-            };
+            let res:IQuestions={};
         
             res.Q1=t[0].ControlQuestion;
             res.Q2=t[1].ControlQuestion;
@@ -152,12 +110,10 @@ export default class App extends React.Component<IAppProps, IAppState> {
     //https://github.com/pnp/pnpjs/issues/196#issuecomment-410908170
     public _onBtnClick(submitAnswer:boolean):void{
         this._updateAnswers(submitAnswer);
-        // this.setState({answers:itemInContext},this._updateAnswers);
     }
     
     public async _getQuestions(): Promise<any> {
         // Quality Control - Claims Handler Questions
-        // return await pnp.sp.web.lists.getByTitle('QualityControl-10Sagsgennemgang')
         return await pnp.sp.web.lists.getById(QUESTIONS_LIST_ID)
             .items
             .orderBy('Sortering')
@@ -165,38 +121,38 @@ export default class App extends React.Component<IAppProps, IAppState> {
             .then((data: any) => {
                 console.log(data)
                 return data;
-                // this.setState({items:data})
             }
         )
     }
     
-    
     public async _updateAnswers(submitAnswer:boolean): Promise<void> {
         
-        pnp.sp.web.lists.getById(ANSWERS_LIST_ID).items.getById(updatableitemInContext.listItemId).update({
-            Title: updatableitemInContext.claimID,
-            Answer1:updatableitemInContext.answer1,
-            Answer1Description:updatableitemInContext.answer1Description,
-            Answer1Remark:updatableitemInContext.answer1Remark,
-            Answer2:updatableitemInContext.answer2,
-            Answer2Description:updatableitemInContext.answer2Description,
-            Answer2Remark:updatableitemInContext.answer2Remark,
-            Answer3:updatableitemInContext.answer3,
-            Answer3Description:updatableitemInContext.answer3Description,
-            Answer3Remark:updatableitemInContext.answer3Remark,
-            Answer4:updatableitemInContext.answer4,
-            Answer4Description:updatableitemInContext.answer4Description,
-            Answer4Remark:updatableitemInContext.answer4Remark,
-            Answer5:updatableitemInContext.answer5,
-            Answer5Description:updatableitemInContext.answer5Description,
-            Answer5Remark:updatableitemInContext.answer5Remark,
-            Answer6:updatableitemInContext.answer6,
-            Answer6Description:updatableitemInContext.answer6Description,
-            Answer6Remark:updatableitemInContext.answer6Remark,
-            ConcludingRemark:updatableitemInContext.ConcludingRemark,
-            ConcludingDescription:updatableitemInContext.ConcludingDescription,
-            ControlSubmitted:submitAnswer
-        }).then(r => {
+        pnp.sp.web.lists.getById(ANSWERS_LIST_ID).items.getById(this.state.itemInContext.listItemId).update(
+            {
+                
+                Title: this.state.itemInContext.claimID,
+                Answer1:this.state.itemInContext.answer1,
+                Answer1Description:this.state.itemInContext.answer1Description,
+                Answer1Remark:this.state.itemInContext.answer1Remark,
+                Answer2:this.state.itemInContext.answer2,
+                Answer2Description:this.state.itemInContext.answer2Description,
+                Answer2Remark:this.state.itemInContext.answer2Remark,
+                Answer3:this.state.itemInContext.answer3,
+                Answer3Description:this.state.itemInContext.answer3Description,
+                Answer3Remark:this.state.itemInContext.answer3Remark,
+                Answer4:this.state.itemInContext.answer4,
+                Answer4Description:this.state.itemInContext.answer4Description,
+                Answer4Remark:this.state.itemInContext.answer4Remark,
+                Answer5:this.state.itemInContext.answer5,
+                Answer5Description:this.state.itemInContext.answer5Description,
+                Answer5Remark:this.state.itemInContext.answer5Remark,
+                Answer6:this.state.itemInContext.answer6,
+                Answer6Description:this.state.itemInContext.answer6Description,
+                Answer6Remark:this.state.itemInContext.answer6Remark,
+                ControlSubmitted:submitAnswer
+                
+            }
+        ).then(r => {
             this.setState({showPanel:!this.state.showPanel})
             console.log(r);
         }).catch((err)=>{
@@ -204,21 +160,16 @@ export default class App extends React.Component<IAppProps, IAppState> {
         });
     }
     private _groupBy(prop:string,arr:IAnswer[]):any{
-        
         var groupBy = require('lodash.groupby');
         return groupBy(arr,prop);
-
-        // return groupArray(arr,prop);
-        
       }
     public async _getAnswers(): Promise<void> {
         let answersitems:IAnswer[]=[];
         let employeeInFocus:IQCUser={
-            email:'',
-            name:''
+            // email:'',
+            // name:''
         }
         // Quality Control - Claims Handler Questions
-        // return await pnp.sp.web.lists.getByTitle('QualityControl-10Sagsgennemgang')
         await pnp.sp.web.lists.getById(ANSWERS_LIST_ID)
             .items
             .filter("PriviligedUser eq "+ this.state.currentUser.id + " and ControlSubmitted eq 0")
@@ -227,11 +178,6 @@ export default class App extends React.Component<IAppProps, IAppState> {
                 console.log(data)
                 
                 data.map(async (item)=>{
-                    // const userPromise =await  pnp.sp.web.siteUsers.getById(item.EmployeeInFocusId).get().then((data)=>{
-                    //     return data;
-                    // }
-                    // );
-                    
                     answersitems.push(  {
                                             claimID:item.ClaimID,
                                             listItemId:item.Id,
@@ -253,8 +199,6 @@ export default class App extends React.Component<IAppProps, IAppState> {
                                             answer5Description:item.Answer5Description,
                                             answer6:item.Answer6,
                                             answer6Remark:item.Answer6Remark,
-                                            ConcludingRemark:item.ConcludingRemark,
-                                            ConcludingDescription:item.ConcludingDescription,
                                             employeeInFocusDisplayName:item.EmployeeInFocusDisplayName
                                         }
                                     )
@@ -262,8 +206,8 @@ export default class App extends React.Component<IAppProps, IAppState> {
                 this.setState({answersList:answersitems})
             }
         )
-        // const r = await this._getPriviligedUser(data[0].PriviligedUserId);
     }
+
     private async _getUserObject(): Promise<any> {
         try {
             
@@ -289,11 +233,20 @@ export default class App extends React.Component<IAppProps, IAppState> {
                 answer.listItemId == answerId?
                         this.setState({itemInContext:answer},
                             ()=>{
-                                    updatableitemInContext = this.state.itemInContext;
+                                    // this.state.itemInContext = this.state.itemInContext;
                                     this.setState({showPanel:!this.state.showPanel},()=>{
                                 });
                                 }
                             )
+                        :null
+        })
+        
+    }
+    private _updateItemInContext(answerId:number):any{
+
+        this.state.answersList.map((answer)=>{
+                answer.listItemId == answerId?
+                        this.setState({itemInContext:answer})
                         :null
         })
         
@@ -321,7 +274,32 @@ export default class App extends React.Component<IAppProps, IAppState> {
             return promise;
         });
     }
+    private _onToggleChange( checked?: boolean):void{
+        console.log(checked)
+            // this.state.itemInContext.answer1=answer.answer1;
+            // if(!answer){
+            //     this.state.itemInContext.answer1Description ='';
+            //     this.state.itemInContext.answer1Remark=0;
+            // }
+            // this.setState({answers:this.state.itemInContext})
+    }
+    private _onToggleChangeORg=(ev: React.FormEvent<HTMLInputElement>, checked?: boolean):void=>{
+        console.log(ev)
+            // this.state.itemInContext.answer1=answer.answer1;
+            // if(!answer){
+            //     this.state.itemInContext.answer1Description ='';
+            //     this.state.itemInContext.answer1Remark=0;
+            // }
+            // this.setState({answers:this.state.itemInContext})
+    }
+    handleChange=e=>{
+        const {name, value} = e.target;
+        this.setState(() => ({
+            [name]: value
+          }))
+    }
     public render(): React.ReactElement<IAppProps> {
+        
         var groupedManuals:any;
         
         groupedManuals=this._groupBy('EmployeeInFocusDisplayName',this.state.answersList)
@@ -338,7 +316,7 @@ export default class App extends React.Component<IAppProps, IAppState> {
             <div className={ styles.webPartHeader}>{this.props.webPartHeader}</div>:null:null
             }
             
-             <div >
+             <div>
              
                 {
                     
@@ -367,40 +345,52 @@ export default class App extends React.Component<IAppProps, IAppState> {
           closeButtonAriaLabel="Close"
         >           
             <div className={[styles.row, styles.header].join(' ') }>
-                <div>Evaluering af sag: <b>{updatableitemInContext.claimID}</b></div>
-                <div>behandlet af: <b>{updatableitemInContext.employeeInFocusDisplayName}</b></div>
-                {/* <div>Medarbejder i fokus: {updatableitemInContext.employeeInFocus}</div>                 */}
-                {/* <div>Medarbejder i fokus: {this.state.employeeInFocus.name}</div>                 */}
+                <div>Evaluering af sag: <b>{this.state.itemInContext.claimID}</b></div>
+                <div>behandlet af: <b>{this.state.itemInContext.employeeInFocusDisplayName}</b></div>
             </div> 
             {/************************************* Question 1 *************************************/}
             <div className={ styles.question}>
                 <Toggle
-                defaultChecked={updatableitemInContext.answer1}
+                //defaultChecked={this.state.itemInContext.answer1}
+                checked={this.state.itemInContext.answer1}
+                
                 label={this.state.questions.Q1}
                 onText="Ja"
                 offText="Nej"
+                name="Answer1"
+                // onChange={this.handleChange}
                 onChanged={(answer1)=>{
-                    updatableitemInContext.answer1=answer1;
-                    if(!answer1){
-                        updatableitemInContext.answer1Description ='';
-                        updatableitemInContext.answer1Remark=0;
+                    let answersCopy = JSON.parse(JSON.stringify(this.state.itemInContext))
+                    answersCopy.answer1=answer1;
+                    if(answer1){
+                        answersCopy.answer1Description ='';
+                        answersCopy.answer1Remark=0;
                     }
-                    this.setState({answers:updatableitemInContext})
+                    this.setState({itemInContext:answersCopy}
+                        ,this._updateItemInContext(answersCopy.listItemId)
+                        )
+                    // this.setState   (  {itemInContext:this.state.itemInContext},
+                    //                     this._updateItemInContext(this.state.itemInContext.listItemId)
+                    //                 )
                 }}
                 />
-                <div className={updatableitemInContext.answer1?styles.descriptionTextFieldHidden:styles.descriptionTextFieldVisible} >
+                <div className={this.state.itemInContext.answer1?styles.descriptionTextFieldHidden:styles.descriptionTextFieldVisible} >
                     <TextField  
-                        className={updatableitemInContext.answer1?styles.descriptionTextFieldHidden:styles.descriptionTextFieldVisible} 
+                        className={this.state.itemInContext.answer1?styles.descriptionTextFieldHidden:styles.descriptionTextFieldVisible} 
                         label="Hvis nej så uddyb" 
                         multiline rows={4} 
-                        value={updatableitemInContext.answer1Description}  
-                        onChanged={(input)=>updatableitemInContext.answer1Description=input}
+                        value={this.state.itemInContext.answer1Description}  
+                        onChanged={(input)=>this.state.itemInContext.answer1Description=input}
                         />
                     <ChoiceGroup
-                        defaultSelectedKey={updatableitemInContext.answer1Remark==0?"1None":
-                                                updatableitemInContext.answer1Remark==1?"1Blue":
-                                                    updatableitemInContext.answer1Remark==2?"1Yellow":
-                                                        updatableitemInContext.answer1Remark==3?"1Red":""}
+                        selectedKey={this.state.itemInContext.answer1Remark==0?"1None":
+                                                this.state.itemInContext.answer1Remark==1?"1Blue":
+                                                    this.state.itemInContext.answer1Remark==2?"1Yellow":
+                                                        this.state.itemInContext.answer1Remark==3?"1Red":""}
+                        // defaultSelectedKey={this.state.itemInContext.answer1Remark==0?"1None":
+                        //                     this.state.itemInContext.answer1Remark==1?"1Blue":
+                        //                     this.state.itemInContext.answer1Remark==2?"1Yellow":
+                        //                     this.state.itemInContext.answer1Remark==3?"1Red":""}
 
                         options={[
                         {
@@ -409,8 +399,8 @@ export default class App extends React.Component<IAppProps, IAppState> {
                             
                         } as IChoiceGroupOption,
                         {
-                        key: '1Blue',
-                        text: 'Blå'
+                            key: '1Blue',
+                            text: 'Blå'
                         },
                         {
                             key: '1Yellow',
@@ -430,52 +420,56 @@ export default class App extends React.Component<IAppProps, IAppState> {
             {/************************************* Question 2 *************************************/}
             <div className={ styles.question}>
                 <Toggle
-                defaultChecked={updatableitemInContext.answer2}
+                defaultChecked={this.state.itemInContext.answer2}
                 label={this.state.questions.Q2}
                 onText="Ja"
                 offText="Nej"
                 onChanged={(answer2)=>{
-                    updatableitemInContext.answer2=answer2;
-                    if(!answer2){
-                        updatableitemInContext.answer2Description ='';
-                        updatableitemInContext.answer2Remark=0;
+                    let answersCopy = JSON.parse(JSON.stringify(this.state.itemInContext))
+                    answersCopy.answer2=answer2;
+                    if(answer2){
+                        answersCopy.answer2Description ='';
+                        answersCopy.answer2Remark=0;
                     }
-                    this.setState({answers:updatableitemInContext})
+                    this.setState({itemInContext:answersCopy}
+                        ,                        this._updateItemInContext(answersCopy.listItemId)
+                        )
                 }}
                 />
-                <div className={updatableitemInContext.answer2?styles.descriptionTextFieldHidden:styles.descriptionTextFieldVisible} >
+                <div className={this.state.itemInContext.answer2?styles.descriptionTextFieldHidden:styles.descriptionTextFieldVisible} >
                     <TextField  
-                        className={updatableitemInContext.answer2?styles.descriptionTextFieldHidden:styles.descriptionTextFieldVisible} 
+                        className={this.state.itemInContext.answer2?styles.descriptionTextFieldHidden:styles.descriptionTextFieldVisible} 
                         label="Hvis nej så uddyb" 
                         multiline rows={4} 
-                        value={updatableitemInContext.answer2Description}  
-                        onChanged={(input)=>updatableitemInContext.answer2Description=input}
+                        value={this.state.itemInContext.answer2Description}  
+                        onChanged={(input)=>this.state.itemInContext.answer2Description=input}
                         />
                     <ChoiceGroup
-                        defaultSelectedKey={updatableitemInContext.answer2Remark==0?"2None":
-                                                updatableitemInContext.answer2Remark==1?"2Blue":
-                                                    updatableitemInContext.answer2Remark==2?"2Yellow":
-                                                        updatableitemInContext.answer2Remark==3?"2Red":""}
+
+                        selectedKey={this.state.itemInContext.answer2Remark==0?"2None":
+                                                this.state.itemInContext.answer2Remark==1?"2Blue":
+                                                    this.state.itemInContext.answer2Remark==2?"2Yellow":
+                                                        this.state.itemInContext.answer2Remark==3?"2Red":""}
 
                         options={[
-                        {
-                            key: '2None',
-                            text: 'Ingen bemærkninger'
-                            
-                        } as IChoiceGroupOption,
-                        {
-                        key: '2Blue',
-                        text: 'Blå'
-                        },
-                        {
-                            key: '2Yellow',
-                            text: 'Gul'
-                        },
-                        {
-                            key: '2Red',
-                            text: 'Rød'
-                        }
-                    ]}
+                            {
+                                key: '2None',
+                                text: 'Ingen bemærkninger'
+                                
+                            } as IChoiceGroupOption,
+                            {
+                                key: '2Blue',
+                                text: 'Blå'
+                            },
+                            {
+                                key: '2Yellow',
+                                text: 'Gul'
+                            },
+                            {
+                                key: '2Red',
+                                text: 'Rød'
+                            }
+                        ]}
                         onChange={this._onChange}
                         label="Angiv bemærkning"
                     />
@@ -485,31 +479,35 @@ export default class App extends React.Component<IAppProps, IAppState> {
             {/************************************* Question 3 *************************************/}
             <div className={ styles.question}>
                 <Toggle
-                defaultChecked={updatableitemInContext.answer3}
+                defaultChecked={this.state.itemInContext.answer3}
                 label={this.state.questions.Q3}
                 onText="Ja"
                 offText="Nej"
                 onChanged={(answer3)=>{
-                    updatableitemInContext.answer3=answer3;
-                    if(!answer3){
-                        updatableitemInContext.answer3Description ='';
+                    let answersCopy = JSON.parse(JSON.stringify(this.state.itemInContext))
+                    answersCopy.answer3=answer3;
+                    if(answer3){
+                        answersCopy.answer3Description ='';
+                        answersCopy.answer3Remark=0;
                     }
-                    this.setState({answers:updatableitemInContext})
+                    this.setState({itemInContext:answersCopy}
+                        ,                        this._updateItemInContext(answersCopy.listItemId)
+                        )
                 }}
                 />
-                <div className={updatableitemInContext.answer3?styles.descriptionTextFieldHidden:styles.descriptionTextFieldVisible} >
+                <div className={this.state.itemInContext.answer3?styles.descriptionTextFieldHidden:styles.descriptionTextFieldVisible} >
                 <TextField  
-                        className={updatableitemInContext.answer3?styles.descriptionTextFieldHidden:styles.descriptionTextFieldVisible} 
+                        className={this.state.itemInContext.answer3?styles.descriptionTextFieldHidden:styles.descriptionTextFieldVisible} 
                         label="Hvis nej så uddyb" 
                         multiline rows={4} 
-                        value={updatableitemInContext.answer3Description}  
-                        onChanged={(input)=>updatableitemInContext.answer3Description=input}
+                        value={this.state.itemInContext.answer3Description}  
+                        onChanged={(input)=>this.state.itemInContext.answer3Description=input}
                         />
                     <ChoiceGroup
-                        defaultSelectedKey={updatableitemInContext.answer3Remark==0?"3None":
-                                                updatableitemInContext.answer3Remark==1?"3Blue":
-                                                    updatableitemInContext.answer3Remark==2?"3Yellow":
-                                                        updatableitemInContext.answer3Remark==3?"3Red":""}
+                        selectedKey={this.state.itemInContext.answer3Remark==0?"3None":
+                                                this.state.itemInContext.answer3Remark==1?"3Blue":
+                                                    this.state.itemInContext.answer3Remark==2?"3Yellow":
+                                                        this.state.itemInContext.answer3Remark==3?"3Red":""}
 
                         options={[
                         {
@@ -540,31 +538,35 @@ export default class App extends React.Component<IAppProps, IAppState> {
             {/************************************* Question 4 *************************************/}
             <div className={ styles.question}>
                 <Toggle
-                defaultChecked={updatableitemInContext.answer4}
+                defaultChecked={this.state.itemInContext.answer4}
                 label={this.state.questions.Q4}
                 onText="Ja"
                 offText="Nej"
                 onChanged={(answer4)=>{
-                    updatableitemInContext.answer4=answer4;
-                    if(!answer4){
-                        updatableitemInContext.answer4Description ='';
+                    let answersCopy = JSON.parse(JSON.stringify(this.state.itemInContext))
+                    answersCopy.answer4=answer4;
+                    if(answer4){
+                        answersCopy.answer4Description ='';
+                        answersCopy.answer4Remark=0;
                     }
-                    this.setState({answers:updatableitemInContext})
+                    this.setState({itemInContext:answersCopy}
+                        ,                        this._updateItemInContext(answersCopy.listItemId)
+                        )
                 }}
                 />
-                <div className={updatableitemInContext.answer4?styles.descriptionTextFieldHidden:styles.descriptionTextFieldVisible} >
+                <div className={this.state.itemInContext.answer4?styles.descriptionTextFieldHidden:styles.descriptionTextFieldVisible} >
                 <TextField  
-                        className={updatableitemInContext.answer4?styles.descriptionTextFieldHidden:styles.descriptionTextFieldVisible} 
+                        className={this.state.itemInContext.answer4?styles.descriptionTextFieldHidden:styles.descriptionTextFieldVisible} 
                         label="Hvis nej så uddyb" 
                         multiline rows={4} 
-                        value={updatableitemInContext.answer4Description}  
-                        onChanged={(input)=>updatableitemInContext.answer4Description=input}
+                        value={this.state.itemInContext.answer4Description}  
+                        onChanged={(input)=>this.state.itemInContext.answer4Description=input}
                         />
                         <ChoiceGroup
-                        defaultSelectedKey={updatableitemInContext.answer4Remark==0?"4None":
-                                                updatableitemInContext.answer4Remark==1?"4Blue":
-                                                    updatableitemInContext.answer4Remark==2?"4Yellow":
-                                                        updatableitemInContext.answer4Remark==3?"4Red":""}
+                        selectedKey={this.state.itemInContext.answer4Remark==0?"4None":
+                                                this.state.itemInContext.answer4Remark==1?"4Blue":
+                                                    this.state.itemInContext.answer4Remark==2?"4Yellow":
+                                                        this.state.itemInContext.answer4Remark==3?"4Red":""}
 
                         options={[
                         {
@@ -595,31 +597,35 @@ export default class App extends React.Component<IAppProps, IAppState> {
             {/************************************* Question 5 *************************************/}
             <div className={ styles.question}>
                 <Toggle
-                defaultChecked={updatableitemInContext.answer5}
+                defaultChecked={this.state.itemInContext.answer5}
                 label={this.state.questions.Q5}
                 onText="Ja"
                 offText="Nej"
                 onChanged={(answer5)=>{
-                    updatableitemInContext.answer5=answer5;
-                    if(!answer5){
-                        updatableitemInContext.answer5Description ='';
+                    let answersCopy = JSON.parse(JSON.stringify(this.state.itemInContext))
+                    answersCopy.answer5=answer5;
+                    if(answer5){
+                        answersCopy.answer5Description ='';
+                        answersCopy.answer5Remark=0;
                     }
-                    this.setState({answers:updatableitemInContext})
+                    this.setState({itemInContext:answersCopy}
+                        ,                        this._updateItemInContext(answersCopy.listItemId)
+                        )
                 }}
                 />
-                <div className={updatableitemInContext.answer5?styles.descriptionTextFieldHidden:styles.descriptionTextFieldVisible} >
+                <div className={this.state.itemInContext.answer5?styles.descriptionTextFieldHidden:styles.descriptionTextFieldVisible} >
                 <TextField  
-                        className={updatableitemInContext.answer5?styles.descriptionTextFieldHidden:styles.descriptionTextFieldVisible} 
+                        className={this.state.itemInContext.answer5?styles.descriptionTextFieldHidden:styles.descriptionTextFieldVisible} 
                         label="Hvis nej så uddyb" 
                         multiline rows={4} 
-                        value={updatableitemInContext.answer5Description}  
-                        onChanged={(input)=>updatableitemInContext.answer5Description=input}
+                        value={this.state.itemInContext.answer5Description}  
+                        onChanged={(input)=>this.state.itemInContext.answer5Description=input}
                         />
                     <ChoiceGroup
-                        defaultSelectedKey={updatableitemInContext.answer5Remark==0?"5None":
-                                                updatableitemInContext.answer5Remark==1?"5Blue":
-                                                    updatableitemInContext.answer5Remark==2?"5Yellow":
-                                                        updatableitemInContext.answer5Remark==3?"5Red":""}
+                        selectedKey={this.state.itemInContext.answer5Remark==0?"5None":
+                                                this.state.itemInContext.answer5Remark==1?"5Blue":
+                                                    this.state.itemInContext.answer5Remark==2?"5Yellow":
+                                                        this.state.itemInContext.answer5Remark==3?"5Red":""}
 
                         options={[
                         {
@@ -647,99 +653,75 @@ export default class App extends React.Component<IAppProps, IAppState> {
                 </div>
             </div>
             {/************************************* Question 6 (Optional) *************************************/}
-            {this.state.questions.Q6.length>0?
-            <div className={ styles.question}>
-                <Toggle
-                defaultChecked={updatableitemInContext.answer6}
-                label={this.state.questions.Q6}
-                onText="Ja"
-                offText="Nej"
-                onChanged={(answer6)=>{
-                    updatableitemInContext.answer6=answer6;
-                    if(!answer6){
-                        updatableitemInContext.answer6Description ='';
-                    }
-                    this.setState({answers:updatableitemInContext})
-                }}
-                />
-                <div className={updatableitemInContext.answer6?styles.descriptionTextFieldHidden:styles.descriptionTextFieldVisible} >
-                <TextField  
-                        className={updatableitemInContext.answer6?styles.descriptionTextFieldHidden:styles.descriptionTextFieldVisible} 
-                        label="Hvis nej så uddyb" 
-                        multiline rows={4} 
-                        value={updatableitemInContext.answer6Description}  
-                        onChanged={(input)=>updatableitemInContext.answer6Description=input}
-                        />
-                    <ChoiceGroup
-                        defaultSelectedKey={updatableitemInContext.answer6Remark==0?"6None":
-                                                updatableitemInContext.answer6Remark==1?"6Blue":
-                                                    updatableitemInContext.answer6Remark==2?"6Yellow":
-                                                        updatableitemInContext.answer6Remark==3?"6Red":""}
-
-                        options={[
-                        {
-                            key: '6None',
-                            text: 'Ingen bemærkninger'
-                            
-                        } as IChoiceGroupOption,
-                        {
-                        key: '6Blue',
-                        text: 'Blå'
-                        },
-                        {
-                            key: '6Yellow',
-                            text: 'Gul'
-                        },
-                        {
-                            key: '6Red',
-                            text: 'Rød'
-                        }
-                    ]}
-                        onChange={this._onChange}
-                        label="Angiv bemærkning"
-                    />
-                    
-                </div>
-            </div>
-            :null}
-            {/************************************* Concluding Question *************************************/}
-            <div className={styles.question}>
-                <ChoiceGroup
-                    // defaultSelectedKey={updatableitemInContext.answer6==0?"None":"Blue"}
-                    defaultSelectedKey={updatableitemInContext.ConcludingRemark==0?"None":
-                                            updatableitemInContext.ConcludingRemark==1?"Blue":
-                                                updatableitemInContext.ConcludingRemark==2?"Yellow":
-                                                    updatableitemInContext.ConcludingRemark==3?"Red":""}
-
-                    options={[
-                    {
-                        key: 'None',
-                        text: 'Ingen bemærkninger'
-                        
-                    } as IChoiceGroupOption,
-                    {
-                    key: 'Blue',
-                    text: 'Blå'
-                    },
-                    {
-                        key: 'Yellow',
-                        text: 'Gul'
-                    },
-                    {
-                        key: 'Red',
-                        text: 'Rød'
-                    }
-                ]}
-                    onChange={this._onChange}
-                    label="Angiv bemærkning"                />
-                    <TextField  
-                        label="Hvis nej så uddyb" 
-                        multiline rows={4} 
-                        value={updatableitemInContext.ConcludingDescription}  
-                        onChanged={(input)=>updatableitemInContext.ConcludingDescription=input}
-                        />
-            </div>
+            {
+                this.state.questions.Q6!=undefined?
             
+                    this.state.questions.Q6.length>0?
+                    <div className={ styles.question}>
+                        <Toggle
+                        defaultChecked={this.state.itemInContext.answer6}
+                        label={this.state.questions.Q6}
+                        onText="Ja"
+                        offText="Nej"
+                        onChanged={(answer6)=>{
+                            let answersCopy = JSON.parse(JSON.stringify(this.state.itemInContext))
+                            answersCopy.answer6=answer6;
+                            if(answer6){
+                                answersCopy.answer6Description ='';
+                                answersCopy.answer6Remark=0;
+                            }
+                            this.setState({itemInContext:answersCopy}
+                                ,                        this._updateItemInContext(answersCopy.listItemId)
+                                )
+                        }}
+                        />
+                        <div className={this.state.itemInContext.answer6?styles.descriptionTextFieldHidden:styles.descriptionTextFieldVisible} >
+                        <TextField  
+                                className={this.state.itemInContext.answer6?styles.descriptionTextFieldHidden:styles.descriptionTextFieldVisible} 
+                                label="Hvis nej så uddyb" 
+                                multiline rows={4} 
+                                value={this.state.itemInContext.answer6Description}  
+                                onChanged={(input)=>this.state.itemInContext.answer6Description=input}
+                                />
+                            <ChoiceGroup
+                                selectedKey={this.state.itemInContext.answer6Remark==0?"6None":
+                                                        this.state.itemInContext.answer6Remark==1?"6Blue":
+                                                            this.state.itemInContext.answer6Remark==2?"6Yellow":
+                                                                this.state.itemInContext.answer6Remark==3?"6Red":""}
+
+                                options={[
+                                {
+                                    key: '6None',
+                                    text: 'Ingen bemærkninger'
+                                    
+                                } as IChoiceGroupOption,
+                                {
+                                key: '6Blue',
+                                text: 'Blå'
+                                },
+                                {
+                                    key: '6Yellow',
+                                    text: 'Gul'
+                                },
+                                {
+                                    key: '6Red',
+                                    text: 'Rød'
+                                }
+                            ]}
+                                onChange={this._onChange}
+                                label="Angiv bemærkning"
+                            />
+                            
+                        </div>
+                    </div>
+                    :null
+                :null
+
+            }
+            
+            
+            
+            {/************************************* Button Row           *************************************/}
             <div >
                 <DefaultButton
                 className={styles.btnRow}
@@ -765,112 +747,83 @@ export default class App extends React.Component<IAppProps, IAppState> {
     
     private _onChange = (ev: React.FormEvent<HTMLInputElement>, option: any): void => {
         switch (option.key) {
-            case 'None':
-                updatableitemInContext.ConcludingRemark=0;        
-                break;
-            case 'Blue':
-                updatableitemInContext.ConcludingRemark=1;        
-                break;
-            case 'Yellow':
-                updatableitemInContext.ConcludingRemark=2;        
-                break;
-            case 'Green':
-                updatableitemInContext.ConcludingRemark=3;        
-                break;
             case '1None':
-                updatableitemInContext.answer1Remark=0;        
+                this.state.itemInContext.answer1Remark=0;        
                 break;
             case '1Blue':
-                updatableitemInContext.answer1Remark=1;        
+                this.state.itemInContext.answer1Remark=1;        
                 break;
             case '1Yellow':
-                updatableitemInContext.answer1Remark=2;        
+                this.state.itemInContext.answer1Remark=2;        
                 break;
-            case '1Green':
-                updatableitemInContext.answer1Remark=3;        
+            case '1Red':
+                this.state.itemInContext.answer1Remark=3;        
                 break;
             case '2None':
-                updatableitemInContext.answer2Remark=0;        
+                this.state.itemInContext.answer2Remark=0;        
                 break;
             case '2Blue':
-                updatableitemInContext.answer2Remark=1;        
+                this.state.itemInContext.answer2Remark=1;        
                 break;
             case '2Yellow':
-                updatableitemInContext.answer2Remark=2;        
+                this.state.itemInContext.answer2Remark=2;        
                 break;
-            case '2Green':
-                updatableitemInContext.answer3Remark=3;        
+            case '2Red':
+                this.state.itemInContext.answer2Remark=3;        
                 break;
             case '3None':
-                updatableitemInContext.answer3Remark=0;        
+                this.state.itemInContext.answer3Remark=0;        
                 break;
             case '3Blue':
-                updatableitemInContext.answer3Remark=1;        
+                this.state.itemInContext.answer3Remark=1;        
                 break;
             case '3Yellow':
-                updatableitemInContext.answer3Remark=2;        
+                this.state.itemInContext.answer3Remark=2;        
                 break;
-            case '3Green':
-                updatableitemInContext.answer3Remark=3;        
+            case '3Red':
+                this.state.itemInContext.answer3Remark=3;        
                 break;
             case '4None':
-                updatableitemInContext.answer4Remark=0;        
+                this.state.itemInContext.answer4Remark=0;        
                 break;
             case '4Blue':
-                updatableitemInContext.answer4Remark=1;        
+                this.state.itemInContext.answer4Remark=1;        
                 break;
             case '4Yellow':
-                updatableitemInContext.answer4Remark=2;        
+                this.state.itemInContext.answer4Remark=2;        
                 break;
-            case '4Green':
-                updatableitemInContext.answer4Remark=3;        
+            case '4Red':
+                this.state.itemInContext.answer4Remark=3;        
                 break;
             case '5None':
-                updatableitemInContext.answer5Remark=0;        
+                this.state.itemInContext.answer5Remark=0;        
                 break;
             case '5Blue':
-                updatableitemInContext.answer5Remark=1;        
+                this.state.itemInContext.answer5Remark=1;        
                 break;
             case '5Yellow':
-                updatableitemInContext.answer5Remark=2;        
+                this.state.itemInContext.answer5Remark=2;        
                 break;
-            case '5Green':
-                updatableitemInContext.answer5Remark=3;        
+            case '5Red':
+                this.state.itemInContext.answer5Remark=3;        
                 break;
             case '6None':
-                updatableitemInContext.answer6Remark=0;        
+                this.state.itemInContext.answer6Remark=0;        
                 break;
             case '6Blue':
-                updatableitemInContext.answer6Remark=1;        
+                this.state.itemInContext.answer6Remark=1;        
                 break;
             case '6Yellow':
-                updatableitemInContext.answer6Remark=2;        
+                this.state.itemInContext.answer6Remark=2;        
                 break;
-            case '6Green':
-                updatableitemInContext.answer6Remark=3;        
+            case '6Red':
+                this.state.itemInContext.answer6Remark=3;        
                 break;
             default:
                 break;
         }
+        this.setState({answers:this.state.itemInContext})
         
     };
-    // private _onChangeOrg = (ev: React.FormEvent<HTMLInputElement>, option: any): void => {
-    //     switch (option.key) {
-    //         case 'None':
-    //         updatableitemInContext.answer6Remark=0;        
-    //             break;
-    //         case 'Blue':
-    //         updatableitemInContext.answer6Remark=1;        
-    //             break;
-    //         case 'Yellow':
-    //         updatableitemInContext.answer6Remark=2;        
-    //             break;
-    //         case 'Green':
-    //         updatableitemInContext.answer6Remark=3;        
-    //             break;
-    //         default:
-    //             break;
-    //     }
-        
-    // };
+    
 }

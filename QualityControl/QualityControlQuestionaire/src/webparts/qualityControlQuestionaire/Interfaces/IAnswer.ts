@@ -28,6 +28,4 @@ export interface IAnswer {
   answer6?: boolean;
   answer6Remark?: number;
   answer6Description?: string;
-  ConcludingRemark?: number;
-  ConcludingDescription?: string;
 }

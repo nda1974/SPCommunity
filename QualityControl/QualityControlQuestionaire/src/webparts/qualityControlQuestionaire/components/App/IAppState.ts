@@ -4,7 +4,7 @@ import { ICurrentUser } from "../../../../Interfaces/ICurrentUser.";
 import { IQCUser } from "../../Interfaces/IQCUser";
 
 export interface IAppState {
-  questions:IQuestions;
+  questions?:IQuestions;
   answersList:IAnswer[];
   answers:IAnswer;
   currentUser:ICurrentUser;
