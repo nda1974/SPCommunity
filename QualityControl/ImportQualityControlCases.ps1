@@ -78,7 +78,7 @@ function _getLipsumText(){
     return $answerDescription[$index]
 }
 function _createTestItemsForReporting(){
-    
+    $questions = Get-PnPListItem -List "Quality Control - Claims Handler Questions"
     $config = @(
     
     <#
@@ -229,9 +229,9 @@ function _createTestItemsForReporting(){
                     
                     
                     #>
-                    @{ExtractionId='EXTRACTION-NICD-4';
+                    @{ExtractionId='26NOV18Q4';
                     BatchId='BATCH-NICD-7';
-                    batchdate='30-sep-19';
+                    batchdate='26-nov-18';
                     Answer1=$false;
                     Answer1Remark=0;
                     Answer2=$false;
@@ -250,39 +250,18 @@ function _createTestItemsForReporting(){
                     Answer4Description=_getLipsumText;
                     Answer5Description=_getLipsumText;
                     Answer6Description=_getLipsumText;
-                    ControlSubmitted=$true;
-                    },
-                    @{ExtractionId='EXTRACTION-NICD-4';
-                    BatchId='BATCH-NICD-8';
-                    batchdate='30-sep-19';
-                    Answer1=$false;
-                    Answer1Remark=0;
-                    Answer2=$false;
-                    Answer2Remark=0;
-                    Answer3=$false;
-                    Answer3Remark=0;
-                    Answer4=$false;
-                    Answer4Remark=0;
-                    Answer5=$false;
-                    Answer5Remark=0;
-                    Answer6=$false;
-                    Answer6Remark=0;
-                    Answer1Description=_getLipsumText;
-                    Answer2Description=_getLipsumText;
-                    Answer3Description=_getLipsumText;
-                    Answer4Description=_getLipsumText;
-                    Answer5Description=_getLipsumText;
-                    Answer6Description=_getLipsumText;
-                    ControlSubmitted=$true;
+                    ControlSubmitted=$false;
+                    Question1=$questions[0]["ControlQuestion"]
+                    Question2=$questions[1]["ControlQuestion"]
+                    Question3=$questions[2]["ControlQuestion"]
                     }
-                    
                     
                 )
 
 
     $config | foreach{
 
-        for ($i=0; $i -le 2; $i++) {
+        for ($i=0; $i -le 5; $i++) {
         Add-PnPListItem -List $ListName -Values @{
                                                     "Title" = 'Report test';
                                                     "BatchID" = $_.BatchID;
@@ -311,13 +290,19 @@ function _createTestItemsForReporting(){
                                                     "Answer6Remark"=$_.Answer6Remark;
                                                     "Answer6Description"=$_.Answer6Description;
                                                     "ControlSubmitted"=$_.ControlSubmitted;
-                                                    "Department"='Department'
+                                                    "Department"='Department';
+                                                    "Question1"=$questions[0]["ControlQuestion"];
+                                                    "Question2"=$questions[1]["ControlQuestion"];
+                                                    "Question3"=$questions[2]["ControlQuestion"];
+                                                    "Question4"=$questions[3]["ControlQuestion"];
+                                                    "Question5"=$questions[4]["ControlQuestion"];
+                                                    "Question6"=$questions[5]["ControlQuestion"];
                                                   }   
         }
     }
 }
 
-
+############################################# START ###################################################
 #region Variables 
  $Username = "sadmnicd@lbforsikring.onmicrosoft.com" 
  $Password = "MandM2013" 
@@ -332,6 +317,9 @@ $SiteURL = 'https://lbforsikring.sharepoint.com/sites/Skade/'
 $ListName="Quality Control - Claims Handler Answers"
 
 Connect-PnPOnline -Url $SiteURL -Credentials -NICD-
+#$questions = Get-PnPListItem -List "Quality Control - Claims Handler Questions" 
+
+
 #_removeAllListItems -listName $ListName
 
 _createTestItemsForReporting
@@ -342,6 +330,7 @@ $importFilePath = 'C:\Git\LBIntranet\QualityControl\skadekontrol.csv'
 $importFilePath = 'C:\Git\LBIntranet\QualityControl\26NOV18_SkadetransRemastered.csv'
 $importFilePath = 'C:\Git\LBIntranet\QualityControl\26NOV18_Skadetrans_OLJE.csv'
 $importFilePath = 'C:\Git\LBIntranet\QualityControl\20DEC18_Skadetrans.csv'
+$importFilePath = 'C:\Git\LBIntranet\QualityControl\26NOV18_Skadetrans_OLJE.csv'
 
 
 $itemsFromFile = Import-Csv -Path $importFilePath -Delimiter ';' -Encoding UTF8

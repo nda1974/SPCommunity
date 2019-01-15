@@ -51,10 +51,27 @@ private fetchSharePointData(){
                     (data:any[])=>{
                       console.log(data)
                       this.setState({listItems:data})
+                      var groupedItems:any[]=this._groupBy(data);
+                      var arrGroupKeys:string[]=[];
+                      {
+                          Object.keys(groupedItems).map((groupKey,i)=>{
+                              arrGroupKeys.push(groupKey);
+                      })}
+                      
                     }
                   );
 }
 
+
+private _groupBy(arr:any[]):any[]{
+        
+  
+  var groupBy = require('lodash.groupby');
+  return groupBy(arr,'Varegruppe');
+
+  // return groupArray(arr,prop);
+  
+}
 
   public render(): React.ReactElement<IAppProps> {
     try {

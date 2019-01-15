@@ -3,35 +3,59 @@ const sp =  require("@pnp/sp").sp;
 
 // equal to: import { SPFetchClient } from "@pnp/nodejs;"
 const SPFetchClient = require("@pnp/nodejs").SPFetchClient;
+const SPOAuthEnv = require("@pnp/nodejs").SPOAuthEnv;
 
 module.exports = async function (context, req) {
     context.log('JavaScript HTTP trigger function processed a request.');
-
-    if (req.query.site || (req.body && req.body.site)) {
-        const siteName = req.query.site || req.body.site;
+    
+    if (req.query.batchID) {
         sp.setup({
             sp: {
                 fetchClientFactory: () => {
                     return new SPFetchClient(
-                      `https://lbforsikring.sharepoint.com/sites/Skade/`, 
+                      "https://lbforsikring.sharepoint.com/sites/Skade", 
                       process.env.spId, 
-                      process.env.spSecret);
+                      process.env.spSecret,
+                      SPOAuthEnv.SPO
+                      );
                 },
-            },
+                headers:{
+                    'Content-Type': 'application/json'
+                },
+                baseUrl:"https://lbforsikring.sharepoint.com/sites/skade"
+            }
         });
 
-        // Get the web and all the Lists
-        const web = await sp.web.select("Title").expand('Lists').get();
-
+        const  returnVal=await _getDepartments(req.query.batchID);
         context.res = {
-            // status: 200, /* Defaults to 200 */
-            body: "All of the lists in the site " + web.Title + ": " + web.Lists.map(list => list.Title).join(', ')
+            // status: 200,
+            body: '{"BatchComitted":"'+ returnVal+ '"}'
         };
     }
-    else {
+    else{
         context.res = {
-            status: 400,
-            body: "Please pass a site on the query string or in the request body"
-        };
+                status: 400,
+                body: '{"Error in request":"Error"}'
+            };
     }
+    
+    
+    
 };
+
+async function _getDepartments(batchID)
+{
+    // const items = await sp.web.lists.getById("433d918b-2e51-4ebb-ab2a-3fc9e2b5c540").items.filter("Id eq '" + itemId + "' and BatchID eq 'BATCH-NICD-8'").get();
+    const items = await sp.web.lists.getById("433d918b-2e51-4ebb-ab2a-3fc9e2b5c540").items.filter("BatchID eq '"+ batchID +"'").select('ControlSubmitted').get();
+    var isAllControlsSubmitted=true;
+    items.map(item=>{
+        if(item.ControlSubmitted==false){
+            isAllControlsSubmitted=false;
+        }
+        console.log(item);
+    })
+        
+    return isAllControlsSubmitted;
+    
+}
+
