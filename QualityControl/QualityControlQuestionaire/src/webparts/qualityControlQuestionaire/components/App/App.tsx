@@ -169,10 +169,19 @@ export default class App extends React.Component<IAppProps, IAppState> {
             // email:'',
             // name:''
         }
+        
+        const dataExtractionID = await pnp.sp.web.lists.getById(ANSWERS_LIST_ID).items.orderBy('DataExtractionDate',false).get().then(data=>{
+            // return data[0].BatchID;
+            return data[0].DataExtractionID;
+        }
+            
+        )
+
         // Quality Control - Claims Handler Questions
+        //.filter("PriviligedUser eq "+ this.state.currentUser.id + " and ControlSubmitted eq 0 and BatchID eq '" + batchID +"'")
         await pnp.sp.web.lists.getById(ANSWERS_LIST_ID)
             .items
-            .filter("PriviligedUser eq "+ this.state.currentUser.id + " and ControlSubmitted eq 0")
+            .filter("PriviligedUser eq "+ this.state.currentUser.id + " and ControlSubmitted eq 0 and DataExtractionID eq '" + dataExtractionID + "'")
             .get()
             .then(async (data: any[]) => {
                 console.log(data)

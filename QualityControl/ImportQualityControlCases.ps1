@@ -32,7 +32,10 @@ function _getRandomRemark()
 {
     return Get-Random -InputObject 0,1,2,3
 }
-
+function _getRandomSubmitted()
+{
+    return Get-Random -InputObject $true,$false
+}
 function _createClaimControlItem(){
 param
     (
@@ -41,7 +44,7 @@ param
         
     )
     $questions = $global:questionsList
-    #$questions = Get-PnPListItem -List "Quality Control - Claims Handler Questions"
+    
     if($_.PriviligedUserEmail -eq 'BOT'){
         $PriviligedUserEmail = $null
     }
@@ -51,6 +54,7 @@ param
 
     if($isTestDrive -eq $true)
     {   
+        $committed = _getRandomSubmitted
         $Answer1 = _getRandomAnswer;
         $Answer1Remark=0;
         $Answer1Description=$null;
@@ -87,7 +91,7 @@ param
                             "EmployeeInFocus"=$_.EmployeeEmail;
                             "EmployeeInFocusDisplayName"=$_.Employee;
                             "ClaimID"=$_.ClaimID;
-                            "Department"=$_.Team;  
+                            "Department"=$_.Team.ToUpper();  
                             "DataExtractionID"=$_.ExtractionID;
                             "DataExtractionDate"=$_.batchdate;
                             "Answer1"=$Answer1;
@@ -99,7 +103,7 @@ param
                             "Answer3"=$Answer3;
                             "Answer3Remark"=$Answer3Remark;
                             "Answer3Description"=$Answer3Description;
-                            "ControlSubmitted"=$false;
+                            "ControlSubmitted"=_getRandomSubmitted;
                             "LinkToSummary"=$_.Employee +"_"+$_.BatchID + "_"+$_.ExtractionID +".docx";
                             "Question1"=$questions[0]["ControlQuestion"];
                             "Question2"=$questions[1]["ControlQuestion"];
@@ -117,7 +121,7 @@ param
                             "EmployeeInFocus"=$_.EmployeeEmail;
                             "EmployeeInFocusDisplayName"=$_.Employee;
                             "ClaimID"=$_.ClaimID;
-                            "Department"=$_.Team;  
+                            "Department"=$_.Team.ToUpper();  
                             "DataExtractionID"=$_.ExtractionID;
                             "DataExtractionDate"=$_.batchdate;
                             "ControlSubmitted"=$false;
@@ -168,10 +172,10 @@ $ListName="Quality Control - Claims Handler Answers"
 Connect-PnPOnline -Url $SiteURL -Credentials -NICD-
 $global:questionsList = Get-PnPListItem -List "Quality Control - Claims Handler Questions"
 # Remove existing list items
-_removeAllListItems -listName $ListName
+#_removeAllListItems -listName $ListName
 
 # Reading the import file revieved from BI
-$importFilePath = 'C:\Git\LBIntranet\QualityControl\Q1TestCSV.csv'
+$importFilePath = 'C:\Git\LBIntranet\QualityControl\Q2TestCSV.csv'
 $itemsFromFile = Import-Csv -Path $importFilePath -Delimiter ';' -Encoding UTF8
 
 # Looping trough all claim transactions
