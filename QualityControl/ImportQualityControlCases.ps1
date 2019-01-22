@@ -172,10 +172,10 @@ $ListName="Quality Control - Claims Handler Answers"
 Connect-PnPOnline -Url $SiteURL -Credentials -NICD-
 $global:questionsList = Get-PnPListItem -List "Quality Control - Claims Handler Questions"
 # Remove existing list items
-#_removeAllListItems -listName $ListName
+_removeAllListItems -listName $ListName
 
 # Reading the import file revieved from BI
-$importFilePath = 'C:\Git\LBIntranet\QualityControl\Q2TestCSV.csv'
+$importFilePath = 'C:\Git\LBIntranet\QualityControl\Q1New.csv'
 $itemsFromFile = Import-Csv -Path $importFilePath -Delimiter ';' -Encoding UTF8
 
 # Looping trough all claim transactions
