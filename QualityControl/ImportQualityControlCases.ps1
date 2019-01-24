@@ -84,6 +84,36 @@ param
             $Answer3Remark=_getRandomRemark;
             $Answer3Description=_getLipsumText;
         }
+
+        $Answer4 = _getRandomAnswer;
+        $Answer4Remark=0;
+        $Answer4Description=$null;
+
+        if($Answer4 -eq $false)
+        {
+            $Answer4Remark=_getRandomRemark;
+            $Answer4Description=_getLipsumText;
+        }
+
+        $Answer5 = _getRandomAnswer;
+        $Answer5Remark=0;
+        $Answer5Description=$null;
+
+        if($Answer5 -eq $false)
+        {
+            $Answer5Remark=_getRandomRemark;
+            $Answer5Description=_getLipsumText;
+        }
+
+        $Answer6 = _getRandomAnswer;
+        $Answer6Remark=0;
+        $Answer6Description=$null;
+
+        if($Answer6 -eq $false)
+        {
+            $Answer6Remark=_getRandomRemark;
+            $Answer6Description=_getLipsumText;
+        }
         
         $evaluationItem = @{"Title" = $_.BatchID;
                             "BatchID" = $_.BatchID;
@@ -103,6 +133,15 @@ param
                             "Answer3"=$Answer3;
                             "Answer3Remark"=$Answer3Remark;
                             "Answer3Description"=$Answer3Description;
+                            "Answer4"=$Answer4;
+                            "Answer4Remark"=$Answer4Remark;
+                            "Answer4Description"=$Answer4Description;
+                            "Answer5"=$Answer5;
+                            "Answer5Remark"=$Answer5Remark;
+                            "Answer5Description"=$Answer5Description;
+                            "Answer6"=$Answer6;
+                            "Answer6Remark"=$Answer6Remark;
+                            "Answer6Description"=$Answer6Description;
                             "ControlSubmitted"=_getRandomSubmitted;
                             "LinkToSummary"=$_.Employee +"_"+$_.BatchID + "_"+$_.ExtractionID +".docx";
                             "Question1"=$questions[0]["ControlQuestion"];

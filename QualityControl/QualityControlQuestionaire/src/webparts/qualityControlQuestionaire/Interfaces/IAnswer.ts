@@ -28,4 +28,5 @@ export interface IAnswer {
   answer6?: boolean;
   answer6Remark?: number;
   answer6Description?: string;
+  linkToSummary?:string;
 }

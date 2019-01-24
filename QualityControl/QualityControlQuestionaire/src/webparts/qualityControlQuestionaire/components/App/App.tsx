@@ -1,13 +1,13 @@
 import * as React from 'react';
 import styles from './App.module.scss';
-import {  UrlQueryParameterCollection } from '@microsoft/sp-core-library';
+import {  UrlQueryParameterCollection, ServiceScope } from '@microsoft/sp-core-library';
 import { TextField } from 'office-ui-fabric-react/lib/TextField';
 import { Toggle } from 'office-ui-fabric-react/lib/Toggle';
 
 import { DefaultButton, IButtonProps } from 'office-ui-fabric-react/lib/Button';
 import { ChoiceGroup, IChoiceGroupOption } from 'office-ui-fabric-react/lib/ChoiceGroup';
 import { IAppProps } from './IAppProps';
-import pnp, { setup} from "sp-pnp-js";
+import pnp, { setup, HttpClient, config, FetchOptions, ItemUpdateResult} from "sp-pnp-js";
 import { IAppState } from './IAppState';
 import { IAnswer } from '../../Interfaces/IAnswer';
 import { IQuestions } from '../../Interfaces/IQuestions';
@@ -20,6 +20,10 @@ import { ICurrentUser } from '../../../../Interfaces/ICurrentUser.';
 import { Panel, PanelType } from 'office-ui-fabric-react/lib/Panel';
 import { SiteUsers, SiteUser } from 'sp-pnp-js/lib/sharepoint/siteusers';
 import { IUser } from '../../../../../lib/webparts/qualityControlQuestionaire/Interfaces/IUser';
+// import { IHttpClientOptions, HttpClientResponse, HttpClientConfiguration } from '@microsoft/sp-http';
+import { SPHttpClient, HttpClientConfiguration, HttpClientResponse, ODataVersion, IHttpClientConfiguration, IHttpClientOptions, ISPHttpClientOptions, SPHttpClientConfiguration } from '@microsoft/sp-http';
+
+
 
 
 // let employeeInFocus:IQCUser={
@@ -109,7 +113,9 @@ export default class App extends React.Component<IAppProps, IAppState> {
     
     //https://github.com/pnp/pnpjs/issues/196#issuecomment-410908170
     public _onBtnClick(submitAnswer:boolean):void{
+        
         this._updateAnswers(submitAnswer);
+
     }
     
     public async _getQuestions(): Promise<any> {
@@ -150,14 +156,85 @@ export default class App extends React.Component<IAppProps, IAppState> {
                 Answer6Description:this.state.itemInContext.answer6Description,
                 Answer6Remark:this.state.itemInContext.answer6Remark,
                 ControlSubmitted:submitAnswer
-                
             }
         ).then(r => {
+            const listItemID:number=this.state.itemInContext.listItemId;
+            const currentBatchID:string=this.state.itemInContext.batchID;
+            // const summaryFileName:string=this.state.itemInContext.dataExtractionID + this.state.itemInContext.batchID + ".docx";
+
+            var createSummary:Promise<Boolean>=this._isBatchCommitted(currentBatchID)
+            createSummary.then((res)=>{
+                res==true?
+                this.startCreateSummaryFlow(listItemID):
+                null
+            })
             this.setState({showPanel:!this.state.showPanel})
-            console.log(r);
+
+            // console.log(r);
         }).catch((err)=>{
             console.log(err);
         });
+    }
+    private async _isBatchCommitted(batchID:string):Promise<Boolean>
+    {
+        var createSummary:boolean=true;
+        return await pnp.sp.web.lists.getById(ANSWERS_LIST_ID)
+            .items
+            .filter("PriviligedUser eq "+ this.state.currentUser.id + " and BatchID eq '" + batchID + "'")
+            .get()
+            .then((items)=>{
+                items.map((item)=>{
+                    item.ControlSubmitted==false?
+                    createSummary=false:
+                    null
+                })
+                return createSummary;
+            });
+            
+
+    }
+    private startCreateSummaryFlow(listItemID:number): void {
+
+        //const postURL = 'https://prod-91.westeurope.logic.azure.com:443/workflows/bbe3b88806ee4d988b96d4eca37b792f/triggers/manual/paths/invoke?api-version=2016-06-01&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=cI7oIMOy00OKG3h7Tfac1TJkFrvE3PTd_3LpaIeyLmw';
+        const postURL ='https://prod-36.westeurope.logic.azure.com:443/workflows/dc12a128521c4f05b43c3298132b9a0a/triggers/manual/paths/invoke?api-version=2016-06-01&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=bKqjZ_vzAHhmStaDeRi8WauGHYgonlzSZPISJxgEQqE'
+        const requestHeaders: Headers = new Headers();
+        requestHeaders.append('Content-type', 'application/json');
+        // requestHeaders.append('mode', 'cors');
+        // requestHeaders.append("Accept", "application/json");
+        // requestHeaders.append("Access-Control-Allow-Origin", "*");
+        
+        const body: string = JSON.stringify({
+            'listItemID': listItemID
+          });
+        
+        const httpClientOptions:IHttpClientOptions={
+            body:body,
+            headers:requestHeaders
+        }
+        
+        this.props.ctx.httpClient.post(
+                                        postURL,
+                                        SPHttpClient.configurations.v1,
+                                        httpClientOptions
+                                    ).then((response: any) => {
+                                        console.log(response);
+                                    });
+        
+    }
+
+    private _doCreateLinkToSummary():boolean{
+        var returnvalue:boolean=true;
+        this.state.answersList.map((item)=>{
+            // Check if item in AnswerList belongs to the same Batch as the current item
+            if( item.batchID == this.state.itemInContext.batchID && 
+                item.listItemId != this.state.itemInContext.listItemId){
+                    if(item.controlSubmmitted==false){
+                        return false;
+                    }
+            }
+
+        })
+        return returnvalue;
     }
     private _groupBy(prop:string,arr:IAnswer[]):any{
         var groupBy = require('lodash.groupby');
@@ -208,7 +285,10 @@ export default class App extends React.Component<IAppProps, IAppState> {
                                             answer5Description:item.Answer5Description,
                                             answer6:item.Answer6,
                                             answer6Remark:item.Answer6Remark,
-                                            employeeInFocusDisplayName:item.EmployeeInFocusDisplayName
+                                            employeeInFocusDisplayName:item.EmployeeInFocusDisplayName,
+                                            dataExtractionID:item.DataExtractionID,
+                                            batchID:item.BatchID
+                                            
                                         }
                                     )
                 })
