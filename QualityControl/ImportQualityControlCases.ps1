@@ -34,6 +34,10 @@ function _getRandomRemark()
 }
 function _getRandomSubmitted()
 {
+$res = Get-Random -Maximum 10
+    if( $res -gt 3){
+        return $true
+    }
     return Get-Random -InputObject $true,$false
 }
 function _createClaimControlItem(){
@@ -143,7 +147,7 @@ param
                             "Answer6Remark"=$Answer6Remark;
                             "Answer6Description"=$Answer6Description;
                             "ControlSubmitted"=_getRandomSubmitted;
-                            "LinkToSummary"=$_.Employee +"_"+$_.BatchID + "_"+$_.ExtractionID +".docx";
+                            #"LinkToSummary"=$_.Employee +"_"+$_.BatchID + "_"+$_.ExtractionID +".docx";
                             "Question1"=$questions[0]["ControlQuestion"];
                             "Question2"=$questions[1]["ControlQuestion"];
                             "Question3"=$questions[2]["ControlQuestion"];
@@ -164,7 +168,7 @@ param
                             "DataExtractionID"=$_.ExtractionID;
                             "DataExtractionDate"=$_.batchdate;
                             "ControlSubmitted"=$false;
-                            "LinkToSummary"=$_.Employee +"_"+$_.BatchID + "_"+$_.ExtractionID +".docx";
+                            #"LinkToSummary"=$_.Employee +"_"+$_.BatchID + "_"+$_.ExtractionID +".docx";
                             "Question1"=$questions[0]["ControlQuestion"];
                             "Question2"=$questions[1]["ControlQuestion"];
                             "Question3"=$questions[2]["ControlQuestion"];
@@ -195,11 +199,39 @@ function _getLipsumText(){
     )
     return $answerDescription[$index]
 }
+<#
+function _createQuarterlyReport(){
+    $URI ='https://prod-91.westeurope.logic.azure.com:443/workflows/bbe3b88806ee4d988b96d4eca37b792f/triggers/manual/paths/invoke?api-version=2016-06-01&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=cI7oIMOy00OKG3h7Tfac1TJkFrvE3PTd_3LpaIeyLmw'
+    $body = ConvertTo-JSON @{text  = 'Hello World cmd'}; 
+    Invoke-RestMethod -uri $URI -Method Post -body $body -ContentType 'application/json'
+}
 
+#>
 
+function GetDepartments(){
+    param(
+    [Parameter(Mandatory=$true)] [string] $importFilePath
+    )
+
+    $SiteURL = 'https://lbforsikring.sharepoint.com/sites/Skade/'
+    $ListName="Quality Control - Departments"
+    _removeAllListItems -listName $ListName
+
+    
+    #$importFilePath = 'C:\Git\LBIntranet\QualityControl\15JAN19_SkadetransCSV.csv'
+    $itemsFromFile = Import-Csv -Path $importFilePath -Delimiter ';' -Encoding UTF8
+
+    $departments=$itemsFromFile | select Team -Unique
+
+    foreach($d in $departments){
+        $departmentItem = @{"Title" = $d.Team;};
+        Add-PnPListItem -List $ListName -Values $departmentItem
+    }
+}
 ############################################# START ###################################################
-Write-Host "Is this a Test Drive [Y]/[N]"
+Write-Host "Is this a Test Drive [Y]/[N] - Default = Y"
 [Bool] $isTestDrive = $true;
+    
 
 $input= Read-Host
 if($input.ToString().ToUpper() -eq "N"){
@@ -210,16 +242,30 @@ $ListName="Quality Control - Claims Handler Answers"
 
 Connect-PnPOnline -Url $SiteURL -Credentials -NICD-
 $global:questionsList = Get-PnPListItem -List "Quality Control - Claims Handler Questions"
+
+
+
 # Remove existing list items
-_removeAllListItems -listName $ListName
+#_removeAllListItems -listName $ListName
 
 # Reading the import file revieved from BI
-$importFilePath = 'C:\Git\LBIntranet\QualityControl\Q1New.csv'
-$itemsFromFile = Import-Csv -Path $importFilePath -Delimiter ';' -Encoding UTF8
 
+$importFilePath = 'C:\Git\LBIntranet\QualityControl\Q4New.csv'
+
+GetDepartments -importFilePath $importFilePath
+
+
+$itemsFromFile = Import-Csv -Path $importFilePath -Delimiter ';' -Encoding UTF8
+$startClock = Get-Date 
 # Looping trough all claim transactions
+$i;
 $itemsFromFile | ForEach-Object{
+$i++
+Write-Host "counter - " $i
     _createClaimControlItem -itemToCreate $_ -isTestDrive $isTestDrive
 }
+$stopClock = Get-Date 
+Write-Host "Kickoff - " $startClock
+Write-Host "Finished - " $stopClock
 
 

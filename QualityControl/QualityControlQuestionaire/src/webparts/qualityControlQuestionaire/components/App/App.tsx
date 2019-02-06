@@ -26,17 +26,6 @@ import { SPHttpClient, HttpClientConfiguration, HttpClientResponse, ODataVersion
 
 
 
-// let employeeInFocus:IQCUser={
-//     name:'',
-//     email:''
-//     // userRole:IUserRoles.Employee
-// };
-// let priviligedUser:IQCUser={
-//     name:'',
-//     email:''
-// };
-
-// let this.state.itemInContext: IAnswer = {};
 
 //https://lbforsikring.sharepoint.com/sites/Skade/Lists/Quality%20Control%20%20Claims%20Handler%20Questions/
 const QUESTIONS_LIST_ID = 'ad5ea1c8-3321-4a16-bc06-39a3b03d9e20';
@@ -178,18 +167,43 @@ export default class App extends React.Component<IAppProps, IAppState> {
     private async _isBatchCommitted(batchID:string):Promise<Boolean>
     {
         var createSummary:boolean=true;
-        return await pnp.sp.web.lists.getById(ANSWERS_LIST_ID)
-            .items
-            .filter("PriviligedUser eq "+ this.state.currentUser.id + " and BatchID eq '" + batchID + "'")
-            .get()
-            .then((items)=>{
-                items.map((item)=>{
-                    item.ControlSubmitted==false?
-                    createSummary=false:
-                    null
-                })
-                return createSummary;
-            });
+
+        const list = pnp.sp.web.lists.getById(ANSWERS_LIST_ID);
+        const listItems =   await list.items
+                                    .filter("PriviligedUser eq "+ this.state.currentUser.id + " and BatchID eq '" + batchID + "'")
+                                    .get()
+                                    .then((items)=>{
+                                        items.map((item)=>{
+                                            item.ControlSubmitted==false?
+                                            createSummary=false:
+                                            null
+                                        })
+                                    });
+
+        if(createSummary==true){
+            const items = await list.items.filter("PriviligedUser eq "+ this.state.currentUser.id + " and BatchID eq '" + batchID + "'").get();
+            // const entityTypeFullName = await list.getListItemEntityTypeFullName();
+            // const batch = pnp.sp.web.createBatch();
+            for (const item of items) {
+                // list.items.getById(item.Id).inBatch(batch)
+                await list.items.getById(item.Id)
+                    .update({ 'LinkToSummary': `${this.state.itemInContext.dataExtractionID}_${this.state.itemInContext.batchID}.docx` });
+            } 
+            
+        }
+        return createSummary;
+        // return await pnp.sp.web.lists.getById(ANSWERS_LIST_ID)
+        //     .items
+        //     .filter("PriviligedUser eq "+ this.state.currentUser.id + " and BatchID eq '" + batchID + "'")
+        //     .get()
+        //     .then((items)=>{
+        //         items.map((item)=>{
+        //             item.ControlSubmitted==false?
+        //             createSummary=false:
+        //             null
+        //         })
+        //         return createSummary;
+        //     });
             
 
     }
@@ -222,7 +236,7 @@ export default class App extends React.Component<IAppProps, IAppState> {
         
     }
 
-    private _doCreateLinkToSummary():boolean{
+    private async _doCreateLinkToSummary():Promise<void>{
         var returnvalue:boolean=true;
         this.state.answersList.map((item)=>{
             // Check if item in AnswerList belongs to the same Batch as the current item
@@ -234,7 +248,10 @@ export default class App extends React.Component<IAppProps, IAppState> {
             }
 
         })
-        return returnvalue;
+        const list = pnp.sp.web.lists.getById(ANSWERS_LIST_ID);
+	    const items = await list.items.select('LinkToSummary').get();
+	
+        
     }
     private _groupBy(prop:string,arr:IAnswer[]):any{
         var groupBy = require('lodash.groupby');
