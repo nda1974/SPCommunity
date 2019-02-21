@@ -127,7 +127,9 @@ param
                             "ClaimID"=$_.ClaimID;
                             "Department"=$_.Team.ToUpper();  
                             "DataExtractionID"=$_.ExtractionID;
-                            "DataExtractionDate"=$_.batchdate;
+                            "DataExtractionDate"=$_.BatchDate;
+                            "QuarterStartDate"=$_.FromDate;
+                            "QuarterEndDate"=$_.ToDate;
                             "Answer1"=$Answer1;
                             "Answer1Remark"=$Answer1Remark;
                             "Answer1Description"=$Answer1Description;
@@ -246,11 +248,11 @@ $global:questionsList = Get-PnPListItem -List "Quality Control - Claims Handler 
 
 
 # Remove existing list items
-#_removeAllListItems -listName $ListName
+_removeAllListItems -listName $ListName
 
 # Reading the import file revieved from BI
 
-$importFilePath = 'C:\Git\LBIntranet\QualityControl\Q4New.csv'
+$importFilePath = 'C:\Git\LBIntranet\QualityControl\Q1Dates.csv'
 
 GetDepartments -importFilePath $importFilePath
 
