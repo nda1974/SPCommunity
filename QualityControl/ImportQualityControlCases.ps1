@@ -34,7 +34,8 @@ function _getRandomRemark()
 }
 function _getRandomSubmitted()
 {
-$res = Get-Random -Maximum 10
+    return $false
+    $res = Get-Random -Maximum 10
     if( $res -gt 3){
         return $true
     }
@@ -248,11 +249,11 @@ $global:questionsList = Get-PnPListItem -List "Quality Control - Claims Handler 
 
 
 # Remove existing list items
-_removeAllListItems -listName $ListName
+#_removeAllListItems -listName $ListName
 
 # Reading the import file revieved from BI
 
-$importFilePath = 'C:\Git\LBIntranet\QualityControl\Q1Dates.csv'
+$importFilePath = 'C:\Git\LBIntranet\QualityControl\Q2Dates.csv'
 
 GetDepartments -importFilePath $importFilePath
 

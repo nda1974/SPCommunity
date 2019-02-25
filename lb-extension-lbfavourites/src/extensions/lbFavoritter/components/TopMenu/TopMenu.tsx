@@ -28,6 +28,7 @@ export interface ITopBarState {
     itemInContext: IFavouriteItem;
     audiences?: any;
     currentUser?: any;
+    buttonDisabled?:boolean;
 }
 
 const FAVOURITES_LIST_NAME: string = "Favourites";
@@ -54,14 +55,15 @@ export default class TopMenu extends React.Component<ITopBarProps, ITopBarState>
                 LBAudience: null
             },
             currentUser: null,
-            audiences: null
+            audiences: null,
+            buttonDisabled:true
             // isEdit: false,
             // status: <Spinner size={SpinnerSize.large} label="Henter..." />,
             // disableButtons: false
         };
         this.handleDialogClick = this.handleDialogClick.bind(this);
         this.handleBar = this.handleBar.bind(this);
-
+        this._GetAllFavouritesPre= this._GetAllFavouritesPre.bind(this);
         // this._getMyFavourites.bind(this);
         setup({
             sp: {
@@ -72,8 +74,36 @@ export default class TopMenu extends React.Component<ITopBarProps, ITopBarState>
             },
             // spfxContext: this._context,
         });
+        this._GetAllFavouritesPre();
     }
     private async _showPanel(): Promise<void> {
+        
+        // const favourites = await resList;
+        this.setState({showPanel:true} );
+        
+    }
+    private async _GetAllFavouritesPre(): Promise<void> {
+        await this._getUserObject().then((currentUser) => {
+            this.setState({ ...this.state, currentUser });
+        });
+
+
+        const myFavouriteItems: IFavouriteItem[] = await this._getPersonalFavourites(this.state.currentUser.Id);
+        const MY_Data: IFavouriteItem[] = await myFavouriteItems;
+        const LBFavouriteItems: IFavouriteItem[] = await this._getMandatoryFavourites();
+        const LB_Data: IFavouriteItem[] = await LBFavouriteItems;
+
+        const favourites: IFavouriteItem[] = await this.filterFavourites(MY_Data, LB_Data);
+        const buttonDisabled = false;
+        // const favourites = await resList;
+        this.setState({ ...this.state, favourites,buttonDisabled });
+
+        
+    }
+    private async _showPanelORG(): Promise<void> {
+        console.info("My Start date" + new Date())
+    
+    
         let status: JSX.Element = <Spinner size={SpinnerSize.large} label='Henter...' />;
         let showPanel: boolean = true;
         // this.setState({ ...this.state, showPanel,status });
@@ -100,8 +130,8 @@ export default class TopMenu extends React.Component<ITopBarProps, ITopBarState>
         // const favourites = [...LBFavouriteItems,...myFavouriteItems];
 
         // this.setState({...this.state, favourites },this._setShowPanelState);
+        console.info("My End date" + new Date())
     }
-
     private async filterFavourites(myFavouritesCollection: IFavouriteItem[], LBFavouritesCollection: IFavouriteItem[]): Promise<IFavouriteItem[]> {
         let returnlist: IFavouriteItem[] = [];
 
@@ -197,6 +227,7 @@ export default class TopMenu extends React.Component<ITopBarProps, ITopBarState>
                     title="Vis mine favoritter"
                     text="Mine favoritter"
                     ariaLabel="Vis"
+                    disabled={this.state.buttonDisabled}
                     iconProps={{ iconName: "View" }}
                     onClick={this._showPanel.bind(this)}
                 />
@@ -205,6 +236,7 @@ export default class TopMenu extends React.Component<ITopBarProps, ITopBarState>
                     title="Tilføj denne side til 'Mine favoritter'"
                     text="Tilføj"
                     ariaLabel="Tilføj"
+                    disabled={this.state.buttonDisabled}
                     iconProps={{ iconName: "Add" }}
                     onClick={this._showDialog.bind(this)}
                 />

@@ -4,7 +4,7 @@
   "https": true,
   "serveConfigurations": {
     "default": {
-      "pageUrl": "https://contoso.sharepoint.com/sites/mySite/SitePages/myPage.aspx",
+      "pageUrl": "https://lbforsikring.sharepoint.com/sites/NICD",
       "customActions": {
         "003633aa-ab88-4631-8ad7-c409a99f9dca": {
           "location": "ClientSideExtension.ApplicationCustomizer",
@@ -15,7 +15,7 @@
       }
     },
     "lbFavoritter": {
-      "pageUrl": "https://contoso.sharepoint.com/sites/mySite/SitePages/myPage.aspx",
+      "pageUrl": "https://https://lbforsikring.sharepoint.com/sites/NICD/SitePages/myPage.aspx",
       "customActions": {
         "003633aa-ab88-4631-8ad7-c409a99f9dca": {
           "location": "ClientSideExtension.ApplicationCustomizer",

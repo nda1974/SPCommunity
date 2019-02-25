@@ -44,9 +44,10 @@ export default class LbFavoritterApplicationCustomizer
   // }
   @override
   public onInit(): Promise<void> {
+    
     let placeholder: PlaceholderContent;
     placeholder = this.context.placeholderProvider.tryCreateContent(PlaceholderName.Top);
-
+    console.log('Start' + new Date())
     // init the react top bar component.
     const element: React.ReactElement<ITopBarProps> = React.createElement(
       TopMenu,
@@ -57,8 +58,8 @@ export default class LbFavoritterApplicationCustomizer
 
     // render the react element in the top placeholder.
     ReactDOM.render(element, placeholder.domElement);
-
+    
     return Promise.resolve();
-
+    
   }
 }
