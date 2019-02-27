@@ -60,6 +60,7 @@ param
     if($isTestDrive -eq $true)
     {   
         $committed = _getRandomSubmitted
+        $committed = $false
         $Answer1 = _getRandomAnswer;
         $Answer1Remark=0;
         $Answer1Description=$null;
@@ -231,6 +232,7 @@ function GetDepartments(){
         Add-PnPListItem -List $ListName -Values $departmentItem
     }
 }
+
 ############################################# START ###################################################
 Write-Host "Is this a Test Drive [Y]/[N] - Default = Y"
 [Bool] $isTestDrive = $true;
@@ -249,11 +251,13 @@ $global:questionsList = Get-PnPListItem -List "Quality Control - Claims Handler 
 
 
 # Remove existing list items
-#_removeAllListItems -listName $ListName
+_removeAllListItems -listName $ListName
 
 # Reading the import file revieved from BI
 
-$importFilePath = 'C:\Git\LBIntranet\QualityControl\Q2Dates.csv'
+$importFilePath = 'C:\Git\LBIntranet\QualityControl\19FEB19_Q1.csv'
+$importFilePath = 'C:\Git\LBIntranet\QualityControl\BetaTest\19FEB19_Q1.csv'
+
 
 GetDepartments -importFilePath $importFilePath
 

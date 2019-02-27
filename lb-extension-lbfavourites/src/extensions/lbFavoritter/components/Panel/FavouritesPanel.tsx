@@ -90,6 +90,9 @@ export default class FavouritesPanel extends React.Component<IFavouritesPanelPro
                 })
                 unfollowersIDs.push(this.props.currentUser.Id);
             }
+            else{
+                unfollowersIDs.push(this.props.currentUser.Id);
+            }
             let list = pnp.sp.web.lists.getByTitle(MANDATORY_FAVOURITES_LIST_NAME);
 
             list.items.getById(item.Id).update({
@@ -103,7 +106,6 @@ export default class FavouritesPanel extends React.Component<IFavouritesPanelPro
                 this._deleteFavourite(item);
             }
         }
-        
     }
 
     // public async UpdateFavouritePanel(favouriteItem: IFavouriteItem):Promise<void>{
