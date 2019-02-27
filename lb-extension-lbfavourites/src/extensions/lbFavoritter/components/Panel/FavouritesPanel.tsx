@@ -106,6 +106,7 @@ export default class FavouritesPanel extends React.Component<IFavouritesPanelPro
                 this._deleteFavourite(item);
             }
         }
+        
     }
 
     // public async UpdateFavouritePanel(favouriteItem: IFavouriteItem):Promise<void>{

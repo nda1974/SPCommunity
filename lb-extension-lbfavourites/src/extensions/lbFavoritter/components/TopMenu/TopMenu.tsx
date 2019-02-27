@@ -186,6 +186,7 @@ export default class TopMenu extends React.Component<ITopBarProps, ITopBarState>
         this.setState({ ...this.state, showDialog, itemInContext });
     }
     public async handleBar(itemInContext: IFavouriteItem): Promise<void> {
+        this._GetAllFavouritesPre();
         // console.log(itemInContext)
         this._showPanel();
     }
@@ -221,31 +222,73 @@ export default class TopMenu extends React.Component<ITopBarProps, ITopBarState>
 
 
     public render(): React.ReactElement<ITopBarProps> {
-        return (
+        {
+            return(
+            this.state.buttonDisabled==true?
             <div className="{styles.ccTopBar}">
+                <Spinner size={SpinnerSize.small} label="Henter dine favoritter" /></div>:
+                <div className="{styles.ccTopBar}">
                 <PrimaryButton data-id="menuButton"
                     title="Vis mine favoritter"
+                    // text={this.state.buttonDisabled==true?"Henter dine favoritter":"Mine favoritter"}
                     text="Mine favoritter"
                     ariaLabel="Vis"
                     disabled={this.state.buttonDisabled}
                     iconProps={{ iconName: "View" }}
                     onClick={this._showPanel.bind(this)}
+                    className={styles.addToFavouritesBtn}
                 />
 
                 <PrimaryButton data-id="menuButton"
                     title="Tilføj denne side til 'Mine favoritter'"
-                    text="Tilføj"
+                    // text={this.state.buttonDisabled==true?"Henter dine favoritter":"Tilføj til favoritter"}
+                    text="Tilføj til 'Mine favoritter'"
                     ariaLabel="Tilføj"
                     disabled={this.state.buttonDisabled}
                     iconProps={{ iconName: "Add" }}
                     onClick={this._showDialog.bind(this)}
+                    
                 />
-
                 <FavouritesPanel title='Dine favoritter' currentUser={this.state.currentUser} showPanel={this.state.showPanel} favourites={this.state.favourites} callbackRefreshFavourites={this.handleBar} />
 
                 <FavouritesDialog itemInContext={this.state.itemInContext} dialogTitle='Opret favorit' showDialog={this.state.showDialog} callbackHandleDialogClick={this.handleDialogClick} />
 
-            </div>)
+            </div>
+            )
+        }
+        // return (
+            
+            
+        //     <div className="{styles.ccTopBar}">
+        //         <PrimaryButton data-id="menuButton"
+        //             title="Vis mine favoritter"
+        //             // text={this.state.buttonDisabled==true?"Henter dine favoritter":"Mine favoritter"}
+        //             text="Mine favoritter"
+        //             ariaLabel="Vis"
+        //             disabled={this.state.buttonDisabled}
+        //             iconProps={{ iconName: "View" }}
+        //             onClick={this._showPanel.bind(this)}
+        //             className={styles.addToFavouritesBtn}
+        //         />
+
+        //         <PrimaryButton data-id="menuButton"
+        //             title="Tilføj denne side til 'Mine favoritter'"
+        //             // text={this.state.buttonDisabled==true?"Henter dine favoritter":"Tilføj til favoritter"}
+        //             text="Tilføj til favoritter"
+        //             ariaLabel="Tilføj"
+        //             disabled={this.state.buttonDisabled}
+        //             iconProps={{ iconName: "Add" }}
+        //             onClick={this._showDialog.bind(this)}
+                    
+        //         />
+        //         <FavouritesPanel title='Dine favoritter' currentUser={this.state.currentUser} showPanel={this.state.showPanel} favourites={this.state.favourites} callbackRefreshFavourites={this.handleBar} />
+
+        //         <FavouritesDialog itemInContext={this.state.itemInContext} dialogTitle='Opret favorit' showDialog={this.state.showDialog} callbackHandleDialogClick={this.handleDialogClick} />
+
+        //     </div>
+            
+        //     )
+            
     }
     public async CheckIfUserBelongsToGroup(groupName: string, userEmail: string): Promise<boolean> {
         let resBool:any=false;
