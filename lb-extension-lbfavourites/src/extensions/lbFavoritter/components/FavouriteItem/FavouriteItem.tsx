@@ -20,6 +20,7 @@ export interface IFavouriteItemProps{
     callBackUpdateFavouriteItem:any;
 }
 export interface IFavouriteItemState{
+    showSpinner?:boolean;
 }
 
 
@@ -29,6 +30,7 @@ export default class FavouriteItem extends React.Component<IFavouriteItemProps,I
         super(props);
 
         this.state = {
+            showSpinner:false
         };
         this.UpdateFavouriteItem=this.UpdateFavouriteItem.bind(this);
     }
@@ -40,14 +42,19 @@ export default class FavouriteItem extends React.Component<IFavouriteItemProps,I
                             <div className={styles.ccitemCellContent }>
                                 <Link href={this.props.item.ItemUrl} className={styles.ccRow}>
                                     <span >{this.props.item.Title}</span>
+                                    {
+                                    this.state.showSpinner==true?
+                                    <Spinner size={SpinnerSize.xSmall} label={`Sletter ${this.props.item.Title}`}  />:
+                                    null
+                                    }
                                 </Link>
                                 {
                                 this.props.item.IsMandatory==false?  
-                                    // <div className={styles.iconsContainer}>
                                         <Icon title="Slet" iconName={'Delete'} className={styles.iconWarningColor}  onClick={this.UpdateFavouriteItem}/>
-                                    // </div>
                                 :null
                                 }
+
+                                
                                 
                             </div>
                         </div>
@@ -55,7 +62,12 @@ export default class FavouriteItem extends React.Component<IFavouriteItemProps,I
                 }
 
     private async UpdateFavouriteItem():Promise<any>{
-        await this.props.callBackUpdateFavouriteItem(this.props.item);
+        //this.setState({showSpinner:!this.state.showSpinner});
+        this.props.callBackUpdateFavouriteItem(this.props.item);
+        // await this.props.callBackUpdateFavouriteItem(this.props.item).then(res=>{
+        //     this.setState({showSpinner:!this.state.showSpinner})
+        //     }
+        // )
     }
 
 

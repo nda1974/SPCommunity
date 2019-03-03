@@ -225,8 +225,8 @@ export default class TopMenu extends React.Component<ITopBarProps, ITopBarState>
         {
             return(
             this.state.buttonDisabled==true?
-            <div className="{styles.ccTopBar}">
-                <Spinner size={SpinnerSize.small} label="Henter dine favoritter" /></div>:
+            <div className="{styles.spinnerContainer}">
+                <Spinner size={SpinnerSize.medium} label="Henter dine favoritter" /></div>:
                 <div className="{styles.ccTopBar}">
                 <PrimaryButton data-id="menuButton"
                     title="Vis mine favoritter"

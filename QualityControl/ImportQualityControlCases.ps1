@@ -251,12 +251,15 @@ $global:questionsList = Get-PnPListItem -List "Quality Control - Claims Handler 
 
 
 # Remove existing list items
-_removeAllListItems -listName $ListName
+#_removeAllListItems -listName $ListName
 
 # Reading the import file revieved from BI
 
 $importFilePath = 'C:\Git\LBIntranet\QualityControl\19FEB19_Q1.csv'
 $importFilePath = 'C:\Git\LBIntranet\QualityControl\BetaTest\19FEB19_Q1.csv'
+$importFilePath = 'C:\Git\LBIntranet\QualityControl\BetaTest\19FEB19_Q2.csv'
+$importFilePath = 'C:\Git\LBIntranet\QualityControl\BetaTest\19FEB19_Q3.csv'
+
 
 
 GetDepartments -importFilePath $importFilePath

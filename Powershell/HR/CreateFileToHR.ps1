@@ -1,4 +1,5 @@
 ﻿$res = Get-Content -Path "C:\Git\LBIntranet\Powershell\HR\TreatmentRecords_2019_0101_3101.json"  | ConvertFrom-Json
+$res = Get-Content -Path "C:\Git\LBIntranet\Powershell\HR\TreatmentRecords_2019_0102_2802.json"  | ConvertFrom-Json
 
 
 
