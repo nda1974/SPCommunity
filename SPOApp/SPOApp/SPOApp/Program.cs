@@ -14,6 +14,7 @@ using System.Security;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
+using System.Web;
 using System.Windows.Forms;
 
 namespace SPOApp
@@ -286,7 +287,8 @@ namespace SPOApp
     }
     class Program
     {
-        private const string COINCIDENCE_IN_FILES_FILEPATH = @"C:\Git\LBIntranet\Powershell\MigratePages\CoincidenceFeature\CoincidenceOfFilenamesFiltered.csv";
+        //private const string COINCIDENCE_IN_FILES_FILEPATH = @"C:\Git\LBIntranet\Powershell\MigratePages\CoincidenceFeature\CoincidenceOfFilenamesFiltered.csv";
+        private const string COINCIDENCE_IN_FILES_FILEPATH = @"C:\Git\LBIntranet\SPOApp\SPOApp\SPOApp\importfiles\SharePoint2Excel\Test.csv";
         private const string LINKS_IN_PAGES_FILEPATH = @"C:\Git\LBIntranet\SPOApp\SPOApp\SPOApp\importfiles\LinkMigration\Indbo_LinksRepair.csv";
 
         private const string LINKS_IN_CONTENT_LOG_FILEPATH = @"C:\Git\LBIntranet\SPOApp\SPOApp\SPOApp\logfiles\OutputLinksLOG\";
@@ -312,6 +314,33 @@ namespace SPOApp
                     var line = reader.ReadLine();
                     var values = line.Split(';');
                     //Console.WriteLine(values[0] + " - " + values[1]);
+                    
+                    Console.WriteLine(values[0]);
+                    if (values[0] == fileName)
+                    {
+                        return "true";
+                    }
+
+                }
+            }
+            return "false";
+
+        }
+
+        public static string IsPageCoincidenceORG(string fileName)
+        {
+
+            using (var reader = new StreamReader(COINCIDENCE_IN_FILES_FILEPATH))
+            {
+                List<string> listA = new List<string>();
+                List<string> listB = new List<string>();
+                while (!reader.EndOfStream)
+                {
+
+                    var line = reader.ReadLine();
+                    var values = line.Split(';');
+                    //Console.WriteLine(values[0] + " - " + values[1]);
+                    Console.WriteLine(values[0]);
                     if (values[1] == fileName)
                     {
                         return values[0];
@@ -391,65 +420,139 @@ namespace SPOApp
 
             foreach (ListItem item in collListItem)
             {
-                ClientSidePage clientPage = ClientSidePage.Load(ctx, item["FileLeafRef"].ToString());
-                foreach (var section in clientPage.Sections)
+                ClientSidePage clientPage;
+                //ClientSidePage clientPage = ClientSidePage.Load(ctx, item["FileLeafRef"].ToString());
+                try
                 {
-                    foreach (var control in section.Controls)
+                    clientPage = ClientSidePage.Load(ctx, item["FileLeafRef"].ToString());
+
+                    foreach (var section in clientPage.Sections)
                     {
-                        if (control.Type.Name == "ClientSideText")
+                        foreach (var control in section.Controls)
                         {
-                            ClientSideText t = (ClientSideText)control;
-                            if (t.Text.Contains("<p>a</p>") ||
-                                t.Text.Contains("<p>v</p>") ||
-                                t.Text.Contains("[TODO]") ||
-                                t.Text.Length < 10)
+                            if (control.Type.Name == "ClientSideText")
                             {
-                                Console.ForegroundColor = ConsoleColor.Yellow;
-
-                                string strWriteLine = String.Format("{0};{1}",
-                                                                    item["FileLeafRef"],
-                                                                    t.Text
-                                                                    );
-                                lstValidateContent.Add(strWriteLine);
-
-                                Console.ForegroundColor = ConsoleColor.White;
-                            }
-                            //if (t.Text.Contains(@"images/pdf16.gif"))
-                            //{
-                            //    pdfList.Add(item["FileLeafRef"].ToString());
-                            //}
-
-                            Regex regex = new Regex("href\\s*=\\s*(?:\"(?<1>[^\"]*)\"|(?<1>\\S+))", RegexOptions.IgnoreCase);
-                            Match match;
-                            for (match = regex.Match(t.Text); match.Success; match = match.NextMatch())
-                            {
-                                foreach (System.Text.RegularExpressions.Capture capture in match.Captures)
+                                ClientSideText t = (ClientSideText)control;
+                                if (t.Text.Contains("<p>a</p>") ||
+                                    t.Text.Contains("<p>v</p>") ||
+                                    t.Text.Contains("[TODO]") ||
+                                    t.Text.Length < 10)
                                 {
+                                    Console.ForegroundColor = ConsoleColor.Yellow;
 
-                                    string postfixPosition2 = capture.Value.Substring(capture.Value.LastIndexOf('/') + 1);
+                                    string strWriteLine = String.Format("{0};{1}",
+                                                                        item["FileLeafRef"],
+                                                                        t.Text
+                                                                        );
+                                    lstValidateContent.Add(strWriteLine);
 
-                                    string postfixPosition3 = postfixPosition2.Substring(0, postfixPosition2.Length - 1);
-                                    Console.WriteLine(postfixPosition3);
+                                    Console.ForegroundColor = ConsoleColor.White;
+                                }
+                                //if (t.Text.Contains(@"images/pdf16.gif"))
+                                //{
+                                //    pdfList.Add(item["FileLeafRef"].ToString());
+                                //}
 
-                                    string strWriteLine = String.Format("{0};{1};{2};{3};{4};{5};{6}",
-                                                                    item["FileLeafRef"],
-                                                                    //item["Gruppe"] != null ? item["Gruppe"].ToString() : "Gruppe",
-                                                                    //item["Undergruppe"] != null ? item["Undergruppe"].ToString() : "Undergruppe",
-                                                                    branch,
-                                                                    capture,
-                                                                    false,
-                                                                    postfixPosition3,
-                                                                    string.Empty,
-                                                                    string.Empty
-                                                                    );
+                                Regex regex = new Regex("href\\s*=\\s*(?:\"(?<1>[^\"]*)\"|(?<1>\\S+))", RegexOptions.IgnoreCase);
+                                Match match;
+                                for (match = regex.Match(t.Text); match.Success; match = match.NextMatch())
+                                {
+                                    foreach (System.Text.RegularExpressions.Capture capture in match.Captures)
+                                    {
 
-                                    lstLinksInContent.Add(strWriteLine);
+                                        string postfixPosition2 = capture.Value.Substring(capture.Value.LastIndexOf('/') + 1);
 
+                                        string postfixPosition3 = postfixPosition2.Substring(0, postfixPosition2.Length - 1);
+                                        //Console.ForegroundColor = ConsoleColor.Cyan;
+                                        //Console.WriteLine(postfixPosition3);
+                                        //Console.ForegroundColor = ConsoleColor.DarkMagenta;
+                                        //Console.WriteLine(HttpUtility.UrlDecode( postfixPosition3));
+                                        //Console.ForegroundColor = ConsoleColor.White;
+                                        string strWriteLine = String.Format("{0};{1};{2};{3};{4};{5};{6}",
+                                                                        item["FileLeafRef"],
+                                                                        //item["Gruppe"] != null ? item["Gruppe"].ToString() : "Gruppe",
+                                                                        //item["Undergruppe"] != null ? item["Undergruppe"].ToString() : "Undergruppe",
+                                                                        branch,
+                                                                        capture,
+                                                                        IsPageCoincidence(HttpUtility.UrlDecode(postfixPosition3)),
+                                                                        postfixPosition3,
+                                                                        string.Empty,
+                                                                        string.Empty
+                                                                        );
+
+                                        lstLinksInContent.Add(strWriteLine);
+
+                                    }
                                 }
                             }
                         }
                     }
+
+
                 }
+                catch (Exception e)
+                {
+                    Console.Write(e.Message);
+                    
+                }
+                //foreach (var section in clientPage.Sections)
+                //{
+                //    foreach (var control in section.Controls)
+                //    {
+                //        if (control.Type.Name == "ClientSideText")
+                //        {
+                //            ClientSideText t = (ClientSideText)control;
+                //            if (t.Text.Contains("<p>a</p>") ||
+                //                t.Text.Contains("<p>v</p>") ||
+                //                t.Text.Contains("[TODO]") ||
+                //                t.Text.Length < 10)
+                //            {
+                //                Console.ForegroundColor = ConsoleColor.Yellow;
+
+                //                string strWriteLine = String.Format("{0};{1}",
+                //                                                    item["FileLeafRef"],
+                //                                                    t.Text
+                //                                                    );
+                //                lstValidateContent.Add(strWriteLine);
+
+                //                Console.ForegroundColor = ConsoleColor.White;
+                //            }
+                //            //if (t.Text.Contains(@"images/pdf16.gif"))
+                //            //{
+                //            //    pdfList.Add(item["FileLeafRef"].ToString());
+                //            //}
+
+                //            Regex regex = new Regex("href\\s*=\\s*(?:\"(?<1>[^\"]*)\"|(?<1>\\S+))", RegexOptions.IgnoreCase);
+                //            Match match;
+                //            for (match = regex.Match(t.Text); match.Success; match = match.NextMatch())
+                //            {
+                //                foreach (System.Text.RegularExpressions.Capture capture in match.Captures)
+                //                {
+
+                //                    string postfixPosition2 = capture.Value.Substring(capture.Value.LastIndexOf('/') + 1);
+
+                //                    string postfixPosition3 = postfixPosition2.Substring(0, postfixPosition2.Length - 1);
+                //                    Console.WriteLine(postfixPosition3);
+
+                //                    string strWriteLine = String.Format("{0};{1};{2};{3};{4};{5};{6}",
+                //                                                    item["FileLeafRef"],
+                //                                                    //item["Gruppe"] != null ? item["Gruppe"].ToString() : "Gruppe",
+                //                                                    //item["Undergruppe"] != null ? item["Undergruppe"].ToString() : "Undergruppe",
+                //                                                    branch,
+                //                                                    capture,
+                //                                                    false,
+                //                                                    postfixPosition3,
+                //                                                    string.Empty,
+                //                                                    string.Empty
+                //                                                    );
+
+                //                    lstLinksInContent.Add(strWriteLine);
+
+                //                }
+                //            }
+                //        }
+                //    }
+                //}
 
 
                 //Console.WriteLine(clientPage.Controls);
@@ -520,7 +623,7 @@ namespace SPOApp
             List<GenericManualStruct> lstErhverv = MigrationEngine.GetSourceFilesFromCSV(SHAREPOINT_2_EXCEL_FILEPATH + objBranches.Erhverv + ".csv");
             List<GenericManualStruct> lstGenerelSkadePolitik = MigrationEngine.GetSourceFilesFromCSV(SHAREPOINT_2_EXCEL_FILEPATH + objBranches.GenerelSkadePolitik + ".csv"); 
             List<GenericManualStruct> lstStormflod = MigrationEngine.GetSourceFilesFromCSV(SHAREPOINT_2_EXCEL_FILEPATH + objBranches.StormFlod + ".csv");
-            List<GenericManualStruct> lstUlykkeskade = MigrationEngine.GetSourceFilesFromCSV(SHAREPOINT_2_EXCEL_FILEPATH + objBranches.Ulykkeskade+ ".csv");
+            //List<GenericManualStruct> lstUlykkeskade = MigrationEngine.GetSourceFilesFromCSV(SHAREPOINT_2_EXCEL_FILEPATH + objBranches.Ulykkeskade+ ".csv");
 
 
 
@@ -550,7 +653,7 @@ namespace SPOApp
             L.Add(lstErhverv);
             L.Add(lstGenerelSkadePolitik);
             L.Add(lstStormflod);
-            L.Add(lstUlykkeskade);
+            //L.Add(lstUlykkeskade);
 
             string newFilenamePrefix = string.Empty;
 
@@ -579,7 +682,7 @@ namespace SPOApp
                     //                                                objBranches.Båd,
                     //                                                objBranches.Storskade,
                     //                                                objBranches.IndividuelLønsikring};
-                    List<string> lstBranches = new List<string>() { objBranches.Ulykkeskade};
+                    List<string> lstBranches = new List<string>() { objBranches.Rejse};
                     foreach (var branch in lstBranches)
                     {
                         lstCreateModernPagesLog = new List<string>();
@@ -1087,6 +1190,7 @@ namespace SPOApp
             try
             {
                 ClientSidePage P = ClientSidePage.Load(ctx, file.FileName);
+                
                 foreach (CanvasSection section in P.Sections)
                 {
                     foreach (CanvasControl control in section.Controls)

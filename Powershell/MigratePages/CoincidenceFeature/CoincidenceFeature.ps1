@@ -70,6 +70,7 @@ Param
 }
 
 function Test{
+    $coincidenceFilePath='C:\Git\LBIntranet\SPOApp\SPOApp\SPOApp\importfiles\SharePoint2Excel\Org_12_08_2018'
     $files = Import-Csv -Path $coincidenceFilePath -Encoding UTF8 -Delimiter ';'
     $counter = 0
     foreach($file in $files){  
@@ -88,8 +89,54 @@ function Test{
     Write-Host 'Count ' $counter
 }
 
-Connect-PnPOnline -Url $site -Credentials 'sadmnicd@lbforsikring.onmicrosoft.com'
-Test
+function _readFile{
+    Param(
+            [parameter(Mandatory=$true)]
+            [System.String]
+            $fileName
+    )
+    
+    $files = Import-Csv -Path $fileName -Encoding UTF8 -Delimiter ';'
+    $counter = 0
+    foreach($file in $files){
+        $counter++  
+        Write-Host $file.FilNavn 
+        Write-Host 'Count ' $counter    
+    }
+    
+}
+
+
+function _readAllFilesInDirectory{
+    $stuff = @();
+    $files = Get-ChildItem "C:\Git\LBIntranet\SPOApp\SPOApp\SPOApp\importfiles\SharePoint2Excel"
+    $counter = 0
+    for ($i=0; $i -lt $files.Count; $i++) {
+        $outfile = $files[$i].FullName
+        $path = "C:\Git\LBIntranet\SPOApp\SPOApp\SPOApp\importfiles\SharePoint2Excel\" + $outfile
+        $rows = Import-Csv -Path $files[$i] -Encoding UTF8 -Delimiter ';'
+        
+        foreach($row in $rows){
+            $counter++  
+            Write-Host $row.FilNavn 
+            Write-Host 'Count ' $counter    
+
+            $obj = new-object PSObject
+            $obj | add-member -membertype NoteProperty -name 'FileName' -value $row.FilNavn
+            $stuff += $obj
+                
+        }
+    }
+
+    $stuff | export-csv "Test.csv" -notypeinformation -Encoding UTF8 -Delimiter ';'
+    
+}
+#$t=Import-Csv -Path "C:\Git\LBIntranet\SPOApp\SPOApp\SPOApp\importfiles\SharePoint2Excel\Ansvar.csv" -Encoding UTF8 -Delimiter ';'
+_readAllFilesInDirectory
+return
+
+Connect-PnPOnline -Url $site -Credentials -NICD-
+#Test
 
 $PageLibraries = Import-Csv -Path $libraryFilePath -Encoding UTF8 
 
@@ -146,4 +193,5 @@ $stopWatch.Stop()
 #        Write-Host '---------------------------------------'
 #     }
 #}
+
 

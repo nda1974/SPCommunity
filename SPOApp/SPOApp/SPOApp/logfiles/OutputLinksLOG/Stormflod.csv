@@ -1,3 +1,3 @@
 ﻿Filnavn;Branche;Content;IsLinkCoincidence;FileInLink;NytLink;Prefix
-Kontakt Stormrådet.aspx;Stormflod;href="http://www.stormraadet.dk/";False;;;
-StormflodSkadebehandling.aspx;Stormflod;href="http://www.stormraadet.dk/Storm/Stormbasen/~/media/Storm/Stormbasen/Procedurebeskrivelse%20for%20behandling%20af%20stormflodssager%20v10.pdf";False;Procedurebeskrivelse%20for%20behandling%20af%20stormflodssager%20v10.pdf;;
+Kontakt Stormrådet.aspx;Stormflod;href="http://www.stormraadet.dk/";false;;;
+StormflodSkadebehandling.aspx;Stormflod;href="http://www.stormraadet.dk/Storm/Stormbasen/~/media/Storm/Stormbasen/Procedurebeskrivelse%20for%20behandling%20af%20stormflodssager%20v10.pdf";false;Procedurebeskrivelse%20for%20behandling%20af%20stormflodssager%20v10.pdf;;

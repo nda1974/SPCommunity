@@ -38,7 +38,10 @@ export default class InfoPanel extends React.Component<IInfoPanelProps, IInfoPan
 
         
     }
-    
+    private createMarkup() {
+        var r=this.props.description;
+        return {__html:r };
+      }
     public setVisibility():void{}
     public render(): React.ReactElement<IInfoPanelProps> {
         return (
@@ -52,7 +55,9 @@ export default class InfoPanel extends React.Component<IInfoPanelProps, IInfoPan
                         <div >
                             <div className={styles.Title}>{this.props.title}</div>
                             <hr/>
-                            <div >{this.props.description}</div>
+                            
+                            <div dangerouslySetInnerHTML={{ __html: this.props.description }} />
+                            {/* <div >{this.props.description}</div> */}
                         </div>
                 </Panel>
             </div>

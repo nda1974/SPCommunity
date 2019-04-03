@@ -2,11 +2,13 @@
 $global:questionsList
 function _removeAllListItems(){
 param(
-[Parameter(Mandatory=$true)] [string] $listName
+[Parameter(Mandatory=$true)] [string] $listID
 )
     
     
-    $items =Get-PnPListItem -List $listName -PageSize 1000
+    $items =Get-PnPListItem -List $listID -PageSize 1000
+    
+    
 
     foreach ($item in $items)
      {
@@ -45,7 +47,8 @@ function _createClaimControlItem(){
 param
     (
         [Parameter(Mandatory=$true)] [System.Object] $itemToCreate,
-        [Parameter(Mandatory=$true)] [bool] $isTestDrive
+        [Parameter(Mandatory=$true)] [bool] $isTestDrive,
+        [Parameter(Mandatory=$true)] [string] $listID
         
     )
     $questions = $global:questionsList
@@ -127,7 +130,7 @@ param
                             "EmployeeInFocus"=$_.EmployeeEmail;
                             "EmployeeInFocusDisplayName"=$_.Employee;
                             "ClaimID"=$_.ClaimID;
-                            "Department"=$_.Team.ToUpper();  
+                            "Department"=$_.Afdeling.ToUpper();  
                             "DataExtractionID"=$_.ExtractionID;
                             "DataExtractionDate"=$_.BatchDate;
                             "QuarterStartDate"=$_.FromDate;
@@ -161,16 +164,17 @@ param
                         };
     }
     else{
-
-        $evaluationItem = @{"Title" = $_.BatchID;
+                         $evaluationItem = @{"Title" = $_.BatchID;
                             "BatchID" = $_.BatchID;
                             "PriviligedUser"=$PriviligedUserEmail;
                             "EmployeeInFocus"=$_.EmployeeEmail;
                             "EmployeeInFocusDisplayName"=$_.Employee;
                             "ClaimID"=$_.ClaimID;
-                            "Department"=$_.Team.ToUpper();  
+                            "Department"=$_.Afdeling.ToUpper();  
                             "DataExtractionID"=$_.ExtractionID;
-                            "DataExtractionDate"=$_.batchdate;
+                            "DataExtractionDate"=$_.BatchDate;
+                            "QuarterStartDate"=$_.FromDate;
+                            "QuarterEndDate"=$_.ToDate;
                             "ControlSubmitted"=$false;
                             #"LinkToSummary"=$_.Employee +"_"+$_.BatchID + "_"+$_.ExtractionID +".docx";
                             "Question1"=$questions[0]["ControlQuestion"];
@@ -184,7 +188,7 @@ param
 
     
     
-    Add-PnPListItem -List $ListName -Values $evaluationItem
+    Add-PnPListItem -List $listID -Values $evaluationItem
     
 }
 
@@ -212,26 +216,7 @@ function _createQuarterlyReport(){
 
 #>
 
-function GetDepartments(){
-    param(
-    [Parameter(Mandatory=$true)] [string] $importFilePath
-    )
 
-    $SiteURL = 'https://lbforsikring.sharepoint.com/sites/Skade/'
-    $ListName="Quality Control - Departments"
-    _removeAllListItems -listName $ListName
-
-    
-    #$importFilePath = 'C:\Git\LBIntranet\QualityControl\15JAN19_SkadetransCSV.csv'
-    $itemsFromFile = Import-Csv -Path $importFilePath -Delimiter ';' -Encoding UTF8
-
-    $departments=$itemsFromFile | select Team -Unique
-
-    foreach($d in $departments){
-        $departmentItem = @{"Title" = $d.Team;};
-        Add-PnPListItem -List $ListName -Values $departmentItem
-    }
-}
 
 ############################################# START ###################################################
 Write-Host "Is this a Test Drive [Y]/[N] - Default = Y"
@@ -243,15 +228,17 @@ if($input.ToString().ToUpper() -eq "N"){
     $isTestDrive=$false
 }
 $SiteURL = 'https://lbforsikring.sharepoint.com/sites/Skade/'
-$ListName="Quality Control - Claims Handler Answers"
+#$ListName="Quality Control - Claims Handler Answers"
 
 Connect-PnPOnline -Url $SiteURL -Credentials -NICD-
-$global:questionsList = Get-PnPListItem -List "Quality Control - Claims Handler Questions"
+$QualityControlClaimsHandlerQuestionsListID = 'ad5ea1c8-3321-4a16-bc06-39a3b03d9e20'
+#$global:questionsList = Get-PnPListItem -List "Quality Control - Claims Handler Questions" 
+$global:questionsList = Get-PnPListItem -List $QualityControlClaimsHandlerQuestionsListID
 
-
+$QualityControlClaimsHandlerAnswersListID = '433d918b-2e51-4ebb-ab2a-3fc9e2b5c540'
 
 # Remove existing list items
-#_removeAllListItems -listName $ListName
+_removeAllListItems -listID $QualityControlClaimsHandlerAnswersListID
 
 # Reading the import file revieved from BI
 
@@ -259,10 +246,17 @@ $importFilePath = 'C:\Git\LBIntranet\QualityControl\19FEB19_Q1.csv'
 $importFilePath = 'C:\Git\LBIntranet\QualityControl\BetaTest\19FEB19_Q1.csv'
 $importFilePath = 'C:\Git\LBIntranet\QualityControl\BetaTest\19FEB19_Q2.csv'
 $importFilePath = 'C:\Git\LBIntranet\QualityControl\BetaTest\19FEB19_Q3.csv'
+$importFilePath = 'C:\Git\LBIntranet\QualityControl\BetaTest\19FEB19_Q4.csv'
+$importFilePath = 'C:\Git\LBIntranet\QualityControl\BetaTest\19FEB20_Q1.csv'
+$importFilePath = 'C:\Git\LBIntranet\QualityControl\BetaTest\11MAR19_Skadetrans.csv'
+$importFilePath = 'C:\Git\LBIntranet\QualityControl\BetaTest\26MAR19_Skadetrans.csv'
+$importFilePath = 'C:\Git\LBIntranet\QualityControl\Importfile\02APR19_Skadetrans.csv'
 
 
 
-GetDepartments -importFilePath $importFilePath
+
+
+#GetDepartments -importFilePath $importFilePath
 
 
 $itemsFromFile = Import-Csv -Path $importFilePath -Delimiter ';' -Encoding UTF8
@@ -272,7 +266,7 @@ $i;
 $itemsFromFile | ForEach-Object{
 $i++
 Write-Host "counter - " $i
-    _createClaimControlItem -itemToCreate $_ -isTestDrive $isTestDrive
+    _createClaimControlItem -listID $QualityControlClaimsHandlerAnswersListID -itemToCreate $_ -isTestDrive $isTestDrive
 }
 $stopClock = Get-Date 
 Write-Host "Kickoff - " $startClock
