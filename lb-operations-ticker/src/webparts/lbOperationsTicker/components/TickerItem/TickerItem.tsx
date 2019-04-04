@@ -15,6 +15,8 @@ export interface ITickerItemProps {
   description: string;
   severity: number;
   showInfoPanel: boolean;
+  created:string;
+  createdBy:number;
 }
 
 export interface ITickerItemState {
@@ -51,7 +53,10 @@ export default class TickerItem extends React.Component<ITickerItemProps, ITicke
     );
     
     return (
-      <div className={isMessageSevere==true ? styles.Alert : styles.Warning} onClick={this._showInfoPanel.bind(this)}>
+      
+      // <div className={isMessageSevere==true ? styles.Alert : styles.Warning} onClick={this._showInfoPanel.bind(this)}>
+      <div className={this.props.severity==1 ? styles.Alert : 
+      this.props.severity==2 ? styles.Warning:styles.Info} onClick={this._showInfoPanel.bind(this)}>
         
           <div>
             {content} 
@@ -62,14 +67,16 @@ export default class TickerItem extends React.Component<ITickerItemProps, ITicke
                       severity={this.props.severity} 
                       showPanel={this.state.showInfoPanel}
                       toggle={this.changeButtonState}
+                      created={this.props.created } 
+                      createdBy={this.props.createdBy } 
                       /> 
         
       </div>
     );
   }
-  public changeButtonState(event) {
-    this.setState({showInfoPanel:false});
-}
+    public changeButtonState(event) {
+      this.setState({showInfoPanel:false});
+    }
   private _showInfoPanel(): void {
     
     if(this.state.showInfoPanel==true)

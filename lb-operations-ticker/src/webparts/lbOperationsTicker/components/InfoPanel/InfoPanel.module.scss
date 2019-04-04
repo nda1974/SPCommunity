@@ -16,5 +16,16 @@ $white: "[theme:white, default:#fff]";
 // }
 .Title{
         @include ms-font-xl;
+        background-color: $themePrimary;
+        color: white;
+        padding: 20px;
+}
+.ByLine{
+        @include ms-font-xs;
+        padding: 10px;
+}
+.Content{
+        @include ms-font-m;
+        padding: 10px;
 }
 
