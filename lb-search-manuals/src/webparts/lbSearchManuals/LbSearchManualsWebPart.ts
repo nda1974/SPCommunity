@@ -66,6 +66,7 @@ export default class LbSearchManualsWebPart extends BaseClientSideWebPart<ILbSea
                       { key: 'Generel skadepolitik', text: 'Generel skadepolitik' }, 
                       { key: 'Gerningsmand', text: 'Gerningsmand' },
                       { key: 'Hund', text: 'Hund' },
+                      { key: 'IDIT', text: 'IDIT' },
                       { key: 'Indbo', text: 'Indbo' },
                       { key: 'Individuel lønsikring', text: 'Lønsikring - individuel' },
                       { key: 'Lønsikring kollektiv', text: 'Lønsikring - kollektiv' },
