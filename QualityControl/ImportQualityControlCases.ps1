@@ -55,9 +55,12 @@ param
     
     if($_.PriviligedUserEmail -eq 'BOT'){
         $PriviligedUserEmail = $null
+        $EmployeeInFocus=$null;
+
     }
     else{
         $PriviligedUserEmail = $_.PriviligedUserEmail
+        $EmployeeInFocus=$_.EmployeeEmail;
     }
 
     if($isTestDrive -eq $true)
@@ -167,7 +170,7 @@ param
                          $evaluationItem = @{"Title" = $_.BatchID;
                             "BatchID" = $_.BatchID;
                             "PriviligedUser"=$PriviligedUserEmail;
-                            "EmployeeInFocus"=$_.EmployeeEmail;
+                            "EmployeeInFocus"=$EmployeeInFocus;
                             "EmployeeInFocusDisplayName"=$_.Employee;
                             "ClaimID"=$_.ClaimID;
                             "Department"=$_.Afdeling.ToUpper();  

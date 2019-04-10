@@ -32,6 +32,7 @@ const QUESTIONS_LIST_ID = 'ad5ea1c8-3321-4a16-bc06-39a3b03d9e20';
 
 //https://lbforsikring.sharepoint.com/sites/Skade/Lists/Quality%20Control%20%20Claims%20Handler%20Answers/AllItems.aspx
 const ANSWERS_LIST_ID = '433d918b-2e51-4ebb-ab2a-3fc9e2b5c540';
+//DEVELOPMENT LISTE const ANSWERS_LIST_ID = 'a3a71ab8-1da7-4670-9475-864ab2ce9c2c';
 
 export default class App extends React.Component<IAppProps, IAppState> {
 
@@ -276,6 +277,7 @@ export default class App extends React.Component<IAppProps, IAppState> {
         await pnp.sp.web.lists.getById(ANSWERS_LIST_ID)
             .items
             .filter("PriviligedUser eq "+ this.state.currentUser.id + " and ControlSubmitted eq 0 and DataExtractionID eq '" + dataExtractionID + "'")
+            .orderBy("EmployeeInFocusDisplayName")
             .get()
             .then(async (data: any[]) => {
                 console.log(data)
