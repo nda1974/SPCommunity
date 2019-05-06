@@ -16,6 +16,7 @@ import { Log } from "@microsoft/sp-core-library";
 import { Link } from 'office-ui-fabric-react/lib/Link';
 import { Icon } from 'office-ui-fabric-react/lib/Icon';
 import FavouriteItem from "../FavouriteItem/FavouriteItem";
+
 export interface IFavouritesPanelProps {
     // context: ApplicationCustomizerContext;
     title: string;
@@ -23,6 +24,7 @@ export interface IFavouritesPanelProps {
     favourites: IFavouriteItem[];
     callbackRefreshFavourites: any;
     currentUser: any;
+    currentUserId: any;
 }
 export interface IFavouritesPanelState {
 
@@ -31,6 +33,10 @@ export interface IFavouritesPanelState {
     status: JSX.Element;
     favouriteItems: IFavouriteItem[];
 }
+const CACHEID: string = "LB_FAVOURITES";
+const CACHE_CURRENTUSERID: string = CACHEID + "_currentUserId";
+const CACHE_CURRENTUSERFAVOURITES: string = CACHEID + "_currentUserFavourites";
+const CACHE_MANDATORYFAVOURITES: string = CACHEID + "_mandatoryFavourites";
 
 const FAVOURITES_LIST_NAME: string = "Favourites";
 const MANDATORY_FAVOURITES_LIST_NAME: string = "MandatoryFavourites";
@@ -82,27 +88,34 @@ export default class FavouritesPanel extends React.Component<IFavouritesPanelPro
 
     public async  UpdateFavouritePanel(item: IFavouriteItem): Promise<void> {
         if (item.IsMandatory == false && item.IsDistributed ==true)  {
+            window.sessionStorage.removeItem(CACHE_MANDATORYFAVOURITES);
             const itemResponse = await pnp.sp.web.lists.getByTitle(MANDATORY_FAVOURITES_LIST_NAME).items.getById(item.Id).get();
             let unfollowersIDs: number[] = [];
             if (itemResponse.UnFollowersId) {
                 itemResponse.UnFollowersId.map((unFollowers) => {
                     unfollowersIDs.push(unFollowers);
                 })
-                unfollowersIDs.push(this.props.currentUser.Id);
+                unfollowersIDs.push(this.props.currentUserId);
             }
             else{
-                unfollowersIDs.push(this.props.currentUser.Id);
+                unfollowersIDs.push(this.props.currentUserId);
             }
+            
+            
             let list = pnp.sp.web.lists.getByTitle(MANDATORY_FAVOURITES_LIST_NAME);
 
-            list.items.getById(item.Id).update({
+            await list.items.getById(item.Id).update({
                 UnFollowersId: { results: unfollowersIDs }
             }).then(
-                await this.props.callbackRefreshFavourites()
+                
+                this.props.callbackRefreshFavourites()
             );
+            
         } 
         else{
             if(item.IsDistributed==false) {
+                
+                window.sessionStorage.removeItem(CACHE_CURRENTUSERFAVOURITES);
                 this._deleteFavourite(item);
             }
         }
@@ -127,6 +140,7 @@ export default class FavouritesPanel extends React.Component<IFavouritesPanelPro
     // }
 
     public async _deleteFavourite(favouriteItem: IFavouriteItem): Promise<boolean> {
+        
         return pnp.sp.web.lists.getByTitle(FAVOURITES_LIST_NAME).items.getById(favouriteItem.Id).delete()
         .then(async (): Promise<boolean> => {
             await this.props.callbackRefreshFavourites(favouriteItem);

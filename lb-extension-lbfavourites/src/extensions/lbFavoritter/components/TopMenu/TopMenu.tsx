@@ -1,24 +1,22 @@
 import * as React from "react";
-import * as ReactDOM from "react-dom";
 import pnp, { setup, Web, ItemAddResult } from "sp-pnp-js";
 import { DefaultButton, PrimaryButton } from "office-ui-fabric-react/lib/Button";
-import { Panel, PanelType } from "office-ui-fabric-react/lib/Panel";
-import { Dialog, DialogType, DialogFooter } from 'office-ui-fabric-react/lib/Dialog';
-import { TextField } from 'office-ui-fabric-react/lib/TextField';
 import { Spinner, SpinnerSize } from 'office-ui-fabric-react/lib/Spinner';
-import { MessageBar, MessageBarType } from 'office-ui-fabric-react/lib/MessageBar';
-import { List } from "office-ui-fabric-react/lib/List";
-import { FocusZone, FocusZoneDirection } from 'office-ui-fabric-react/lib/FocusZone';
 import styles from '../LBFavourites.module.scss'
 import { IFavouriteItem } from "../../interfaces/IFavouriteItem";
 import { ApplicationCustomizerContext } from "@microsoft/sp-application-base";
 import { Log } from "@microsoft/sp-core-library";
 import FavouritesPanel from "../Panel/FavouritesPanel";
 import FavouritesDialog from "../FavouritesDialog/FavouritesDialog";
+
+
+
 export interface ITopBarProps {
     context: ApplicationCustomizerContext;
 
 }
+//https://hackernoon.com/how-to-take-advantage-of-local-storage-in-your-react-projects-a895f2b2d3f2
+//https://developer.mozilla.org/en-US/docs/Web/API/Window/sessionStorage
 export interface ITopBarState {
     showPanel: boolean;
     showDialog: boolean;
@@ -28,16 +26,25 @@ export interface ITopBarState {
     itemInContext: IFavouriteItem;
     audiences?: any;
     currentUser?: any;
+    currentUserId?: any;
     buttonDisabled?:boolean;
 }
+const CACHEID: string = "LB_FAVOURITES";
+const CACHE_CURRENTUSERID: string = CACHEID + "_currentUserId";
+const CACHE_CURRENTUSERFAVOURITES: string = CACHEID + "_currentUserFavourites";
+const CACHE_MANDATORYFAVOURITES: string = CACHEID + "_mandatoryFavourites";
 
 const FAVOURITES_LIST_NAME: string = "Favourites";
 const MANDATORY_FAVOURITES_LIST_NAME: string = "MandatoryFavourites";
 const LOG_SOURCE: string = "LB_Favoritter_ApplicationCustomizer";
+
+
 export default class TopMenu extends React.Component<ITopBarProps, ITopBarState>
 {
+    
     private _context: ApplicationCustomizerContext = this.props.context;
     constructor(props: ITopBarProps) {
+        
         super(props);
         this.state = {
             status: <Spinner size={SpinnerSize.large} label="Henter..." />,
@@ -63,7 +70,11 @@ export default class TopMenu extends React.Component<ITopBarProps, ITopBarState>
         };
         this.handleDialogClick = this.handleDialogClick.bind(this);
         this.handleBar = this.handleBar.bind(this);
+        // this._getFisk = this._getFisk.bind(this);
+        this._doGetUserFromCache = this._doGetUserFromCache.bind(this);
+        
         this._GetAllFavouritesPre= this._GetAllFavouritesPre.bind(this);
+        this._getPersonalFavouritesNew=this._getPersonalFavouritesNew.bind(this)
         // this._getMyFavourites.bind(this);
         setup({
             sp: {
@@ -74,64 +85,175 @@ export default class TopMenu extends React.Component<ITopBarProps, ITopBarState>
             },
             // spfxContext: this._context,
         });
+        
         this._GetAllFavouritesPre();
     }
+    
+    // componentDidMount() {
+        
+    
+    //     // add event listener to save state to sessionStorage
+    //     // when user leaves/refreshes the page
+    //     window.addEventListener(
+    //       "storage",
+    //       this.saveStateTosessionStorage.bind(this)
+    //     );
+    // }
+    // private saveStateTosessionStorage(){
+    //     console.log('Cache changed');
+    // }
     private async _showPanel(): Promise<void> {
         
         // const favourites = await resList;
         this.setState({showPanel:true} );
         
     }
+
+    // Ny Cache funktion
+    private async _getCurrentUserId():Promise<void>{
+        return await pnp.sp.web.currentUser.get();
+        // return  await pnp.sp.web.currentUser.get().then((resultUser)=>{
+        //     this.setState({currentUserId:resultUser.Id},()=>{window.sessionStorage.setItem(CACHE_CURRENTUSERID, resultUser.Id);});
+        // });
+    }
+    
+            
+    public async _getMandatoryFavouritesNew(currentUserId): Promise<IFavouriteItem[]> {
+        let returnItems: IFavouriteItem[] = [];
+        
+        return await pnp.sp.web.lists.getByTitle(MANDATORY_FAVOURITES_LIST_NAME)
+            .items
+            .select(
+                "Id",
+                "Title",
+                "ItemUrl",
+                "Description",
+                "Mandatory",
+                "Grupper/Title"
+            )
+            .expand("Grupper")
+            .filter("UnFollowers ne " + currentUserId)
+            .get()
+            .then((myFavourites: any[]) => {
+                myFavourites.map((favourite) => {
+                    let fItem: IFavouriteItem = this.CreateFavoriteItemObject(favourite, false);
+                    returnItems.push(fItem);
+                })
+                return returnItems;
+                }
+            )
+    }
+    private async _getPersonalFavouritesNew(_currrentUserID:string): Promise<IFavouriteItem[]> {
+        let returnItems: IFavouriteItem[] = [];
+
+        return await pnp.sp.web.lists.getByTitle(FAVOURITES_LIST_NAME)
+            .items
+            .select(
+                "Id",
+                "Title",
+                "ItemUrl",
+                "Mandatory"
+            )
+            .filter("Author eq " + _currrentUserID)
+            .get()
+            .then((myFavourites: any[]) => {
+                myFavourites.map((item) => {
+                    let fItem: IFavouriteItem = this.CreateFavoriteItemObject(item, true);
+                    returnItems.push(fItem);
+                })
+                return returnItems;
+            })
+            .catch((error) => {
+                Log.error(LOG_SOURCE, error);
+                return [];
+            });
+    }
+    
+    private _doGetUserFromCache():boolean{
+        
+        if(window.sessionStorage[CACHE_CURRENTUSERID] == undefined){
+            return false;
+        }
+        else{
+            if(window.sessionStorage[CACHE_CURRENTUSERID].length<1){
+                return false;
+            }
+        }
+        return true;
+    }
+
     private async _GetAllFavouritesPre(): Promise<void> {
-        await this._getUserObject().then((currentUser) => {
-            this.setState({ ...this.state, currentUser });
-        });
+        
+        // *********** GET CURRENT USERID *********** 
+        var _currentUserID:string;
+        if(!sessionStorage.getItem(CACHE_CURRENTUSERID)) {
+            const rest =await this._getCurrentUserId().then((data=>{return data}));
+            _currentUserID = rest['Id'];
+            window.sessionStorage.setItem(CACHE_CURRENTUSERID,_currentUserID)
+        } 
+        else {
+            _currentUserID= window.sessionStorage.getItem(CACHE_CURRENTUSERID);
+        }
 
+        // *********** GET PERSONAL FAVOURITES *********** 
+        var myFavouriteItems: IFavouriteItem[];
 
-        const myFavouriteItems: IFavouriteItem[] = await this._getPersonalFavourites(this.state.currentUser.Id);
-        const MY_Data: IFavouriteItem[] = await myFavouriteItems;
-        const LBFavouriteItems: IFavouriteItem[] = await this._getMandatoryFavourites();
-        const LB_Data: IFavouriteItem[] = await LBFavouriteItems;
+        if(!window.sessionStorage[CACHE_CURRENTUSERFAVOURITES]){
+            myFavouriteItems = await this._getPersonalFavouritesNew(_currentUserID);    
+            window.sessionStorage.setItem(CACHE_CURRENTUSERFAVOURITES,JSON.stringify(myFavouriteItems));
+        }
+        else{
+            myFavouriteItems=JSON.parse(window.sessionStorage.getItem(CACHE_CURRENTUSERFAVOURITES));
+        }
 
-        const favourites: IFavouriteItem[] = await this.filterFavourites(MY_Data, LB_Data);
+        // *********** GET MANDATORY FAVOURITES *********** 
+        var LBFavouriteItems: IFavouriteItem[];
+        if(!window.sessionStorage[CACHE_MANDATORYFAVOURITES]){
+            LBFavouriteItems = await this._getMandatoryFavouritesNew(_currentUserID);    
+            window.sessionStorage.setItem(CACHE_MANDATORYFAVOURITES,JSON.stringify(LBFavouriteItems));
+        }
+        else{
+            LBFavouriteItems=JSON.parse(window.sessionStorage.getItem(CACHE_MANDATORYFAVOURITES));
+        }
+        // *************************************************
+
+        const favourites: IFavouriteItem[] = await this.filterFavouritesNew(myFavouriteItems, LBFavouriteItems,_currentUserID);
         const buttonDisabled = false;
-        // const favourites = await resList;
         this.setState({ ...this.state, favourites,buttonDisabled });
-
         
     }
-    private async _showPanelORG(): Promise<void> {
-        console.info("My Start date" + new Date())
+    // private async _showPanelORG(): Promise<void> {
+    //     console.info("My Start date" + new Date())
     
     
-        let status: JSX.Element = <Spinner size={SpinnerSize.large} label='Henter...' />;
-        let showPanel: boolean = true;
-        // this.setState({ ...this.state, showPanel,status });
-        // const audiences= await this._getLBAudience();
+    //     let status: JSX.Element = <Spinner size={SpinnerSize.large} label='Henter...' />;
+    //     let showPanel: boolean = true;
+    //     // this.setState({ ...this.state, showPanel,status });
+    //     // const audiences= await this._getLBAudience();
 
-        await this._getUserObject().then((currentUser) => {
-            this.setState({ ...this.state, currentUser });
-        });
+    //     await this._getUserObject().then((currentUser) => {
+    //         this.setState({ ...this.state, currentUser });
+    //     });
 
 
-        const myFavouriteItems: IFavouriteItem[] = await this._getPersonalFavourites(this.state.currentUser.Id);
-        const MY_Data: IFavouriteItem[] = await myFavouriteItems;
-        const LBFavouriteItems: IFavouriteItem[] = await this._getMandatoryFavourites();
-        const LB_Data: IFavouriteItem[] = await LBFavouriteItems;
+    //     const myFavouriteItems: IFavouriteItem[] = await this._getPersonalFavourites(this.state.currentUser.Id);
+    //     const MY_Data: IFavouriteItem[] = await myFavouriteItems;
+    //     const LBFavouriteItems: IFavouriteItem[] = await this._getMandatoryFavourites();
+    //     const LB_Data: IFavouriteItem[] = await LBFavouriteItems;
 
-        const favourites: IFavouriteItem[] = await this.filterFavourites(MY_Data, LB_Data);
-        // const favourites = await resList;
-        this.setState({ ...this.state, favourites }, this._setShowPanelState);
+    //     const favourites: IFavouriteItem[] = await this.filterFavourites(MY_Data, LB_Data);
+    //     // const favourites = await resList;
+    //     this.setState({ ...this.state, favourites }, this._setShowPanelState);
 
-        // await this.filterFavourites(myFavouriteItems,LBFavouriteItems).then((res)=>{
-        //     favourites=res;
-        //     this.setState({...this.state, favourites },this._setShowPanelState);
-        //  })
-        // const favourites = [...LBFavouriteItems,...myFavouriteItems];
+    //     // await this.filterFavourites(myFavouriteItems,LBFavouriteItems).then((res)=>{
+    //     //     favourites=res;
+    //     //     this.setState({...this.state, favourites },this._setShowPanelState);
+    //     //  })
+    //     // const favourites = [...LBFavouriteItems,...myFavouriteItems];
 
-        // this.setState({...this.state, favourites },this._setShowPanelState);
-        console.info("My End date" + new Date())
-    }
+    //     // this.setState({...this.state, favourites },this._setShowPanelState);
+    //     console.info("My End date" + new Date())
+    // }
     private async filterFavourites(myFavouritesCollection: IFavouriteItem[], LBFavouritesCollection: IFavouriteItem[]): Promise<IFavouriteItem[]> {
         let returnlist: IFavouriteItem[] = [];
 
@@ -169,6 +291,31 @@ export default class TopMenu extends React.Component<ITopBarProps, ITopBarState>
         }
         return returnlist;
     }
+    private async filterFavouritesNew(myFavouritesCollection: IFavouriteItem[], LBFavouritesCollection: IFavouriteItem[],CurrentUserId:string): Promise<IFavouriteItem[]> {
+        let returnlist: IFavouriteItem[] = [];
+
+        for (let favouriteIndex = 0; favouriteIndex < LBFavouritesCollection.length; favouriteIndex++) {
+            const favourite = LBFavouritesCollection[favouriteIndex];
+            if (favourite.LBAudience) {
+                const isCurrentUserMemberOfGroup: any = await this.CheckIfUserBelongsToGroup(favourite.LBAudience, CurrentUserId)
+                // const isCurrentUserMemberOfGroup = await isCurrentUserMemberOfGroupResponse;
+                
+                if (isCurrentUserMemberOfGroup == true) {
+                    returnlist.push(favourite);
+                }
+            }
+            else {
+                returnlist.push(favourite);
+            }
+
+        }
+        for (let myFavouritesIndex = 0; myFavouritesIndex < myFavouritesCollection.length; myFavouritesIndex++) {
+            const element = myFavouritesCollection[myFavouritesIndex];
+            returnlist.push(element);
+            
+        }
+        return returnlist;
+    }
     /// ********************* Dialog functions ********************* ///
 
     // Triggers when 'Tilføj button' is clicked and set the showDialog property on the FavouritesDialog component
@@ -186,6 +333,7 @@ export default class TopMenu extends React.Component<ITopBarProps, ITopBarState>
         this.setState({ ...this.state, showDialog, itemInContext });
     }
     public async handleBar(itemInContext: IFavouriteItem): Promise<void> {
+        // Todo Clear sessionStorage
         this._GetAllFavouritesPre();
         // console.log(itemInContext)
         this._showPanel();
@@ -199,12 +347,15 @@ export default class TopMenu extends React.Component<ITopBarProps, ITopBarState>
             let showDialog: boolean = false;
             let showPanel: boolean = false;
             this.setState({ ...this.state, status, showDialog, showPanel });
-
+            
             if (createNewItem) {
-                let isSuccess: boolean = await this.saveFavourite(itemInContext);
-                
+                await this.saveFavourite(itemInContext).then((result)=>{
+                    if(result){
+                        window.sessionStorage.removeItem(CACHE_CURRENTUSERFAVOURITES );
+                        this._GetAllFavouritesPre();
+                    }
+                });
             }
-
         }
         else if (this.state.showDialog == false) {
             this.setState({ showDialog: true });
@@ -249,7 +400,7 @@ export default class TopMenu extends React.Component<ITopBarProps, ITopBarState>
                     onClick={this._showDialog.bind(this)}
                     
                 />
-                <FavouritesPanel title='Dine favoritter' currentUser={this.state.currentUser} showPanel={this.state.showPanel} favourites={this.state.favourites} callbackRefreshFavourites={this.handleBar} />
+                <FavouritesPanel title='Dine favoritter' currentUserId={sessionStorage.getItem(CACHE_CURRENTUSERID)} currentUser={this.state.currentUser} showPanel={this.state.showPanel} favourites={this.state.favourites} callbackRefreshFavourites={this.handleBar} />
 
                 <FavouritesDialog itemInContext={this.state.itemInContext} dialogTitle='Opret favorit' showDialog={this.state.showDialog} callbackHandleDialogClick={this.handleDialogClick} />
 
@@ -290,12 +441,16 @@ export default class TopMenu extends React.Component<ITopBarProps, ITopBarState>
         //     )
             
     }
-    public async CheckIfUserBelongsToGroup(groupName: string, userEmail: string): Promise<boolean> {
+    public async CheckIfUserBelongsToGroup(groupName: string, userId: string): Promise<boolean> {
         let resBool:any=false;
         try {
             const response = await pnp.sp.web.siteGroups.getByName(groupName).users.get().then((res)=>
             res.map(user=>{
-                if(user.Email == this.state.currentUser.Email)
+                // if(user.Email == this.state.currentUser.Email)
+                // {
+                //     resBool=  true
+                // }
+                if(user.Id == userId)
                 {
                     resBool=  true
                 }
@@ -336,7 +491,7 @@ export default class TopMenu extends React.Component<ITopBarProps, ITopBarState>
 
     }
     public async saveFavourite(favouriteItem: IFavouriteItem): Promise<boolean> {
-
+        
         return pnp.sp.web.lists.getByTitle(FAVOURITES_LIST_NAME).items.add({
             'Title': favouriteItem.Title,
             // 'Description': favouriteItem.Description,
@@ -356,7 +511,7 @@ export default class TopMenu extends React.Component<ITopBarProps, ITopBarState>
     
     public async _getMandatoryFavourites(): Promise<IFavouriteItem[]> {
         let returnItems: IFavouriteItem[] = [];
-
+        
         return await pnp.sp.web.lists.getByTitle(MANDATORY_FAVOURITES_LIST_NAME)
             .items
             .select(
@@ -375,11 +530,13 @@ export default class TopMenu extends React.Component<ITopBarProps, ITopBarState>
                     let fItem: IFavouriteItem = this.CreateFavoriteItemObject(favourite, false);
                     returnItems.push(fItem);
                 })
+                
                 return returnItems;
             }
 
             )
     }
+    
     private CreateFavoriteItemObject(favourite: any, IsPersonalFavourite: boolean): IFavouriteItem {
         return {
             Id: favourite.Id,
@@ -392,33 +549,38 @@ export default class TopMenu extends React.Component<ITopBarProps, ITopBarState>
         };
     }
 
-    private async _getPersonalFavourites(currentUserId: number): Promise<IFavouriteItem[]> {
-        //const currentUserId: number = await this._getUserId();
-        let returnItems: IFavouriteItem[] = [];
-        // const currentUserObject: any = await this._getUserObject();
-        //console.log(currentUserObject);
-        return await pnp.sp.web.lists.getByTitle(FAVOURITES_LIST_NAME)
-            .items
-            .select(
-                "Id",
-                "Title",
-                "ItemUrl",
-                "Mandatory"
-            )
-            .filter("Author eq " + currentUserId)
-            .get()
-            .then((myFavourites: any[]) => {
-                myFavourites.map((item) => {
-                    let fItem: IFavouriteItem = this.CreateFavoriteItemObject(item, true);
-                    returnItems.push(fItem);
-                })
-                return returnItems;
-            })
-            .catch((error) => {
-                Log.error(LOG_SOURCE, error);
-                return [];
-            });
-    }
+    // private async _getPersonalFavourites(currentUserId: number): Promise<IFavouriteItem[]> {
+    //     //const currentUserId: number = await this._getUserId();
+    //     let returnItems: IFavouriteItem[] = [];
+    //     // const currentUserObject: any = await this._getUserObject();
+    //     //console.log(currentUserObject);
+    //     return await pnp.sp.web.lists.getByTitle(FAVOURITES_LIST_NAME)
+    //         .items
+    //         .select(
+    //             "Id",
+    //             "Title",
+    //             "ItemUrl",
+    //             "Mandatory"
+    //         )
+    //         .filter("Author eq " + currentUserId)
+    //         .usingCaching({
+    //             expiration: pnp.util.dateAdd(new Date(), "minute", 20),
+    //             key: "Personal favourites cache",
+    //             storeName: "local"
+    //         })
+    //         .get()
+    //         .then((myFavourites: any[]) => {
+    //             myFavourites.map((item) => {
+    //                 let fItem: IFavouriteItem = this.CreateFavoriteItemObject(item, true);
+    //                 returnItems.push(fItem);
+    //             })
+    //             return returnItems;
+    //         })
+    //         .catch((error) => {
+    //             Log.error(LOG_SOURCE, error);
+    //             return [];
+    //         });
+    // }
 
     private _getUserObject(): Promise<any> {
         try {
