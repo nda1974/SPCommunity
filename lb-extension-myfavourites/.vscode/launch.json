@@ -4,9 +4,7 @@
    * Chrome browser: https://aka.ms/spfx-debugger-extensions
    */
   "version": "0.2.0",
-  "configurations": [
-    
-    {
+  "configurations": [{
       "name": "Local workbench",
       "type": "chrome",
       "request": "launch",
@@ -14,6 +12,7 @@
       "webRoot": "${workspaceRoot}",
       "sourceMaps": true,
       "sourceMapPathOverrides": {
+        "webpack:///.././src/*": "${webRoot}/src/*",
         "webpack:///../../../src/*": "${webRoot}/src/*",
         "webpack:///../../../../src/*": "${webRoot}/src/*",
         "webpack:///../../../../../src/*": "${webRoot}/src/*"
@@ -26,10 +25,11 @@
       "name": "Hosted workbench",
       "type": "chrome",
       "request": "launch",
-      "url": "https://lbforsikring.sharepoint.com/sites/NICD/_layouts/workbench.aspx",
+      "url": "https://enter-your-SharePoint-site/_layouts/workbench.aspx",
       "webRoot": "${workspaceRoot}",
       "sourceMaps": true,
       "sourceMapPathOverrides": {
+        "webpack:///.././src/*": "${webRoot}/src/*",
         "webpack:///../../../src/*": "${webRoot}/src/*",
         "webpack:///../../../../src/*": "${webRoot}/src/*",
         "webpack:///../../../../../src/*": "${webRoot}/src/*"
@@ -39,5 +39,5 @@
         "-incognito"
       ]
     }
-    ]
+  ]
 }

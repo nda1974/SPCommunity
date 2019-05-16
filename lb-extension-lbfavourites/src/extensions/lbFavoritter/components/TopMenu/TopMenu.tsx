@@ -183,7 +183,7 @@ export default class TopMenu extends React.Component<ITopBarProps, ITopBarState>
     }
 
     private async _GetAllFavouritesPre(): Promise<void> {
-        
+        let showPanel:boolean;
         // *********** GET CURRENT USERID *********** 
         var _currentUserID:string;
         if(!sessionStorage.getItem(CACHE_CURRENTUSERID)) {
@@ -219,7 +219,7 @@ export default class TopMenu extends React.Component<ITopBarProps, ITopBarState>
 
         const favourites: IFavouriteItem[] = await this.filterFavouritesNew(myFavouriteItems, LBFavouriteItems,_currentUserID);
         const buttonDisabled = false;
-        this.setState({ ...this.state, favourites,buttonDisabled });
+        this.setState({ ...this.state, favourites,buttonDisabled }, ()=>{this.setState({showPanel:false})});
         
     }
     // private async _showPanelORG(): Promise<void> {

@@ -1,0 +1,31 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/core-build/serve.schema.json",
+  "port": 4321,
+  "https": true,
+  "serveConfigurations": {
+    "default": {
+      "pageUrl": "https://lbforsikring.sharepoint.com/sites/NICD/SitePages/Nicolai.aspx",
+      "customActions": {
+        "8096adf5-9c73-44dd-aef9-344f16701a8f": {
+          "location": "ClientSideExtension.ApplicationCustomizer",
+          "properties": {
+            "Top": "Top message",
+            "Bottom": "Bottom message"
+          }
+        }
+      }
+    },
+    "myFavourites": {
+      "pageUrl": "https://lbforsikring.sharepoint.com/sites/NICD/SitePages/Nicolai.aspx",
+      "customActions": {
+        "8096adf5-9c73-44dd-aef9-344f16701a8f": {
+          "location": "ClientSideExtension.ApplicationCustomizer",
+          "properties": {
+            "Top": "Top message",
+            "Bottom": "Bottom message"
+          }
+        }
+      }
+    }
+  }
+}
