@@ -1,7 +1,7 @@
 {
   "$schema": "https://developer.microsoft.com/json-schemas/spfx-build/package-solution.schema.json",
   "solution": {
-    "name": "lb-extension-myfavourites-client-side-solution",
+    "name": "LB Forsikring - Mine favoritter",
     "id": "ec06b4ac-d3e4-4b6a-8135-e441d6e391e4",
     "version": "1.0.0.0",
     "includeClientSideAssets": true,
