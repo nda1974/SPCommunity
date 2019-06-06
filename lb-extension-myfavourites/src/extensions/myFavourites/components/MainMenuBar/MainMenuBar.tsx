@@ -103,6 +103,7 @@ export default class MainMenuBar extends React.Component<IMainMenuBarProps,IMain
     // ************************************************************************************ //
     private async _setCurrentUserIDInCache(): Promise<void> {
         var getIdFromCache:boolean=true;
+        
         if(!window.sessionStorage[CACHE_CURRENTUSERID] || window.sessionStorage[CACHE_CURRENTUSERID] == 'undefined'){
             getIdFromCache = false;
         }
@@ -113,28 +114,32 @@ export default class MainMenuBar extends React.Component<IMainMenuBarProps,IMain
         }
 
         if(!getIdFromCache){
-            await sp.web.currentUser.get().then((userObject)=>{
+            return await sp.web.currentUser.get().then((userObject)=>{
                 // return userObject;
                 window.sessionStorage.setItem(CACHE_CURRENTUSERID,userObject['Id'])
                 }
+                
             );
+            
         }
     }
+    
     private async _fetchAllFavourites():Promise<void>{
+        
         this.setState({isLoading:true});
         var LBFavouriteItems: IFavouriteItem[];
         var myFavouriteItems: IFavouriteItem[];
         // await this._SetCurrentUserIDInCache();
         const res = await this._setCurrentUserIDInCache()
-        .then( ()=>{
+        .then( ()=> {
                     if(window.sessionStorage[CACHE_CURRENTUSERFAVOURITES]=='undefined' || 
                         !window.sessionStorage[CACHE_CURRENTUSERFAVOURITES] ||
                         window.sessionStorage[CACHE_CURRENTUSERFAVOURITES]==null){
-                        const r1 =this._setPersonalFavourites(window.sessionStorage.getItem(CACHE_CURRENTUSERID));
-                        return r1.then((data)=>{
-                            window.sessionStorage.setItem(CACHE_CURRENTUSERFAVOURITES,JSON.stringify(data));
-                            myFavouriteItems=data;
-                        });
+                            const r1 =this._setPersonalFavourites(window.sessionStorage.getItem(CACHE_CURRENTUSERID));
+                            return r1.then((data)=>{
+                                window.sessionStorage.setItem(CACHE_CURRENTUSERFAVOURITES,JSON.stringify(data));
+                                myFavouriteItems=data;
+                            });
                     }
                     else{
                         myFavouriteItems=JSON.parse(window.sessionStorage.getItem(CACHE_CURRENTUSERFAVOURITES));
@@ -142,21 +147,22 @@ export default class MainMenuBar extends React.Component<IMainMenuBarProps,IMain
             }
         )
         .then( ()=>{
-            if(window.sessionStorage[CACHE_MANDATORYFAVOURITES]=='undefined' 
-                || !window.sessionStorage[CACHE_MANDATORYFAVOURITES]
-                || window.sessionStorage[CACHE_MANDATORYFAVOURITES]==null){
-                const r2 =this._setMandatoryFavourites(window.sessionStorage.getItem(CACHE_CURRENTUSERID));
-                    return r2.then((data)=>{
-                        window.sessionStorage.setItem(CACHE_MANDATORYFAVOURITES,JSON.stringify(data));
-                        LBFavouriteItems=data;
-                    });
-            }
-            else{
-                LBFavouriteItems=JSON.parse(window.sessionStorage.getItem(CACHE_MANDATORYFAVOURITES));
-            }
-                    
-            }
+                    if(window.sessionStorage[CACHE_MANDATORYFAVOURITES]=='undefined' 
+                        || !window.sessionStorage[CACHE_MANDATORYFAVOURITES]
+                        || window.sessionStorage[CACHE_MANDATORYFAVOURITES]==null){
+                        const r2 =this._setMandatoryFavourites(window.sessionStorage.getItem(CACHE_CURRENTUSERID));
+                            return r2.then((data)=>{
+                                window.sessionStorage.setItem(CACHE_MANDATORYFAVOURITES,JSON.stringify(data));
+                                LBFavouriteItems=data;
+                            });
+                    }
+                    else{
+                        LBFavouriteItems=JSON.parse(window.sessionStorage.getItem(CACHE_MANDATORYFAVOURITES));
+                    }
+                            
+                    }
         );
+        
                 
         const favourites: IFavouriteItem[] = await this._filterFavourites(myFavouriteItems, LBFavouriteItems,CACHE_CURRENTUSERID);
         const buttonDisabled = false;
