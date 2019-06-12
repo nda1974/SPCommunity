@@ -1,18 +1,16 @@
 {
   "name": "qualitycontrol",
   "version": "1.0.0",
-  "description": "",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
   "license": "ISC",
+  "description": "",
   "dependencies": {
-    "@pnp/common": "^1.2.7",
-    "@pnp/logging": "^1.2.7",
-    "@pnp/nodejs": "^1.2.7",
-    "@pnp/odata": "^1.2.7",
-    "@pnp/sp": "^1.2.7"
+    "@pnp/common": "^1.3.3",
+    "@pnp/logging": "^1.3.3",
+    "@pnp/nodejs": "^1.3.3"
   }
 }

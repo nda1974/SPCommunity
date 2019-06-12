@@ -165,6 +165,13 @@ export default class MainMenuBar extends React.Component<IMainMenuBarProps,IMain
         
                 
         const favourites: IFavouriteItem[] = await this._filterFavourites(myFavouriteItems, LBFavouriteItems,CACHE_CURRENTUSERID);
+
+        for (let myFavouritesIndex = 0; myFavouritesIndex < myFavouriteItems.length; myFavouritesIndex++) {
+            const element = myFavouriteItems[myFavouritesIndex];
+            favourites.push(element);
+        }
+
+
         const buttonDisabled = false;
         this.setState({ ...this.state, favourites,buttonDisabled }, ()=>{this.setState({showPanel:false})});
         this.setState({isLoading:false});
@@ -176,19 +183,30 @@ export default class MainMenuBar extends React.Component<IMainMenuBarProps,IMain
         for (let favouriteIndex = 0; favouriteIndex < LBFavouritesCollection.length; favouriteIndex++) {
             const favourite = LBFavouritesCollection[favouriteIndex];
             if (favourite.LBAudience) {
-                const isCurrentUserMemberOfGroup: any = await this._checkIfUserBelongsToGroup(favourite.LBAudience, CurrentUserId)
-                if (isCurrentUserMemberOfGroup == true) {
-                    returnlist.push(favourite);
-                }
+                await this._checkIfUserBelongsToGroup(favourite.LBAudience, window.sessionStorage.getItem(CACHE_CURRENTUSERID)).then((res)=>{
+                    if (res == true) {
+                        returnlist.push(favourite); 
+                    }
+                })
             }
             else {
-                returnlist.push(favourite);
+                        returnlist.push(favourite);
             }
+                //const isCurrentUserMemberOfGroup: any = await this._checkIfUserBelongsToGroup(favourite.LBAudience, window.sessionStorage.getItem(CACHE_CURRENTUSERID))
+                // const isCurrentUserMemberOfGroup: any = await this._checkIfUserBelongsToGroup(favourite.LBAudience, CurrentUserId)
+            //     if (isCurrentUserMemberOfGroup == true) {
+            //         returnlist.push(favourite);
+            //     }
+            // }
+            // else {
+            //     returnlist.push(favourite);
+            // }
         }
-        for (let myFavouritesIndex = 0; myFavouritesIndex < myFavouritesCollection.length; myFavouritesIndex++) {
-            const element = myFavouritesCollection[myFavouritesIndex];
-            returnlist.push(element);
-        }
+        
+        // for (let myFavouritesIndex = 0; myFavouritesIndex < myFavouritesCollection.length; myFavouritesIndex++) {
+        //     const element = myFavouritesCollection[myFavouritesIndex];
+        //     returnlist.push(element);
+        // }
         return returnlist;
     }
     public async _checkIfUserBelongsToGroup(groupName: string, userId: string): Promise<boolean> {
@@ -358,7 +376,7 @@ export default class MainMenuBar extends React.Component<IMainMenuBarProps,IMain
                     <PrimaryButton data-id="menuButton"
                     title="Vis mine favoritter"
                     // text={this.state.buttonDisabled==true?"Henter dine favoritter":"Mine favoritter"}
-                    text="Mine favoritter"
+                    text="Mine favoritter.."
                     ariaLabel="Vis"
                     // disabled={this.state.buttonDisabled}
                     iconProps={{ iconName: "View" }}

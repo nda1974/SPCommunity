@@ -1,12 +1,29 @@
-﻿$res = Get-Content -Path "C:\Git\LBIntranet\Powershell\HR\TreatmentRecords_2019_0101_3101.json"  | ConvertFrom-Json
-$res = Get-Content -Path "C:\Git\LBIntranet\Powershell\HR\TreatmentRecords_2019_0102_2802.json"  | ConvertFrom-Json
-$res = Get-Content -Path "C:\Git\LBIntranet\Powershell\HR\TreatmentRecords_2019_0103_3103.json"  | ConvertFrom-Json
+﻿
+function SaveFileAsUTF{
+    Param(
+        [Parameter(Mandatory=$true, Position=0)]
+        [string] $SourceFilePath,
+        [Parameter(Mandatory=$true, Position=1)]
+        [string] $TargetFilePath
 
+    )
+    
+    $sourceFileContent= Get-Content $SourceFilePath
+    $Utf8NoBomEncoding = New-Object System.Text.UTF8Encoding $False
+    [System.IO.File]::WriteAllLines($TargetFilePath, $sourceFileContent, $Utf8NoBomEncoding)
+    
+}
 
-function test(){
-    $outputFilePath = "C:\Git\LBIntranet\Powershell\HR\TSV.csv"
-    $csv = import-csv "C:\Git\LBIntranet\Powershell\HR\BookingsReportingData.tsv" -delimiter "`t" -Encoding UTF8
-    #$csv = import-csv "C:\Git\LBIntranet\Powershell\HR\TSVImport.csv" -Delimiter ";" -Encoding UTF8
+function CreateCSVFile{
+    Param(
+        [Parameter(Mandatory=$true, Position=0)]
+        [string] $SourceTSVFile,
+        [Parameter(Mandatory=$true, Position=1)]
+        [string] $TargetCSVFile
+    )
+    
+    $csv = import-csv $SourceTSVFile -delimiter "`t" -Encoding UTF8 
+
 
     $groups = $csv | Group-Object -Property 'Customer Email'
     $headers = "Medarbejderens navn","Mail","*","Lønart","_","Antal behandlinger"
@@ -19,12 +36,12 @@ function test(){
     }
 
 
-    $psObject | Export-Csv $outputFilePath -NoTypeInformation -Encoding UTF8 -Delimiter ';'
+    $psObject | Export-Csv $TargetCSVFile -NoTypeInformation -Encoding UTF8 -Delimiter ';'
 
     foreach ($record in $groups ) {
     
     $hash = @{
-                "Medarbejderens navn" =  $record.Group[0].'Customer Name'
+                "Medarbejderens navn" =  $record.Group[0].'Customer Name' 
                 "Mail" = $record.Group[0].'Customer Email'.Split('@')[0]
                 "*"=""
                 "Lønart" = "75211"
@@ -32,22 +49,24 @@ function test(){
                 "Antal behandlinger" = $record.Count
                 }
 
-    $newRow = New-Object PsObject -Property $hash
-    Export-Csv -Path $outputFilePath -inputobject $newrow -append -Force -Encoding UTF8 -Delimiter ';'
+    $newRow = New-Object PsObject -Property $hash 
+    Export-Csv -Path $TargetCSVFile -inputobject $newrow -append -Force -Encoding UTF8 -Delimiter ';'
     
     }
 
 }
 
+$sourceTSVFile = "C:\Git\LBIntranet\Powershell\HR\RawTSV.tsv"
+$targetTSVFile = "C:\Git\LBIntranet\Powershell\HR\RawTSV_UTF.tsv"
+$resultCSVFile = "C:\Git\LBIntranet\Powershell\HR\RawTSVResult.csv"
 
-
-
-
-test
+SaveFileAsUTF -SourceFilePath $sourceTSVFile -TargetFilePath $targetTSVFile
+CreateCSVFile -SourceTSVFile $targetTSVFile -TargetCSVFile $resultCSVFile
 return
 
 $groups = $res.value | Group-Object -Property customerEmailAddress
 $outputFilePath = "C:\Git\LBIntranet\Powershell\HR\Employees.csv"
+$outputFilePath = "C:\Git\LBIntranet\Powershell\HR\testresult.csv"
 
 
  #this bit creates the CSV if it does not already exist
