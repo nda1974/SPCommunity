@@ -1,8 +1,15 @@
-﻿Function Start-FileSystemWatcher  {
+﻿function test{
+    
+}
+
+Function Start-FileSystemWatcher  {
 
   [cmdletbinding()]
 
   Param (
+  [parameter()]
+
+  [string]$LogFile,
 
   [parameter()]
 
@@ -32,6 +39,8 @@
 
   )
 
+
+  
   #region Build  FileSystemWatcher
 
   $FileSystemWatcher  = New-Object  System.IO.FileSystemWatcher
@@ -42,13 +51,14 @@
 
   }
 
-  $FileSystemWatcher.Path = $Path
+  $FileSystemWatcher.Path = $Path 
 
   If ($PSBoundParameters.ContainsKey('Filter')) {
 
   $FileSystemWatcher.Filter = $Filter
 
   }
+  
 
   If ($PSBoundParameters.ContainsKey('NotifyFilter')) {
 
@@ -84,6 +94,8 @@
 
   $Event.TimeGenerated
 
+  Write-Output @WriteHostParams >> 'mytext.txt'
+
   }
 
   Default  {
@@ -93,6 +105,7 @@
   $Event.SourceEventArgs.ChangeType,
 
   $Event.TimeGenerated
+  
 
   }
 
@@ -105,10 +118,12 @@
   BackgroundColor = 'Black'
 
   Object =  $Object
+  
 
   }
 
   Write-Host  @WriteHostParams
+  
 
   }
 
@@ -133,7 +148,7 @@
 
   Write-Verbose  "Starting watcher for Event: $($Item)"
 
-  $Null  = Register-ObjectEvent  @ObjectEventParams
+  $Null  = Register-ObjectEvent  @ObjectEventParams 
 
   }
 
@@ -144,7 +159,7 @@
 
 $FileSystemWatcherParams = @{
 
-  Path = 'K:\QC'
+  Path = '.\'
 
   Recurse =  $True
 
@@ -189,16 +204,40 @@ $FileSystemWatcherParams = @{
   }   
 
   
-  Write-Host  @WriteHostParams 
+  
+  
 
   }
 
 }
+
+
 @('Created') | ForEach {
 
   $FileSystemWatcherParams.EventName = $_
 
   Start-FileSystemWatcher  @FileSystemWatcherParams
+
+  [bool]$exitRequested = $false
+
+    do {
+        # Wait for an event
+        [System.Management.Automation.PSEventArgs]$e = Wait-Event 
+
+        # A real event! Handle it:
+        # Get the name of the file
+        [string]$name = $e.SourceEventArgs.Name
+        # The type of change
+        [System.IO.WatcherChangeTypes]$changeType = $e.SourceEventArgs.ChangeType
+        # The time and date of the event
+        [string]$timeStamp = $e.TimeGenerated.ToString("yyyy-MM-dd HH:mm:ss")
+
+        Write-Verbose "--- START [$($e.EventIdentifier)] $changeType $name $timeStamp"
+        Write-Verbose "--- END [$($e.EventIdentifier)] $changeType $name $timeStamp"
+    
+    } while (!$exitRequested)
+
+
 
 }
 

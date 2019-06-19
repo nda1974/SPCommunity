@@ -1,4 +1,8 @@
+// equal to: import { sp } from "@pnp/sp;"
+const sp =  require("@pnp/sp").sp;
 
+// equal to: import { SPFetchClient } from "@pnp/nodejs;"
+const SPFetchClient = require("@pnp/nodejs").SPFetchClient;
 
 module.exports = async function (context, req) {
     context.log('JavaScript HTTP trigger function processed a request.');
@@ -7,12 +11,8 @@ module.exports = async function (context, req) {
     const CLIENT_ID ='ec2e0303-bd8f-43f6-8148-76d7204bedea';
     const SHAREPOINT_URL = 'https://lbforsikring.sharepoint.com/sites/Skade';
 
-    // equal to: import { sp } from "@pnp/sp;"
-    const sp =  require("@pnp/sp").sp;
-
-    // equal to: import { SPFetchClient } from "@pnp/nodejs;"
-    const _SPFetchClient = require("@pnp/nodejs");
-    _SPFetchClient.SPFetchClient();
+    
+    
 
     if (req.query.name || (req.body && req.body.name)) {
 

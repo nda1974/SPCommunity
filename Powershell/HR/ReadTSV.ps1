@@ -1,4 +1,10 @@
-﻿
+﻿<#
+    ########## SaveFileAsUTF ##########
+    
+    Gemmer en fil med UTF encoding
+
+    ###################################
+#>
 function SaveFileAsUTF{
     Param(
         [Parameter(Mandatory=$true, Position=0)]
@@ -14,29 +20,39 @@ function SaveFileAsUTF{
     
 }
 
+<#
+    ########## CreateCSVFile ##########
+    
+    Opretter filen til HR
+
+    ###################################
+#>
 function CreateCSVFile{
     Param(
         [Parameter(Mandatory=$true, Position=0)]
         [string] $SourceTSVFile,
         [Parameter(Mandatory=$true, Position=1)]
-        [string] $TargetCSVFile
+        [string] $TargetCSVFile,
+        [Parameter(Mandatory=$true, Position=2)]
+        [Int] $Month
     )
     
-    $csv = import-csv $SourceTSVFile -delimiter "`t" -Encoding UTF8 
-
-
-    $groups = $csv | Group-Object -Property 'Customer Email'
-    $headers = "Medarbejderens navn","Mail","*","Lønart","_","Antal behandlinger"
-    $psObject = New-Object psobject
+    $csvBrt = import-csv $SourceTSVFile -delimiter "`t" -Encoding UTF8 
     
-    
-    foreach($header in $headers)
-    {
-        Add-Member -InputObject $psObject -MemberType NoteProperty -Name $header -Value $header 
+
+    $csv = [System.Collections.ArrayList]@()
+    foreach($item in $csvBrt){
+        $temp = [datetime]::ParseExact($item.'Date Time',"dd-MM-yyyy HH:mm",$null);
+        
+        if($temp.Month -eq $Month){
+            #Write-Host $item
+            $csv.Add($item);
+        }   
     }
 
-
-    $psObject | Export-Csv $TargetCSVFile -NoTypeInformation -Encoding UTF8 -Delimiter ';'
+    
+    $groups = $csv | Group-Object -Property 'Customer Email'
+    $outarray = @();
 
     foreach ($record in $groups ) {
     
@@ -48,51 +64,42 @@ function CreateCSVFile{
                 "_"=""
                 "Antal behandlinger" = $record.Count
                 }
-
-    $newRow = New-Object PsObject -Property $hash 
-    Export-Csv -Path $TargetCSVFile -inputobject $newrow -append -Force -Encoding UTF8 -Delimiter ';'
+    
+    $newRow = New-Object -Property $hash -TypeName psobject
+    $outarray += $newRow
     
     }
-
+    $outarray | Export-Csv -Path $TargetCSVFile -Encoding UTF8 -Delimiter ';'
 }
 
-$sourceTSVFile = "C:\Git\LBIntranet\Powershell\HR\RawTSV.tsv"
-$targetTSVFile = "C:\Git\LBIntranet\Powershell\HR\RawTSV_UTF.tsv"
-$resultCSVFile = "C:\Git\LBIntranet\Powershell\HR\RawTSVResult.csv"
+# Angiv den folder på den lokale PC hvor de forskellige filer ligger 
+$workingDirectory = "C:\Git\LBIntranet\Powershell\HR";
+
+# Angiv filnavnet på den fil der downloades fra Microsoft Bookings
+$sourceTSVFile = "$workingDirectory\BookingsReportingData.tsv"
+# Angiv filnavnet på den nye fil der bliver UTF encoded
+$targetTSVFile = "$workingDirectory\BookingsReportingData_UTF.tsv"
+# Angiv filnavnet på den endelige file med resultatet af importen
+$resultCSVFile = "$workingDirectory\BookingsReportingDataResult.csv"
+
+
+Write-Host "Vælg måned for dataudtræk:"
+Write-Host "Tast [1] for Januar"
+Write-Host "Tast [2] for Februar"
+Write-Host "Tast [3] for Marts"
+Write-Host "Tast [4] for April"
+Write-Host "Tast [5] for Maj"
+Write-Host "Tast [6] for Juni"
+Write-Host "Tast [7] for Juli"
+Write-Host "Tast [8] for August"
+Write-Host "Tast [9] for september"
+Write-Host "Tast [10] for Oktober"
+Write-Host "Tast [11] for November"
+Write-Host "Tast [12] for December"
+
+$input = Read-Host
+
 
 SaveFileAsUTF -SourceFilePath $sourceTSVFile -TargetFilePath $targetTSVFile
-CreateCSVFile -SourceTSVFile $targetTSVFile -TargetCSVFile $resultCSVFile
-return
 
-$groups = $res.value | Group-Object -Property customerEmailAddress
-$outputFilePath = "C:\Git\LBIntranet\Powershell\HR\Employees.csv"
-$outputFilePath = "C:\Git\LBIntranet\Powershell\HR\testresult.csv"
-
-
- #this bit creates the CSV if it does not already exist
-$headers = "Medarbejderens navn","Mail","*","Lønart","_","Antal behandlinger"
-$psObject = New-Object psobject
-
-foreach($header in $headers)
-{
- Add-Member -InputObject $psobject -MemberType noteproperty -Name $header -Value $header 
-}
-
-$psObject | Export-Csv $outputFilePath -NoTypeInformation -Encoding UTF8 -Delimiter ';'
-
-foreach ($record in $groups ) {
-    
-$hash = @{
-            "Medarbejderens navn" =  $record.Group[0].customerName
-            "Mail" = $record.Name.Split('@')[0]
-            "*"=""
-            "Lønart" = "75211"
-            "_"=""
-            "Antal behandlinger" = $record.Count
-            }
-
-$newRow = New-Object PsObject -Property $hash
-Export-Csv -Path $outputFilePath -inputobject $newrow -append -Force -Encoding UTF8 -Delimiter ';'
-}
-
-#this bit appends a new row to the CSV file
+CreateCSVFile -SourceTSVFile $targetTSVFile -TargetCSVFile $resultCSVFile -Month $input

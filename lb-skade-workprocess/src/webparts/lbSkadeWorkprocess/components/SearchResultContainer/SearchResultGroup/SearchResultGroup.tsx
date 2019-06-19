@@ -43,7 +43,7 @@ export default class SearchResultGroup extends React.Component<ISearchResultGrou
                                         
                                         <Link href={item.OriginalPath} target="_new">
                                         
-                                        {item.Title}</Link>
+                                        {item.Process}</Link>
                                         
                                     </div>
                                 )
