@@ -38,6 +38,9 @@ Function DoAction(
     # FileSystemEventArgs has ChangeType, FullPath and Name;
     # RenamedEventArgs adds OldFullPath and OldName
     $e
+
+
+    Write-Output $a >> "C:\Git\LBIntranet\QualityControl\FileImportAutomation\log.txt"
 )
 {
     # Execute the action and catch its output

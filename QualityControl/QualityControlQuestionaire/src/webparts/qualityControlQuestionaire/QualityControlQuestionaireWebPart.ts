@@ -4,7 +4,9 @@ import { Version } from '@microsoft/sp-core-library';
 import {
   BaseClientSideWebPart,
   IPropertyPaneConfiguration,
-  PropertyPaneTextField
+  PropertyPaneTextField,
+  PropertyPaneCheckbox,
+  PropertyPaneToggle
 } from '@microsoft/sp-webpart-base';
 
 import * as strings from 'QualityControlQuestionaireWebPartStrings';
@@ -14,6 +16,7 @@ import { setup } from 'sp-pnp-js/lib/pnp';
 
 export interface IQualityControlQuestionaireWebPartProps {
   webPartHeader:string;
+  testURL:boolean;
 }
 
 export default class QualityControlQuestionaireWebPart extends BaseClientSideWebPart<IQualityControlQuestionaireWebPartProps> {
@@ -24,7 +27,8 @@ export default class QualityControlQuestionaireWebPart extends BaseClientSideWeb
       App,
       {
         ctx:this.context,
-        webPartHeader: this.properties.webPartHeader
+        webPartHeader: this.properties.webPartHeader,
+        testURL: this.properties.testURL
       }
     );
 
@@ -34,7 +38,9 @@ export default class QualityControlQuestionaireWebPart extends BaseClientSideWeb
   protected get dataVersion(): Version {
     return Version.parse('1.0');
   }
-
+  protected get disableReactivePropertyChanges(): boolean { 
+    return true; 
+  }
   protected getPropertyPaneConfiguration(): IPropertyPaneConfiguration {
     return {
       pages: [
@@ -44,10 +50,13 @@ export default class QualityControlQuestionaireWebPart extends BaseClientSideWeb
           },
           groups: [
             {
-              groupName: 'Overskrift på webparten',
+              groupName: 'Konfiguration af webparten',
               groupFields: [
                 PropertyPaneTextField('webPartHeader', {
-                 label: "Overskrift"
+                  label: "Overskrift"
+                }),
+                PropertyPaneToggle('testUrl', {
+                  label:'Brug Test konfiguration'
                 })
               ]
             }

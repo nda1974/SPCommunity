@@ -51,6 +51,7 @@ export default class SearchResultGroup extends React.Component<ISearchResultGrou
                         }
                         </div>
                         
+                        
                     </div>
                 )
     }}

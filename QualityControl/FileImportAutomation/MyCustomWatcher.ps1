@@ -3,15 +3,20 @@ function _createSharePointListItems{}
 
 
 function DoAction{
+Param(
+    [Parameter]
+        [string] $a
+    )
+    Write-Output $a >> "C:\Git\LBIntranet\QualityControl\FileImportAutomation\log.txt"
     _readBIFile;
     _createSharePointListItems;
 }
 
-[System.IO.FileSystemWatcher]$fsw = New-Object System.IO.FileSystemWatcher 'C:\Git\LBIntranet\QualityControl', $Filter -Property @{IncludeSubdirectories = $false;NotifyFilter = [IO.NotifyFilters]'FileName, LastWrite, DirectoryName'}
+[System.IO.FileSystemWatcher]$fsw = New-Object System.IO.FileSystemWatcher "C:\Git\LBIntranet\QualityControl\FileImportAutomation", $Filter -Property @{IncludeSubdirectories = $false;NotifyFilter = [IO.NotifyFilters]'FileName, LastWrite, DirectoryName'}
 
 
 
-Register-ObjectEvent $fsw Created -SourceIdentifier "FileCreated____HUSK MIG"
+Register-ObjectEvent $fsw Created -SourceIdentifier "FileCreated_HUSK_MIG"
 
 # Start monitoring
 $fsw.EnableRaisingEvents = $true
@@ -43,7 +48,10 @@ do {
         Write-Verbose "--- START [$($e.EventIdentifier)] $changeType $name $timeStamp"
 
         switch ($changeType) {
-            Created { DoAction $CreatedAction $name $e $($e.SourceEventArgs) }
+            Created { 
+                #DoAction $CreatedAction $name $e $($e.SourceEventArgs) 
+                DoAction -a $changeType
+                }
         }
 
         # Remove the event because we handled it
@@ -52,3 +60,6 @@ do {
         Write-Verbose "--- END [$($e.EventIdentifier)] $changeType $name $timeStamp"
     }
 } while (!$exitRequested)
+
+
+#Unregister-Event -Subscriptio
