@@ -28,8 +28,12 @@ module.exports = async function (context, req) {
         });
 
     
-        
+        /*
         const web = await sp.web.lists.getById('fc98c6c2-1d45-4502-aedd-970f39c474eb').then((list)=>{
+            console.log(list);
+        });
+        */
+        const web = await sp.web.lists.getByTitle('LeaderGroup').select('Title').get().then((list)=>{
             console.log(list);
         });
 

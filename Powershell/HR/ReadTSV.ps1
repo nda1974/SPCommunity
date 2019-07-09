@@ -37,7 +37,7 @@ function CreateCSVFile{
         [Int] $Month
     )
     
-    $csvBrt = import-csv $SourceTSVFile -delimiter "`t" -Encoding UTF8 
+    $csvBrt = import-csv $SourceTSVFile -delimiter "`t" -Encoding UTF8
     
 
     $csv = [System.Collections.ArrayList]@()
@@ -65,11 +65,11 @@ function CreateCSVFile{
                 "Antal behandlinger" = $record.Count
                 }
     
-    $newRow = New-Object -Property $hash -TypeName psobject
+    $newRow = New-Object -Property $hash -TypeName psobject 
     $outarray += $newRow
     
     }
-    $outarray | Export-Csv -Path $TargetCSVFile -Encoding UTF8 -Delimiter ';'
+    $outarray | Export-Csv -Path $TargetCSVFile -Encoding UTF8 -Delimiter ';' -NoTypeInformation
 }
 
 # Angiv den folder på den lokale PC hvor de forskellige filer ligger 

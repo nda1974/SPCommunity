@@ -1,0 +1,13 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/spfx-build/package-solution.schema.json",
+  "solution": {
+    "name": "lb-discussionboard-client-side-solution",
+    "id": "fd7188fb-2c86-435b-9c9e-887fdb746f97",
+    "version": "1.0.0.0",
+    "includeClientSideAssets": true,
+    "isDomainIsolated": false
+  },
+  "paths": {
+    "zippedPackage": "solution/lb-discussionboard.sppkg"
+  }
+}

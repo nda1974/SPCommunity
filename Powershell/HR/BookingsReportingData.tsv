@@ -1,98 +1,4 @@
 Date Time	Customer Name	Customer Email	Customer Phone	Customer Address	Staff	Service	Location	Duration (mins.)
-23-04-2019 09:00	Susanne Funder	sufu@lb.dk	29658793		MM	Massage		30
-23-04-2019 09:30	Kirsten Halkier	kh@lb.dk	26793665		MM	Massage		30
-23-04-2019 10:00	Malene Klavsen	maak@lb.dk			MM	Massage		30
-23-04-2019 10:30	Christina 	ceno@lb.dk			MM	Massage		30
-23-04-2019 11:00	Mia Nielsen	mihe@lb.dk			MM	Massage		30
-23-04-2019 11:30	Jesper	jmfr@lb.dk			MM	Massage		30
-23-04-2019 12:00	Cira	civo@lb.dk			MM	Zoneterapi		30
-23-04-2019 12:30	Camilla Nielsen 	camn@lb.dk			MM	Zoneterapi		30
-23-04-2019 13:00	helena bechmann	hekb@lb.dk			MM	Massage		30
-23-04-2019 13:30	Isabel Sutherland	issu@lb.dk			MM	Massage		30
-23-04-2019 14:00	Isabel Sutherland	issu@lb.dk			MM	Massage		30
-23-04-2019 14:30	Pia Esbensen	piso@lb.dk			MM	Massage		30
-23-04-2019 15:00	Pia Esbensen	piso@lb.dk			MM	Massage		30
-24-04-2019 09:30	Martin Scheil Corneliussen	maco@lb.dk	24275287		LR	Massage		30
-24-04-2019 10:00	Julie Morild	jumo@lb.dk			LR	Massage		30
-24-04-2019 10:30	Joan Rokkjær	joro@lb.dk			LR	Zoneterapi		30
-24-04-2019 11:00	Joan Rokkjær	joro@lb.dk			LR	Massage		30
-24-04-2019 11:30	Kai Gustafson	kagu@lb.dk			LR	Massage		30
-24-04-2019 12:30	Kai Gustafson	kagu@lb.dk			LR	Massage		30
-24-04-2019 13:00	Mai-Britt Lorenzen	mabr@lb.dk	4529666979		LR	Massage		30
-24-04-2019 13:30	Andreas 	ansi@lb.dk	undefined25747545		LR	Zoneterapi		30
-24-04-2019 14:00	Dorte Soldal Nielsen 	doni@lb.dk	4528778408		LR	Zoneterapi		30
-24-04-2019 14:30	Birgitte Kjær Nielsen	bikj@lb.dk			LR	Massage		30
-24-04-2019 15:00	michelle	micl@lb.dk	23832883		LR	Massage		30
-24-04-2019 15:30	Janna Zohar	jaba@lb.dk			LR	Massage		30
-25-04-2019 08:00	Caroline Arndtsen	caar@lb.dk			MM	Massage		30
-25-04-2019 08:30	Mia Nielsen	mihe@lb.dk			MM	Zoneterapi		30
-25-04-2019 09:00	Heidi Wyniger	hewy@lb.dk			MM	Zoneterapi		30
-25-04-2019 09:00	Caroline Larsen	cala@lb.dk	undefined33485499		LR	Massage		30
-25-04-2019 09:30	Heidi Wyniger	hewy@lb.dk			MM	Massage		30
-25-04-2019 09:30	Caroline Larsen	cala@lb.dk	undefined		LR	Zoneterapi		30
-25-04-2019 10:00	Carsten Rasmussen	carr@lb.dk			LR	Massage		30
-25-04-2019 10:00	Jeanne 	jead@lb.dk			MM	Massage		30
-25-04-2019 10:30	Carsten Rasmussen	carr@lb.dk			LR	Massage		30
-25-04-2019 10:30	Jeanne 	jead@lb.dk			MM	Massage		30
-25-04-2019 11:00	Lotte Stenum Baden	loba@lb.dk			MM	Massage		30
-25-04-2019 11:00	Anja	anjn@lb.dk			LR	Massage		30
-25-04-2019 11:30	Anja	anjn@lb.dk			LR	Massage		30
-25-04-2019 11:30	Gitte Hansen	giha@lb.dk			MM	Zoneterapi		30
-25-04-2019 12:30	Anne-Mette Falk	anfa@lb.dk			LR	Zoneterapi		30
-25-04-2019 12:30	Bine Nass	bina@lb.dk	26363733		MM	Zoneterapi		30
-25-04-2019 13:00	Jane Boas Beck	jabo@lb.dk			LR	Massage		30
-25-04-2019 13:00	Lars Ruhe	lacr@lb.dk			MM	Massage		30
-25-04-2019 13:30	Lars Ruhe	lacr@lb.dk			MM	Massage		30
-25-04-2019 13:30	Anja	anjs@lb.dk			LR	Zoneterapi		30
-25-04-2019 14:00	Eric	eril@lb.dk			LR	Zoneterapi		30
-25-04-2019 14:00	Signe Tilgreen Andersen	sita@lb.dk	31438221		MM	Massage		30
-25-04-2019 14:30	Eric	eril@lb.dk			LR	Massage		30
-25-04-2019 14:30	Signe Tilgreen Andersen	sita@lb.dk	31438221		MM	Massage		30
-25-04-2019 15:00	Matias Bredahl Reedtz	maree@lb.dk	31157415		MM	Massage		30
-25-04-2019 15:00	Katrine Wagner Foldager	kafo@lb.dk			LR	Massage		30
-25-04-2019 15:30	Katrine Wagner Foldager	kafo@lb.dk			LR	Massage		30
-26-04-2019 08:30	mickey	mino@lb.dk			MM	Massage		30
-26-04-2019 09:00	mickey	mino@lb.dk			MM	Massage		30
-26-04-2019 09:30	Lars	lape@lb.dk			MM	Massage		30
-26-04-2019 10:00	Lars	lape@lb.dk			MM	Massage		30
-26-04-2019 10:30	Signe Trustrup	sitr@lb.dk	30516567	Farvergade 17, 3.sal	MM	Massage		30
-26-04-2019 11:00	Signe Trustrup	sitr@lb.dk	30516567	Farvergade 17, 3.sal	MM	Massage		30
-26-04-2019 11:30	Jane Boas Beck	jabo@lb.dk			MM	Massage		30
-26-04-2019 12:30	Pia T	pped@lb.dk			MM	Zoneterapi		30
-26-04-2019 13:00	Louise kronborg	lous@lb.dk			MM	Massage		30
-26-04-2019 13:30	Pia T	pped@lb.dk			MM	Zoneterapi		30
-26-04-2019 14:00	Julie Schrøder	jusc@lb.dk			MM	Massage		30
-26-04-2019 14:30	Julie Schrøder	jusc@lb.dk			MM	Massage		30
-26-04-2019 15:00	Caroline Arndtsen	caar@lb.dk			MM	Zoneterapi		30
-29-04-2019 09:30	magdalena zajfman	magdalena@zajfman.dk	28706269		DS	Massage		30
-29-04-2019 10:00	Helle Trebbien	hetr@lb.dk			AL	Akupunktur		30
-29-04-2019 10:00	magdalena@zajfman.dk	magdalena@zajfman.dk	28706269		DS	Massage		30
-29-04-2019 10:30	Helle Trebbien	hetr@lb.dk			AL	Akupunktur		30
-29-04-2019 10:30	Jakob Langvang Pedersen	jalp@lb.dk			DS	Massage		30
-29-04-2019 11:00	Kirsten Textor 	kite@lb.dk	31168304		AL	Akupunktur		30
-29-04-2019 11:00	Mette Egsholm	meeg@lb.dk			DS	Massage		30
-29-04-2019 11:30	Kirsten Textor 	kite@lb.dk	31168304		AL	Akupunktur		30
-29-04-2019 12:00	Gamze Basel	gaba@lb.dk	31653131		AL	Akupunktur		30
-29-04-2019 13:00	Caroline Arndtsen	caar@lb.dk			AL	Akupunktur		30
-29-04-2019 13:30	Caroline Arndtsen	caar@lb.dk			AL	Akupunktur		30
-29-04-2019 14:00	Andreas Johannsen	andj@lb.dk	20734290		AL	Akupunktur		30
-29-04-2019 14:30	Andreas Johannsen	andj@lb.dk	20734290		AL	Akupunktur		30
-29-04-2019 15:00	Jeanette Hansen	jeah@lb.dk			AL	Akupunktur		30
-29-04-2019 15:30	Jeanette Hansen	jeah@lb.dk			AL	Akupunktur		30
-29-04-2019 16:00	Kathrine Hansen	kahh@lb.dk			AL	Akupunktur		30
-29-04-2019 16:30	Kathrine Hansen	kahh@lb.dk			AL	Akupunktur		30
-01-05-2019 09:30	frederik fornitz (frfo)	frfo@lb.dk			LR	Massage		30
-01-05-2019 10:00	Joan Rokkjær	joro@lb.dk			LR	Zoneterapi		30
-01-05-2019 10:30	Joan Rokkjær	joro@lb.dk			LR	Zoneterapi		30
-01-05-2019 11:00	Vibeke Holmstad	viho@lb.dk			LR	Massage		30
-01-05-2019 11:30	Anja Steffens	anjs@lb.dk			LR	Zoneterapi		30
-01-05-2019 12:30	nadja	nadf@lb.dk			LR	Massage		30
-01-05-2019 13:00	Isabella Nielsen	isni@lb.dk			LR	Massage		30
-01-05-2019 13:30	Isabella Nielsen	isni@lb.dk			LR	Massage		30
-01-05-2019 14:00	Dorthe Steen Modin	doch@lb.dk			LR	Massage		30
-01-05-2019 14:30	Dorthe Steen Modin	doch@lb.dk			LR	Massage		30
-01-05-2019 15:00	Lisbeth Sondrup	lije@lb.dk			LR	Massage		30
-01-05-2019 15:30	Lisbeth Sondrup	lije@lb.dk			LR	Zoneterapi		30
 02-05-2019 09:30	Christina Gungaard	chna@lb.dk			LR	Massage		30
 02-05-2019 10:00	Birgitte	bikj@lb.dk			LR	Zoneterapi		30
 02-05-2019 10:30	Birgitte	bikj@lb.dk			LR	Massage		30
@@ -482,6 +388,7 @@ Date Time	Customer Name	Customer Email	Customer Phone	Customer Address	Staff	Ser
 19-06-2019 09:30	Helene Schmücker	helm@lb.dk			LR	Massage		30
 19-06-2019 10:00	Katrine Wagner Foldager	kafo@lb.dk			LR	Massage		30
 19-06-2019 10:30	Katrine Wagner Foldager	kafo@lb.dk			LR	Massage		30
+19-06-2019 11:00	Eva Brinck	evbr@lb.dk			LR	Massage		30
 19-06-2019 11:30	Eric	eril@lb.dk	60134431		LR	Massage		30
 19-06-2019 12:30	birgitte	bihv@lb.dk			LR	Massage		30
 19-06-2019 13:00	Vibeke Holmstad	viho@lb.dk			LR	Zoneterapi		30
@@ -511,6 +418,7 @@ Date Time	Customer Name	Customer Email	Customer Phone	Customer Address	Staff	Ser
 24-06-2019 11:00	Kirsten Textor 	kite@lb.dk			AL	Akupunktur		30
 24-06-2019 11:00	Marianne 	marb@lb.dk			DS	Massage		30
 24-06-2019 11:30	Kirsten Textor	kite@lb.dk			AL	Akupunktur		30
+24-06-2019 12:00	Ailing.Fan	Ailing.Fan@lb.dk	61688238		AL	Akupunktur		30
 24-06-2019 13:00	Rune	Ruth@lb.dk			AL	Akupunktur		30
 24-06-2019 13:00	Anne	ansk@lb.dk			DS	Massage		30
 24-06-2019 13:30	Rune	Ruth@lb.dk			AL	Akupunktur		30
@@ -529,27 +437,31 @@ Date Time	Customer Name	Customer Email	Customer Phone	Customer Address	Staff	Ser
 25-06-2019 09:00	Annette Egholm Larsen	aneg@lb.dk			MM	Massage		30
 25-06-2019 09:30	Lis Frandsen	lifr@lb.dk	31441831		LR	Zoneterapi		30
 25-06-2019 09:30	Christina Juul Enoch	ceno@lb.dk			MM	Massage		30
-25-06-2019 10:00	Anne Luise Overø	anov@lb.dk			LR	Massage		30
 25-06-2019 10:00	Gert Nissen	gnis@lb.dk	31438217		MM	Zoneterapi		30
+25-06-2019 10:30	Ronja Vikjær	ROVI@lb.dk			LR	Massage		30
 25-06-2019 10:30	maria	mady@lb.dk			MM	Massage		30
 25-06-2019 11:00	Jeppe R. Bæk	jerb@lb.dk			LR	Massage		30
 25-06-2019 11:00	maria	mady@lb.dk			MM	Zoneterapi		30
 25-06-2019 11:30	Jeppe R. Bæk	jerb@lb.dk			LR	Zoneterapi		30
 25-06-2019 11:30	Malene Klavsen	maak@lb.dk			MM	Massage		30
+25-06-2019 12:30	Karina	kahr@lb.dk			LR	Zoneterapi		30
 25-06-2019 12:30	Marianne Verbes	mave@lb.dk	51588933		MM	Zoneterapi		30
 25-06-2019 13:00	Lisbeth Valbjørn Borg	libor@lb.dk			LR	Massage		30
 25-06-2019 13:00	Marianne Verbes	mave@lb.dk	51588933		MM	Zoneterapi		30
+25-06-2019 13:30	Helene Schmücker	helm@lb.dk			LR	Massage		30
 25-06-2019 13:30	mickey	mino@lb.dk			MM	Massage		30
 25-06-2019 14:00	Anna Sofie 	ansa@lb.dk			LR	Massage		30
 25-06-2019 14:00	Frederic	frma@lb.dk			MM	Massage		30
 25-06-2019 14:30	Anna Sofie 	ansa@lb.dk			LR	Massage		30
 25-06-2019 14:30	Pia Esbensen	piso@lb.dk			MM	Massage		30
+25-06-2019 15:00	saron rose	safa@lb.dk			LR	Massage		30
 25-06-2019 15:00	Pia Esbensen	piso@lb.dk			MM	Massage		30
+25-06-2019 15:30	Saron rose	safa@lb.dk			LR	Massage		30
 26-06-2019 09:00	Nina 	nihy@lb.dk	22980117		LR	Massage		30
 26-06-2019 09:30	Martin Scheil Corneliussen	maco@lb.dk	24275287		LR	Massage		30
 26-06-2019 10:00	Glenn Møller Andersen	glni@lb.dk			LR	Massage		30
-26-06-2019 10:30	Kjeld Halkjær	kjha@lb.dk	24243586		LR	Massage		30
-26-06-2019 11:00	Eva Brinck	evbr@lb.dk			LR	Massage		30
+26-06-2019 10:30	Kai Gustafson	kagu@lb.dk			LR	Massage		30
+26-06-2019 11:00	kai gustafson	kagu@lb.dk			LR	Massage		30
 26-06-2019 11:30	jesper Hall	jesh@lb.dk			LR	Zoneterapi		30
 26-06-2019 12:30	Anders Mandrup Jensen	aman@lb.dk	22880400		LR	Massage		30
 26-06-2019 13:00	birgitte	bihv@lb.dk			LR	Massage		30
@@ -568,15 +480,14 @@ Date Time	Customer Name	Customer Email	Customer Phone	Customer Address	Staff	Ser
 27-06-2019 13:00	Michelle Vendelbo	micl@lb.dk	23832883		LR	Massage		30
 27-06-2019 13:30	Signe Tilgreen Andersen	sita@lb.dk	31438221		LR	Massage		30
 27-06-2019 14:00	Signe Tilgreen Andersen	sita@lb.dk	31438221		LR	Massage		30
-27-06-2019 14:30	Bodil Hansen	boha@lb.dk	33957921		LR	Massage		30
+27-06-2019 14:30	Rikke Læbel	rikl@lb.dk			LR	Massage		30
 27-06-2019 15:00	Christina Gungaard	chna@lb.dk			LR	Massage		30
 27-06-2019 15:30	Christina Gungaard	chna@lb.dk			LR	Massage		30
 28-06-2019 08:00	Anders Haumann	andershaumann72@gmail.com	26179344		MM	Massage		30
 28-06-2019 08:30	Anders Haumann	andershaumann72@gmail.com	26179344		MM	Massage		30
-28-06-2019 09:00	Lars 	lape@lb.dk			MM	Zoneterapi		30
-28-06-2019 09:30	Lars 	lape@lb.dk			MM	Zoneterapi		30
-28-06-2019 10:00	Susanne Funder	sufu@lb.dk	29658793		MM	Massage		30
-28-06-2019 10:30	Berit Rasmussen	berr@lb.dk			MM	Massage		30
+28-06-2019 09:30	Henriette Jensen	heje@lb.dk			MM	Zoneterapi		30
+28-06-2019 10:00	Scarlet nystrøm	scar@lb.dk	27859404		MM	Massage		30
+28-06-2019 10:30	Ailing.Fan	Ailing.Fan@lb.dk	61688238		MM	Massage		30
 28-06-2019 11:00	Berit Rasmussen	berr@lb.dk			MM	Massage		30
 28-06-2019 11:30	Berit Rasmussen	berr@lb.dk			MM	Massage		30
 28-06-2019 12:30	Malene	mahe@lb.dk	24914160		MM	Massage		30
@@ -591,6 +502,7 @@ Date Time	Customer Name	Customer Email	Customer Phone	Customer Address	Staff	Ser
 01-07-2019 15:30	Mette Egsholm	meeg@lb.dk			DS	Massage		30
 01-07-2019 16:00	Mette Egsholm	meeg@lb.dk			DS	Massage		30
 02-07-2019 08:00	Frederic	frma@lb.dk			MM	Massage		30
+02-07-2019 08:30	Maja Mulis Schmidt	mamu@lb.dk			MM	Massage		30
 02-07-2019 09:00	maria	mady@lb.dk			MM	Zoneterapi		30
 02-07-2019 09:30	maria	mady@lb.dk			MM	Massage		30
 02-07-2019 10:00	Christina Enoch	CENO@lb.dk	21126180		MM	Massage		30
@@ -603,35 +515,58 @@ Date Time	Customer Name	Customer Email	Customer Phone	Customer Address	Staff	Ser
 02-07-2019 14:00	Katja	kasm@lb.dk	26361290		MM	Massage		30
 02-07-2019 14:30	Dorthe Steen Modin	doch@lb.dk			MM	Massage		30
 02-07-2019 15:00	Dorthe Steen Modin	doch@lb.dk			MM	Massage		30
+04-07-2019 08:00	Gitte Hansen	giha@lb.dk			MM	Zoneterapi		30
 04-07-2019 08:30	Susanne Funder	sufu@lb.dk	29658793		MM	Massage		30
 04-07-2019 09:00	Glenn Møller Andersen	glni@lb.dk			MM	Massage		30
 04-07-2019 09:30	Glenn Møller Andersen	glni@lb.dk			MM	Massage		30
-04-07-2019 10:00	Kjeld Halkjær	kjha@lb.dk	24243586		MM	Massage		30
+04-07-2019 10:00	Christian Slot Munk	chmu@lb.dk			MM	Massage		30
 04-07-2019 10:30	Malene Klavsen	maak@lb.dk			MM	Massage		30
+04-07-2019 11:00	Lisbeth Valbjørn Borg	libor@lb.dk			MM	Massage		30
+04-07-2019 11:30	cathrine hansen	cahn@lb.dk			MM	Massage		30
+04-07-2019 12:30	birgitte hou-vangsaae	bihv@lb.dk			MM	Massage		30
+04-07-2019 13:00	Helena Bechmann	hekb@lb.dk			MM	Massage		30
 04-07-2019 13:30	Mia Nielsen	mihe@lb.dk			MM	Zoneterapi		30
 04-07-2019 14:00	Bine Nass	bina@lb.dk			MM	Zoneterapi		30
 04-07-2019 14:30	Maria Jørgensen	macj@lb.dk			MM	Massage		30
 04-07-2019 15:00	Kirstine Schans	kikc@lb.dk			MM	Zoneterapi		30
+05-07-2019 08:00	Michael Stibolt Breinvad	mibr@lb.dk	30314107	Frimestervej 46 3 2400 København	MM	Massage		30
 05-07-2019 08:30	Lars 	lape@lb.dk			MM	Massage		30
 05-07-2019 09:00	Lars 	lape@lb.dk			MM	Massage		30
+05-07-2019 09:30	Maja Mulis Schmidt	mamu@lb.dk			MM	Massage		30
+05-07-2019 10:00	Maja Mulis Schmidt	mamu@lb.dk			MM	Massage		30
+05-07-2019 10:30	mickey	mino@lb.dk			MM	Massage		30
+05-07-2019 11:00	mickey	mino@lb.dk			MM	Massage		30
+05-07-2019 11:30	Signe Tilgreen Andersen	sita@lb.dk	31438221		MM	Massage		30
+05-07-2019 12:30	Anne Marie Floor Kogsbøll	anfk@lb.dk	31423558		MM	Massage		30
 05-07-2019 13:00	Dorte Hauerslev	dohu@lb.dk			MM	Massage		30
 05-07-2019 13:30	Dorte Hauerslev	dohu@lb.dk			MM	Massage		30
+05-07-2019 14:00	Christine Thanning Olesen	chto@lb.dk	21681447		MM	Massage		30
+05-07-2019 14:30	Jeanen Adamsen	jead@lb.dk	27121825		MM	Massage		30
 08-07-2019 09:30	saron rose fabian	safa@lb.dk			DS	Massage		30
 08-07-2019 10:00	Gamze Basel	gaba@lb.dk			AL	Akupunktur		30
 08-07-2019 10:00	saron rose fabian	safa@lb.dk			DS	Massage		30
 08-07-2019 10:30	Kirsten Textor	kite@lb.dk			AL	Akupunktur		30
 08-07-2019 10:30	Jannik Graves	jagr@lb.dk			DS	Massage		30
 08-07-2019 11:00	Kirsten Textor	kite@lb.dk			AL	Akupunktur		30
+08-07-2019 11:30	Ailing.Fan	Ailing.Fan@lb.dk	61688238		AL	Akupunktur		30
 08-07-2019 11:30	Trine Heyn	trhe@lb.dk	51514982		DS	Massage		30
+08-07-2019 12:00	Ailing.Fan	Ailing.Fan@lb.dk	61688238		AL	Akupunktur		30
 08-07-2019 12:00	Trine Heyn	trhe@lb.dk	51514982		DS	Massage		30
+08-07-2019 13:00	CATHRINE HANSEN	cahn@lb.dk			AL	Akupunktur		30
+08-07-2019 13:30	cathrine hansen	cahn@lb.dk			AL	Akupunktur		30
 08-07-2019 14:00	Marianne	marb@lb.dk			DS	Massage		30
+08-07-2019 14:30	Christian Henriksen	Cmhe@lb.dk			AL	Akupunktur		30
 08-07-2019 14:30	Marianne	marb@lb.dk			DS	Massage		30
 08-07-2019 15:00	Jeanette Hansen	jeah@lb.dk			AL	Akupunktur		30
 08-07-2019 15:30	Jeanette Hansen	jeah@lb.dk			AL	Akupunktur		30
 09-07-2019 08:00	Frederic	frma@lb.dk			MM	Massage		30
+09-07-2019 08:30	Ronja	rovi@lb.dk			MM	Massage		30
+09-07-2019 09:00	Ronja	rovi@lb.dk			MM	Massage		30
+09-07-2019 09:30	Camilla Christiansen	camilla.cc@outlook.dk	41432990		MM	Massage		30
 09-07-2019 10:00	maria	mady@lb.dk			MM	Zoneterapi		30
 09-07-2019 10:30	maria	mady@lb.dk			MM	Massage		30
 09-07-2019 11:00	Malene	mahe@lb.dk	24914160		MM	Massage		30
+09-07-2019 11:30	Lisbeth Valbjørn Borg	libor@lb.dk			MM	Massage		30
 09-07-2019 13:00	Bine Nass	bina@lb.dk			MM	Massage		30
 09-07-2019 13:30	Bine Nass	bina@lb.dk			MM	Massage		30
 09-07-2019 14:30	Pia Esbensen	piso@lb.dk			MM	Massage		30
@@ -641,14 +576,19 @@ Date Time	Customer Name	Customer Email	Customer Phone	Customer Address	Staff	Ser
 10-07-2019 10:00	Lisbeth Sondrup	lije@lb.dk			LR	Massage		30
 10-07-2019 10:30	Gert Nissen	gnis@lb.dk	31438217		LR	Massage		30
 10-07-2019 11:00	Jeppe R. Bæk	jerb@lb.dk			LR	Massage		30
+10-07-2019 11:30	Mikkel Lindeholm	mili@lb.dk			LR	Massage		30
+10-07-2019 12:30	birgitte hou-vangsaae	bihv@lb.dk			LR	Massage		30
 10-07-2019 13:00	Dorte Soldal Nielsen 	doni@lb.dk	28778408		LR	Zoneterapi		30
+10-07-2019 13:30	Michelle Vendelbo	micl@lb.dk	23832883		LR	Massage		30
 10-07-2019 14:00	Birgitte	bikj@lb.dk			LR	Zoneterapi		30
 10-07-2019 14:30	Birgitte	BIKJ@lb.dk			LR	Massage		30
 10-07-2019 15:00	Dorthe Steen Modin	doch@lb.dk			LR	Massage		30
 10-07-2019 15:30	Dorthe Steen Modin	doch@lb.dk			LR	Massage		30
 11-07-2019 09:00	Glenn Møller Andersen	glni@lb.dk			LR	Massage		30
 11-07-2019 09:30	Glenn Møller Andersen	glni@lb.dk			LR	Massage		30
-11-07-2019 11:00	Carolina Nygaard-Andersen	cana@lb.dk			LR	Massage		30
+11-07-2019 10:00	Marianne Egholm Larsen	mael@lb.dk			LR	Massage		30
+11-07-2019 10:30	Jeppe R. Bæk	jerb@lb.dk			LR	Massage		30
+11-07-2019 11:00	Anders Mandrup Jensen	aman@lb.dk			LR	Massage		30
 11-07-2019 11:30	Amanda Christensen	amch@lb.dk	30702818		LR	Massage		30
 11-07-2019 12:30	Ole Spedtsberg	spet@lb.dk			LR	Massage		30
 11-07-2019 13:00	Mai-Britt Lorenzen	mabr@lb.dk	29666979		LR	Massage		30
@@ -657,9 +597,16 @@ Date Time	Customer Name	Customer Email	Customer Phone	Customer Address	Staff	Ser
 11-07-2019 14:30	Kirstine Schans	kikc@lb.dk			LR	Massage		30
 11-07-2019 15:00	Christina Gungaard	chna@lb.dk			LR	Massage		30
 11-07-2019 15:30	Christina Gungaard	chna@lb.dk			LR	Massage		30
+12-07-2019 11:00	scarlet nystrøm	scar@lb.dk	27859404		MM	Massage		30
 12-07-2019 11:00	Kirsten Textor	kite@lb.dk			AL	Akupunktur		30
+12-07-2019 11:30	scarlet nystrøm	scar@lb.dk	27859404		MM	Massage		30
 12-07-2019 11:30	Kirsten Textor	kite@lb.dk			AL	Akupunktur		30
+12-07-2019 13:00	Signe Tilgreen Andersen	sita@lb.dk			MM	Massage		30
+12-07-2019 13:30	Signe Tilgreen Andersen	sita@lb.dk			MM	Massage		30
+12-07-2019 14:00	Jeanne	jead@lb.dk			MM	Massage		30
+16-07-2019 09:30	Nina Hay 	nihy@lb.dk	22980117		MM	Zoneterapi		30
 16-07-2019 10:00	Malene	mahe@lb.dk	24914160		MM	Massage		30
+16-07-2019 10:30	Anne Skov	ansk@lb.dk	41770017		MM	Massage		30
 16-07-2019 13:00	Marianne Verbes	mave@lb.dk	51588933		MM	Zoneterapi		30
 16-07-2019 13:30	Marianne Verbes	mave@lb.dk	51588933		MM	Zoneterapi		30
 18-07-2019 08:30	Glenn Møller Andersen	glni@lb.dk			MM	Massage		30
@@ -668,19 +615,35 @@ Date Time	Customer Name	Customer Email	Customer Phone	Customer Address	Staff	Ser
 18-07-2019 14:30	saron	safa@lb.dk			MM	Massage		30
 19-07-2019 10:30	Kirsten Textor	kite@lb.dk			AL	Akupunktur		30
 19-07-2019 11:00	Kirsten Textor	kite@lb.dk			AL	Akupunktur		30
+19-07-2019 13:30	Signe Tilgreen Andersen	sita@lb.dk			MM	Massage		30
+19-07-2019 14:00	Signe Tilgreen Andersen	sita@lb.dk			MM	Massage		30
+19-07-2019 14:30	Gitte Hansen	giha@lb.dk			MM	Zoneterapi		30
+22-07-2019 10:00	Yu.mai	Yu.mai@lb.dk	61780683		AL	Akupunktur		30
+22-07-2019 10:30	Yu.mai	Yu.mai@lb.dk	61780683		AL	Akupunktur		30
+22-07-2019 13:00	birgitte 	bihv@lb.dk			AL	Akupunktur		30
+22-07-2019 13:30	birgitte	bihv@lb.dk			AL	Akupunktur		30
 22-07-2019 15:00	Jeanette Hansen	jeah@lb.dk			AL	Akupunktur		30
 22-07-2019 15:30	Jeanette Hansen	jeah@lb.dk			AL	Akupunktur		30
+22-07-2019 16:00	Janna Zohar	jaba@lb.dk			AL	Akupunktur		30
+22-07-2019 16:30	Janna Zohar	jaba@lb.dk			AL	Akupunktur		30
 23-07-2019 09:30	Kirsten Halkier	kh@lb.dk	26793665		MM	Massage		30
 23-07-2019 10:00	Malene	mahe@lb.dk	24914160		MM	Massage		30
 23-07-2019 14:30	Pia Esbensen	piso@lb.dk			MM	Massage		30
 23-07-2019 15:00	Pia Esbensen	piso@lb.dk	25884073		MM	Massage		30
 24-07-2019 10:00	Katrine Wagner Foldager	kafo@lb.dk			LR	Massage		30
 24-07-2019 10:30	Katrine Wagner Foldager	kafo@lb.dk			LR	Massage		30
+24-07-2019 11:00	Anders Mandrup Jensen	aman@lb.dk			LR	Massage		30
+24-07-2019 11:30	Anders Mandrup Jensen	aman@lb.dk			LR	Massage		30
 24-07-2019 13:00	Mai-Britt Pilemark	maip@lb.dk			LR	Massage		30
 24-07-2019 13:30	Mai-Britt Pilemark	maip@lb.dk			LR	Massage		30
+24-07-2019 14:00	Anders Hvergel	anhv@lb.dk			LR	Massage		30
+24-07-2019 14:30	Vibeke Holmstad	viho@lb.dk			LR	Massage		30
+24-07-2019 15:00	Vibeke Holmstad	viho@lb.dk			LR	Massage		30
 24-07-2019 15:30	Amanda Christensen	amch@lb.dk			LR	Massage		30
 25-07-2019 09:00	Lisbeth Sondrup	lije@lb.dk			LR	Zoneterapi		30
 25-07-2019 09:30	Lisbeth Sondrup 	lije@lb.dk			LR	Massage		30
+25-07-2019 14:00	Rikke Læbel	rikl@lb.dk			LR	Massage		30
+25-07-2019 14:30	Rikke Læbel	rikl@lb.dk			LR	Massage		30
 25-07-2019 15:00	Michelle Vendelbo	micl@lb.dk	23832883		LR	Massage		30
 25-07-2019 15:30	Michelle Vendelbo	micl@lb.dk	23832883		LR	Massage		30
 30-07-2019 09:30	Kirsten Halkier	kh@lb.dk	26793665		MM	Massage		30
@@ -689,9 +652,15 @@ Date Time	Customer Name	Customer Email	Customer Phone	Customer Address	Staff	Ser
 01-08-2019 08:30	Susanne Funder	sufu@lb.dk	29658793		MM	Massage		30
 02-08-2019 08:30	Lars 	lape@lb.dk			MM	Zoneterapi		30
 02-08-2019 09:00	Lars 	lape@lb.dk			MM	Zoneterapi		30
+02-08-2019 14:00	Pia Esbensen	piso@lb.dk			MM	Massage		30
+02-08-2019 14:30	Pia Esbensen	piso@lb.dk			MM	Massage		30
 05-08-2019 10:00	KirstenTextor	kite@lb.dk			AL	Akupunktur		30
 05-08-2019 10:30	Kirsten Textor	kite@lb.dk			AL	Akupunktur		30
+06-08-2019 08:00	Michael Stibolt Breinvad	mibr@lb.dk	30314107	Frimestervej 46 3 2400 København NV	MM	Massage		30
+06-08-2019 08:30	Michael Stibolt Breinvad	mibr@lb.dk	30314107	Frimestervej 46 3 2400 København NV	MM	Massage		30
 06-08-2019 09:30	Kirsten Halkier	kh@lb.dk	26793665		MM	Massage		30
+06-08-2019 10:00	Christina Enoch	ceno@lb.dk			MM	Massage		30
+06-08-2019 10:30	Christina Enoch	ceno@lb.dk			MM	Zoneterapi		30
 07-08-2019 10:00	Katrine Wagner Foldager	kafo@lb.dk			LR	Massage		30
 07-08-2019 10:30	Katrine Wagner Foldager	kafo@lb.dk			LR	Massage		30
 07-08-2019 14:30	Birgitte	bikj@lb.dk			LR	Zoneterapi		30
@@ -704,11 +673,39 @@ Date Time	Customer Name	Customer Email	Customer Phone	Customer Address	Staff	Ser
 09-08-2019 08:00	Susanne Funder	sufu@lb.dk	29658793		MM	Massage		30
 09-08-2019 08:30	Lars	lape@lb.dk			MM	Massage		30
 09-08-2019 09:00	Lars 	lape@lb.dk			MM	Massage		30
+12-08-2019 10:30	Janna Zohar	jaba@lb.dk			DS	Massage		30
 12-08-2019 11:00	Jakob Langvang Pedersen	jalp@lb.dk			DS	Massage		30
+12-08-2019 15:00	Rikke Læbel	rikl@lb.dk			DS	Massage		30
 13-08-2019 09:30	Kirsten Halkier	kh@lb.dk	26793665		MM	Massage		30
+13-08-2019 10:00	Maria dyrkjær	mady@lb.dk			MM	Zoneterapi		30
+13-08-2019 10:30	Maria dyrkjær	mady@lb.dk			MM	Massage		30
+14-08-2019 10:30	Anne Skov	ansk@lb.dk			LR	Massage		30
+14-08-2019 14:00	Signe Tilgreen Andersen	sita@lb.dk			LR	Massage		30
+14-08-2019 14:30	Signe Tilgreen Andersen	sita@lb.dk			LR	Massage		30
 14-08-2019 15:00	Dorthe Steen Modin	doch@lb.dk			LR	Massage		30
 14-08-2019 15:30	Dorthe Steen Modin	doch@lb.dk			LR	Massage		30
 15-08-2019 13:00	Marianne Verbes	mave@lb.dk	51588933		LR	Massage		30
 15-08-2019 13:30	Marianne Verbes	mave@lb.dk	51588933		LR	Zoneterapi		30
 15-08-2019 14:00	Birgitte	bikj@b.dk			LR	Massage		30
 15-08-2019 14:30	Birgitte	bikj@lb.dk			LR	Zoneterapi		30
+15-08-2019 15:00	Christina Gungaard	chna@lb.dk			LR	Massage		30
+15-08-2019 15:30	Christina Gungaard	chna@lb.dk			LR	Massage		30
+19-08-2019 09:30	Caya	cayk@lb.dk	31414529		DS	Massage		30
+19-08-2019 10:00	Marianne	marb@lb.dk			DS	Massage		30
+19-08-2019 10:30	Marianne	marb@lb.dk			DS	Massage		30
+19-08-2019 11:30	cathrine hansen	cahn@lb.dk			AL	Akupunktur		30
+19-08-2019 12:00	cathrine hansen	cahn@lb.dk			AL	Akupunktur		30
+19-08-2019 12:00	Gitte Nielsen	gini@lb.dk			DS	Massage		30
+19-08-2019 15:00	Susanne Aurehøj	suau@lb.dk			AL	Akupunktur		30
+19-08-2019 15:30	Susanne Aurehøj	suau@lb.dk			AL	Akupunktur		30
+20-08-2019 09:30	Maria dyrkjær	mady@lb.dk			MM	Zoneterapi		30
+20-08-2019 10:00	Maria Dyrkjær	mady@lb.dk			MM	Massage		30
+20-08-2019 14:30	Pia Esbensen	piso@lb.dk			MM	Massage		30
+20-08-2019 15:00	Pia Esbensen	piso@lb.dk			MM	Massage		30
+21-08-2019 09:00	Kjeld Halkjær	kjha@lb.dk			LR	Massage		30
+21-08-2019 15:00	Birgitte	bikj@lb.dk			LR	Zoneterapi		30
+22-08-2019 09:00	Christina Enoch	ceno@lb.dk			LR	Massage		30
+23-08-2019 08:30	Lars	lape@lb.dk			MM	Massage		30
+23-08-2019 09:00	Lars	lape@lb.dk			MM	Massage		30
+26-08-2019 11:00	Mette Egsholm	meeg@lb.dk			DS	Massage		30
+26-08-2019 16:00	Anders Hvergel	anhv@lb.dk			DS	Massage		30

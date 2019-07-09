@@ -58,70 +58,6 @@ export default class SPSearchService{
 
             selectProperties=['Title','Author',refinersMappedProperties,'Path','ContentType','LBInfo','LBTeaser','HitHighlightedSummary','Gruppe','Undergruppe'];
                     
-            // switch (manualType.toUpperCase()) {
-            //     case "BAAD":
-            //         // refinersMappedProperties= "BaadCategory";    
-            //         refinersMappedProperties= "Gruppe";    
-                    
-            //         selectProperties=['Title','Author',refinersMappedProperties,'Path','ContentType','LBInfo','LBTeaser','HitHighlightedSummary'];
-            //         filterOnContentType = "BaadManual";
-
-                    
-
-            //         // if (refinementFilters.length>0) {
-            //         //     searchQueryQueryText="ContentType:"+filterOnContentType+" AND " + queryText + " " +"RefinableString04:'" + refinementFilters[0] + "'";
-            //         // }
-            //         // else{
-            //         //     searchQueryQueryText=="ContentType:"+filterOnContentType+" AND " + queryText; 
-            //         // }
-            //         break;
-
-            //     case "BIL":
-            //         refinersMappedProperties= "BilCategory";    
-            //         selectProperties=['Title','Author',refinersMappedProperties,'Path','ContentType'];
-            //         filterOnContentType = "BilManual";
-                    
-                    
-            //         // if (refinementFilters.length==1) {
-            //         //     searchQueryQueryText="ContentType:"+filterOnContentType+" AND " + queryText + " " + refinersMappedProperties + ":" + refinementFilters[0];
-            //         // }
-            //         // else{
-            //         //     searchQueryQueryText=="ContentType:"+filterOnContentType+" AND " + queryText; 
-            //         // }
-                    
-            //         break;
-
-            //     case "HUND":
-            //         refinersMappedProperties= "HundCategory";    
-            //         selectProperties=['Title','Author',refinersMappedProperties,'Path','ContentType'];
-            //         filterOnContentType = "HundManual";
-                    
-                    
-            //         // if (refinementFilters.length==1) {
-            //         //     searchQueryQueryText="ContentType:"+filterOnContentType+" AND " + queryText + " " + refinersMappedProperties + ":" + refinementFilters[0];
-            //         // }
-            //         // else{
-            //         //     searchQueryQueryText=="ContentType:"+filterOnContentType+" AND " + queryText; 
-            //         // }
-                    
-            //         break;
-            //     case "INDBO":
-            //     refinersMappedProperties= "IndboCategory";    
-            //     selectProperties=['Title','Author',refinersMappedProperties,'Path','ContentType','LBInfo','LBTeaser','LBVerdicts','HitHighlightedSummary','Verdicts'];
-            //     filterOnContentType = "IndboManual";
-                
-            //     // pnp.sp.web.lists.getByTitle("SitePages").items.getById(2273).select("Title", "Lookup/Title", "Lookup/ID").expand("Lookup").get().then((item: any) => {
-            //     //     console.log(item);
-            //     // });
-                
-            //     break;
-
-        
-            //     default:
-            //         break;
-                    
-            // }
-
             
             let rf:string[]=[];
             refinersMappedProperties="Gruppe";
@@ -135,7 +71,7 @@ export default class SPSearchService{
             }
 
 
-
+            searchQuery.TrimDuplicates=false;
             searchQuery.SelectProperties=selectProperties;
             searchQuery.Refiners=refinersMappedProperties;
             

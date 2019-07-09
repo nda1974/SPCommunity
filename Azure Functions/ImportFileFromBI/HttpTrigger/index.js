@@ -6,10 +6,15 @@ const SPFetchClient = require("@pnp/nodejs").SPFetchClient;
 const SPOAuthEnv = require("@pnp/nodejs").SPOAuthEnv;
 
 module.exports = async function (context, req) {
+    // const APP_SECRET ='Me0V7uQy2cFtLCEjk2kSLAWiktVr1UAnPRUZJFDxWoE=';
+    // const CLIENT_ID ='e722606e-7e4e-41bb-b9bf-197d5d5240d7';
+    // const SHAREPOINT_URL = 'https://lbforsikring.sharepoint.com/sites/Skade';
+
+
     const APP_SECRET ='Me0V7uQy2cFtLCEjk2kSLAWiktVr1UAnPRUZJFDxWoE=';
     const CLIENT_ID ='e722606e-7e4e-41bb-b9bf-197d5d5240d7';
-    const SHAREPOINT_URL = 'https://lbforsikring.sharepoint.com/sites/Skade';
-
+    const SHAREPOINT_URL = 'https://tailgating.sharepoint.com/Lists/TailsForSale/AllItems.aspx';
+    
     context.log('JavaScript HTTP trigger function processed a request.');
 
     if (req.query.name || (req.body && req.body.name)) {
