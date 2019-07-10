@@ -2,23 +2,36 @@
 Function GetFolders($folderUrl)  
 {      
     $folderColl=Get-PnPFolderItem -FolderSiteRelativeUrl $folderUrl -ItemType Folder  
-  
         # Loop through the folders  
         foreach($folder in $folderColl)  
         {                      
-          $newFolderURL= $folderUrl+"/"+$folder.Name   
+            $newFolderURL= $folderUrl+"/"+$folder.Name   
 
-          $f=Get-PnPFolder -Url $newFolderURL
+            #$f=Get-PnPFolder -Url $newFolderURL
           
-          $s=$f.ParentFolder.ServerRelativePath
+            GetFilesinFolder($newFolderURL)
+            $s=$f.ParentFolder.ServerRelativePath
           
-          write-host -ForegroundColor Green $folderUrl
-          write-host -ForegroundColor Green $folder.Name " - " $newFolderURL  
+            write-host -ForegroundColor Green $folderUrl
+            write-host -ForegroundColor Green $folder.Name " - " $newFolderURL  
   
-          # Call the function to get the folders inside folder  
-          GetFolders($newFolderURL)  
+            # Call the function to get the folders inside folder  
+            GetFolders($newFolderURL) 
         } 
 }  
+
+
+
+Function GetFilesinFolder($folderUrl)  
+{
+    $files=Get-PnPFolderItem -FolderSiteRelativeUrl $folderUrl -ItemType File
+
+    foreach($file in $files)  {
+    #Get-PnPFile -Url $file
+    Write-Host -ForegroundColor Yellow $file.Name    
+    }
+    
+}
 
 $site='https://lbforsikring.sharepoint.com/sites/Skade'
 $site='https://tailgating.sharepoint.com/sites/DocumentCenter'
@@ -29,13 +42,21 @@ Connect-PnPOnline -Url $site -Credentials -TAILGATING-
 
 $query= [string]::Format("<View><FieldRef Name='H_x00e5_ndbog'/><Query><Where><Eq><FieldRef Name='H_x00e5_ndbog'/><Value Type='text'>{0}</Value></Eq></Where></Query></View>", 'Bygning') 
 
-
+<#
 $listItems  = Get-PnPListItem -List $listID -PageSize 1000
+
+foreach($item in $listItems)
+{
+    Write-Host $item
+}
+
+
+
 $list=Get-PnPList -Identity $listID
 
 
 $folders = Get-PnPFolderItem -FolderSiteRelativeUrl "/Demo Processes"
-
+#>
 
 GetFolders -folderUrl "/Demo Processes"
 return
