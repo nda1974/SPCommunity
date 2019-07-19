@@ -1,4 +1,5 @@
 export interface ISearchResults {
+    PrimarySearchResults: ISearchResult[];
     RelevantResults: ISearchResult[];
     RefinementResults: IRefinementResult[];
     TotalRows?: number;
@@ -28,4 +29,13 @@ export interface IRefinementFilter {
 export interface IManualItem{
     Title:string;
     Author:string;
+}
+
+
+// Custom interfaces
+export interface ICustomSearchResults {
+    PrimarySearchResults: ICustomSearchResult[];
+}
+export interface ICustomSearchResult {
+    [key: string]: string;
 }

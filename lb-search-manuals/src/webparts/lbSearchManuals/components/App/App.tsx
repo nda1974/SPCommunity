@@ -6,6 +6,8 @@ import SPSearchService from '../../services/SPSearchService';
 import SearchInputContainer from '../SearchInputContainer/SearchInputContainer';
 import SearchResultContainer from '../SearchResultContainer/SearchResultContainer';
 import RefinementPanel from '../RefinementPanel/RefinementPanel'
+import { SearchResult, SearchResults } from 'sp-pnp-js';
+import { format } from '@uifabric/utilities/lib';
 
 
 
@@ -14,35 +16,44 @@ export interface IAppProps {
     webPartContext:WebPartContext;
     searchUrl:string;
   }
-
-  export interface IAppState {
-    "compactMode":boolean,
+//ORG
+//   export interface IAppState {
+//     "compactMode":boolean,
+//     "queryText":string,
+//     "refinementFilters":string[],
+//     "results":ISearchResults
+//   }
+  
+export interface IAppState {
     "queryText":string,
     "refinementFilters":string[],
-    "results":ISearchResults
+    "results":SearchResults
   }
-  
 export default class App extends React.Component<IAppProps, IAppState> {
     public constructor(props: IAppProps, state: IAppState){  
             super(props);  
-            // this.wpContext=webPartCtx;
+            // ORG
+        //     this.state = {
+        //                 refinementFilters:[],
+        //                 queryText:'',
+        //                 compactMode:false,
+        //                 results: { 
+        //                     RefinementResults: [], 
+        //                     RelevantResults: [] 
+        //                     }
+        //                 };  
 
             this.state = {
-                        refinementFilters:[],
-                        queryText:'',
-                        compactMode:false,
-                        results: { 
-                            RefinementResults: [], 
-                            RelevantResults: [] 
-                            }
-                        };  
-
+            refinementFilters:[],
+            queryText:'',
+            results: null
+            };
         
                     // this.handler = this.handler.bind(this)
                     // this.onChildChanged= this.onChildChanged.bind(this)
                     this.onQueryTextChanged= this.onQueryTextChanged.bind(this);
                     this.onRefinementFiltersChanged= this.onRefinementFiltersChanged.bind(this);
-                    this.onDisplayModeChanged= this.onDisplayModeChanged.bind(this);
+                    
 
                     // let ss: SPSearchService=new SPSearchService(this.props.webPartContext)
                     // let searchResult:Promise<ISearchResults>=ss.search(this.state.queryText + '*' + this.props.searchUrl,this.state.refinementFilters,this.props.manualType);
@@ -69,11 +80,7 @@ export default class App extends React.Component<IAppProps, IAppState> {
         
     }
     
-    onDisplayModeChanged(newState:boolean) {
-        this.setState({ compactMode: newState })
-        console.log(this.state.compactMode);
-        
-    }
+    
     
    public onRefinementFiltersChanged(newState?:string) {
     let filters:string[]=[];    
@@ -94,20 +101,33 @@ export default class App extends React.Component<IAppProps, IAppState> {
     
     }
             
-    public GetSharePointData(){
-        let ss: SPSearchService=new SPSearchService(this.props.webPartContext)
-        let searchResult:Promise<ISearchResults>=ss.search(this.state.queryText + ' ' + this.props.searchUrl,this.state.refinementFilters,this.props.manualType);
+    public  GetSharePointData(){
+        let ss: SPSearchService=new SPSearchService(this.props.webPartContext);
+        let qString = this.state.queryText.length>1?"*"+this.state.queryText+"*":'*';
+        //ORG let searchResult:Promise<ISearchResults>=ss.search(this.state.queryText + ' ' + this.props.searchUrl,this.state.refinementFilters,this.props.manualType);
+        // let searchResult:Promise<ISearchResults>=ss.searchDev(this.state.queryText + ' ' + this.props.searchUrl,this.state.refinementFilters,this.props.manualType);
+        let searchResult:Promise<SearchResults>=ss.searchDev(qString + ' ' + this.props.searchUrl,this.state.refinementFilters,this.props.manualType);
         
-        let results: ISearchResults = {
-            RelevantResults : [],
-            RefinementResults: [],
-            TotalRows: 0,
-        };
+        // searchResult.then((res)=>{
+        //     console.log(res)
+        // })
+        
+        // let results: ISearchResults = {
+        //     PrimarySearchResults: [],
+        //     RelevantResults : [],
+        //     RefinementResults: [],
+        //     TotalRows: 0,
+        // };
 
         searchResult.then(
-            (data:ISearchResults)=>{this.setState({results:data})}
+            (data:SearchResults)=>{this.setState({results:data})}
 
         );
+//ORG
+        // searchResult.then(
+        //     (data:ISearchResults)=>{this.setState({results:data})}
+
+        // );
     }          
     
         public render(): React.ReactElement<IAppProps> {
@@ -118,54 +138,17 @@ export default class App extends React.Component<IAppProps, IAppState> {
                 </div>);
             }
 
-            // let ss: SPSearchService=new SPSearchService(this.props.webPartContext)
-            
-                
-
-            // let searchResult:Promise<ISearchResults>=ss.search(this.state.queryText + ' ' + this.props.searchUrl,this.state.refinementFilters,this.props.manualType);
-            
-            // let results: ISearchResults = {
-            //     RelevantResults : [],
-            //     RefinementResults: [],
-            //     TotalRows: 0,
-            // };
-
-            // searchResult.then(
-            //     (data:ISearchResults)=>{this.setState({results:data})}
-
-            // );
             
             return (
                 <div className="ms-Grid">    
               
                 <div className="ms-Grid-row">
-                    <SearchInputContainer   callbackDisplayMode={(newState) => this.onDisplayModeChanged(newState)} 
-                                                    callbackSetAppContainerQueryString={(newState) => this.onQueryTextChanged(newState) }/>
+                    <SearchInputContainer callbackSetAppContainerQueryString={(newState) => this.onQueryTextChanged(newState) }/>
                                                     <br></br>
-                            
-                    <SearchResultContainer  results={this.state.results.RelevantResults} 
-                                            showCompactMode={this.state.compactMode} />
-                    {/* <div className="ms-Grid-col ms-sm12 ms-md12 ms-lg12">
-                                                <br/><br/>
-                    </div> */}
-                
-                
-                
-              
-                
-                    {/* <div className="ms-Grid-col ms-sm6">       
-                        <RefinementPanel    refiners={this.state.results.RefinementResults}  
-                                            callbackSetRefinementFilters={(newState) => this.onRefinementFiltersChanged(newState) }
-                                            callbackClearRefinementFilters={() => this.onRefinementFiltersChanged(null) }/>
-                    </div> */}
-                
-                    {/* <div className="ms-Grid-col ms-sm12">
+                        
+                    <SearchResultContainer  results={this.state.results} />
                     
-                    </div> */}
-                
-                                    
-                    {/* <p>Querytext state {this.state.queryText}</p>
-                    <p>DisplayMode state {this.state.compactMode}</p> */}
+                    
                 </div>
             </div>
             );

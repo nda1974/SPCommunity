@@ -36,6 +36,7 @@ import styles from "./SearchResultContainer.module.scss";
 import { ISearchResult } from "../../ISearchResults";
 
 import SearchResultGroup from "./SearchResultGroup/SearchResultGroup"
+import { SearchResults } from "sp-pnp-js";
 // import {groupArray} from 'group-array'
 
 export default class SearchResultContainer extends React.Component<ISearchResultContainerProps, ISearchResultContainerState> {
@@ -45,27 +46,40 @@ export default class SearchResultContainer extends React.Component<ISearchResult
             
     }
       
-    private _groupBy(prop:string,arr:ISearchResult[]):any{
+    private _groupBy(prop:string,arr:SearchResults):any{
         
-        var groupArray = require('group-array');
-        var groupBy = require('lodash.groupby');
-        return groupBy(arr,prop);
+        if(arr!=null){
+            var groupArray = require('group-array');
+            var groupBy = require('lodash.groupby');
+            return groupBy(arr.PrimarySearchResults,prop);
+        }
+        else{
+            return null
+        }
+        
 
         // return groupArray(arr,prop);
         
       }
+    // private _groupByORG(prop:string,arr:ISearchResult[]):any{
+        
+    //     var groupArray = require('group-array');
+    //     var groupBy = require('lodash.groupby');
+    //     return groupBy(arr,prop);
+
+    //     // return groupArray(arr,prop);
+        
+    //   }
 
 
       public render(): React.ReactElement<ISearchResultContainerProps> {  
-        
-      
-        var t:any;
-        var showCompactMode:boolean=false;
-        if(this.props.showCompactMode!=undefined){
-            showCompactMode=this.props.showCompactMode;
+        if(this.props.results==null){
+          return(<div></div>)
         }
-
+        var t:any;
+        
         var groupedManuals:any=this._groupBy('Gruppe',this.props.results);
+        
         var arrGroupKeys:string[]=[];
         {
             Object.keys(groupedManuals).map((groupKey,i)=>{
@@ -73,9 +87,7 @@ export default class SearchResultContainer extends React.Component<ISearchResult
         })}
 
         arrGroupKeys.sort();
-        // arrGroupKeys.map((i)=>{
-        //     console.log(i)
-        // })
+        
 
         return(
             
@@ -85,10 +97,8 @@ export default class SearchResultContainer extends React.Component<ISearchResult
                     arrGroupKeys.map((groupKey)=>{
                     const group = groupedManuals[groupKey];
                     
-                    return  <SearchResultGroup groupName={groupKey} manuals={group} displayCompactMode={showCompactMode} ></SearchResultGroup>    
-                    // <div className="ms-Grid-row">
-                                
-                    //         </div>
+                    return  <SearchResultGroup groupName={groupKey} manuals={group} ></SearchResultGroup>    
+                    
                 })}
             
         

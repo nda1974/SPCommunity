@@ -1,8 +1,10 @@
 import { ISearchResult } from "../../ISearchResults";
-// import { IManualItem } from "../../../../../lib/webparts/manual/ISearchResults";
+import { SearchResult, SearchResults } from "sp-pnp-js";
+// ORG
+// export interface ISearchResultContainerProps {
+//   "results":ISearchResult[];
+//   }
 
 export interface ISearchResultContainerProps {
-  // 
-  "results":ISearchResult[];
-  "showCompactMode":boolean;
+  "results":SearchResults;
   }
