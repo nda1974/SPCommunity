@@ -25,7 +25,7 @@
       "name": "Hosted workbench",
       "type": "chrome",
       "request": "launch",
-      "url": "https://tailgating.sharepoint.com/_layouts/15/workbench.aspx",
+      "url": "https://lbforsikring.sharepoint.com/sites/SR/_layouts/workbench.aspx",
       "webRoot": "${workspaceRoot}",
       "sourceMaps": true,
       "sourceMapPathOverrides": {

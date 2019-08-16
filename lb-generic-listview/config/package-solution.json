@@ -1,0 +1,13 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/spfx-build/package-solution.schema.json",
+  "solution": {
+    "name": "lb-generic-listview-client-side-solution",
+    "id": "7f87a3a2-6c45-401d-a98b-2f8de4910f29",
+    "version": "1.0.0.0",
+    "includeClientSideAssets": true,
+    "isDomainIsolated": false
+  },
+  "paths": {
+    "zippedPackage": "solution/lb-generic-listview.sppkg"
+  }
+}

@@ -86,7 +86,10 @@ export default class SearchResultContainer extends React.Component<ISearchResult
                 arrGroupKeys.push(groupKey);
         })}
 
-        arrGroupKeys.sort();
+        // arrGroupKeys.sort();
+
+
+        arrGroupKeys.sort((a,b)=>a.localeCompare(b,'en',{numeric:true}))
         
 
         return(

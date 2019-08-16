@@ -8,8 +8,8 @@ import {
 } from '@microsoft/sp-property-pane';
 
 import * as strings from 'LbDiscussionBoardWebPartStrings';
-import LbDiscussionBoard from './components/LbDiscussionBoard';
-import { ILbDiscussionBoardProps } from './components/ILbDiscussionBoardProps';
+import Container from './components/container/Container';
+import { IContainerProps } from './components/container/IContainerProps';
 
 export interface ILbDiscussionBoardWebPartProps {
   description: string;
@@ -18,8 +18,8 @@ export interface ILbDiscussionBoardWebPartProps {
 export default class LbDiscussionBoardWebPart extends BaseClientSideWebPart<ILbDiscussionBoardWebPartProps> {
 
   public render(): void {
-    const element: React.ReactElement<ILbDiscussionBoardProps > = React.createElement(
-      LbDiscussionBoard,
+    const element: React.ReactElement<IContainerProps > = React.createElement(
+      Container,
       {
         description: this.properties.description
       }

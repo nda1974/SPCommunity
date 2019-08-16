@@ -14,6 +14,7 @@ import App from './components/App/App';
 
 export interface IMedlemsgrupperWebPartProps {
   description: string;
+  description2: string;
   terms: IPickerTerms;
 }
 
@@ -38,6 +39,21 @@ export default class MedlemsgrupperWebPart extends BaseClientSideWebPart<IMedlem
   protected getPropertyPaneConfiguration(): IPropertyPaneConfiguration {
     return {
       pages: [
+        {
+          header: {
+            description: strings.PropertyPaneDescription
+          },
+          groups: [
+            {
+              groupName: strings.BasicGroupName,
+              groupFields: [
+                PropertyPaneTextField('description', {
+                  label: strings.DescriptionFieldLabel
+                })
+              ]
+            }
+          ]
+        },
         {
           header: {
             description: strings.PropertyPaneDescription

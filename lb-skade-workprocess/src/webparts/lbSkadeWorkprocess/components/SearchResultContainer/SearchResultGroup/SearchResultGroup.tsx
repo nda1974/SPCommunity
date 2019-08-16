@@ -18,10 +18,14 @@ export default class SearchResultGroup extends React.Component<ISearchResultGrou
     public render(): React.ReactElement<ISearchResultGroupProps> {  
         const group = this.props.manuals;      
         return( <div>
-                    
-                        {(() => {
+                    {/* {(() => {
                             if(group.length>1){
                                 group.sort((a,b)=>a.Title.localeCompare(b.Title))
+                            }        
+                        })()} */}
+                        {(() => {
+                            if(group.length>1){
+                                group.sort((a,b)=>a.Process.localeCompare(b.Process,'en',{numeric:true}))
                             }        
                         })()}
             {/* <div onClick = {this.updateState} className= {styles.GroupBar}>{this.props.groupName.length>0?this.props.groupName:'Uden kategori'}<i className={this.state.show==true? "ms-Icon ms-Icon--ChevronUp":"ms-Icon ms-Icon--ChevronDown"} aria-hidden="true"></i></div> */}
