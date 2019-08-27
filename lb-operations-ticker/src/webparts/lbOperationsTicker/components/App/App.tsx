@@ -62,7 +62,7 @@ export default class App extends React.Component<IAppProps, IAppState> {
 }
 private fetchSharePointData(){
   pnp.sp.web.lists.getByTitle("Driftmeddelelser")
-                  .items.select().orderBy('Severity').get().then(
+                  .items.select().orderBy('Severity').getAll().then(
                     (data:any[])=>{this.setState({listItems:data})}
                   );
 }

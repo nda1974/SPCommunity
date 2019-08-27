@@ -1,5 +1,8 @@
-// @import '~@microsoft/sp-office-ui-fabric-core/dist/sass/SPFabricCore.scss';
+//@import '~@microsoft/sp-office-ui-fabric-core/dist/sass/SPFabricCore.scss';
+//@import '~@microsoft/sp-office-ui-fabric-core/dist/sass/FabricCore.scss';
 @import '~office-ui-fabric-react/dist/sass/_References.scss';
+
+
 $themePrimary: '[theme:themePrimary, default:red]';
 $themeSecondary: '[theme:themeSecondary, default:#5692b5]';
 $themeTertiary: "[theme:themeTertiary, default:#69afe5]";
@@ -46,6 +49,8 @@ $white: "[theme:white, default:#fff]";
     @include ms-xl8;
     // @include ms-xlPush2;
     // @include ms-lgPush1;
+    position: sticky;
+    top: 0;
   }
   .column4 {
     @include ms-Grid-col;
@@ -53,7 +58,14 @@ $white: "[theme:white, default:#fff]";
     @include ms-xl4;
   }
   
-  
+  .sticky {
+    // @include ms-xlPush2;
+    // @include ms-lgPush1;
+    // @include ms-depth-8;
+    // @include ms-depth-8;
+    position: sticky;
+    top: 0;
+  }
 
   .title {
     @include ms-font-xl;
@@ -118,9 +130,10 @@ $white: "[theme:white, default:#fff]";
     border-bottom-style: solid;
     border-bottom-width: thin;
 }
+
 .panelRow{
   @include ms-Grid-row;
-  padding:5px 0px 5px 10px;
+  // padding:5px 0px 5px 10px;
   background-color: $themePrimary;
   
   color: $themePrimary;
@@ -129,9 +142,14 @@ $white: "[theme:white, default:#fff]";
   border-bottom-color: $themePrimary;
 }
 .panelContent{
-  padding:5px 0px 5px 10px;
+  padding:0px 0px 0px 0px;
   color: $themePrimary;
   @include ms-fontSize-m;
+}
+.panelContent h1{
+  padding:0px 0px 0px 0px;
+  color: $ms-color-white;
+  @include ms-fontSize-l;
 }
 // .ccPanelHeader{
 //   // @include ms-font-xl;
@@ -168,7 +186,10 @@ $white: "[theme:white, default:#fff]";
   right: 4px; 
   padding: 5px 5px 5px 5px;
 }
-
+.ccPanelHeader button{
+  float: right;
+  @include ms-font-m;
+}
 .myTextArea{
   width: 100%;
   height: 300px;
@@ -182,15 +203,15 @@ $white: "[theme:white, default:#fff]";
     // display: block;
 }
 .showDiv div{
-  padding: 10px;
+  padding: 0px;
   color:$white;
   background-color:$themePrimary;
   
     // display: block;
 }
 .hideDiv{
-  // display: none;
-  visibility: hidden;
+  display: none;
+  //visibility: hidden;
 }
 
 .myIconExample{

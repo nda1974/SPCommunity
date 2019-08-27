@@ -1,7 +1,7 @@
 import * as React from 'react';
 import * as ReactDom from 'react-dom';
 import { Version } from '@microsoft/sp-core-library';
-import { BaseClientSideWebPart, IPropertyPaneField, IPropertyPaneTextFieldProps } from '@microsoft/sp-webpart-base';
+import { BaseClientSideWebPart, IPropertyPaneField, IPropertyPaneTextFieldProps, PropertyPaneToggle } from '@microsoft/sp-webpart-base';
 import {
   IPropertyPaneConfiguration,
   PropertyPaneTextField
@@ -33,7 +33,7 @@ export default class LbListViewWebpartWebPart extends BaseClientSideWebPart<ILbL
       if (this.properties.targetSiteUrl === undefined) {
         this.properties.targetSiteUrl = 'https://lbforsikring.sharepoint.com/sites/intra';
       }
-      this.properties.standardSearchEnabled=true
+      //this.properties.standardSearchEnabled=true
       
       resolve(undefined);
     });
@@ -94,11 +94,9 @@ export default class LbListViewWebpartWebPart extends BaseClientSideWebPart<ILbL
             {
               groupName: 'Vælg søgeindstilling',
               groupFields: [
-                PropertyFieldToggleWithCallout('standardSearchEnabled', {
-                  calloutTrigger: CalloutTriggers.Hover,
+                PropertyPaneToggle('standardSearchEnabled', {
                   key: 'toggleCustomColors',
                   label: 'Brug standard søgning',
-                  calloutContent: React.createElement('p', {}, 'Switch this to use custom styling'),
                   onText: 'Standard',
                   offText: 'Tilpasset',
                   checked: this.properties.standardSearchEnabled

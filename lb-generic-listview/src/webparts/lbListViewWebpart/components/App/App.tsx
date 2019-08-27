@@ -25,7 +25,7 @@ export default class App extends React.Component<IAppProps, IAppState> {
         if(this.props.standardSearchEnabled===true)
         {
             const res = spService.getListItemsByListID().then(x=>{
-                this.setState({listItems:x.Row})
+                this.setState({listItems:x})
             })
         }
         else{
@@ -42,13 +42,13 @@ export default class App extends React.Component<IAppProps, IAppState> {
         return (
                 
                 <div>
-                    {/* {this.props.targetListId === 'b0f4b1b4-f023-458b-a1a0-a9cf815daf4b'?
+                    {this.props.targetListId === '4fde6480-382b-435d-b6e9-e2a46d26c608'?
                         <DanskeSelskaber    targetSiteUrl={this.props.targetSiteUrl} 
                                             targetListId={this.props.targetListId}
                                             listItems={this.state.listItems} 
                                             description='DanskeSelskaber'></DanskeSelskaber>
                         :null
-                    } */}
+                    }
 
                     {this.props.targetListId === '184b5667-fe5d-4966-8506-44b5b261da91'?
                         <MedlemsGrupper 
