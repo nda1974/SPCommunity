@@ -27,7 +27,7 @@ export default class DefaultTemplate extends React.Component<IDefaultProps, IDef
                       if(item.Medlemsgruppe.Label == this.props.medlemsGruppe[0].name){
                         return(
                           <div  className={styles.memberGroupRow}
-                                onClick={()=>this.setState({panelText:item.Beskrivelse,showPanel:true,panelHeader:item.Title})}>> 
+                                onClick={()=>this.setState({panelText:item.Beskrivelse,showPanel:true,panelHeader:item.Title})}>
                                 {item.Title}
                           </div>
                         )
