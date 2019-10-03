@@ -14,7 +14,7 @@ param(
      {
      try
      {
-     Remove-PnPListItem -List $listName -Identity $item.Id -Force
+     Remove-PnPListItem -List $listID -Identity $item.Id -Force
      }
      catch
      {
@@ -240,9 +240,14 @@ $global:questionsList = Get-PnPListItem -List $QualityControlClaimsHandlerQuesti
 
 $QualityControlClaimsHandlerAnswersListID = '433d918b-2e51-4ebb-ab2a-3fc9e2b5c540'
 
-# Remove existing list items
-_removeAllListItems -listID $QualityControlClaimsHandlerAnswersListID
 
+
+if ($isTestDrive -eq $true){
+#DEVQualityControlClaimsHandlerAnswersListID
+$QualityControlClaimsHandlerAnswersListID = 'fc98c6c2-1d45-4502-aedd-970f39c474eb'
+# Remove existing list items
+    _removeAllListItems -listID $QualityControlClaimsHandlerAnswersListID
+}
 # Reading the import file revieved from BI
 
 $importFilePath = 'C:\Git\LBIntranet\QualityControl\19FEB19_Q1.csv'
@@ -254,6 +259,7 @@ $importFilePath = 'C:\Git\LBIntranet\QualityControl\BetaTest\19FEB20_Q1.csv'
 $importFilePath = 'C:\Git\LBIntranet\QualityControl\BetaTest\11MAR19_Skadetrans.csv'
 $importFilePath = 'C:\Git\LBIntranet\QualityControl\BetaTest\26MAR19_Skadetrans.csv'
 $importFilePath = 'C:\Git\LBIntranet\QualityControl\Importfile\02APR19_Skadetrans.csv'
+$importFilePath = 'C:\Git\LBIntranet\QualityControl\Importfile\30SEP19_Skadetrans.csv'
 
 
 

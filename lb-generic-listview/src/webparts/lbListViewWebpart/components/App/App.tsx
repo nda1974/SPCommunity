@@ -5,6 +5,7 @@ import { IAppState } from "./IAppState";
 import SPService from "../../services/SPService"
 import DanskeSelskaber from '../../viewTemplates/DanskeSelskaber/defaultView/DefaultTemplate'
 import MedlemsGrupper from '../../viewTemplates/MedlemsGrupper/defaultView/DefaultTemplate'
+// import { UrlQueryParameterCollection } from '@microsoft/sp-core-library';
 export default class App extends React.Component<IAppProps, IAppState> {
     public constructor(props:IAppProps,state:IAppState){  
         super(props);
@@ -13,7 +14,10 @@ export default class App extends React.Component<IAppProps, IAppState> {
                         description:'',
                         listItems:[]
                     }
-
+        
+        // var queryParms = new UrlQueryParameterCollection(window.location.href);
+        // var myParm = queryParms.getValue("myParam");
+        
         let spService: SPService=new SPService(
             {
                 description:'',

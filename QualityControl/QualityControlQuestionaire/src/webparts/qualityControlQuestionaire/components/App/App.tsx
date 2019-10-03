@@ -1,10 +1,8 @@
 import * as React from 'react';
 import styles from './App.module.scss';
-import {  UrlQueryParameterCollection, ServiceScope } from '@microsoft/sp-core-library';
 import { TextField } from 'office-ui-fabric-react/lib/TextField';
 import { Toggle } from 'office-ui-fabric-react/lib/Toggle';
-
-import { DefaultButton, IButtonProps } from 'office-ui-fabric-react/lib/Button';
+import { DefaultButton, IButtonProps, Button, PrimaryButton } from 'office-ui-fabric-react/lib/Button';
 import { ChoiceGroup, IChoiceGroupOption } from 'office-ui-fabric-react/lib/ChoiceGroup';
 import { IAppProps } from './IAppProps';
 import pnp, { setup, HttpClient, config, FetchOptions, ItemUpdateResult} from "sp-pnp-js";
@@ -12,14 +10,9 @@ import { IAppState } from './IAppState';
 import { IAnswer } from '../../Interfaces/IAnswer';
 import { IQuestions } from '../../Interfaces/IQuestions';
 import { IQCUser } from '../../Interfaces/IQCUser';
-import { IUserRoles } from '../../Interfaces/IUserRole';
-import QuestionItem from '../QuestionItem/QuestionItem';
-import { Icon } from 'office-ui-fabric-react/lib/Icon';
 import { IconButton } from 'office-ui-fabric-react/lib/Button';
 import { ICurrentUser } from '../../../../Interfaces/ICurrentUser.';
 import { Panel, PanelType } from 'office-ui-fabric-react/lib/Panel';
-import { SiteUsers, SiteUser } from 'sp-pnp-js/lib/sharepoint/siteusers';
-import { IUser } from '../../../../../lib/webparts/qualityControlQuestionaire/Interfaces/IUser';
 // import { IHttpClientOptions, HttpClientResponse, HttpClientConfiguration } from '@microsoft/sp-http';
 import { SPHttpClient, HttpClientConfiguration, HttpClientResponse, ODataVersion, IHttpClientConfiguration, IHttpClientOptions, ISPHttpClientOptions, SPHttpClientConfiguration } from '@microsoft/sp-http';
 
@@ -95,9 +88,10 @@ export default class App extends React.Component<IAppProps, IAppState> {
             this.setState({questions:res})
             }
         )
-        
+        // console.log(this.props.testURL);
         const pUser = this._getUserObject()
         pUser.then(
+            
             this._getAnswers
         )
     }
@@ -267,16 +261,17 @@ export default class App extends React.Component<IAppProps, IAppState> {
         }
         
 
-        const dataExtractionID = await pnp.sp.web.lists.getById(this.props.testURL==true?ANSWERS_LIST_ID:ANSWERS_LIST_ID_DEV).items.orderBy('DataExtractionDate',false).get().then(data=>{
-            // return data[0].BatchID;
-            return data[0].DataExtractionID;
-        }
-            
+        
+        
+            const dataExtractionID = await pnp.sp.web.lists.getById(this.props.testURL==true?ANSWERS_LIST_ID_DEV:ANSWERS_LIST_ID).items.orderBy('DataExtractionDate',false).get().then(data=>{
+                // return data[0].BatchID;
+                return data[0].DataExtractionID;
+            }
         )
-
+        
         // Quality Control - Claims Handler Questions
         //.filter("PriviligedUser eq "+ this.state.currentUser.id + " and ControlSubmitted eq 0 and BatchID eq '" + batchID +"'")
-        await pnp.sp.web.lists.getById(this.props.testURL>true?ANSWERS_LIST_ID:ANSWERS_LIST_ID_DEV)
+        await pnp.sp.web.lists.getById(this.props.testURL==true?ANSWERS_LIST_ID_DEV:ANSWERS_LIST_ID)
             .items
             .filter("PriviligedUser eq "+ this.state.currentUser.id + " and ControlSubmitted eq 0 and DataExtractionID eq '" + dataExtractionID + "'")
             .orderBy("EmployeeInFocusDisplayName")
@@ -308,7 +303,8 @@ export default class App extends React.Component<IAppProps, IAppState> {
                                             answer6Remark:item.Answer6Remark,
                                             employeeInFocusDisplayName:item.EmployeeInFocusDisplayName,
                                             dataExtractionID:item.DataExtractionID,
-                                            batchID:item.BatchID
+                                            batchID:item.BatchID,
+                                            department:item.Department
                                             
                                         }
                                     )
@@ -409,7 +405,11 @@ export default class App extends React.Component<IAppProps, IAppState> {
           }))
     }
     public render(): React.ReactElement<IAppProps> {
+        var department:string=""
+        this.state.answersList.length>0?
+        department = this.state.answersList[0].department:null;
         
+        var powerAppPlayerUrl ="https://web.powerapps.com/webplayer/app?PriviligedUserName="+this.state.currentUser.displayName+"&Department="+department+"&appId=%2fproviders%2fMicrosoft.PowerApps%2fapps%2faa68ce9f-77b7-4c2f-98fa-9ccde7e45810"
         var groupedManuals:any;
         
         groupedManuals=this._groupBy('EmployeeInFocusDisplayName',this.state.answersList)
@@ -422,11 +422,12 @@ export default class App extends React.Component<IAppProps, IAppState> {
         return (
             
         <div>
-            {this.props.webPartHeader}
-            {this.props.testURL}
+            {/* {this.props.webPartHeader}
+            {this.props.testURL} */}
             
-            <div className={ styles.webPartHeader}>{this.props.webPartHeader}</div>:null:null
-            }
+            <div className={ styles.webPartHeader}>{this.props.webPartHeader}</div>           
+            
+            
             
              <div>
              
@@ -848,8 +849,11 @@ export default class App extends React.Component<IAppProps, IAppState> {
             </div>
         </Panel>
                     </div>
-                   
 
+                    <div className={ styles.webPartHeaderAlt}>
+                        <PrimaryButton iconProps={{iconName: 'NoteForward'}} href={powerAppPlayerUrl} text={this.props.delegeteToPriviligedUser} />            
+                    </div>            
+                        
                     
             </div>
         

@@ -26,6 +26,15 @@ $white: "[theme:white, default:#fff]";
     background-color:$themePrimary;
     color:$white;
   }
+  .webPartHeaderAlt{
+    @include ms-Grid-row;
+    margin-top: 0px;
+    @include ms-font-l;
+    float: right;
+    padding: 10px;
+    // background-color:$white;
+    // color:$themePrimary;
+  }
   .row {
     @include ms-Grid-row;
     @include ms-fontColor-white;

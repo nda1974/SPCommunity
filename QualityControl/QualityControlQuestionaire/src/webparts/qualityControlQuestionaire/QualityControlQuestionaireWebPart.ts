@@ -16,7 +16,8 @@ import { setup } from 'sp-pnp-js/lib/pnp';
 
 export interface IQualityControlQuestionaireWebPartProps {
   webPartHeader:string;
-  testURL:boolean;
+  testUrl:boolean;
+  delegeteToPriviligedUser:string;
 }
 
 export default class QualityControlQuestionaireWebPart extends BaseClientSideWebPart<IQualityControlQuestionaireWebPartProps> {
@@ -28,7 +29,8 @@ export default class QualityControlQuestionaireWebPart extends BaseClientSideWeb
       {
         ctx:this.context,
         webPartHeader: this.properties.webPartHeader,
-        testURL: this.properties.testURL
+        testURL: this.properties.testUrl,
+        delegeteToPriviligedUser:this.properties.delegeteToPriviligedUser
       }
     );
 
@@ -39,7 +41,7 @@ export default class QualityControlQuestionaireWebPart extends BaseClientSideWeb
     return Version.parse('1.0');
   }
   protected get disableReactivePropertyChanges(): boolean { 
-    return true; 
+    return false; 
   }
   protected getPropertyPaneConfiguration(): IPropertyPaneConfiguration {
     return {
@@ -55,8 +57,13 @@ export default class QualityControlQuestionaireWebPart extends BaseClientSideWeb
                 PropertyPaneTextField('webPartHeader', {
                   label: "Overskrift"
                 }),
+                PropertyPaneTextField('delegeteToPriviligedUser', {
+                  label: "'Overdrag til anden PU' knap tekst"
+                }),
                 PropertyPaneToggle('testUrl', {
-                  label:'Brug Test konfiguration'
+                  label:'Brug Test konfiguration',
+                  onText:'Ja - brug test konfiguration',
+                  offText:'Nej - brug produktion konfiguration'
                 })
               ]
             }
