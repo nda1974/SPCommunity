@@ -6,4 +6,6 @@ export interface IAppState {
   priviledgedUsersItems:any[];
   currentUser:ICurrentUser;
   currentUsersDepartment:string;
+  selectedEvaluations:number[];
+  selectedUserId:number;
 }

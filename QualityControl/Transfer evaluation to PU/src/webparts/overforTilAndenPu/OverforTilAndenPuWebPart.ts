@@ -10,6 +10,7 @@ import {
 import * as strings from 'OverforTilAndenPuWebPartStrings';
 import App from './components/App/App';
 import { IAppProps } from './components/App/IAppProps';
+import { LinkBase } from 'office-ui-fabric-react';
 
 export interface IOverforTilAndenPuWebPartProps {
   description: string;
@@ -22,7 +23,8 @@ export default class OverforTilAndenPuWebPart extends BaseClientSideWebPart<IApp
     const element: React.ReactElement<IAppProps > = React.createElement(
       App,
       {
-        currentUserEmail: this.context.pageContext.user.email
+        // currentUserEmail: this.context.pageContext.user.email
+        currentUserEmail: "kigl@lb.dk"
       }
     );
 

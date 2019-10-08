@@ -63,6 +63,7 @@ param
         $EmployeeInFocus=$_.EmployeeEmail;
     }
 
+    <#
     if($isTestDrive -eq $true)
     {   
         $committed = _getRandomSubmitted
@@ -191,6 +192,29 @@ param
 
     
     
+    #>
+
+
+    $evaluationItem = @{"Title" = $_.BatchID;
+                            "BatchID" = $_.BatchID;
+                            "PriviligedUser"=$PriviligedUserEmail;
+                            "EmployeeInFocus"=$EmployeeInFocus;
+                            "EmployeeInFocusDisplayName"=$_.Employee;
+                            "ClaimID"=$_.ClaimID;
+                            "Department"=$_.Afdeling.ToUpper();  
+                            "DataExtractionID"=$_.ExtractionID;
+                            "DataExtractionDate"=$_.BatchDate;
+                            "QuarterStartDate"=$_.FromDate;
+                            "QuarterEndDate"=$_.ToDate;
+                            "ControlSubmitted"=$false;
+                            #"LinkToSummary"=$_.Employee +"_"+$_.BatchID + "_"+$_.ExtractionID +".docx";
+                            "Question1"=$questions[0]["ControlQuestion"];
+                            "Question2"=$questions[1]["ControlQuestion"];
+                            "Question3"=$questions[2]["ControlQuestion"];
+                            "Question4"=$questions[3]["ControlQuestion"];
+                            "Question5"=$questions[4]["ControlQuestion"];
+                            "Question6"=$questions[5]["ControlQuestion"];
+                        };
     Add-PnPListItem -List $listID -Values $evaluationItem
     
 }
@@ -260,6 +284,8 @@ $importFilePath = 'C:\Git\LBIntranet\QualityControl\BetaTest\11MAR19_Skadetrans.
 $importFilePath = 'C:\Git\LBIntranet\QualityControl\BetaTest\26MAR19_Skadetrans.csv'
 $importFilePath = 'C:\Git\LBIntranet\QualityControl\Importfile\02APR19_Skadetrans.csv'
 $importFilePath = 'C:\Git\LBIntranet\QualityControl\Importfile\30SEP19_Skadetrans.csv'
+$importFilePath = 'C:\Git\LBIntranet\QualityControl\Importfile\04OCT19_Skadetrans.csv'
+
 
 
 

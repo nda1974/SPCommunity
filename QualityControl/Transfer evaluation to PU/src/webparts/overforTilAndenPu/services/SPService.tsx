@@ -27,21 +27,54 @@ public async getListItemsAsStream():Promise<any>{
   return result.Row;
 }
 
-private findCurrentUserDepartment():string{
-  this.props.currentUserEmail
-  return ""
+public async updateEvaluationItem(listItemIDs:number[],priviledgedUserId:number):Promise<void>{
+  let web = new Web(this.props.targetSiteUrl);
+  let batch = web.createBatch();
+  
+  listItemIDs.map(listItemID=>{
+    web.lists.getById(this.props.targetListID)
+    .items
+    .getById(listItemID).inBatch(batch).update({"PriviligedUserId":priviledgedUserId})
+  }
+  );
+
+  
+  
+
+
+const s = await batch.execute().then(d => {return d});
+return s;
+
+
+  // listItemIDs.map( async listItemID=>{
+  //   const res = await web.lists.getById(this.props.targetListID)
+  //                   .items
+  //                   .getById(listItemID)
+  //                   .update({"PriviligedUserId":priviledgedUserId})
+  //                   .then(data=>{
+  //                       return data;
+  //                     });
+                      
+  // });
+
+  
+  
 }
+
+
+
+
 public async getListItemsByListID():Promise<any>{
-
-
   if(this.props.targetListID=='fc98c6c2-1d45-4502-aedd-970f39c474eb')
   {
     let web = new Web(this.props.targetSiteUrl);
-    const currentDataExtractionDate = await web.lists.getById(this.props.targetListID).items.select("DataExtractionID").orderBy('DataExtractionDate',false).top(1).get().then(data=>{
+    const currentDataExtractionDate = await web.lists.getById(this.props.targetListID)
+                                                .items
+                                                .select("DataExtractionID")
+                                                .orderBy('DataExtractionDate',false)
+                                                .top(1).get().then(data=>{
         return data;
     })
-    
-    
     const res = await web.lists
                           .getById(this.props.targetListID)
                           .items
@@ -59,18 +92,6 @@ public async getListItemsByListID():Promise<any>{
   if(this.props.targetListID=='7f1efd48-2c02-4c72-a204-4dd978020b19')
   {
     let web = new Web(this.props.targetSiteUrl);
-    // const currentUserDepartment = await web.lists.getById(this.props.targetListID).items
-    // .select("Priveleged_x0020_User_x0020_Emai,Department")
-    // .filter("Priveleged_x0020_User_x0020_Emai eq '" + this.props.currentUserEmail +"'")
-    // .get().then(data=>{
-    //   return data;
-    // })
-    // const currentUserDepartment = await web.lists.getById(this.props.targetListID).items
-    // //.select("Priveleged_x0020_User_x0020_Emai,Department")
-    // // .filter("Priveleged_x0020_User_x0020_Emai eq 'sola@LB.DK'")
-    // .get().then(data=>{
-    //   return data;
-    // })
     
     const res = await web.lists
                           .getById(this.props.targetListID)
@@ -83,11 +104,11 @@ public async getListItemsByListID():Promise<any>{
                                   "EmployeeRole",
                                   "Department")
                           .expand("Privileged_x0020_User_x0020_Name")
-                          // .filter("PriviligedUser/EMail eq '"
-                          //         + this.props.currentUserEmail +"'" )
                           .getAll().then(evaluationItems=>{
                             evaluationItems.map(user=>{
-                              "STES@lb.dk".toUpperCase() == user.Privileged_x0020_User_x0020_Name.EMail.toUpperCase()?this.setState({currentUserDepartment:user.Department}):null
+                              this.props.currentUserEmail.toUpperCase() == user.Privileged_x0020_User_x0020_Name.EMail.toUpperCase()
+                                        ?this.setState({currentUserDepartment:user.Department})
+                                        :null
                             })
                             return evaluationItems;
                           })

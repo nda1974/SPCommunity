@@ -16,14 +16,29 @@
     // background-color: $ms-color-themePrimary;
     padding: 20px;
   }
-
+  .buttonRow {
+    @include ms-Grid-row;
+    // @include ms-fontColor-white;
+    // background-color: $ms-color-themePrimary;
+    padding: 10px;
+    float: right;
+  }
+  .customChoiceGroup{
+    padding:10px;
+  }
   .column {
     @include ms-Grid-col;
     @include ms-lg6;
     @include ms-xl6;
     
   }
-
+  .columnHeader {
+    @include ms-font-l;
+    @include ms-fontColor-white;
+    @include ms-Grid-row;
+    background-color: $ms-color-themePrimary;
+    padding:10px;
+  }
   .title {
     @include ms-font-xl;
     // @include ms-fontColor-white;
