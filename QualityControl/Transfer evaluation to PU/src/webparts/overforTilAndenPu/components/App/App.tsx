@@ -10,7 +10,7 @@ import { ICurrentUser } from '../../Interfaces/ICurrentUser';
 import EvaluationRow from '../EvaluationRow/EvaluationRow'
 import { DefaultButton, PrimaryButton, Stack, IStackTokens } from 'office-ui-fabric-react';
 import { ChoiceGroup, IChoiceGroupOption, ChoiceGroupOption } from 'office-ui-fabric-react/lib/ChoiceGroup';
-
+import { Spinner, SpinnerSize } from 'office-ui-fabric-react/lib/Spinner';
 
 export default class OverforTilAndenPu extends React.Component<IAppProps, IAppState > {
   private choiceGroup:any[] = [];
@@ -25,7 +25,9 @@ export default class OverforTilAndenPu extends React.Component<IAppProps, IAppSt
                       evaluationItems:[],
                       currentUsersDepartment:'',
                       selectedEvaluations:[],
-                      selectedUserId:null
+                      selectedUserId:null,
+                      showGetEvaluationSpinner:true,
+                      showGetUsersSpinner:true
                   }
       // this.getCurrentUserDepartment=this.getCurrentUserDepartment.bind(this)
       // // DEV list
@@ -72,7 +74,7 @@ export default class OverforTilAndenPu extends React.Component<IAppProps, IAppSt
         
         
   }
-
+  
   private async _onClicked():Promise< void> {
     let spService: SPService=new SPService(
       {
@@ -82,16 +84,10 @@ export default class OverforTilAndenPu extends React.Component<IAppProps, IAppSt
       }
     );
     const res = await spService.updateEvaluationItem(this.state.selectedEvaluations,this.state.selectedUserId).then((data)=>{
-      this.state= {
-        description:'',
-        priviledgedUsersItems:[],
-        currentUser:{},
-        evaluationItems:[],
-        currentUsersDepartment:'',
-        selectedEvaluations:[],
-        selectedUserId:null
-      }
       this._initApp();
+      this.render();
+      
+      
     })
 
     
@@ -118,7 +114,7 @@ export default class OverforTilAndenPu extends React.Component<IAppProps, IAppSt
       // var queryParms = new UrlQueryParameterCollection(window.location.href);
       // var myParm = queryParms.getValue("UserName");
       const res = spService.getListItemsByListID().then(data=>{
-      this.setState({evaluationItems:data})
+      this.setState({evaluationItems:data,showGetEvaluationSpinner:false})
       })
 
       //********************************************************************* */
@@ -133,7 +129,7 @@ export default class OverforTilAndenPu extends React.Component<IAppProps, IAppSt
       );
       // Gets Priviliged Users
       const priviledgedUsersItems = spService2.getListItemsByListID().then(data=>{
-        this.setState({priviledgedUsersItems:data},
+        this.setState({priviledgedUsersItems:data,showGetUsersSpinner:false},
                       this.getCurrentUserDepartment);
       })
 
@@ -190,8 +186,13 @@ export default class OverforTilAndenPu extends React.Component<IAppProps, IAppSt
           <div className={ styles.row }>
          
             <div className={ styles.column }>
+              
               <div className={styles.columnHeader}>Vælg evalueringer der skal tildeles anden Priviliged user.</div>
               {
+                this.state.showGetEvaluationSpinner==true? 
+                <div>
+                  <Spinner size={SpinnerSize.large} label="Henter evalueringer" />
+                </div>:
                 this.state.evaluationItems.map(item=>{
                   return(
                     <div className={ styles.row }>
@@ -209,6 +210,11 @@ export default class OverforTilAndenPu extends React.Component<IAppProps, IAppSt
             
             <div className={ styles.column }>
             <div className={styles.columnHeader}>Vælg Priviledged user der skal overtage de valgte evalueringer.</div>
+            {
+              this.state.showGetUsersSpinner==true? 
+                <div>
+                  <Spinner size={SpinnerSize.large} label="Henter Priviledged users" />
+                </div>:
               <ChoiceGroup
                 className={styles.customChoiceGroup}
                 // defaultSelectedKey="B"
@@ -217,6 +223,7 @@ export default class OverforTilAndenPu extends React.Component<IAppProps, IAppSt
                 // label="Pick one"
                 required={true}
               />
+            }
             </div>
             
            

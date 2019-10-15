@@ -8,4 +8,6 @@ export interface IAppState {
   currentUsersDepartment:string;
   selectedEvaluations:number[];
   selectedUserId:number;
+  showGetUsersSpinner:boolean;
+  showGetEvaluationSpinner:boolean;
 }

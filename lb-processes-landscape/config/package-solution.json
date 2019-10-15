@@ -1,0 +1,13 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/spfx-build/package-solution.schema.json",
+  "solution": {
+    "name": "lb-processes-landscape-client-side-solution",
+    "id": "603986a0-45cb-4841-91fd-869c207c17de",
+    "version": "1.0.0.0",
+    "includeClientSideAssets": true,
+    "isDomainIsolated": false
+  },
+  "paths": {
+    "zippedPackage": "solution/lb-processes-landscape.sppkg"
+  }
+}
