@@ -65,6 +65,8 @@ $white: "[theme:white, default:#fff]";
     // @include ms-depth-8;
     position: sticky;
     top: 0;
+    float: right;
+    width: 50%;
   }
 
   .title {

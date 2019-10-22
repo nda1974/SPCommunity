@@ -3,10 +3,29 @@
 .proceslandskab {
   .container {
     max-width: 700px;
+    height: 100%;
     margin: 0px auto;
-    box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2), 0 25px 50px 0 rgba(0, 0, 0, 0.1);
+    // box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2), 0 25px 50px 0 rgba(0, 0, 0, 0.1);
+    transition: all 2.5s ease;
   }
-
+  .containerHide {
+    display:none;
+    background-color: rgba(0, 0, 0, 0.8);
+    transition: all 2.5s ease;
+  }
+  .tiles {
+    @include ms-Grid-col;
+    @include ms-sm4;
+    display: flex;
+    margin-bottom: 16px;
+    flex-basis: 130px;
+  }
+  .tilesList {
+    @include ms-Grid-row;
+    display: block;
+    flex-wrap: wrap;
+    transition: all 0.5s ease;
+  }
   .row {
     @include ms-Grid-row;
     @include ms-fontColor-white;

@@ -1,3 +1,6 @@
 export interface IProceslandskabState {
-  items: any[];
+  parentTerms: any[];
+  childTerms: any[];
+  showHoverDiv:boolean;
+  domain:string;
 }

@@ -25,7 +25,7 @@
       "name": "Hosted workbench",
       "type": "chrome",
       "request": "launch",
-      "url": "https://lbforsikring.sharepoint.com/sites/FunctionalDocumentation/_layouts/workbench.aspx",
+      "url": "https://lbforsikring.sharepoint.com/sites/nicd/_layouts/workbench.aspx",
       "webRoot": "${workspaceRoot}",
       "sourceMaps": true,
       "sourceMapPathOverrides": {

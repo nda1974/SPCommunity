@@ -27,7 +27,7 @@ public async getListItemsAsStream():Promise<any>{
 
 public async getListItemsByListID():Promise<any>{
     let web = new Web(this.props.targetSiteUrl);
-      const res = await web.lists.getById(this.props.targetListID).items.get();
+      const res = await web.lists.getById(this.props.targetListID).items.getAll();
       return res;
   }
 

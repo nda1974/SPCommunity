@@ -32,9 +32,9 @@ private _menuButtonElement = React.createRef<HTMLDivElement>();
                     <IconButton disabled={false} 
                                 checked={false} 
                                 iconProps={{ iconName: 'ChromeClose' }} 
-                                title="Emoji"
+                                title="Luk"
                                 onClick={()=>this.setState({showPanel:!this.state.showPanel})} 
-                                ariaLabel="Emoji" />
+                                ariaLabel="Luk" />
                   </div>
                   <div className={styles.panelContent} ><h1>Selskabsinfo</h1></div>
                   <div className={styles.panelContent} dangerouslySetInnerHTML={{ __html: this.state.panelSelskabsInformation }} />
@@ -50,7 +50,7 @@ private _menuButtonElement = React.createRef<HTMLDivElement>();
                 return(
                   
                   <div  className={styles.memberGroupRow}
-                        onClick={()=>this.setState({panelSelskabsInformation:item.Selskabsinformation,
+                                                    onClick={()=>this.setState({panelSelskabsInformation:item.Selskabsinformation,
                                                     showPanel:true,
                                                     panelKontaktOplysninger:item.Kontaktoplysninger,
                                                     panelHeader:item.Title
