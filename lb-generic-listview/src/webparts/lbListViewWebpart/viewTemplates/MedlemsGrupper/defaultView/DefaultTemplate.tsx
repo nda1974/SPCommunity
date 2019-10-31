@@ -4,6 +4,7 @@ import { IDefaultProps } from '../../MedlemsGrupper/defaultView/IDefaultProps';
 import { IDefaultState } from '../../MedlemsGrupper/defaultView/IDefaultState';
 import { escape } from '@microsoft/sp-lodash-subset';
 import styles from './DefaultTemplate.module.scss';
+let memberkey:string=""
 export default class DefaultTemplate extends React.Component<IDefaultProps, IDefaultState> {
   public constructor(props:IDefaultProps,state:IDefaultState){  
     super(props);
@@ -13,27 +14,21 @@ export default class DefaultTemplate extends React.Component<IDefaultProps, IDef
                   panelText:'',
                   showPanel:false
                 }
+                memberkey = this.props.medlemsGruppe[0].key;              
   }
+  
   public render(): React.ReactElement<IDefaultProps> {
     return (
-      
-      
         <div className={styles.container}>
           <div className={ styles.componentRow }>
             <div className={ styles.column4 }>                            
             {
-              this.props.medlemsGruppe!=undefined && this.props.medlemsGruppe.length>0?
-                    this.props.listItems.map(item=>{
-                      if(item.Medlemsgruppe.Label == this.props.medlemsGruppe[0].name){
-                        return(
-                          <div  className={styles.memberGroupRow}
-                                onClick={()=>this.setState({panelText:item.Beskrivelse,showPanel:true,panelHeader:item.Title})}>
-                                {item.Title}
-                          </div>
-                        )
-                      }
-                    })
-                    :null
+              this.props.listItems.map(item=>{
+                   return( <div  className={styles.memberGroupRow}
+                          onClick={()=>this.setState({panelText:item.Beskrivelse,showPanel:true,panelHeader:item.Title})}>
+                          {item.Title}
+                    </div>)
+              })
             }
             </div>
             <div className={ styles.column8 }>

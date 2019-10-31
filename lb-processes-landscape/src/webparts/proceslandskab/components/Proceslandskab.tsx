@@ -4,7 +4,10 @@ import { IProceslandskabProps } from './IProceslandskabProps';
 import { escape } from '@microsoft/sp-lodash-subset';
 import Taxonomy from './Taxonomy/Taxonomy'
 import { IProceslandskabState } from './IProceslandskabState';
-import {Tile} from './Tile/Tile'
+import { Domain} from './Domain/Domain'
+import {Process} from './Process/Process'
+import { classNamesFunction, DefaultButton, IStyle, Overlay, Layer } from 'office-ui-fabric-react';
+
 export default class Proceslandskab extends React.Component<IProceslandskabProps, IProceslandskabState> {
 
   public constructor(props:IProceslandskabProps,state:IProceslandskabState){  
@@ -13,7 +16,8 @@ export default class Proceslandskab extends React.Component<IProceslandskabProps
       parentTerms:[],
       childTerms:[],
       showHoverDiv:false,
-      domain:""
+      domainGuid:"",
+      domainName:""
     }
   
   let tax: Taxonomy=new Taxonomy(
@@ -25,60 +29,76 @@ export default class Proceslandskab extends React.Component<IProceslandskabProps
   const r = tax._getParentTermset().then(res=>{
     this.setState({parentTerms:res})
   });
+
+  
   
 
-  this.test= this.test.bind(this);
-  this.test3= this.test3.bind(this);
+  this._showChildTerms= this._showChildTerms.bind(this);
+  this._toggleView= this._toggleView.bind(this);
+  
 
     
 
 
   }
-  
-  public test(domain:string){
-    this.setState({domain:domain});
-    this.setState({showHoverDiv:true});
-    this.state.parentTerms.map(item=>{
-      if(item.Name===domain){
-        if(item.TermsCount>0){
-          for (let index = 0; index <item.TermsCount ; index++) {
-            const element = item[index];
-            console.log(element)
-          }
-          
-        }  
+  private _toggleView():void{
+    const currentViewStatus:boolean=this.state.showHoverDiv;
+    this.setState({showHoverDiv:!currentViewStatus});
+  }
+  public _showChildTerms(domainGuid:string){
+    let tax: Taxonomy=new Taxonomy(
+      {
+          description:''
       }
-    })
+      );
+      const rhcild = tax._getChildTerms(domainGuid).then(res=>{
+      this.setState({childTerms:res},this._toggleView)
+    });
   }
-  public test3(){
-    this.setState({showHoverDiv:!this.state.showHoverDiv})
-  }
+  
   
   public render(): React.ReactElement<IProceslandskabProps> {
     return (
       <div className={ styles.proceslandskab }>
-        <div className={this.state.showHoverDiv?styles.containerHide:styles.container}>
-        <div className={ styles.tilesList }>
+        <div className={this.state.showHoverDiv?styles.containerHide:styles.domainContainer}>
+        
           {
             this.state.parentTerms.map(term=>{
+
               return(
-                <div >
-                  {term.IsRoot==true?
-                  <Tile description='description' name={term.Name} url='' icon='' hoverCallBack={this.test} id={term.Id} />:
+                  term.IsRoot==true?
+                  <Domain description='description' name={term.Name} url='' icon='' hoverCallBack={this._showChildTerms} id={term.Id} />:
                   null
-                  }
-                </div>
               )
             })
           }
           
         </div>
+        <div  className={this.state.showHoverDiv?styles.processContainer:styles.containerHide}>
+          
+              {
+                this.state.childTerms.map(term=>{
+                  return(
+                    
+                      <Process description='description'  name={term.Name} url='' icon='' hoverCallBack={this._toggleView} id={term.Id} />
+                  )
+                })
+              }
         </div>
+        {/* <div  className={this.state.showHoverDiv?styles.container:styles.containerHide}>
+              {
+                this.state.childTerms.map(term=>{
+                  return(
+                    <div >
+                      <Tile description='description' name={term.Name} url='' icon='' hoverCallBack={this._toggleView} id={term.Id} />
+                    </div>
+                  )
+                })
+              }
+        </div> */}
+
         
-        <div  className={this.state.showHoverDiv?styles.container:styles.containerHide}
-              onClick={this.test3}>
-          {this.state.domain}
-        </div>
+
       </div>
     );
   }

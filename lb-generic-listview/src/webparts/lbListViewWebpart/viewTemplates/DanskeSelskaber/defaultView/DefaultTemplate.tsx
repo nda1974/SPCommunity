@@ -38,8 +38,9 @@ private _menuButtonElement = React.createRef<HTMLDivElement>();
                   </div>
                   <div className={styles.panelContent} ><h1>Selskabsinfo</h1></div>
                   <div className={styles.panelContent} dangerouslySetInnerHTML={{ __html: this.state.panelSelskabsInformation }} />
+                  {/* <div className={styles.panelContent} dangerouslySetInnerHTML={{ __html: this.state.panelSelskabsInformation }} />
                   <div className={styles.panelContent} ><h1>Kontaktoplysninger</h1></div>
-                  <div className={styles.panelContent} dangerouslySetInnerHTML={{ __html: this.state.panelKontaktOplysninger }} />
+                  <div className={styles.panelContent} dangerouslySetInnerHTML={{ __html: this.state.panelKontaktOplysninger }} /> */}
               </div>
             </div>  
             {/* <div className={ styles.column4 }>    */}
@@ -50,11 +51,16 @@ private _menuButtonElement = React.createRef<HTMLDivElement>();
                 return(
                   
                   <div  className={styles.memberGroupRow}
+                                                    onClick={()=>this.setState({panelSelskabsInformation:item.Information,
+                                                    showPanel:true,
+                                                    panelHeader:item.Title
+                                                    })} >
+                  {/* <div  className={styles.memberGroupRow}
                                                     onClick={()=>this.setState({panelSelskabsInformation:item.Selskabsinformation,
                                                     showPanel:true,
                                                     panelKontaktOplysninger:item.Kontaktoplysninger,
                                                     panelHeader:item.Title
-                                                    })} >
+                                                    })} > */}
                         
                           {item.Title}
                   </div>

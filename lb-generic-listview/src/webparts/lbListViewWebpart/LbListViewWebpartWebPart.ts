@@ -45,11 +45,10 @@ export default class LbListViewWebpartWebPart extends BaseClientSideWebPart<ILbL
         description: this.properties.description,
         targetListId:this.properties.lists,
         targetSiteUrl:this.properties.targetSiteUrl,
-        standardSearchEnabled:this.properties.standardSearchEnabled,
         medlemsGruppe:this.properties.medlemsGruppe
       }
     );
-
+    
     ReactDom.render(element, this.domElement);
     
   }

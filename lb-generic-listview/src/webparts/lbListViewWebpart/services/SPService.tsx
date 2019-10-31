@@ -13,23 +13,43 @@ export default class SPService extends React.Component<ISPServiceProps> {
 
 
 
+// public async getListItemsAsStream():Promise<any>{
+//   const terId='c5311cd0-a1ca-4a0a-8bb6-ddb37f9a3bc3'
+//   // const viewXML = "<View>" +
+//   //                   "<Query>" +
+//   //                     "<Where>" +
+//   //                       "<Eq>" +
+//   //                         "<FieldRef Name=\"Medlemsgruppe\" LookupId=\"TRUE\"/>" +
+//   //                         "<Value Type=\"Lookup\">c5311cd0-a1ca-4a0a-8bb6-ddb37f9a3bc3</Value>" +
+//   //                       "</Eq>" +
+//   //                     "</Where>" +
+//   //                   "</Query>" +
+//   //                   "<RowLimit Paged=\"TRUE\">50</RowLimit>" +
+//   //                 "</View>";
+//   const viewXML = "<View>" +
+//                     "<RowLimit Paged=\"TRUE\">50</RowLimit>" +
+//                   "</View>";
+//     let web = new Web(this.props.targetSiteUrl);
+//     const result=await web.lists.getById(this.props.targetListID).renderListDataAsStream({
+//     RenderOptions: RenderListDataOptions.ListData,
+//     ViewXml:viewXML
+
+//   }).then(res=>{
+//     return res;
+//   })
+//   return result.Row;
+// }
+
 public async getListItemsAsStream():Promise<any>{
-  
-    let web = new Web(this.props.targetSiteUrl);
-    const result=await web.lists.getById(this.props.targetListID).renderListDataAsStream({
-    RenderOptions: RenderListDataOptions.ListData
-  }).then(res=>{
+  let web = new Web(this.props.targetSiteUrl);
+    const res = await web.lists.getById(this.props.targetListID).items.getAll();
     return res;
-  })
-  return result.Row;
 }
-
-
 public async getListItemsByListID():Promise<any>{
     let web = new Web(this.props.targetSiteUrl);
       const res = await web.lists.getById(this.props.targetListID).items.getAll();
       return res;
-  }
+}
 
 //https://prismic.io/docs/reactjs/rendering/rich-text
   

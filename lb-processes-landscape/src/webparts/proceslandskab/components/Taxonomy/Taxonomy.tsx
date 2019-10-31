@@ -21,9 +21,9 @@ export default class Taxonomy extends React.Component<ITaxonomyProps, {}> {
     const termStoreId='0707214bea454b77ad616b684c6b9ca6';
     const termSetId='9e91d608-4edf-4028-ad72-caf75cd260eb';
     const taxonomySessionUrl = 'https://lbforsikring.sharepoint.com/sites/FunctionalDocumentation';
-    const taxonomy = new Session("https://lbforsikring.sharepoint.com/sites/nicd");
+    const taxonomy = new Session(taxonomySessionUrl);
     const store: ITermStore = taxonomy.termStores.getById(termStoreId);
-    const terms:Promise<(ITerm & ITermData)[]> = store.getTermSetById("a618850d-bf83-4fab-b831-c25678ba32d4").terms.select('Name','Id','IsRoot').get();
+    const terms:Promise<(ITerm & ITermData)[]> = store.getTermSetById(termSetId).terms.select('Name','Id','IsRoot').get();
     
      return await terms.then(t=>{
         return t;
@@ -32,14 +32,16 @@ export default class Taxonomy extends React.Component<ITaxonomyProps, {}> {
   }
 
   
-  public async _getChildTerms():Promise<(ITermData & ITerm)[]> {
+  public async _getChildTerms(parentTermGuid:string):Promise<(ITermData & ITerm)[]> {
     const termStoreId='0707214bea454b77ad616b684c6b9ca6';
     const termGroupId='1e1ff369-f019-47fe-9540-bba376af5373';
     const termId='b8bd8e01-a499-45ec-9eaa-b8f385e8d16b';
-    
+    const termSetId='9e91d608-4edf-4028-ad72-caf75cd260eb';
+    const taxonomySessionUrl = 'https://lbforsikring.sharepoint.com/sites/FunctionalDocumentation';
+    const taxonomy = new Session(taxonomySessionUrl);
     const store: ITermStore = taxonomy.termStores.getById(termStoreId);
 
-    const term:Promise<(ITerm & ITermData)>= store.getTermSetById("a618850d-bf83-4fab-b831-c25678ba32d4").getTermById(termId).get();
+    const term:Promise<(ITerm & ITermData)>= store.getTermSetById(termSetId).getTermById(parentTermGuid).get();
 
     return await term.then(t=>{
 

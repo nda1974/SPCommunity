@@ -1,0 +1,52 @@
+@import '~@microsoft/sp-office-ui-fabric-core/dist/sass/SPFabricCore.scss';
+
+.item{
+  border-width:2px;
+  // border-style:solid;
+  // border-color:#003262;
+  background-color:#5692b5;
+  color:#fff;
+  padding:10px 10px 10px 10px;
+  height:18px;
+  
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius:0px;
+
+  height:30px;
+  box-shadow: 0 2px 4px 0 rgba(0, 50, 98, 0.2), 0 25px 50px 0 rgba(0, 50, 98, 0.2); 
+  @include ms-fontSize-14;
+  @include ms-fontWeight-semibold;
+  
+  &__DomainA{
+    background-color:rgba(0, 50, 98, 0.8);
+  }
+  &__DomainB{
+    background-color:rgba(0, 50, 98, 0.4);
+  }
+  &__DomainC{
+    background-color:rgba(86, 146, 181, 0.8);
+  }
+  &__DomainD{
+    background-color:rgba(86, 146, 181, 0.4);
+  }
+  &__DomainE{
+    background-color:rgba(80, 80, 96, 0.5);
+  }
+  
+  &:hover, &:visited {
+    color: $ms-color-white;
+    background-color:#7e8a91;
+    text-decoration: none;
+    cursor: pointer;
+  }
+  
+}
+.item:nth-of-type(3n) {
+  grid-column: span 2;
+}
+.item:nth-of-type(7n) {
+  grid-column: span 3;
+}
+

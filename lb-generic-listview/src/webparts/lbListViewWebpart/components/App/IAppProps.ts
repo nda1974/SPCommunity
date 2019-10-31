@@ -4,7 +4,7 @@ export interface IAppProps {
   description: string;
   targetListId:string;
   targetSiteUrl:string;
-  standardSearchEnabled:boolean;
+  // standardSearchEnabled:boolean;
 
   //*** solution specific properties ***//
   // SR - Medlemsgrupper //
