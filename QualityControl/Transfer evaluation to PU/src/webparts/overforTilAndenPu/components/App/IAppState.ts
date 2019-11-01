@@ -10,4 +10,6 @@ export interface IAppState {
   selectedUserId:number;
   showGetUsersSpinner:boolean;
   showGetEvaluationSpinner:boolean;
+  isUpdating:boolean;
+  isUpdatedCompletted:boolean;
 }

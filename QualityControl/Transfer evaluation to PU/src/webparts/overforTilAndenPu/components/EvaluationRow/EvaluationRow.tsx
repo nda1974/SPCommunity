@@ -5,7 +5,7 @@ import styles from '../EvaluationRow/EvaluationRow.module.scss'
 import { escape } from '@microsoft/sp-lodash-subset';
 import SPService from "../../services/SPService"
 import { UrlQueryParameterCollection } from '@microsoft/sp-core-library';
-import { Checkbox } from 'office-ui-fabric-react/lib/Checkbox';
+import { Checkbox,ICheckboxProps } from 'office-ui-fabric-react/lib/Checkbox';
 export default class EvaluationRow extends React.Component<IEvaluationRowProps, IEvaluationRowState > {
   public constructor(props:IEvaluationRowProps,state:IEvaluationRowState){  
       super(props);
@@ -19,21 +19,18 @@ export default class EvaluationRow extends React.Component<IEvaluationRowProps, 
   public render(): React.ReactElement<IEvaluationRowProps> {
     return (
       <div className={styles.evaluationItemRow}>
-        
-        
-        <div className={styles.header}>Skadebehandler: {this.props.employeeInFocusDisplayName}
-          
+
+        <div className={styles.header}>
+          Skadebehandler: {this.props.employeeInFocusDisplayName}
         </div>
-        
+
         <div className={styles.checkbox}>
-        <div className={styles.subHeader}>
-        <Checkbox onChange={this._onCheckboxChange} 
-                label= {`Sagsnr: ${this.props.claimID}`}  ></Checkbox>
+          <div className={styles.subHeader}>
+          <Checkbox   onChange={this._onCheckboxChange}
+                      label= {`Sagsnr: ${this.props.claimID}`}></Checkbox>
+          </div>
         </div>
-        
-        </div>
-          
-            
+
       </div>
     );
   }

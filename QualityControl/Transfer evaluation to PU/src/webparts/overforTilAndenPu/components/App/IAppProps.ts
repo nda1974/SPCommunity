@@ -1,4 +1,8 @@
 export interface IAppProps {
-  currentUserEmail: string;
-  
+  currentUserEmail:string;
+  configuration:boolean;
+  siteUrl:string;
+  priviledgeUsersListId:string;
+  evaluationsListId:string;
+
 }
