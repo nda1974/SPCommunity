@@ -1,5 +1,24 @@
 @import '~@microsoft/sp-office-ui-fabric-core/dist/sass/SPFabricCore.scss';
 
+.processesContainer{
+  background-color: rgba(0,32,98,.5);
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 250px;
+  z-index: 2;
+      
+}
+.processesItem{
+  background-color: rgba(86, 146, 181, 0.8);
+  padding: 15px;
+&:hover{
+  background-color: rgba(0,32,98,.5);
+}  
+}
+.hoverDivHide{
+  display:none;
+}
 .item{
   border-width:2px;
   // border-style:solid;
@@ -8,7 +27,8 @@
   color:#fff;
   padding:10px 10px 10px 10px;
   height:18px;
-  
+
+  position: relative;
   display: flex;
   align-items: center;
   justify-content: center;

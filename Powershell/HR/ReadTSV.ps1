@@ -14,7 +14,8 @@ function SaveFileAsUTF{
 
     )
     
-    $sourceFileContent= Get-Content $SourceFilePath
+    $sourceFileContent= Get-Content $SourceFilePath -Encoding UTF8
+
     $Utf8NoBomEncoding = New-Object System.Text.UTF8Encoding $False
     [System.IO.File]::WriteAllLines($TargetFilePath, $sourceFileContent, $Utf8NoBomEncoding)
     

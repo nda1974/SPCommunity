@@ -1,3 +1,5 @@
+import { any } from "prop-types";
+
 export interface IDomainProps {
     name: string;
     id:string;
@@ -5,4 +7,5 @@ export interface IDomainProps {
     url: string;
     icon: string;
     hoverCallBack:any;
+    processes:any[];
   }

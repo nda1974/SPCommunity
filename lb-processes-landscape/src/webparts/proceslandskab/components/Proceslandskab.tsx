@@ -6,7 +6,7 @@ import Taxonomy from './Taxonomy/Taxonomy'
 import { IProceslandskabState } from './IProceslandskabState';
 import { Domain} from './Domain/Domain'
 import {Process} from './Process/Process'
-import { classNamesFunction, DefaultButton, IStyle, Overlay, Layer } from 'office-ui-fabric-react';
+import { classNamesFunction, DefaultButton, IStyle, Overlay, Layer, Spinner, SpinnerSize, SpinnerType } from 'office-ui-fabric-react';
 
 export default class Proceslandskab extends React.Component<IProceslandskabProps, IProceslandskabState> {
 
@@ -15,6 +15,7 @@ export default class Proceslandskab extends React.Component<IProceslandskabProps
     this.state={
       parentTerms:[],
       childTerms:[],
+      childTermsFiltered:[],
       showHoverDiv:false,
       domainGuid:"",
       domainName:""
@@ -34,6 +35,7 @@ export default class Proceslandskab extends React.Component<IProceslandskabProps
   
 
   this._showChildTerms= this._showChildTerms.bind(this);
+  
   this._toggleView= this._toggleView.bind(this);
   
 
@@ -45,6 +47,7 @@ export default class Proceslandskab extends React.Component<IProceslandskabProps
     const currentViewStatus:boolean=this.state.showHoverDiv;
     this.setState({showHoverDiv:!currentViewStatus});
   }
+  
   public _showChildTerms(domainGuid:string){
     let tax: Taxonomy=new Taxonomy(
       {
@@ -52,53 +55,110 @@ export default class Proceslandskab extends React.Component<IProceslandskabProps
       }
       );
       const rhcild = tax._getChildTerms(domainGuid).then(res=>{
-      this.setState({childTerms:res},this._toggleView)
+      this.setState({childTerms:res})
     });
+    rhcild.then(
+      this._toggleView
+    )
   }
-  
+
+
+  public _showChildTermsNew(domainGuid:string){
+    let tax: Taxonomy=new Taxonomy(
+      {
+          description:''
+      }
+      );
+      
+      this.state.childTerms.length==-1?
+      tax._getChildTerms(domainGuid).then(res=>{
+      this.setState({childTerms:res},this._toggleView)
+      }):null;
+
+      const s = this.state.childTerms.filter((elem)=>{
+        return elem.Id == domainGuid
+      })
+      this.setState({childTermsFiltered:s})
+  }
+
+  // public _showChildTermsHover(domainGuid:string){
+  //   let tax: Taxonomy=new Taxonomy(
+  //     {
+  //         description:''
+  //     }
+  //     );
+  //     const rhcild = tax._getChildTerms(domainGuid).then(res=>{
+  //     this.setState({childTerms:res})
+  //   });
+  // }
   
   public render(): React.ReactElement<IProceslandskabProps> {
     return (
       <div className={ styles.proceslandskab }>
-        <div className={this.state.showHoverDiv?styles.containerHide:styles.domainContainer}>
-        
+        <div className={styles.domainContainer} >
           {
             this.state.parentTerms.map(term=>{
 
               return(
                   term.IsRoot==true?
-                  <Domain description='description' name={term.Name} url='' icon='' hoverCallBack={this._showChildTerms} id={term.Id} />:
+                  
+                    <div onMouseOver={()=>
+                      {
+                        this._showChildTerms(term.Id)
+                      }
+                    }
+                  >
+                  <Domain description='description' 
+                          name={term.Name} 
+                          url='' 
+                          icon='' 
+                          hoverCallBack={this._showChildTerms} 
+                          id={term.Id} 
+                          processes={this.state.childTerms}
+                          />
+                  
+                  </div>:
                   null
               )
             })
+
           }
           
         </div>
-        <div  className={this.state.showHoverDiv?styles.processContainer:styles.containerHide}>
+      </div>
+    );
+  }
+  public renderORG(): React.ReactElement<IProceslandskabProps> {
+    return (
+      <div className={ styles.proceslandskab }>
+        <div className={styles.domainContainer} >
+          {
+            this.state.parentTerms.map(term=>{
+
+              return(
+                  term.IsRoot==true?
+                  <div onMouseOver={()=>
+                    {
+                      this._showChildTerms(term.Id);
+                    }
+                  }>
+                  <Domain description='description' 
+                          name={term.Name} 
+                          url='' 
+                          icon='' 
+                          hoverCallBack={this._showChildTerms} 
+                          id={term.Id} 
+                          processes={this.state.childTerms}
+                          />
+                  
+                  </div>:
+                  null
+              )
+            })
+
+          }
           
-              {
-                this.state.childTerms.map(term=>{
-                  return(
-                    
-                      <Process description='description'  name={term.Name} url='' icon='' hoverCallBack={this._toggleView} id={term.Id} />
-                  )
-                })
-              }
         </div>
-        {/* <div  className={this.state.showHoverDiv?styles.container:styles.containerHide}>
-              {
-                this.state.childTerms.map(term=>{
-                  return(
-                    <div >
-                      <Tile description='description' name={term.Name} url='' icon='' hoverCallBack={this._toggleView} id={term.Id} />
-                    </div>
-                  )
-                })
-              }
-        </div> */}
-
-        
-
       </div>
     );
   }
