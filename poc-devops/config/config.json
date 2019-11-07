@@ -1,0 +1,18 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/spfx-build/config.2.0.schema.json",
+  "version": "2.0",
+  "bundles": {
+    "poc-dev-ops-web-part": {
+      "components": [
+        {
+          "entrypoint": "./lib/webparts/pocDevOps/PocDevOpsWebPart.js",
+          "manifest": "./src/webparts/pocDevOps/PocDevOpsWebPart.manifest.json"
+        }
+      ]
+    }
+  },
+  "externals": {},
+  "localizedResources": {
+    "PocDevOpsWebPartStrings": "lib/webparts/pocDevOps/loc/{locale}.js"
+  }
+}
