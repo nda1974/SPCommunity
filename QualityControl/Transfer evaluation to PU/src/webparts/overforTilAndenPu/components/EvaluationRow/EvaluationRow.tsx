@@ -17,6 +17,7 @@ export default class EvaluationRow extends React.Component<IEvaluationRowProps, 
     this.props.checkboxChangedCallBack(this.props.ID, isChecked);
   }
   public render(): React.ReactElement<IEvaluationRowProps> {
+    
     return (
       <div className={styles.evaluationItemRow}>
 
@@ -27,7 +28,8 @@ export default class EvaluationRow extends React.Component<IEvaluationRowProps, 
         <div className={styles.checkbox}>
           <div className={styles.subHeader}>
           <Checkbox   onChange={this._onCheckboxChange}
-                      label= {`Sagsnr: ${this.props.claimID}`}></Checkbox>
+                      label= {`Sagsnr: ${this.props.claimID}`}
+                      key={this.props.ID}/>
           </div>
         </div>
 

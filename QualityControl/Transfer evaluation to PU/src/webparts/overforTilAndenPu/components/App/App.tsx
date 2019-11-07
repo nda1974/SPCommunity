@@ -50,8 +50,8 @@ export default class OverforTilAndenPu extends React.Component<IAppProps, IAppSt
       }
     );
     const res = await spService.updateEvaluationItem(this.state.selectedEvaluations,this.state.selectedUserId).then(async (data)=>{
-      await this._initApp().then(()=>{
-        // this.render();
+      this.setState({selectedEvaluations:[],selectedUserId:null});
+      const res2 = await this._initApp().then(()=>{
         this.setState({isUpdating:false})
       });
       
@@ -72,6 +72,7 @@ export default class OverforTilAndenPu extends React.Component<IAppProps, IAppSt
     //     isUpdatedCompletted:false,
     //     isUpdating:false
     // }
+    
     /******************************************************************
     * Initializing spService object
     * DEV list
@@ -118,27 +119,13 @@ export default class OverforTilAndenPu extends React.Component<IAppProps, IAppSt
 
     });  
 
-    
-
-
-    // const Sres =await spGetEvaluationsService.getListItemsByListID().then(async outerData=>{
-    //     const s = await spGetPrivilegedUsersService.getListItemsByListID().then(innerData=>{
-
-    //               this.buildPriviligedUsersRadioGroup(innerData);
-
-    //               this.setState({ evaluationItems:outerData,
-    //                               showGetEvaluationSpinner:false,
-    //                               priviledgedUsersItems:innerData,
-    //                               showGetUsersSpinner:false})    
-    //     })
-    // })
-
   }
   
   public _onSelectPriviledgeUserChange(ev: React.FormEvent<HTMLInputElement>, option: IChoiceGroupOption): void 
   {
     this.setState({selectedUserId:parseInt( option.key)})
   }
+
   private  buildPriviligedUsersRadioGroup(emps:any):void{
     let currentDepartment:string="";
     this.choiceGroup=[];
@@ -157,9 +144,6 @@ export default class OverforTilAndenPu extends React.Component<IAppProps, IAppSt
             text: items.Privileged_x0020_User_x0020_Name.FirstName + " " +items.Privileged_x0020_User_x0020_Name.LastName
           }):null:null
       });
-
-
-          
   }
   
   public _onEvaluationCheckboxChanged(listItemId:number, isChecked:boolean){
