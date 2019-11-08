@@ -10,23 +10,29 @@ pool:
   vmImage: 'ubuntu-latest'
 
 steps:
+
+
+#asdfsadfg
 - task: NodeTool@0
   inputs:
     versionSpec: '8.x'
   displayName: 'Install Node.js'
 
 - task: Npm@1
-  displayName: 'npm install'
   inputs:
-    workingDir: '$(Build.SourcesDirectory)'
-    verbose: false
+    command: 'install'
+    workingDir: 'lbf-sharepoint/poc-devops'
 
-- task: Gulp@0
-  displayName: 'gulp bundle'
+- task: Gulp@1
   inputs:
-    targets: bundle
-    arguments: '--bundle'
-  continueOnError: true
+    gulpFile: 'gulpfile.js'
+    targets: 'bundle'
+    arguments: '--ship'
+    workingDirectory: 'lbf-sharepoint/poc-devops'
+    enableCodeCoverage: false
+
+
+
 
 - task: PublishBuildArtifacts@1
   inputs:
