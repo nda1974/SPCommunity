@@ -22,12 +22,13 @@ steps:
     verbose: false
   displayName: 'Install Node.js'
 
-
-- script: |
-    gulp clean
-    gulp bundle --ship
-    gulp package-solution --ship
-  displayName: 'Build and package SPFx solution'
+- task: Gulp@0
+  displayName: 'gulp bundle'
+  inputs:
+    gulpFile: '$(Build.SourcesDirectory)/gulpfile.js'
+    targets: bundle
+    arguments: '--ship'
+  continueOnError: true
 
 - task: PublishBuildArtifacts@1
   inputs:
