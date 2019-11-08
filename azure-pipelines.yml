@@ -16,10 +16,10 @@ steps:
   displayName: 'Install Node.js'
 
 - task: Npm@1
+  displayName: 'npm install'
   inputs:
-    command: install
+    workingDir: '$(Build.SourcesDirectory)'
     verbose: false
-  displayName: 'Install Node.js'
 
 - task: Gulp@0
   displayName: 'gulp bundle'
