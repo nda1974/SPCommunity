@@ -18,16 +18,14 @@ steps:
 - task: Npm@1
   inputs:
     command: install
-    workingDir: '$(Build.SourcesDirectory)'
     verbose: false
   displayName: 'Install Node.js'
 
 - task: Gulp@0
   displayName: 'gulp bundle'
   inputs:
-    gulpFile: 'lbf-sharepoint/poc-devops/gulpfile.js'
     targets: bundle
-    arguments: '--ship'
+    arguments: '--bundle'
   continueOnError: true
 
 - task: PublishBuildArtifacts@1
