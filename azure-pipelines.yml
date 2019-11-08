@@ -25,7 +25,7 @@ steps:
 - task: Gulp@0
   displayName: 'gulp bundle'
   inputs:
-    gulpFile: '$(Build.SourcesDirectory)/gulpfile.js'
+    gulpFile: 'lbf-sharepoint/poc-devops/gulpfile.js'
     targets: bundle
     arguments: '--ship'
   continueOnError: true
