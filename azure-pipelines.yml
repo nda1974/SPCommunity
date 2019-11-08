@@ -7,7 +7,7 @@ trigger:
 - master
 
 pool:
-  vmImage: 'ubuntu-16.04'
+  vmImage: 'ubuntu-latest'
 
 steps:
 - task: NodeTool@0
@@ -15,16 +15,19 @@ steps:
     versionSpec: '8.x'
   displayName: 'Install Node.js'
 
-- script: |
-    npm install
-    npm install gulp -g
-  displayName: 'npm install'
+- task: Npm@1
+  inputs:
+    command: install
+    workingDir: '$(Build.SourcesDirectory)'
+    verbose: false
+  displayName: 'Install Node.js'
+
 
 - script: |
     gulp clean
     gulp bundle --ship
     gulp package-solution --ship
-  displayName: 'Build and panckage SPFx solution'
+  displayName: 'Build and package SPFx solution'
 
 - task: PublishBuildArtifacts@1
   inputs:
