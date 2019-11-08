@@ -10,38 +10,54 @@ pool:
   vmImage: 'ubuntu-latest'
 
 steps:
-
-
-#asdfsadfg
+#install node 8.x
 - task: NodeTool@0
+  displayName: 'Use Node 8.x'
   inputs:
-    versionSpec: '8.x'
-  displayName: 'Install Node.js'
+    versionSpec: 8.x
+    checkLatest: true
 
+#install nodejs modules with npm
 - task: Npm@1
+  displayName: 'npm install'
   inputs:
-    command: 'install'
-    workingDir: 'lbf-sharepoint/poc-devops'
+    workingDir: '$(Build.SourcesDirectory)'
+    verbose: false
 
-- task: Gulp@1
+
+#bundle code with gulp
+- task: Gulp@0
+  displayName: 'gulp bundle'
   inputs:
-    gulpFile: 'gulpfile.js'
-    targets: 'bundle'
+    gulpFile: '$(Build.SourcesDirectory)/gulpfile.js'
+    targets: bundle
     arguments: '--ship'
-    workingDirectory: 'lbf-sharepoint/poc-devops'
-    enableCodeCoverage: false
+  continueOnError: true
 
-
-
-
-- task: PublishBuildArtifacts@1
+#package solution with gulp
+- task: Gulp@0
+  displayName: 'gulp package-solution'
   inputs:
-    artifactName: 'SPFx sppkg'
-    pathtoPublish: '$(Build.SourceDirectory)/sharepoint/solution/poc.sppkg'
-  displayName: 'Publish build SPFx artifacts'
+    gulpFile: '$(Build.SourcesDirectory)/gulpfile.js'
+    targets: 'package-solution'
+    arguments: '--ship'
 
-- task: PublishBuildArtifacts@1
+#copy files to artifact repository
+- task: CopyFiles@2
+  displayName: 'Copy Files to: $(build.artifactstagingdirectory)/drop'
   inputs:
-    pathtoPublish: '$(Build.SourceDirectory)/devops/release'
-    artifactName: 'Office 365 CLI scripts'
-  displayName: 'Publish build Office 365 CLI artifacts'
+    Contents: '**\*.sppkg'
+    TargetFolder: '$(build.artifactstagingdirectory)/drop'
+
+#copy deploysment script to artifact repository
+- task: CopyFiles@2
+  displayName: 'Copy Files to: $(build.artifactstagingdirectory)/drop'
+  inputs:
+    Contents: '**\DeployPackage.ps1'
+    TargetFolder: '$(build.artifactstagingdirectory)/drop'
+
+#publish artifacts
+- task: PublishBuildArtifacts@1
+  displayName: 'Publish Artifact:  drop'
+  inputs:
+    PathtoPublish: '$(build.artifactstagingdirectory)/drop'
