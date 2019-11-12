@@ -23,6 +23,11 @@ export default class DefaultTemplate extends React.Component<IDefaultProps,IDefa
 private _menuButtonElement = React.createRef<HTMLDivElement>();
 
   public render(): React.ReactElement<IDefaultProps> {
+    //const sortedItems:any[]=this.props.listItems.sort((a,b)=>( a.Title.localCompare(b.Title)));
+    const sortedItems:any[]=this.props.listItems;
+    
+    sortedItems.length>0?sortedItems.sort((a,b)=>( a.Title.localeCompare(b.Title))):null;
+    
     return (
       <div className={styles.container}>
           <div className={ styles.componentRow }>
@@ -46,7 +51,8 @@ private _menuButtonElement = React.createRef<HTMLDivElement>();
             {/* <div className={ styles.column4 }>    */}
             <div>                         
             {
-              this.props.listItems.map(item=>{
+              
+              sortedItems.map(item=>{
                 const g = Guid.newGuid().toString();
                 return(
                   
