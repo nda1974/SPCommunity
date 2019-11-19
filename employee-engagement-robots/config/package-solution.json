@@ -1,0 +1,13 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/spfx-build/package-solution.schema.json",
+  "solution": {
+    "name": "employee-engagement-robots-client-side-solution",
+    "id": "8b3c15f5-290f-4d3c-b4d2-aec3dcfa996e",
+    "version": "1.0.0.0",
+    "includeClientSideAssets": true,
+    "isDomainIsolated": false
+  },
+  "paths": {
+    "zippedPackage": "solution/employee-engagement-robots.sppkg"
+  }
+}
