@@ -4,6 +4,8 @@ import { IAppProps } from './IAppProps';
 import { IAppState } from './IAppState';
 import SPService from "../../services/SPService"
 import EvaluationRow from '../EvaluationRow/EvaluationRow'
+import EvaluationBatch from '../EvaluationBatch/EvaluationBatch'
+import UpdateDialog from '../UpdateDialog/UpdateDialog'
 import { PrimaryButton } from 'office-ui-fabric-react';
 import { ChoiceGroup, IChoiceGroupOption, ChoiceGroupOption } from 'office-ui-fabric-react/lib/ChoiceGroup';
 import { Spinner, SpinnerSize } from 'office-ui-fabric-react/lib/Spinner';
@@ -17,6 +19,7 @@ export default class OverforTilAndenPu extends React.Component<IAppProps, IAppSt
       this.state= {
                       description:'',
                       priviledgedUsersItems:[],
+                      selectedEvaluationBatches:[],
                       currentUser:{},
                       evaluationItems:[],
                       currentUsersDepartment:'',
@@ -34,13 +37,18 @@ export default class OverforTilAndenPu extends React.Component<IAppProps, IAppSt
         this._onEvaluationCheckboxChanged=this._onEvaluationCheckboxChanged.bind(this);
         this.buildPriviligedUsersRadioGroup=this.buildPriviligedUsersRadioGroup.bind(this);
         this._onClicked=this._onClicked.bind(this);
+        this._onClickedPostCall=this._onClickedPostCall.bind(this);
+        
+        this.groupBy=this.groupBy.bind(this);
 
         this._initApp();
         
         
   }
   
-  private async _onClicked():Promise< void> {
+  private async _onClickedORG():Promise< void> {
+    
+    
     
     let spService: SPService=new SPService(
       {
@@ -49,29 +57,107 @@ export default class OverforTilAndenPu extends React.Component<IAppProps, IAppSt
           currentUserEmail:this.props.currentUserEmail
       }
     );
-    const res = await spService.updateEvaluationItem(this.state.selectedEvaluations,this.state.selectedUserId).then(async (data)=>{
-      this.setState({selectedEvaluations:[],selectedUserId:null});
-      const res2 = await this._initApp().then(()=>{
-        this.setState({isUpdating:false})
-      });
+    const res = await spService.updateEvaluationItem(this.state.selectedEvaluationBatches,this.state.selectedUserId).then(async (data)=>{
+      // this.setState({selectedEvaluations:[],selectedUserId:null});
+
+      this.setState({
+                      selectedEvaluations:[],
+                      selectedUserId:null,
+                      isUpdating:false
+                    },()=>{
+                      async ()=>{
+                        const res2 = await this._initApp().then(()=>{
+                        });
+                      }
+                    });
+      
+      // this.setState({isUpdating:false},async ()=>{
+      //   const res2 = await this._initApp().then(()=>{
+      //   });
+      // })
+        
+      
+      // const res2 = await this._initApp().then(()=>{
+        
+      // });
       
     })
   }
+  private async  _onClicked():Promise<void> {
+    // console.log('_onClicked 1::Update state: ' + this.state.isUpdating);
+    // this.setState({isUpdating:true},
+    //   async ()=>{
+    //   console.log('_onClicked 2::Update state: ' + this.state.isUpdating);
+    //   await this._onClickedPostCall().then((res)=>{
+    //     this.setState({isUpdating:false},this._initApp)  
+    //   })
+      
+    // })
+    
+    //  const res = async(dispatch)=>{
+    //    await dispatch(this.step1_SetState(true))
+    //    await dispatch(this._onClickedPostCall)
+    //    await dispatch(this.step1_SetState(false))
+    //    await dispatch(this._initApp())
+    //  }
+
+
+    this.step1_SetState(true).then(res=>{
+      
+    }).then((res)=>{
+      
+      this._onClickedPostCall()
+    }).then(res=>{
+      this.step1_SetState(false)
+    }).then(res=>{
+      this._initApp()
+    })
+    
+  }
+  private async step1_SetState(state:boolean):Promise<void>
+  {
+    this.setState({isUpdating:state});
+    while(this.state.isUpdating!=state){
+
+    }
+    return;
+  }
+  
+  private async _onClickedPostCall():Promise< void> {
+    
+    
+      
+      
+                    
+      
+                    let spService: SPService=new SPService(
+                      {
+                          targetListID:this.props.evaluationsListId,
+                          targetSiteUrl:this.props.siteUrl,
+                          currentUserEmail:this.props.currentUserEmail
+                      }
+                    );
+                    const res = await spService.updateEvaluationItem(this.state.selectedEvaluationBatches,this.state.selectedUserId).then(async (data)=>{
+                      console.log('_onClickedPostCall::Update state: ' + this.state.isUpdating);
+                      
+                      // this.setState({
+                      //                 selectedEvaluations:[],
+                      //                 selectedUserId:null
+                                      
+                      //               },
+                      //               async ()=>{
+                      //                 const res2 = await this._initApp().then(()=>{
+                      //                 });
+                      //               }
+                      //               );
+                    })
+
+
+
+
+  }
   
   private async _initApp():Promise<void>{
-    //   this.state= {
-    //     description:'',
-    //     priviledgedUsersItems:[],
-    //     currentUser:{},
-    //     evaluationItems:[],
-    //     currentUsersDepartment:'',
-    //     selectedEvaluations:[],
-    //     selectedUserId:null,
-    //     showGetEvaluationSpinner:true,
-    //     showGetUsersSpinner:true,
-    //     isUpdatedCompletted:false,
-    //     isUpdating:false
-    // }
     
     /******************************************************************
     * Initializing spService object
@@ -109,18 +195,27 @@ export default class OverforTilAndenPu extends React.Component<IAppProps, IAppSt
     const results = await Promise.all([promiseEvaluations,promisePriviledgedUsers]).then(()=>{
 
 
-
+      var groupedEvaluations = this.groupBy(promiseEvaluations, 'BatchID');
       this.buildPriviligedUsersRadioGroup(promisePriviledgedUsers);
 
-      this.setState({ evaluationItems:promiseEvaluations,
+      this.setState({ evaluationItems:groupedEvaluations,
         showGetEvaluationSpinner:false,
         priviledgedUsersItems:promisePriviledgedUsers,
         showGetUsersSpinner:false})    
 
-    });  
+    });
 
   }
-  
+  private  groupBy(objectArray, property) {
+    return objectArray.reduce(function (acc, obj) {
+      var key = obj[property];
+      if (!acc[key]) {
+        acc[key] = [];
+      }
+      acc[key].push(obj);
+      return acc;
+    }, {});
+  }
   public _onSelectPriviledgeUserChange(ev: React.FormEvent<HTMLInputElement>, option: IChoiceGroupOption): void 
   {
     this.setState({selectedUserId:parseInt( option.key)})
@@ -146,7 +241,21 @@ export default class OverforTilAndenPu extends React.Component<IAppProps, IAppSt
       });
   }
   
-  public _onEvaluationCheckboxChanged(listItemId:number, isChecked:boolean){
+  public _onEvaluationCheckboxChanged(listItemId:string, isChecked:boolean){
+    if(this.state.selectedEvaluations!== undefined){
+      let newArray = this.state.selectedEvaluationBatches;
+      if(newArray.indexOf(listItemId) < 0 && isChecked == true){
+        newArray.push(listItemId);
+        this.setState({selectedEvaluationBatches:newArray})
+      }
+      else if(newArray.indexOf(listItemId)>-1 && isChecked == false){
+        newArray.splice(newArray.indexOf(listItemId),1)
+        this.setState({selectedEvaluationBatches:newArray})
+      }
+    }
+    
+  }
+  public _onEvaluationCheckboxChangedORG(listItemId:number, isChecked:boolean){
     if(this.state.selectedEvaluations!== undefined){
       let newArray = this.state.selectedEvaluations;
       if(newArray.indexOf(listItemId) < 0 && isChecked == true){
@@ -158,39 +267,92 @@ export default class OverforTilAndenPu extends React.Component<IAppProps, IAppSt
         this.setState({selectedEvaluations:newArray})
       }
     }
-  }
-
-  private _getUpdateSpinner():JSX.Element{
-
     
-     return(this.state.isUpdating==true && this.state.isUpdatedCompletted==false ? 
-              <div>
-                <Spinner size={SpinnerSize.large} label="Flytter sag..." />
-              </div>
-              :this.state.isUpdating==true && this.state.isUpdatedCompletted==true?
-              <div>
-                <Spinner size={SpinnerSize.large} label="Sagen er flyttet..." />
-              </div>:null)
   }
-  private _getLoadingSpinner():JSX.Element{
-    return(this.state.isUpdating==true && this.state.isUpdatedCompletted==false ? 
-             <div>
-               <Spinner size={SpinnerSize.large} label="Flytter sag..." />
-             </div>
-             :this.state.isUpdating==true && this.state.isUpdatedCompletted==true?
-             <div>
-               <Spinner size={SpinnerSize.large} label="Sagen er flyttet..." />
-             </div>:null)
- }
-  public render(): React.ReactElement<IAppProps> {
+
+ 
+
+ public render(): React.ReactElement<IAppProps> {
+   
+  var arrGroupKeys:any[]=[];
+  {
+      Object.keys(this.state.evaluationItems).map((groupKey,i)=>{
+          arrGroupKeys.push(groupKey);
+  })}
+  return (
+    <div className={ styles.App }>
+      <div className={ styles.container }>
+          
+      {  
+            this.state.isUpdating==true? 
+                    <div>
+                      <Spinner size={SpinnerSize.large} label="Overføre eval" />
+                    </div>:null
+      }
+      
+      {
+      this.state.isUpdating==false? 
+          <div className={ styles.row }>
+            <div className={ styles.column }>
+                
+                <div className={styles.columnHeader}>Vælg evalueringer der skal tildeles anden Priviliged user.</div>
+                {
+                  this.state.showGetEvaluationSpinner==true? 
+                    <div>
+                      <Spinner size={SpinnerSize.large} label="Henter evalueringer" />
+                    </div>:
+                    arrGroupKeys.map(item=>{
+                      const group =  this.state.evaluationItems[item];
+                      return(
+                        <div className={ styles.row }>
+                          <EvaluationBatch  evaluationItems={group} 
+                                            BatchID={item}
+                                            employeeInFocusDisplayName={group[0].EmployeeInFocusDisplayName}
+                                            checkboxChangedCallBack={this._onEvaluationCheckboxChanged} />
+                        </div>)
+                    })
+                }
+              </div>
+              <div className={ styles.column }>
+              <div className={styles.columnHeader}>Vælg Priviledged user der skal overtage de valgte evalueringer.</div>
+              {
+                this.state.showGetUsersSpinner==true? 
+                  <div>
+                    <Spinner size={SpinnerSize.large} label="Henter Priviledged users" />
+                  </div>:
+                <ChoiceGroup
+                  className={styles.customChoiceGroup}
+                  // defaultSelectedKey="B"
+                  options={this.choiceGroup}
+                  onChange={this._onSelectPriviledgeUserChange}
+                  // label="Pick one"
+                  required={true}
+                />
+              }
+              </div>
+          </div>
+          :null
+      }
+      {
+      this.state.isUpdating==false?   
+          <div className={ styles.buttonRow }>
+            <PrimaryButton  text="Udfør" 
+                            onClick={this._onClicked} />
+          </div>
+          :null
+      }
+      </div>
+    </div>
+  );
+}
+
+  public renderORG(): React.ReactElement<IAppProps> {
     
     return (
       <div className={ styles.App }>
         <div className={ styles.container }>
             <div className={ styles.row }>
-              {
-                this._getUpdateSpinner()
-              }
+              
                   
               <div className={ styles.column }>
                 
@@ -238,7 +400,9 @@ export default class OverforTilAndenPu extends React.Component<IAppProps, IAppSt
                                   
             <div className={ styles.buttonRow }>
               <PrimaryButton  text="Overfør evalueringer" 
-                              onClick={this._onClicked} 
+                              onClick={()=>{
+                                this.setState({isUpdating:true})
+                              }} 
                               
                               />
             </div>

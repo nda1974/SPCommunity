@@ -1,6 +1,6 @@
 @import '~@microsoft/sp-office-ui-fabric-core/dist/sass/SPFabricCore.scss';
 
-.App {
+
   .container {
     //max-width: 700px;
     margin: 0px auto;
@@ -9,27 +9,110 @@
     
     
   }
-.show{
-  display: block;
-}
-.hide{
-  display: none;
-}
+
   .row {
     @include ms-Grid-row;
     // @include ms-fontColor-white;
     // background-color: $ms-color-themePrimary;
     padding: 20px;
   }
-  .buttonRow {
+  
+  .evaluationItemRow {
     @include ms-Grid-row;
-    // @include ms-fontColor-white;
-    // background-color: $ms-color-themePrimary;
-    padding: 10px;
-    float: right;
+    // padding: 10px;
+    
+    box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2), 0 25px 50px 0 rgba(0, 0, 0, 0.1);
   }
-  .customChoiceGroup{
-    padding:10px;
+
+  .btnMoveDocumentSetRow {
+    width: 100%;
+    
+  }
+  .btnMoveDocumentSet {
+    color: #fff;
+    margin-left: 10px;
+
+    // float: right;
+    // margin: 10px;
+    // &__selectedColor{
+    //   background-color:rgba(104,195,152,1);
+    // }
+    // &__unselectedColor{
+    //   background-color:rgba(0,50,98,1);
+    // }
+  }
+  
+  .evaluationItem {
+    
+    @include ms-font-m;
+    color: $ms-color-themePrimary;
+    font-size: 14px;
+    font-weight: 400;
+    color: #003262;
+    border-bottom: rgba(0,50,98,.6);
+    border-bottom-style: solid;
+    border-bottom-width: 1px;
+
+    & i{
+      font-size: 18px;
+      margin-right: 10px;
+    }
+  }
+  .header {
+    
+    @include ms-font-m;
+    @include ms-fontColor-white;
+    background-color: $ms-color-themePrimary;
+    padding: 20px;
+    &__locked{
+      background-color: rgba(192,0,0,.6)
+    }
+    & i{
+      font-size: 18px;
+    }
+  }
+  .evaluationsContainer{
+    display: block;
+    &__Hide{
+      display: none;
+    }
+  }
+  .iconDiv{
+    display: flex;
+    padding-bottom: 10px;
+    & i{
+      margin-right: 10px;
+    }
+    
+  }
+  .chevron{
+    cursor: pointer;
+    right: 20px;
+    position: absolute;
+  }
+  .documentIconDiv{
+    display: flex;
+    padding: 10px;
+  }
+  .toggleLabel {
+    
+    @include ms-font-m;
+    
+    color: $ms-color-themePrimary;
+    display:flex;
+
+    padding: 10px;
+    font-weight: 500;
+    font-size: 12px;
+    & label{
+      font-weight: 500;
+      font-size: 12px;
+    }
+    
+  }
+  
+  .checkbox{
+    padding: 5px;
   }
   .column {
     @include ms-Grid-col;
@@ -37,13 +120,7 @@
     @include ms-xl6;
     
   }
-  .columnHeader {
-    @include ms-font-l;
-    @include ms-fontColor-white;
-    @include ms-Grid-row;
-    background-color: $ms-color-themePrimary;
-    padding:10px;
-  }
+
   .title {
     @include ms-font-xl;
     // @include ms-fontColor-white;
@@ -93,4 +170,3 @@
       display: inline-block;
     }
   }
-}

@@ -7,6 +7,7 @@ export interface IAppState {
   currentUser:ICurrentUser;
   currentUsersDepartment:string;
   selectedEvaluations:number[];
+  selectedEvaluationBatches:string[];
   selectedUserId:number;
   showGetUsersSpinner:boolean;
   showGetEvaluationSpinner:boolean;

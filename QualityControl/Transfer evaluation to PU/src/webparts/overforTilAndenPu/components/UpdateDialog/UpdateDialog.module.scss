@@ -1,6 +1,6 @@
 @import '~@microsoft/sp-office-ui-fabric-core/dist/sass/SPFabricCore.scss';
 
-.App {
+
   .container {
     //max-width: 700px;
     margin: 0px auto;
@@ -9,27 +9,38 @@
     
     
   }
-.show{
-  display: block;
-}
-.hide{
-  display: none;
-}
+
   .row {
     @include ms-Grid-row;
     // @include ms-fontColor-white;
     // background-color: $ms-color-themePrimary;
     padding: 20px;
   }
-  .buttonRow {
+  
+  .evaluationItemRow {
     @include ms-Grid-row;
-    // @include ms-fontColor-white;
-    // background-color: $ms-color-themePrimary;
-    padding: 10px;
-    float: right;
+    // padding: 10px;
+    
+    box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2), 0 25px 50px 0 rgba(0, 0, 0, 0.1);
   }
-  .customChoiceGroup{
-    padding:10px;
+
+  .header {
+    
+    @include ms-font-m;
+    @include ms-fontColor-white;
+    background-color: $ms-color-themePrimary;
+    padding: 5px;
+    
+  }
+  .subHeader {
+    
+    @include ms-font-m;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    
+  }
+  .checkbox{
+    padding: 5px;
   }
   .column {
     @include ms-Grid-col;
@@ -37,13 +48,7 @@
     @include ms-xl6;
     
   }
-  .columnHeader {
-    @include ms-font-l;
-    @include ms-fontColor-white;
-    @include ms-Grid-row;
-    background-color: $ms-color-themePrimary;
-    padding:10px;
-  }
+
   .title {
     @include ms-font-xl;
     // @include ms-fontColor-white;
@@ -93,4 +98,3 @@
       display: inline-block;
     }
   }
-}

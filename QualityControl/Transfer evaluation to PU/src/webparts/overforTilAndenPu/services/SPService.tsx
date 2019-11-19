@@ -10,13 +10,63 @@ export default class SPService extends React.Component<ISPServiceProps> {
    
 }
 
-public async updateEvaluationItem(listItemIDs:number[],priviledgedUserId:number):Promise<void>{
+public async updateEvaluationItem(batchIDs:string[],priviledgedUserId:number):Promise<void>{
   let web = new Web(this.props.targetSiteUrl);
 
-  const promises = listItemIDs.map(async listItemID=>{
+  batchIDs.map(async batchID=>{
+      const itemsForUpdate = this._getBatchItemsForUpdate(batchID,priviledgedUserId);
+
+      itemsForUpdate.then(evaluationItems=>{
+        this._updateEvaluationItem(evaluationItems,priviledgedUserId)
+      })
+  })
+
+  // const res = await web.lists
+  // .getById(this.props.targetListID)
+  // .items
+  // .select("ID,BatchID")
+  // .filter("BatchID eq '" + listItemIDs[0] + "'" )
+  // .getAll().then(evaluationItems=>{
+  //   return evaluationItems;
+  // });
+
+  
+              
+}
+
+private async _getBatchItemsForUpdate(batchID:string,priviledgedUserId:number):Promise<any>{
+  let web = new Web(this.props.targetSiteUrl);
+
+  const res = await web.lists
+      .getById(this.props.targetListID)
+      .items
+      .select("ID,BatchID")
+      .filter("BatchID eq '" + batchID + "'" )
+      .getAll().then(evaluationItems=>{
+        this._updateEvaluationItem(evaluationItems,priviledgedUserId)
+        return evaluationItems;
+      });
+      return res;
+
+}
+private async _updateEvaluationItem(evaluationItemsForUpdate:any[],priviledgedUserId:number):Promise<void>{
+  let web = new Web(this.props.targetSiteUrl);
+
+  evaluationItemsForUpdate.map(async listItemID=>{
+      await web.lists.getById(this.props.targetListID)
+              .items
+              .getById(listItemID.ID)
+              .update({"PriviligedUserId":priviledgedUserId});
+            });
+
+}
+private async _updateEvaluationItemORG(evaluationItemsForUpdate:any[],priviledgedUserId:number):Promise<void>{
+  let web = new Web(this.props.targetSiteUrl);
+
+  const promises = evaluationItemsForUpdate.map(async listItemID=>{
       const _promise= await web.lists.getById(this.props.targetListID)
               .items
-              .getById(listItemID)
+              .getById(listItemID.ID)
               .update({"PriviligedUserId":priviledgedUserId});
               return _promise;
             });
@@ -25,6 +75,23 @@ public async updateEvaluationItem(listItemIDs:number[],priviledgedUserId:number)
   
               
 }
+
+
+// public async updateEvaluationItemORG(listItemIDs:number[],priviledgedUserId:number):Promise<void>{
+//   let web = new Web(this.props.targetSiteUrl);
+
+//   const promises = listItemIDs.map(async listItemID=>{
+//       const _promise= await web.lists.getById(this.props.targetListID)
+//               .items
+//               .getById(listItemID)
+//               .update({"PriviligedUserId":priviledgedUserId});
+//               return _promise;
+//             });
+
+//   const results = await Promise.all(promises);
+  
+              
+// }
 
 public async getListItemsByListID():Promise<any>{
   const DEV_EVALUATIONS_LIST_ID = 'fc98c6c2-1d45-4502-aedd-970f39c474eb';
@@ -49,13 +116,24 @@ public async getListItemsByListID():Promise<any>{
      * has not been committed
      * *********************************************************************/
     const CURRENT_DATAEXTRACTION_ID = currentDataExtractionDate[0].DataExtractionID;
+    // const res = await web.lists
+    //                     .getById(this.props.targetListID)
+    //                     .items
+    //                     .select("ID,DataExtractionID,ClaimID,EmployeeInFocusDisplayName,ControlSubmitted,PriviligedUser/Id,PriviligedUser/EMail")
+    //                     .expand("PriviligedUser")
+    //                     .filter("DataExtractionID eq '" + CURRENT_DATAEXTRACTION_ID +
+    //                             "' and ControlSubmitted eq false and PriviligedUser/EMail eq '"
+    //                             + this.props.currentUserEmail +"'" )
+    //                     .getAll().then(evaluationItems=>{
+    //                       return evaluationItems;
+    //                     });
     const res = await web.lists
                         .getById(this.props.targetListID)
                         .items
                         .select("ID,DataExtractionID,ClaimID,EmployeeInFocusDisplayName,ControlSubmitted,PriviligedUser/Id,PriviligedUser/EMail")
                         .expand("PriviligedUser")
                         .filter("DataExtractionID eq '" + CURRENT_DATAEXTRACTION_ID +
-                                "' and ControlSubmitted eq false and PriviligedUser/EMail eq '"
+                                "' and PriviligedUser/EMail eq '"
                                 + this.props.currentUserEmail +"'" )
                         .getAll().then(evaluationItems=>{
                           return evaluationItems;
@@ -140,13 +218,25 @@ public async getEvaluations(listId:string):Promise<any>{
      * has not been committed
      * *********************************************************************/
     const CURRENT_DATAEXTRACTION_ID = currentDataExtractionDate[0].DataExtractionID;
+    // const res = await web.lists
+    //                     .getById(this.props.targetListID)
+    //                     .items
+    //                     .select("ID,DataExtractionID,BatchID,ClaimID,EmployeeInFocusDisplayName,ControlSubmitted,PriviligedUser/Id,PriviligedUser/EMail")
+    //                     .expand("PriviligedUser")
+    //                     .filter("DataExtractionID eq '" + CURRENT_DATAEXTRACTION_ID +
+    //                             "' and ControlSubmitted eq false and PriviligedUser/EMail eq '"
+    //                             + this.props.currentUserEmail +"'" )
+    //                     .getAll().then(evaluationItems=>{
+    //                       return evaluationItems;
+    //                     });
+
     const res = await web.lists
                         .getById(this.props.targetListID)
                         .items
-                        .select("ID,DataExtractionID,ClaimID,EmployeeInFocusDisplayName,ControlSubmitted,PriviligedUser/Id,PriviligedUser/EMail")
+                        .select("ID,DataExtractionID,BatchID,ClaimID,EmployeeInFocusDisplayName,ControlSubmitted,PriviligedUser/Id,PriviligedUser/EMail")
                         .expand("PriviligedUser")
                         .filter("DataExtractionID eq '" + CURRENT_DATAEXTRACTION_ID +
-                                "' and ControlSubmitted eq false and PriviligedUser/EMail eq '"
+                                "' and PriviligedUser/EMail eq '"
                                 + this.props.currentUserEmail +"'" )
                         .getAll().then(evaluationItems=>{
                           return evaluationItems;
