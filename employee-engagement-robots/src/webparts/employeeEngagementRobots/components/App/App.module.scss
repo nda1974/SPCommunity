@@ -2,15 +2,15 @@
 
 .app {
   .container {
-    max-width: 700px;
+    // max-width: 700px;
     margin: 0px auto;
-    box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2), 0 25px 50px 0 rgba(0, 0, 0, 0.1);
+    // box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2), 0 25px 50px 0 rgba(0, 0, 0, 0.1);
   }
 
   .row {
     @include ms-Grid-row;
-    @include ms-fontColor-white;
-    background-color: $ms-color-themeDark;
+    // @include ms-fontColor-white;
+    // background-color: $ms-color-themeDark;
     padding: 20px;
   }
 
@@ -23,9 +23,14 @@
   }
 
   .title {
-    @include ms-font-xl;
-    @include ms-fontColor-white;
+    font-size: $ms-font-size-18;
+    font-weight:$ms-font-weight-semibold;
+    line-height: 24px;
+    background-color: rgba(00,50,98,.5);
+    color: #fff;
+    padding: 10px;
   }
+ 
 
   .subTitle {
     @include ms-font-l;
@@ -33,9 +38,21 @@
   }
 
   .description {
-    @include ms-font-l;
-    @include ms-fontColor-white;
+    font-size: $ms-font-size-16;
+    line-height: 22px;
+    margin-bottom: 5px;
+    padding: 10px;
   }
+  .radioButton{
+    font-size: $ms-font-size-14;
+    line-height: 20px;
+    padding: 10px;
+   }
+   .textInputField{
+    font-size: $ms-font-size-16;
+    line-height: 22px;
+    padding: 10px;
+   }
 
   .button {
     // Our button
@@ -50,7 +67,13 @@
 
     // Basic Button
     outline: transparent;
-    position: relative;
+    // Original setting
+    // position: relative;
+    
+    // NICD Start
+    position: absolute;
+    right: 0px;
+    // NICD Slut
     font-family: "Segoe UI WestEuropean","Segoe UI",-apple-system,BlinkMacSystemFont,Roboto,"Helvetica Neue",sans-serif;
     -webkit-font-smoothing: antialiased;
     font-size: $ms-font-size-m;
