@@ -1,8 +1,0 @@
-{
-  "@microsoft/generator-sharepoint": {
-    "version": "1.4.1",
-    "libraryName": "lb-treatments-invoices",
-    "libraryId": "224ea393-ffdc-443e-b5af-4436210d7fa0",
-    "environment": "spo"
-  }
-}
