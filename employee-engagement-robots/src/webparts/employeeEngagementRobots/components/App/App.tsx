@@ -4,10 +4,11 @@ import { IAppProps } from './IAppProps';
 import { escape } from '@microsoft/sp-lodash-subset';
 import { TextField } from 'office-ui-fabric-react/lib/TextField';
 import { ChoiceGroup, IChoiceGroupOption } from 'office-ui-fabric-react/lib/ChoiceGroup';
-import {Web} from '@pnp/sp'
+// import {Web} from '@pnp/sp'
 import { DefaultButton,Dialog,DialogType} from 'office-ui-fabric-react';
 import { Shimmer, ShimmerElementType } from 'office-ui-fabric-react/lib/Shimmer';
 import { IAppState, IRobotIdea } from './IAppState';
+import * as myLibrary from 'corporate-library';
 export default class App extends React.Component<IAppProps, IAppState> {
   constructor(props: IAppProps) {
     super(props);
@@ -57,19 +58,22 @@ export default class App extends React.Component<IAppProps, IAppState> {
       
   }
   
-
+  
   private async _getSharePointData():Promise<void>{
-    
-    const web = new Web("https://lbforsikring.sharepoint.com/sites/SFU");
-    
-    const businessValueProm:Promise<any[]> = web.lists.getById('fc68373d-9dc8-4b52-82d3-8ac0e8085f04').items.getAll();
-    const sectionsProm:Promise<any[]> = web.lists.getById('8fc2ef89-4559-4e49-aea0-f7d993c213ca').items.getAll();
-    
+    const lib = new myLibrary.CorporateLibraryLibrary;
 
-    var businessValuesGroupArray:any[]=[];
+    const pnpjs:any = lib.importPNPJS();
+    const w = new pnpjs.Web("https://lbforsikring.sharepoint.com/sites/SFU")
+    
+    // const list:Promise<any[]> = await w.lists.getById('fc68373d-9dc8-4b52-82d3-8ac0e8085f04').items.getAll().then(r=>{
+    //   console.log(r);
+    // });
+    // const web = new Web("https://lbforsikring.sharepoint.com/sites/SFU");
+    
+  var businessValuesGroupArray:any[]=[];
     var sectionsValuesGroupArray:any[]=[];
 
-    const b =await web.lists.getById('fc68373d-9dc8-4b52-82d3-8ac0e8085f04').items.getAll().then(
+    const b =await w.lists.getById('fc68373d-9dc8-4b52-82d3-8ac0e8085f04').items.getAll().then(
       businessValueProm=>{
         businessValueProm.map(item=>{
           businessValuesGroupArray.push({
@@ -80,7 +84,7 @@ export default class App extends React.Component<IAppProps, IAppState> {
           
       });
 
-    const s =await web.lists.getById('8fc2ef89-4559-4e49-aea0-f7d993c213ca').items.getAll().then(sectionsValueProm=>{
+    const s =await w.lists.getById('8fc2ef89-4559-4e49-aea0-f7d993c213ca').items.getAll().then(sectionsValueProm=>{
       sectionsValueProm.map(item=>{
         sectionsValuesGroupArray.push({
           key :item['ID'],
@@ -89,17 +93,19 @@ export default class App extends React.Component<IAppProps, IAppState> {
       })
           
         })
-    
-    console.log(businessValuesGroupArray)
-    console.log(sectionsValuesGroupArray)
 
     this.setState({sections:sectionsValuesGroupArray,businessValue:businessValuesGroupArray})  
     
   }
   private async _addSharePointData():Promise<void>{
-    const web = new Web("https://lbforsikring.sharepoint.com/sites/SFU");
+    const lib = new myLibrary.CorporateLibraryLibrary;
+
+    const pnpjs:any = lib.importPNPJS();
+    const w = new pnpjs.Web("https://lbforsikring.sharepoint.com/sites/SFU")
     
-    const res =web.lists.getById('fc578f3b-d500-413d-8f47-b127bd4f663c')
+    // const web = new Web("https://lbforsikring.sharepoint.com/sites/SFU");
+    
+    const res =w.lists.getById('fc578f3b-d500-413d-8f47-b127bd4f663c')
               .items
               .add(
                   { 
@@ -127,11 +133,6 @@ export default class App extends React.Component<IAppProps, IAppState> {
     
     
     return (
-
-
-
-
-
 
       <div className={ styles.app }>
         <div className={ styles.container }>
@@ -196,7 +197,7 @@ export default class App extends React.Component<IAppProps, IAppState> {
             </div>
             <div className={ styles.row }>
                 <div className={ styles.title }>
-                  Gevinst:
+                  Gevinst: 
                 </div>
                 <div className={ styles.description }>
                   Hvilken forretningsværdi kan forventes

@@ -11,16 +11,12 @@
     "test": "gulp test"
   },
   "dependencies": {
+    "corporate-library":"0.0.1",
     "@microsoft/sp-core-library": "1.8.2",
     "@microsoft/sp-lodash-subset": "1.8.2",
     "@microsoft/sp-office-ui-fabric-core": "1.8.2",
     "@microsoft/sp-property-pane": "1.8.2",
     "@microsoft/sp-webpart-base": "1.8.2",
-    "@pnp/common": "^1.3.7",
-    "@pnp/graph": "^1.3.7",
-    "@pnp/logging": "^1.3.7",
-    "@pnp/odata": "^1.3.7",
-    "@pnp/sp": "^1.3.7",
     "@types/es6-promise": "0.0.33",
     "@types/react": "16.7.22",
     "@types/react-dom": "16.8.0",
