@@ -1,8 +1,0 @@
-{
-  "@microsoft/generator-sharepoint": {
-    "version": "1.4.1",
-    "libraryName": "quality-control-questionaire",
-    "libraryId": "c32a0f49-c3e1-44cf-86fd-6a5ee96a6e76",
-    "environment": "spo"
-  }
-}

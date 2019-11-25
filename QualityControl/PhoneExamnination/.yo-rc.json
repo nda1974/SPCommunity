@@ -1,8 +1,0 @@
-{
-  "@microsoft/generator-sharepoint": {
-    "version": "1.4.1",
-    "libraryName": "phone-examnination",
-    "libraryId": "13d24bc2-1b69-4d1e-be9e-37fafc4f6b2f",
-    "environment": "spo"
-  }
-}

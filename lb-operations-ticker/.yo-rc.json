@@ -1,8 +1,0 @@
-{
-  "@microsoft/generator-sharepoint": {
-    "version": "1.4.1",
-    "libraryName": "lb-operations-ticker",
-    "libraryId": "3433c27d-998f-4c13-bf24-21db94a8b705",
-    "environment": "spo"
-  }
-}

@@ -1,1 +1,0 @@
-C:\Git\LBIntranet\SPOApp\SPOApp\obj\Debug\SPOApp.csprojResolveAssemblyReference.cache

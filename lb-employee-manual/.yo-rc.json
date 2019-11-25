@@ -1,8 +1,0 @@
-{
-  "@microsoft/generator-sharepoint": {
-    "version": "1.4.1",
-    "libraryName": "lb-employee-manual",
-    "libraryId": "04153777-6a20-4af5-95b2-f2613bf8f1b2",
-    "environment": "spo"
-  }
-}

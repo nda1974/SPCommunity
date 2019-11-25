@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<Elements xmlns="http://schemas.microsoft.com/sharepoint/">
-    <ClientSideComponentInstance
-        Title="MyFavourites"
-        Location="ClientSideExtension.ApplicationCustomizer"
-        ComponentId="8096adf5-9c73-44dd-aef9-344f16701a8f"
-        Properties="{&quot;testMessage&quot;:&quot;Test message&quot;}">
-    </ClientSideComponentInstance>
-</Elements>

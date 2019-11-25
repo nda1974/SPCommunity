@@ -1,9 +1,0 @@
-﻿<?xml version="1.0" encoding="utf-8"?>  
-<Inputs>  
-  <ConnectSPOnline SiteURL="https://c986.sharepoint.com/sites/vijai" UserName="vijaianand@c986.onmicrosoft.com" Password="xxxxxxxxx"></ConnectSPOnline>  
- <UploadFiles>  
-    <UploadFile SourceFolder=".\HTML" DestinationFolder="SiteAssets" CreateFolder="yes" FolderName="HTML"></UploadFile>  
-    <UploadFile SourceFolder=".\CSS" DestinationFolder="SiteAssets" CreateFolder="yes" FolderName="CSS"></UploadFile>  
-    <UploadFile SourceFolder=".\Files" DestinationFolder="SiteAssets" CreateFolder="no" FolderName=""></UploadFile>  
-  </UploadFiles>  
-</Inputs>  
